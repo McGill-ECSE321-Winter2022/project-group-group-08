@@ -12,16 +12,6 @@ public class GroceryStoreSystem{
   //GroceryStoreSystem Attributes
   private int employeeDiscount;
 
-  //GroceryStoreSystem Associations
-  private Set<BusinessHour> openingHours;
-  private Set<Account> accounts;
-  private Set<User> users;
-  private Set<Cart> carts;
-  private Set<Quantity> quantities;
-  private Set<Item> items;
-  private Set<UserRole> userRoles;
-  private Set<Order> orders;
-
   public boolean setEmployeeDiscount(int aEmployeeDiscount){
     boolean wasSet = false;
     employeeDiscount = aEmployeeDiscount;
@@ -33,6 +23,84 @@ public class GroceryStoreSystem{
     return employeeDiscount;
   }
   
+  //GroceryStoreSystem Associations
+  private Set<BusinessHour> openingHour;
   
+  public Set<BusinessHour> getOpeningHour() {
+	   return this.openingHour;
+	}
+
+	public void setOpeningHour(Set<BusinessHour> openingHour) {
+	   this.openingHour = openingHour;
+	}
   
+  private Set<Account> account;
+  
+  public Set<Account> getAccount() {
+	   return this.account;
+  }
+
+  public void setAccount(Set<Account> account) {
+	   this.account = account;
+  }
+	
+  private Set<User> user;
+  
+  public Set<User> getUser() {
+	   return this.user;
+	}
+
+	public void setUser(Set<User> user) {
+	   this.user = user;
+	}
+	
+  private Set<Cart> cart;
+  
+  public Set<Cart> getCart() {
+	   return this.cart;
+	}
+
+	public void setCart(Set<Cart> cart) {
+	   this.cart = cart;
+	}
+	
+  private Set<Quantity> quantity;
+  
+  public Set<Quantity> getQuantity() {
+	   return this.quantity;
+	}
+
+	public void setQuantity(Set<Quantity> quantity) {
+	   this.quantity = quantity;
+	}
+	
+  private Set<Item> item;
+  
+  public Set<Item> getItem() {
+	   return this.item;
+	}
+
+	public void setItem(Set<Item> item) {
+	   this.item = item;
+	}
+	
+  private Set<UserRole> userRole;
+  
+  public Set<UserRole> getUserRole() {
+	   return this.userRole;
+	}
+
+	public void setUserRole(Set<UserRole> userRole) {
+	   this.userRole = userRole;
+	}
+	
+  private Set<Order> order;
+  
+  public Set<Order> getOrder() {
+	   return this.order;
+	}
+
+	public void setOrder(Set<Order> order) {
+	   this.order = order;
+	}
 }
