@@ -1,8 +1,13 @@
 package mcgill.ecse321.model;
 import java.util.*;
+import javax.persistence.CascadeType;
+import javax.persistence.OneToMany;
+import javax.persistence.Id;
 import java.sql.Time;
 import java.sql.Date;
+import javax.persistence.Entity;
 
+@Entity
 public class GroceryStoreSystem{
 
   public enum OrderStatus { Processed, Transit, Fullfilled }
@@ -26,6 +31,9 @@ public class GroceryStoreSystem{
   //GroceryStoreSystem Associations
   private Set<BusinessHour> openingHour;
   
+  
+  //!!! one to seven
+  @OneToMany(cascade={CascadeType.ALL})
   public Set<BusinessHour> getOpeningHour() {
 	   return this.openingHour;
 	}
@@ -36,6 +44,7 @@ public class GroceryStoreSystem{
   
   private Set<Account> account;
   
+  @OneToMany(cascade={CascadeType.ALL})
   public Set<Account> getAccount() {
 	   return this.account;
   }
@@ -46,6 +55,7 @@ public class GroceryStoreSystem{
 	
   private Set<User> user;
   
+  @OneToMany(cascade={CascadeType.ALL})
   public Set<User> getUser() {
 	   return this.user;
 	}
@@ -56,6 +66,7 @@ public class GroceryStoreSystem{
 	
   private Set<Cart> cart;
   
+  @OneToMany(cascade={CascadeType.ALL})
   public Set<Cart> getCart() {
 	   return this.cart;
 	}
@@ -66,6 +77,7 @@ public class GroceryStoreSystem{
 	
   private Set<Quantity> quantity;
   
+  @OneToMany(cascade={CascadeType.ALL})
   public Set<Quantity> getQuantity() {
 	   return this.quantity;
 	}
@@ -76,6 +88,7 @@ public class GroceryStoreSystem{
 	
   private Set<Item> item;
   
+  @OneToMany(cascade={CascadeType.ALL})
   public Set<Item> getItem() {
 	   return this.item;
 	}
@@ -86,6 +99,7 @@ public class GroceryStoreSystem{
 	
   private Set<UserRole> userRole;
   
+  @OneToMany(cascade={CascadeType.ALL})
   public Set<UserRole> getUserRole() {
 	   return this.userRole;
 	}
@@ -96,6 +110,7 @@ public class GroceryStoreSystem{
 	
   private Set<Order> order;
   
+  @OneToMany(cascade={CascadeType.ALL})
   public Set<Order> getOrder() {
 	   return this.order;
 	}
