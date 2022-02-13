@@ -20,69 +20,36 @@ public class Item{
   //Item Associations
   private Quantity quantityInStore;
 
-  
-  public boolean setId(int aId)
-  {
-    boolean wasSet = false;
-    id = aId;
-    wasSet = true;
-    return wasSet;
+  public void setId(int aId){
+    this.id = aId;
   }
 
-  public boolean setName(String aName)
-  {
-    boolean wasSet = false;
-    name = aName;
-    wasSet = true;
-    return wasSet;
+  public void setName(String aName) {
+    this.name = aName;
   }
 
-  public boolean setPrice(int aPrice)
-  {
-    boolean wasSet = false;
-    price = aPrice;
-    wasSet = true;
-    return wasSet;
+  public void setPrice(int aPrice){
+    this.price = aPrice;
   }
 
-  public boolean setPoint(int aPoint)
-  {
-    boolean wasSet = false;
-    point = aPoint;
-    wasSet = true;
-    return wasSet;
+  public void setPoint(int aPoint) {
+    this.point = aPoint;
   }
 
-  public boolean setReturnDate(Date aReturnDate)
-  {
-    boolean wasSet = false;
-    returnDate = aReturnDate;
-    wasSet = true;
-    return wasSet;
+  public void setReturnDate(Date aReturnDate){
+    this.returnDate = aReturnDate;
   }
 
-  public boolean setPickup(boolean aPickup)
-  {
-    boolean wasSet = false;
-    pickup = aPickup;
-    wasSet = true;
-    return wasSet;
+  public void setPickup(boolean aPickup){
+    this.pickup = aPickup;
   }
 
-  public boolean setDelivery(boolean aDelivery)
-  {
-    boolean wasSet = false;
-    delivery = aDelivery;
-    wasSet = true;
-    return wasSet;
+  public void setDelivery(boolean aDelivery) {
+    this.delivery = aDelivery;
   }
 
-  public boolean setInStore(boolean aInStore)
-  {
-    boolean wasSet = false;
-    inStore = aInStore;
-    wasSet = true;
-    return wasSet;
+  public void setInStore(boolean aInStore){
+    this.inStore = aInStore;
   }
 
   public int getId()
@@ -125,8 +92,7 @@ public class Item{
     return inStore;
   }
   /* Code from template association_GetOne */
-  public Quantity getQuantityInStore()
-  {
+  public Quantity getQuantityInStore() {
     return quantityInStore;
   }
 }

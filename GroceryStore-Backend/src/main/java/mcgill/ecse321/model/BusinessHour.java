@@ -6,10 +6,6 @@ public class BusinessHour
 
   public enum WeekDay { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday }
 
-  //------------------------
-  // MEMBER VARIABLES
-  //------------------------
-
   //BusinessHour Attributes
   private WeekDay day;
   private Time startTime;
