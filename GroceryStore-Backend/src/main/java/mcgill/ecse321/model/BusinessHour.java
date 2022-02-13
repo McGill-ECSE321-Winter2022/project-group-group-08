@@ -1,67 +1,63 @@
 package mcgill.ecse321.model;
 import java.sql.Time;
 
-public class BusinessHour
-{
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
-  public enum WeekDay { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday }
+@Entity
+public class BusinessHour{
+	public enum WeekDay { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday }
 
-  //BusinessHour Attributes
-  private WeekDay day;
-  private Time startTime;
-  private Time endTime;
-  private boolean working;
+	//------------------------
+	// MEMBER VARIABLES
+	//------------------------
+
+	//BusinessHour Attributes
+	private WeekDay day;
+	private Time startTime;
+	private Time endTime;
+	private boolean working;
+	private int id;
 
 
-  public boolean setDay(WeekDay aDay)
-  {
-    boolean wasSet = false;
-    day = aDay;
-    wasSet = true;
-    return wasSet;
-  }
+	public void setDay(WeekDay aDay){
+		this.day = aDay;
+	}
 
-  public boolean setStartTime(Time aStartTime)
-  {
-    boolean wasSet = false;
-    startTime = aStartTime;
-    wasSet = true;
-    return wasSet;
-  }
+	public WeekDay getDay(){
+		return day;
+	}
 
-  public boolean setEndTime(Time aEndTime)
-  {
-    boolean wasSet = false;
-    endTime = aEndTime;
-    wasSet = true;
-    return wasSet;
-  }
+	public void setStartTime(Time aStartTime){
+		this.startTime = aStartTime;
+	}
 
-  public boolean setWorking(boolean aWorking)
-  {
-    boolean wasSet = false;
-    working = aWorking;
-    wasSet = true;
-    return wasSet;
-  }
+	public Time getStartTime(){
+		return startTime;
+	}
 
-  public WeekDay getDay()
-  {
-    return day;
-  }
+	public void setEndTime(Time aEndTime){
+		this.endTime = aEndTime;
+	}
 
-  public Time getStartTime()
-  {
-    return startTime;
-  }
+	public Time getEndTime(){
+		return endTime;
+	}
 
-  public Time getEndTime()
-  {
-    return endTime;
-  }
-
-  public boolean getWorking()
-  {
-    return working;
-  }
+	public void setWorking(boolean aWorking){
+		this.working = aWorking;
+	}
+	
+	public boolean getWorking(){
+		return working;
+	}
+	
+	@Id
+	public void setId(int id){
+		this.id = id;
+	}
+	
+	public int getId(){
+		return this.id;
+	}
 }

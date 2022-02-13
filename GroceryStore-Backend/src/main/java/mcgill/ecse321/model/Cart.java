@@ -2,80 +2,56 @@ package mcgill.ecse321.model;
 import java.sql.Date;
 import java.util.*;
 
+import javax.persistence.CascadeType;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
 public class Cart {
 
 
-  public enum OrderStatus { Processed, Transit, Fullfilled }
-  public enum OrderType { Delivery, Pickup }
-  
-  //Cart Attributes
-  private Date date;
+	public enum OrderStatus { Processed, Transit, Fullfilled }
+	public enum OrderType { Delivery, Pickup }
 
-  //Cart Associations
-  private List<Quantity> quantities;
-  private Account account;
-  private List<Order> orders;
+	//Cart Attributes
+	private Date date;
+
+	public void setDate(Date aDate){
+		this.date = aDate;
+	}
+
+	public Date getDate(){
+		return date;
+	}
 
 
-  public boolean setDate(Date aDate)
-  {
-    boolean wasSet = false;
-    date = aDate;
-    wasSet = true;
-    return wasSet;
-  }
+	private Set<Quantity> quantities;
+	//!!! Check relationship. How do to 0..1 to many?
+	@OneToMany(cascade={CascadeType.ALL})
+	public Set<Quantity> getQuantities() {
+		return this.quantities;
+	}
 
-  public Date getDate()
-  {
-    return date;
-  }
+	public void setQuantities(Set<Quantity> quantities) {
+		this.quantities = quantities;
+	}
 
-  public List<Quantity> getQuantities()
-  {
-    List<Quantity> newQuantities = Collections.unmodifiableList(quantities);
-    return newQuantities;
-  }
+	private Set<Order> orders;
+	@OneToMany(cascade={CascadeType.ALL})
+	public Set<Order> getOrders() {
+		return this.orders;
+	}
 
-  /* Code from template association_GetOne */
-  public Account getAccount()
-  {
-    return account;
-  }
+	public void setOrders(Set<Order> orders) {
+		this.orders = orders;
+	}
+	
+	private Account account;
+	@OneToOne(optional=false)
+	public Account getAccount() {
+		return this.account;
+	}
 
-  public List<Order> getOrders()
-  {
-    List<Order> newOrders = Collections.unmodifiableList(orders);
-    return newOrders;
-  }
-
-  public boolean addOrder(Order aOrder)
-  {
-    boolean wasAdded = false;
-    if (orders.contains(aOrder)) { return false; }
-    Cart existingCart = aOrder.getCart();
-    boolean isNewCart = existingCart != null && !this.equals(existingCart);
-    if (isNewCart)
-    {
-      aOrder.setCart(this);
-    }
-    else
-    {
-      orders.add(aOrder);
-    }
-    wasAdded = true;
-    return wasAdded;
-  }
-
-  public boolean removeOrder(Order aOrder)
-  {
-    boolean wasRemoved = false;
-    //Unable to remove aOrder, as it must always have a cart
-    if (!this.equals(aOrder.getCart()))
-    {
-      orders.remove(aOrder);
-      wasRemoved = true;
-    }
-    return wasRemoved;
-  }
-
+	public void setAccount(Account account) {
+		this.account = account;
+	}
 }

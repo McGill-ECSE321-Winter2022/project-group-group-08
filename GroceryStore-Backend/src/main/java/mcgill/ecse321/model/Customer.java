@@ -1,49 +1,40 @@
 package mcgill.ecse321.model;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Customer extends UserRole{
 
-  public enum TierClass { Gold, Silver, Bronze }
+	public enum TierClass { Gold, Silver, Bronze }
+
+	//Customer Attributes
+	private TierClass tierclass;
+	private boolean ban;
 
 
-  //Customer Attributes
-  private TierClass tierclass;
-  private boolean ban;
+	public Customer(User aUser, GroceryStoreSystem aGroceryStoreSystem, TierClass aTierclass, boolean aBan)
+	{
+		super(aUser, aGroceryStoreSystem);
+		tierclass = aTierclass;
+		ban = aBan;
+	}
 
-  //------------------------
-  // CONSTRUCTOR
-  //------------------------
+	public TierClass getTierclass(){
+		return tierclass;
+	}
+	
+	public void setTierclass(TierClass aTierclass){
+		this.tierclass = aTierclass;
+	}
 
-  public Customer(User aUser, GroceryStoreSystem aGroceryStoreSystem, TierClass aTierclass, boolean aBan)
-  {
-    super(aUser, aGroceryStoreSystem);
-    tierclass = aTierclass;
-    ban = aBan;
-  }
+	public boolean getBan(){
+		return ban;
+	}
+	
+	public void setBan(boolean aBan){
+		this.ban = aBan;
+	}
 
-  public boolean setTierclass(TierClass aTierclass)
-  {
-    boolean wasSet = false;
-    tierclass = aTierclass;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public boolean setBan(boolean aBan)
-  {
-    boolean wasSet = false;
-    ban = aBan;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public TierClass getTierclass()
-  {
-    return tierclass;
-  }
-
-  public boolean getBan()
-  {
-    return ban;
-  }
+	//!!! How do to generalization relationship
 
 }

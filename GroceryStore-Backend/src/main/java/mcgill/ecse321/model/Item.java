@@ -5,94 +5,94 @@ package mcgill.ecse321.model;
 
 import java.util.Date;
 
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
 public class Item{
+
+	//Item Attributes
+	private int id;
+	private String name;
+	private int price;
+	private int point;
+	private Date returnDate;
+	private boolean pickup;
+	private boolean delivery;
+	private boolean inStore;
+
+	//Item Associations
+	@Id
+	public void setId(int aId){
+		this.id = aId;
+	}
+
+	public int getId(){
+		return id;
+	}
+
+	public void setName(String aName) {
+		this.name = aName;
+	}
+
+	public String getName(){
+		return name;
+	}
+
+	public void setPrice(int aPrice){
+		this.price = aPrice;
+	}
+
+	public int getPrice(){
+		return price;
+	}
+
+	public void setPoint(int aPoint) {
+		this.point = aPoint;
+	}
+
+	public int getPoint(){
+		return point;
+	}
+
+	public void setReturnDate(Date aReturnDate){
+		this.returnDate = aReturnDate;
+	}
 	
-  //Item Attributes
-  private int id;
-  private String name;
-  private int price;
-  private int point;
-  private Date returnDate;
-  private boolean pickup;
-  private boolean delivery;
-  private boolean inStore;
+	public Date getReturnDate(){
+		return returnDate;
+	}
 
-  //Item Associations
-  private Quantity quantityInStore;
+	public void setPickup(boolean aPickup){
+		this.pickup = aPickup;
+	}
 
-  public void setId(int aId){
-    this.id = aId;
-  }
+	public boolean getPickup(){
+		return pickup;
+	}
 
-  public void setName(String aName) {
-    this.name = aName;
-  }
+	public void setDelivery(boolean aDelivery) {
+		this.delivery = aDelivery;
+	}
 
-  public void setPrice(int aPrice){
-    this.price = aPrice;
-  }
+	public boolean getDelivery(){
+		return delivery;
+	}
 
-  public void setPoint(int aPoint) {
-    this.point = aPoint;
-  }
+	public void setInStore(boolean aInStore){
+		this.inStore = aInStore;
+	}
 
-  public void setReturnDate(Date aReturnDate){
-    this.returnDate = aReturnDate;
-  }
+	public boolean getInStore(){
+		return inStore;
+	}
+	
+	private Quantity quantity;
+	@OneToOne(optional=false)
+	public Quantity getQuantity() {
+	   return this.quantity;
+	}
 
-  public void setPickup(boolean aPickup){
-    this.pickup = aPickup;
-  }
-
-  public void setDelivery(boolean aDelivery) {
-    this.delivery = aDelivery;
-  }
-
-  public void setInStore(boolean aInStore){
-    this.inStore = aInStore;
-  }
-
-  public int getId()
-  {
-    return id;
-  }
-
-  public String getName()
-  {
-    return name;
-  }
-
-  public int getPrice()
-  {
-    return price;
-  }
-
-  public int getPoint()
-  {
-    return point;
-  }
-
-  public Date getReturnDate()
-  {
-    return returnDate;
-  }
-
-  public boolean getPickup()
-  {
-    return pickup;
-  }
-
-  public boolean getDelivery()
-  {
-    return delivery;
-  }
-
-  public boolean getInStore()
-  {
-    return inStore;
-  }
-  /* Code from template association_GetOne */
-  public Quantity getQuantityInStore() {
-    return quantityInStore;
-  }
+	public void setQuantity(Quantity quantity) {
+	   this.quantity = quantity;
+	}
 }
