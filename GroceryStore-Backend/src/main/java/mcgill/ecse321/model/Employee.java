@@ -17,11 +17,11 @@ public class Employee extends Worker{
 	// !!! One to seven relationship. How do to?
 	private Set<BusinessHour> businessHours;
 	@OneToMany(cascade={CascadeType.ALL})
-	public Set<BusinessHour> setBusinessHours() {
+	public Set<BusinessHour> getBusinessHours() {
 		return this.businessHours;
 	}
 
-	public void getBusinessHours(Set<BusinessHour> businessHours) {
+	public void setBusinessHours(Set<BusinessHour> businessHours) {
 		this.businessHours = businessHours;
 	}
 

@@ -53,7 +53,7 @@ public class Quantity{
 		return this.cartItem;
 	}
 
-	public void getCartItem(Item cartItem) {
+	public void setCartItem(Item cartItem) {
 		this.cartItem = cartItem;
 	}
 }
