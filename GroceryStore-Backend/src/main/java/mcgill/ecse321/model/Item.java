@@ -57,7 +57,7 @@ public class Item{
 	public void setReturnDate(Date aReturnDate){
 		this.returnDate = aReturnDate;
 	}
-	
+
 	public Date getReturnDate(){
 		return returnDate;
 	}
@@ -85,14 +85,14 @@ public class Item{
 	public boolean getInStore(){
 		return inStore;
 	}
-	
+
 	private Quantity quantity;
 	@OneToOne(optional=false)
 	public Quantity getQuantity() {
-	   return this.quantity;
+		return this.quantity;
 	}
 
 	public void setQuantity(Quantity quantity) {
-	   this.quantity = quantity;
+		this.quantity = quantity;
 	}
 }
