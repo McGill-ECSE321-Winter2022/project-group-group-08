@@ -8,6 +8,14 @@ import javax.persistence.OneToOne;
 public class User{
 
 	private int phoneNumber;
+	private String address;
+	private String firstName;
+	private String lastName;
+	private String email;
+	
+	private UserRole userRole;
+	private Account account;
+	
 	public void setPhoneNumber(int value) {
 		this.phoneNumber = value;
 	}
@@ -15,7 +23,6 @@ public class User{
 		return this.phoneNumber;
 	}
 
-	private String address;
 	public void setAddress(String value) {
 		this.address = value;
 	}
@@ -23,7 +30,6 @@ public class User{
 		return this.address;
 	}
 
-	private String firstName;
 	public void setFirstName(String value) {
 		this.firstName = value;
 	}
@@ -31,7 +37,6 @@ public class User{
 		return this.firstName;
 	}
 
-	private String lastName;
 	public void setLastName(String value) {
 		this.lastName = value;
 	}
@@ -40,16 +45,13 @@ public class User{
 	}
 
 	@Id
-	private String email;
 	public void setEmail(String value) {
 		this.email = value;
 	}
 	public String getEmail() {
 		return this.email;
 	}
-
-	// !!! userRole is an abstract class. How do we reference it properly
-	private UserRole userRole;
+	
 	@OneToOne(optional=false)
 	public UserRole getUserRole() {
 		return this.userRole;
@@ -58,7 +60,6 @@ public class User{
 		this.userRole = userRole;
 	}
 
-	private Account account;
 	@OneToOne(optional=false)
 	public Account getAccount() {
 		return this.account;

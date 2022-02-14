@@ -24,7 +24,6 @@ import mcgill.ecse321.model.Manager;
 import mcgill.ecse321.model.Order;
 import mcgill.ecse321.model.Order.OrderStatus;
 import mcgill.ecse321.model.Order.OrderType;
-import mcgill.ecse321.model.Quantity;
 import mcgill.ecse321.model.Customer.TierClass;
 import mcgill.ecse321.model.Employee;
 import mcgill.ecse321.model.User;
@@ -299,34 +298,6 @@ public class GroceryStoreRepository {
 		q.setParameter("aType", aType);
 		List<Order> resultList = q.getResultList();
 		return resultList;
-	}
-	
-	@Transactional
-	public Quantity createQuantityForStore(int quantity, int itemId) {
-		Item i = getItem(itemId);
-		Quantity q = new Quantity();
-		q.setQuantity(quantity);
-		q.setStoreItem(i);
-		entityManager.persist(q);
-		return q;
-	}
-	
-	@Transactional
-	public Quantity createQuantityForCart(int quantity, int cartId, int itemId) {
-		Cart c = getCart(cartId);
-		Item i = getItem(itemId);
-		Quantity q = new Quantity();
-		q.setQuantity(quantity);
-		q.setCart(c);
-		q.setCartItem(i);
-		entityManager.persist(q);
-		return q;
-	}
-
-	@Transactional
-	public Quantity getQuantity(int id) {
-		Quantity q = entityManager.find(Quantity.class, id);
-		return q;
 	}
 	
 	@Transactional
