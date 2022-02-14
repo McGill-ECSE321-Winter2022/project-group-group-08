@@ -1,32 +1,26 @@
 package mcgill.ecse321.model;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+@Entity
 public class Account{
 
-	//Account Attributes
 	private boolean inTown;
 	private String username;
 	private String password;
 
-	public boolean setInTown(boolean aInTown){
-		boolean wasSet = false;
-		inTown = aInTown;
-		wasSet = true;
-		return wasSet;
+	public void setInTown(boolean aInTown){
+		this.inTown = aInTown;
 	}
 	
 	public boolean getInTown(){
 		return inTown;
 	}
 
-	public boolean setUsername(String aUsername){
-		boolean wasSet = false;
-		username = aUsername;
-		wasSet = true;
-		return wasSet;
+	public void setUsername(String aUsername){
+		this.username = aUsername;
 	}
 	
 	@Id
@@ -34,11 +28,8 @@ public class Account{
 		return username;
 	}
 
-	public boolean setPassword(String aPassword){
-		boolean wasSet = false;
-		password = aPassword;
-		wasSet = true;
-		return wasSet;
+	public void setPassword(String aPassword){
+		this.password = aPassword;
 	}
 
 	public String getPassword(){

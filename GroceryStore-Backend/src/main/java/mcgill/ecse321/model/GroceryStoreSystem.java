@@ -2,120 +2,119 @@ package mcgill.ecse321.model;
 import java.util.*;
 import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
-import javax.persistence.Id;
-import java.sql.Time;
-import java.sql.Date;
 import javax.persistence.Entity;
 
 @Entity
 public class GroceryStoreSystem{
 
-  public enum OrderStatus { Processed, Transit, Fullfilled }
-  public enum OrderType { Delivery, Pickup }
-  public enum WeekDay { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday }
+	public enum OrderStatus { Processed, Transit, Fullfilled }
+	public enum OrderType { Delivery, Pickup }
+	public enum WeekDay { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday }
 
-  //GroceryStoreSystem Attributes
-  private int employeeDiscount;
+	//GroceryStoreSystem Attributes
+	private int employeeDiscount;
 
-  public boolean setEmployeeDiscount(int aEmployeeDiscount){
-    boolean wasSet = false;
-    employeeDiscount = aEmployeeDiscount;
-    wasSet = true;
-    return wasSet;
-  }
-
-  public int getEmployeeDiscount(){
-    return employeeDiscount;
-  }
-  
-  //GroceryStoreSystem Associations
-  private Set<BusinessHour> openingHour;
-  
-  
-  //!!! one to seven
-  @OneToMany(cascade={CascadeType.ALL})
-  public Set<BusinessHour> getOpeningHour() {
-	   return this.openingHour;
+	public void setEmployeeDiscount(int aEmployeeDiscount){
+		this.employeeDiscount = aEmployeeDiscount;
 	}
 
-	public void setOpeningHour(Set<BusinessHour> openingHour) {
-	   this.openingHour = openingHour;
+	public int getEmployeeDiscount(){
+		return employeeDiscount;
 	}
-  
-  private Set<Account> account;
-  
-  @OneToMany(cascade={CascadeType.ALL})
-  public Set<Account> getAccount() {
-	   return this.account;
-  }
 
-  public void setAccount(Set<Account> account) {
-	   this.account = account;
-  }
+	//!!! one to seven
+	private Set<BusinessHour> openingHours;
 	
-  private Set<User> user;
-  
-  @OneToMany(cascade={CascadeType.ALL})
-  public Set<User> getUser() {
-	   return this.user;
+	@OneToMany(cascade={CascadeType.ALL})
+	public Set<BusinessHour> getOpeningHours() {
+		return this.openingHours;
 	}
 
-	public void setUser(Set<User> user) {
-	   this.user = user;
+	public void setOpeningHours(Set<BusinessHour> openingHours) {
+		this.openingHours = openingHours;
 	}
+
 	
-  private Set<Cart> cart;
-  
-  @OneToMany(cascade={CascadeType.ALL})
-  public Set<Cart> getCart() {
-	   return this.cart;
+	private Set<Account> accounts;
+
+	@OneToMany(cascade={CascadeType.ALL})
+	public Set<Account> getAccounts() {
+		return this.accounts;
 	}
 
-	public void setCart(Set<Cart> cart) {
-	   this.cart = cart;
+	public void setAccounts(Set<Account> accounts) {
+		this.accounts = accounts;
 	}
+
 	
-  private Set<Quantity> quantity;
-  
-  @OneToMany(cascade={CascadeType.ALL})
-  public Set<Quantity> getQuantity() {
-	   return this.quantity;
+	private Set<User> users;
+
+	@OneToMany(cascade={CascadeType.ALL})
+	public Set<User> getUsers() {
+		return this.users;
 	}
 
-	public void setQuantity(Set<Quantity> quantity) {
-	   this.quantity = quantity;
+	public void setUsers(Set<User> users) {
+		this.users = users;
 	}
+
 	
-  private Set<Item> item;
-  
-  @OneToMany(cascade={CascadeType.ALL})
-  public Set<Item> getItem() {
-	   return this.item;
+	private Set<Cart> carts;
+
+	@OneToMany(cascade={CascadeType.ALL})
+	public Set<Cart> getCarts() {
+		return this.carts;
 	}
 
-	public void setItem(Set<Item> item) {
-	   this.item = item;
+	public void setCarts(Set<Cart> carts) {
+		this.carts = carts;
 	}
+
 	
-  private Set<UserRole> userRole;
-  
-  @OneToMany(cascade={CascadeType.ALL})
-  public Set<UserRole> getUserRole() {
-	   return this.userRole;
+	private Set<Quantity> quantities;
+
+	@OneToMany(cascade={CascadeType.ALL})
+	public Set<Quantity> getQuantities() {
+		return this.quantities;
 	}
 
-	public void setUserRole(Set<UserRole> userRole) {
-	   this.userRole = userRole;
+	public void setQuantities(Set<Quantity> quantities) {
+		this.quantities = quantities;
 	}
+
 	
-  private Set<Order> order;
-  
-  @OneToMany(cascade={CascadeType.ALL})
-  public Set<Order> getOrder() {
-	   return this.order;
+	private Set<Item> items;
+
+	@OneToMany(cascade={CascadeType.ALL})
+	public Set<Item> getItems() {
+		return this.items;
 	}
 
-	public void setOrder(Set<Order> order) {
-	   this.order = order;
+	public void setItems(Set<Item> items) {
+		this.items = items;
+	}
+
+	
+	private Set<UserRole> userRoles;
+
+	@OneToMany(cascade={CascadeType.ALL})
+	public Set<UserRole> getUserRoles() {
+		return this.userRoles;
+	}
+
+	public void setUserRoles(Set<UserRole> userRoles) {
+		this.userRoles = userRoles;
+	}
+
+	
+	private Set<Order> orders;
+
+	@OneToMany(cascade={CascadeType.ALL})
+	public Set<Order> getOrders() {
+		return this.orders;
+	}
+
+	public void setOrders(Set<Order> orders) {
+		this.orders = orders;
 	}
 }

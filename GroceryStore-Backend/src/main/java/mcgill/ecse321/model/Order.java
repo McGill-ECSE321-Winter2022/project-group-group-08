@@ -18,6 +18,24 @@ public class Order{
 		return this.orderNum;
 	}
 	
+	private OrderStatus orderStatus;
+	public void setOrderStatus(OrderStatus value) {
+		this.orderStatus = value;
+	}
+	
+	public OrderStatus getOrderStatus() {
+		return this.orderStatus;
+	}
+	
+	private OrderType orderType;
+	public void setOrderType(OrderType value) {
+		this.orderType = value;
+	}
+	
+	public OrderType getOrderType() {
+		return this.orderType;
+	}
+	
 	private Cart cart;
 	@ManyToOne(optional=false)
 	public Cart getCart() {

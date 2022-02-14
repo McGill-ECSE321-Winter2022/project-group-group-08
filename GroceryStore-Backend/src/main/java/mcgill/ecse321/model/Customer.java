@@ -7,13 +7,11 @@ public class Customer extends UserRole{
 
 	public enum TierClass { Gold, Silver, Bronze }
 
-	//Customer Attributes
 	private TierClass tierclass;
 	private boolean ban;
 
 
-	public Customer(User aUser, GroceryStoreSystem aGroceryStoreSystem, TierClass aTierclass, boolean aBan)
-	{
+	public Customer(User aUser, GroceryStoreSystem aGroceryStoreSystem, TierClass aTierclass, boolean aBan){
 		super(aUser, aGroceryStoreSystem);
 		tierclass = aTierclass;
 		ban = aBan;

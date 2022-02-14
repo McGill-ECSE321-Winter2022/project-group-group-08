@@ -3,18 +3,17 @@ import java.sql.Date;
 import java.util.*;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+@Entity
 public class Cart {
-
-
 	public enum OrderStatus { Processed, Transit, Fullfilled }
 	public enum OrderType { Delivery, Pickup }
 
-	//Cart Attributes
 	private Date date;
-
 	public void setDate(Date aDate){
 		this.date = aDate;
 	}
@@ -22,10 +21,19 @@ public class Cart {
 	public Date getDate(){
 		return date;
 	}
+	
+	private int id;
+	public void setId(int id){
+		this.id = id;
+	}
 
-
-	private Set<Quantity> quantities;
+	@Id
+	public int getId(){
+		return id;
+	}
+	
 	//!!! Check relationship. How do to 0..1 to many?
+	private Set<Quantity> quantities;
 	@OneToMany(cascade={CascadeType.ALL})
 	public Set<Quantity> getQuantities() {
 		return this.quantities;

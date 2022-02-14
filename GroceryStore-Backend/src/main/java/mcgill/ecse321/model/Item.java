@@ -5,12 +5,13 @@ package mcgill.ecse321.model;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+@Entity
 public class Item{
 
-	//Item Attributes
 	private int id;
 	private String name;
 	private int price;
@@ -20,7 +21,6 @@ public class Item{
 	private boolean delivery;
 	private boolean inStore;
 
-	//Item Associations
 	@Id
 	public void setId(int aId){
 		this.id = aId;

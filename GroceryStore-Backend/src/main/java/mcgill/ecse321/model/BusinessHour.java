@@ -7,18 +7,21 @@ import javax.persistence.Id;
 @Entity
 public class BusinessHour{
 	public enum WeekDay { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday }
-
-	//------------------------
-	// MEMBER VARIABLES
-	//------------------------
-
-	//BusinessHour Attributes
+	
 	private WeekDay day;
 	private Time startTime;
 	private Time endTime;
 	private boolean working;
 	private int id;
-
+	
+	@Id
+	public void setId(int id){
+		this.id = id;
+	}
+	
+	public int getId(){
+		return this.id;
+	}
 
 	public void setDay(WeekDay aDay){
 		this.day = aDay;
@@ -50,14 +53,5 @@ public class BusinessHour{
 	
 	public boolean getWorking(){
 		return working;
-	}
-	
-	@Id
-	public void setId(int id){
-		this.id = id;
-	}
-	
-	public int getId(){
-		return this.id;
 	}
 }
