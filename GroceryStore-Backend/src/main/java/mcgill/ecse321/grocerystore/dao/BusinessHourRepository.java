@@ -1,5 +1,10 @@
 package mcgill.ecse321.grocerystore.dao;
 
-public class BusinessHourRepository {
+import org.springframework.data.repository.CrudRepository;
 
+import mcgill.ecse321.model.BusinessHour;
+
+public interface BusinessHourRepository extends CrudRepository<BusinessHour, Integer>{
+
+	BusinessHour findByid(Integer id);
 }
