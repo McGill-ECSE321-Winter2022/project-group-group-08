@@ -37,11 +37,13 @@ public class GroceryStoreRepository {
 	EntityManager entityManager;
 
 	@Transactional
-	public Account createAccount(Boolean inTown, String username, String password) {
+	public Account createAccount(Boolean inTown, String username, String password, int cartId) {
 		Account a = new Account();
 		a.setInTown(inTown);
 		a.setUsername(username);
 		a.setPassword(password);
+		Cart c = getCart(cartId);
+		a.setCart(c);
 		entityManager.persist(a);
 		return a;
 	}
@@ -61,13 +63,15 @@ public class GroceryStoreRepository {
 	}
 
 	@Transactional
-	public User createUser(String firstName, String lastName, String email, String Address, int phoneNumber) {
+	public User createUser(String firstName, String lastName, String email, String Address, int phoneNumber, String username) {
 		User u = new User();
 		u.setPhoneNumber(phoneNumber);
 		u.setAddress(Address);
 		u.setFirstName(firstName);
 		u.setLastName(lastName);
 		u.setEmail(email);
+		Account a = getAccount(username);
+		u.setAccount(a);
 		entityManager.persist(u);
 		return u;
 	}
@@ -98,6 +102,13 @@ public class GroceryStoreRepository {
 	public Customer getCustomer(int id) {
 		Customer c = entityManager.find(Customer.class, id);
 		return c;
+	}
+	
+	@Transactional
+	public List<Customer> getAllCustomers() {
+		TypedQuery<Customer> q = entityManager.createQuery("select * from Customer",Customer.class);
+		List<Customer> resultList = q.getResultList();
+		return resultList;
 	}
 
 	@Transactional
@@ -137,6 +148,13 @@ public class GroceryStoreRepository {
 	public Employee getEmployee(int id) {
 		Employee e = entityManager.find(Employee.class, id);
 		return e;
+	}
+	
+	@Transactional
+	public List<Employee> getAllEmployees() {
+		TypedQuery<Employee> q = entityManager.createQuery("select * from Employee",Employee.class);
+		List<Employee> resultList = q.getResultList();
+		return resultList;
 	}
 
 	@Transactional
@@ -181,6 +199,13 @@ public class GroceryStoreRepository {
 		Item i = entityManager.find(Item.class, id);
 		return i;
 	}
+	
+	@Transactional
+	public List<Item> getAllItems() {
+		TypedQuery<Item> q = entityManager.createQuery("select * from Item",Item.class);
+		List<Item> resultList = q.getResultList();
+		return resultList;
+	}
 
 	@Transactional
 	public List<Item> getItemFilteredByPrice(int aPrice, String comparisonSymbol) {
@@ -202,6 +227,7 @@ public class GroceryStoreRepository {
 		return resultList;
 	}
 	
+//	!!! Get Item filtered by return date
 //	@Transactional
 //	public List<Item> getItemFilteredByDate() {
 	
@@ -235,11 +261,13 @@ public class GroceryStoreRepository {
 	}
 	
 	@Transactional
-	public Order createOrder(int OrderNum, OrderStatus aOrderStatus, OrderType type) {
+	public Order createOrder(int OrderNum, OrderStatus aOrderStatus, OrderType type, int cartId) {
 		Order o = new Order();
 		o.setOrderNum(OrderNum);
 		o.setOrderStatus(aOrderStatus);
 		o.setOrderType(type);
+		Cart c = getCart(cartId);
+		o.setCart(c);
 		entityManager.persist(o);
 		return o;
 	}
@@ -248,6 +276,13 @@ public class GroceryStoreRepository {
 	public Order getOrder(int orderNum) {
 		Order i = entityManager.find(Order.class, orderNum);
 		return i;
+	}
+	
+	@Transactional
+	public List<Order> getAllOrders() {
+		TypedQuery<Order> q = entityManager.createQuery("select * from Order",Order.class);
+		List<Order> resultList = q.getResultList();
+		return resultList;
 	}
 
 	@Transactional
@@ -265,13 +300,20 @@ public class GroceryStoreRepository {
 		List<Order> resultList = q.getResultList();
 		return resultList;
 	}
-
-	//!!! businesshour: pk is id
 	
 	@Transactional
-	public Quantity createQuantityForCart(int quantity, String username, int itemId) {
-		Account a = getAccount(username);
-		Cart c = a.getCart();
+	public Quantity createQuantityForStore(int quantity, int itemId) {
+		Item i = getItem(itemId);
+		Quantity q = new Quantity();
+		q.setQuantity(quantity);
+		q.setStoreItem(i);
+		entityManager.persist(q);
+		return q;
+	}
+	
+	@Transactional
+	public Quantity createQuantityForCart(int quantity, int cartId, int itemId) {
+		Cart c = getCart(cartId);
 		Item i = getItem(itemId);
 		Quantity q = new Quantity();
 		q.setQuantity(quantity);
@@ -301,4 +343,6 @@ public class GroceryStoreRepository {
 		Cart c = entityManager.find(Cart.class, id);
 		return c;
 	}
+	
+	//!!! businesshour: pk is id
 }
