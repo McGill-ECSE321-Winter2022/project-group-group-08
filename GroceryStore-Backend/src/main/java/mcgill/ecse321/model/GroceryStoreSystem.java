@@ -69,19 +69,6 @@ public class GroceryStoreSystem{
 	public void setCarts(Set<Cart> carts) {
 		this.carts = carts;
 	}
-
-	
-	private Set<Quantity> quantities;
-
-	@OneToMany(cascade={CascadeType.ALL})
-	public Set<Quantity> getQuantities() {
-		return this.quantities;
-	}
-
-	public void setQuantities(Set<Quantity> quantities) {
-		this.quantities = quantities;
-	}
-
 	
 	private Set<Item> items;
 

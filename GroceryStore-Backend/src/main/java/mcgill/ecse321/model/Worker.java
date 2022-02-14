@@ -10,3 +10,6 @@ public abstract class Worker extends UserRole
 		super(aUser, aGroceryStoreSystem);
 	}
 }
+
+//[carrot1, carrot1, carrot1, carrot1]
+//get item(carrot1)

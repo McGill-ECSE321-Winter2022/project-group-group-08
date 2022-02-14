@@ -4,9 +4,12 @@
 package mcgill.ecse321.model;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -20,6 +23,7 @@ public class Item{
 	private boolean pickup;
 	private boolean delivery;
 	private boolean inStore;
+	private int quantity;
 
 	@Id
 	public void setId(int aId){
@@ -85,14 +89,22 @@ public class Item{
 	public boolean getInStore(){
 		return inStore;
 	}
-
-	private Quantity quantity;
-	@OneToOne(optional=false)
-	public Quantity getQuantity() {
-		return this.quantity;
+	
+	public void setQuantity(int aQuantity){
+		this.quantity = aQuantity;
 	}
 
-	public void setQuantity(Quantity quantity) {
-		this.quantity = quantity;
+	public int getQuantity(){
+		return quantity;
+	}
+	
+	private Set<Cart> carts;
+	@ManyToMany(cascade={CascadeType.ALL})
+	public Set<Cart> getCarts() {
+		return this.carts;
+	}
+
+	public void setCarts(Set<Cart> carts) {
+		this.carts = carts;
 	}
 }

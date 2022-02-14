@@ -1,11 +1,7 @@
 package mcgill.ecse321.model;
 
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -53,12 +49,12 @@ public class User{
 	}
 
 	// !!! userRole is an abstract class. How do we reference it properly
-	private Set<UserRole> userRole;
-	@OneToMany(cascade={CascadeType.ALL})
-	public Set<UserRole> getUserRole() {
+	private UserRole userRole;
+	@OneToOne(optional=false)
+	public UserRole getUserRole() {
 		return this.userRole;
 	}
-	public void setUserRole(Set<UserRole> userRole) {
+	public void setUserRole(UserRole userRole) {
 		this.userRole = userRole;
 	}
 
