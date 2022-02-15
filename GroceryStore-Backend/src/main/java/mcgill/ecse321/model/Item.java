@@ -4,19 +4,15 @@
 package mcgill.ecse321.model;
 
 import java.util.Date;
-import java.util.Set;
-import java.util.UUID;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Item{
-	UUID uuid = UUID.randomUUID();
 
-	private int id  = Integer.parseInt(uuid.toString());
+	private int id;
 	private String name;
 	private int price;
 	private int point;
@@ -24,8 +20,7 @@ public class Item{
 	private boolean pickup;
 	private boolean delivery;
 	private boolean inStore;
-	private int quantity;
-	
+
 	@Id
 	public void setId(int aId){
 		this.id = aId;
@@ -90,22 +85,14 @@ public class Item{
 	public boolean getInStore(){
 		return inStore;
 	}
-	
-	public void setQuantity(int aQuantity){
-		this.quantity = aQuantity;
+
+	private Quantity quantity;
+	@OneToOne(optional=false)
+	public Quantity getQuantity() {
+		return this.quantity;
 	}
 
-	public int getQuantity(){
-		return quantity;
-	}
-	
-	private Set<Cart> carts;
-	@ManyToMany(cascade={CascadeType.ALL})
-	public Set<Cart> getCarts() {
-		return this.carts;
-	}
-
-	public void setCarts(Set<Cart> carts) {
-		this.carts = carts;
+	public void setQuantity(Quantity quantity) {
+		this.quantity = quantity;
 	}
 }

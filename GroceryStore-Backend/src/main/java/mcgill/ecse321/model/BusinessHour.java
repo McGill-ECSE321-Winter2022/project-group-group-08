@@ -1,6 +1,5 @@
 package mcgill.ecse321.model;
 import java.sql.Time;
-import java.util.UUID;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -13,8 +12,7 @@ public class BusinessHour{
 	private Time startTime;
 	private Time endTime;
 	private boolean working;
-	UUID uuid = UUID.randomUUID();
-	private int id = Integer.parseInt(uuid.toString());
+	private int id;
 	
 	@Id
 	public void setId(int id){
