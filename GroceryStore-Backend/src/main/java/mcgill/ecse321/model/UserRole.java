@@ -1,24 +1,13 @@
 package mcgill.ecse321.model;
 
-import java.util.UUID;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
-public abstract class UserRole
-{
+public class UserRole{
 	private User user;
-	private GroceryStoreSystem groceryStoreSystem;
 	private int id;
-	UUID uuid = UUID.randomUUID();
-
-	public UserRole(User aUser, GroceryStoreSystem aGroceryStoreSystem){
-		setUser(aUser);
-		this.groceryStoreSystem = aGroceryStoreSystem;
-		this.id = Integer.parseInt(uuid.toString());
-	}
 
 	public void setId(int aId){
 		this.id = aId;
@@ -29,7 +18,7 @@ public abstract class UserRole
 		return id;
 	}
 
-	@ManyToOne(optional=false)
+	@OneToOne(optional=false)
 	public User getUser() {
 		return this.user;
 	}
@@ -38,4 +27,3 @@ public abstract class UserRole
 	}
 
 }
-//UUID (ba)

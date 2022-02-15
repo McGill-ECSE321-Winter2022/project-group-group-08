@@ -10,13 +10,6 @@ public class Customer extends UserRole{
 	private TierClass tierclass;
 	private boolean ban;
 
-
-	public Customer(User aUser, GroceryStoreSystem aGroceryStoreSystem, TierClass aTierclass, boolean aBan){
-		super(aUser, aGroceryStoreSystem);
-		tierclass = aTierclass;
-		ban = aBan;
-	}
-
 	public TierClass getTierclass(){
 		return tierclass;
 	}
@@ -32,7 +25,4 @@ public class Customer extends UserRole{
 	public void setBan(boolean aBan){
 		this.ban = aBan;
 	}
-
-	//!!! How do to generalization relationship
-
 }

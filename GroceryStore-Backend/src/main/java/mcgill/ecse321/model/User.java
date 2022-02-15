@@ -44,10 +44,11 @@ public class User{
 		return this.lastName;
 	}
 
-	@Id
+	
 	public void setEmail(String value) {
 		this.email = value;
 	}
+	@Id
 	public String getEmail() {
 		return this.email;
 	}

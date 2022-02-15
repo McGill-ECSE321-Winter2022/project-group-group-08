@@ -70,15 +70,15 @@ public class GroceryStoreSystem{
 		this.carts = carts;
 	}
 	
-	private Set<Item> items;
+	private Set<Item> itemsInStore;
 
 	@OneToMany(cascade={CascadeType.ALL})
-	public Set<Item> getItems() {
-		return this.items;
+	public Set<Item> getItemsInStore() {
+		return this.itemsInStore;
 	}
 
-	public void setItems(Set<Item> items) {
-		this.items = items;
+	public void setItemsInStore(Set<Item> itemsInStore) {
+		this.itemsInStore = itemsInStore;
 	}
 
 	

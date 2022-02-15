@@ -8,10 +8,6 @@ import javax.persistence.OneToMany;
 @Entity
 public class Employee extends Worker{
 
-	public Employee(User aUser, GroceryStoreSystem aGroceryStoreSystem) {
-		super(aUser, aGroceryStoreSystem);
-	}
-
 	public enum WeekDay { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday }
 
 	private Set<BusinessHour> businessHours;
