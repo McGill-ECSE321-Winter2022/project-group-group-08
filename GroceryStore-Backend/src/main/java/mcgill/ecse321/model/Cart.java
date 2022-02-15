@@ -5,6 +5,7 @@ import java.util.*;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -22,7 +23,9 @@ public class Cart {
 		return date;
 	}
 	
-	private int id;
+	UUID uuid = UUID.randomUUID();
+	private int id  = Integer.parseInt(uuid.toString());
+	
 	public void setId(int id){
 		this.id = id;
 	}
@@ -32,15 +35,14 @@ public class Cart {
 		return id;
 	}
 	
-	//!!! Check relationship. How do to 0..1 to many?
-	private Set<Quantity> quantities;
-	@OneToMany(cascade={CascadeType.ALL})
-	public Set<Quantity> getQuantities() {
-		return this.quantities;
+	private Set<Item> items;
+	@ManyToMany(cascade={CascadeType.ALL})
+	public Set<Item> getItems() {
+		return this.items;
 	}
 
-	public void setQuantities(Set<Quantity> quantities) {
-		this.quantities = quantities;
+	public void setItems(Set<Item> items) {
+		this.items = items;
 	}
 
 	private Set<Order> orders;

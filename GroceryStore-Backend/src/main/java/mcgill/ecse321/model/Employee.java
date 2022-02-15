@@ -14,7 +14,6 @@ public class Employee extends Worker{
 
 	public enum WeekDay { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday }
 
-	// !!! One to seven relationship. How do to?
 	private Set<BusinessHour> businessHours;
 	@OneToMany(cascade={CascadeType.ALL})
 	public Set<BusinessHour> getBusinessHours() {

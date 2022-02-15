@@ -10,15 +10,20 @@ public class Order{
 	public enum OrderType { Delivery, Pickup }
 	
 	private int orderNum;
+	private OrderStatus orderStatus;
+	private OrderType orderType;
+	
+	private Cart cart;
+	
 	public void setOrderNum(int value) {
 		this.orderNum = value;
 	}
+	
 	@Id
 	public int getOrderNum() {
 		return this.orderNum;
 	}
 	
-	private OrderStatus orderStatus;
 	public void setOrderStatus(OrderStatus value) {
 		this.orderStatus = value;
 	}
@@ -27,7 +32,6 @@ public class Order{
 		return this.orderStatus;
 	}
 	
-	private OrderType orderType;
 	public void setOrderType(OrderType value) {
 		this.orderType = value;
 	}
@@ -36,7 +40,6 @@ public class Order{
 		return this.orderType;
 	}
 	
-	private Cart cart;
 	@ManyToOne(optional=false)
 	public Cart getCart() {
 	   return this.cart;

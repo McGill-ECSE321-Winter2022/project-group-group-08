@@ -1,17 +1,21 @@
 package mcgill.ecse321.model;
 
-import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
 public class User{
 
 	private int phoneNumber;
+	private String address;
+	private String firstName;
+	private String lastName;
+	private String email;
+	
+	private UserRole userRole;
+	private Account account;
+	
 	public void setPhoneNumber(int value) {
 		this.phoneNumber = value;
 	}
@@ -19,7 +23,6 @@ public class User{
 		return this.phoneNumber;
 	}
 
-	private String address;
 	public void setAddress(String value) {
 		this.address = value;
 	}
@@ -27,7 +30,6 @@ public class User{
 		return this.address;
 	}
 
-	private String firstName;
 	public void setFirstName(String value) {
 		this.firstName = value;
 	}
@@ -35,7 +37,6 @@ public class User{
 		return this.firstName;
 	}
 
-	private String lastName;
 	public void setLastName(String value) {
 		this.lastName = value;
 	}
@@ -44,25 +45,21 @@ public class User{
 	}
 
 	@Id
-	private String email;
 	public void setEmail(String value) {
 		this.email = value;
 	}
 	public String getEmail() {
 		return this.email;
 	}
-
-	// !!! userRole is an abstract class. How do we reference it properly
-	private Set<UserRole> userRole;
-	@OneToMany(cascade={CascadeType.ALL})
-	public Set<UserRole> getUserRole() {
+	
+	@OneToOne(optional=false)
+	public UserRole getUserRole() {
 		return this.userRole;
 	}
-	public void setUserRole(Set<UserRole> userRole) {
+	public void setUserRole(UserRole userRole) {
 		this.userRole = userRole;
 	}
 
-	private Account account;
 	@OneToOne(optional=false)
 	public Account getAccount() {
 		return this.account;
