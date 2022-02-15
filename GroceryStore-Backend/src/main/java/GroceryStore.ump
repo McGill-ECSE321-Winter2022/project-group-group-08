@@ -1,0 +1,158 @@
+namespace mcgill.ecse321.model;
+
+class User{
+  1 <@>- 1 Account;
+  int phoneNumber;
+  address;
+  firstName;
+  lastName;
+  email;
+  1 -- * UserRole;
+}
+
+class Account{
+  boolean inTown;
+  username;
+  password;
+  1 -- 1 Cart;
+}
+
+class UserRole{
+  abstract;
+}
+
+class Worker{
+  abstract;
+  isA UserRole;
+}
+
+class Manager{
+  isA Worker;
+}
+
+class Customer{
+  TierClass tierclass;
+  boolean ban;
+  isA UserRole;
+}
+
+class Employee{
+  1 -> 7 BusinessHour;
+  isA Worker;
+}
+
+class Item{
+  int id;
+  name;
+  int price;
+  int point;
+  date returnDate;
+  boolean pickup;
+  boolean delivery;
+  boolean inStore;
+  1 storeItem -- 1 Quantity quantityInStore ;
+}
+
+class Cart{
+  Date date;
+  0..1 -- * Quantity;
+}
+
+class Quantity{
+  int quantity;
+  1 quantityInCart -> 1 Item cartItem;
+}
+
+class BusinessHour{
+  WeekDay day;
+  Time startTime;
+  Time endTime;
+  boolean working;
+}
+
+class Order{
+  OrderStatus status;
+  OrderType type;
+  int orderNum;
+  * -- 1 Cart;
+}
+
+enum OrderStatus{processed,transit,fullfilled}
+enum OrderType {Delivery,Pickup}
+enum WeekDay {Monday,Tuesday,Wednesday,Thursday, Friday, Saturday,Sunday}          
+enum TierClass{gold,silver,bronze}
+
+//$?[End_of_model]$?
+
+namespace -;
+
+
+class Quantity
+{
+  position 74 345 109 58.3594;
+  position.association Item__Quantity 38,58 81,0;
+  position.association Item__Quantity:cartItem 96,58 13,0;
+  position.association Item:quantityInCart__Quantity:cartItem 109,41 119,0;
+  position.association Item:cartItem__Quantity:quantityInCart 109,36 108,0;
+}
+
+class User
+{
+  position 259 11 146.484 126.359;
+  position.association User__UserRole 147,46 0,7;
+  position.association Account__User 0,32 142,43;
+}
+
+class Account
+{
+  position 26 36 141.438 92.3594;
+  position.association Account__Cart 67,92 49,0;
+}
+
+class UserRole
+{
+  position 486 55 109 57.3594;
+}
+
+class Worker
+{
+  position 287 184 109 57.3594;
+}
+
+class Manager
+{
+  position 216 284 109 41.3594;
+}
+
+class Customer
+{
+  position 508 257 150.016 75.3594;
+}
+
+class Employee
+{
+  position 354 284 109 41.3594;
+  position.association BusinessHour__Employee 23,41 55,0;
+}
+
+class Item
+{
+  position 77 486 140 177.359;
+  position.association Item:storeItem__Quantity:quantityInStore 4,0 8,58;
+}
+
+class Cart
+{
+  position 40 211 109 75.3594;
+  position.association Cart__Quantity 53,75 40,0;
+}
+
+class BusinessHour
+{
+  position 322 382 140.125 109.359;
+}
+
+class Order
+{
+  position 450 130 109 45;
+}

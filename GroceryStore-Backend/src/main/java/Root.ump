@@ -1,0 +1,90 @@
+namespace mcgill.ecse321.model;
+
+use GroceryStore.ump;
+
+class GroceryStoreSystem{
+  int employeeDiscount;
+  1 <@>- 7 BusinessHour openingHours;
+  1 <@>- * Account;
+  1 <@>- * User;
+  1 <@>- * Cart;
+  1 <@>- * Quantity;
+  1 <@>- * Item;  
+  1 <@>- * UserRole;
+  1 <@>- * Order;
+}
+
+class User{
+}
+
+class Account{
+}
+
+class UserRole{
+}
+
+class Item{
+  }
+
+class Cart{
+}
+
+class Quantity{
+
+}
+
+class BusinessHour{
+}
+
+class Order{
+}
+
+//$?[End_of_model]$?
+
+namespace -;
+
+
+class GroceryStoreSystem
+{
+  position 50 30 109 45;
+}
+
+class User
+{
+  position 50 130 109 45;
+}
+
+class Account
+{
+  position 50 230 109 45;
+}
+
+class UserRole
+{
+  position 50 330 109 45;
+}
+
+class Item
+{
+  position 50 430 109 45;
+}
+
+class Cart
+{
+  position 250 30 109 45;
+}
+
+class Quantity
+{
+  position 250 130 109 45;
+}
+
+class BusinessHour
+{
+  position 250 230 109 45;
+}
+
+class Order
+{
+  position 250 330 109 45;
+}
