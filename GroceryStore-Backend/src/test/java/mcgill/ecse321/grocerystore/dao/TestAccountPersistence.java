@@ -24,8 +24,8 @@ public class TestAccountPersistence {
 		accountRepository.deleteAll();
 	}
 	
-	@Test
-	public void testPersistAndLoadAccount() {
+//	@Test
+//	public void testPersistAndLoadAccount() {
 //		String username = "Joey";
 //		String password = "050807";
 //		boolean inTown = false;
@@ -45,10 +45,10 @@ public class TestAccountPersistence {
 //		assertEquals(password,account.getPassword());
 //		assertEquals(inTown,account.getInTown());
 //		assertNull(account.getCart());
-	}
-
-	@Test
-	public void testPersistAndLoadCustomerByFirstNameAndLastName() {
-		
-	}
+//	}
+//
+//	@Test
+//	public void testPersistAndLoadCustomerByFirstNameAndLastName() {
+//		
+//	}
 }
