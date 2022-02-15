@@ -11,6 +11,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Item{
@@ -26,11 +27,12 @@ public class Item{
 	private boolean inStore;
 	private int quantity;
 	
-	@Id
+	
 	public void setId(int aId){
 		this.id = aId;
 	}
-
+	
+	@Id
 	public int getId(){
 		return id;
 	}
@@ -99,13 +101,13 @@ public class Item{
 		return quantity;
 	}
 	
-	private Set<Cart> carts;
-	@ManyToMany(cascade={CascadeType.ALL})
-	public Set<Cart> getCarts() {
-		return this.carts;
+	private Cart cart;
+	@OneToMany(cascade={CascadeType.ALL})
+	public Cart getCart() {
+		return this.cart;
 	}
 
-	public void setCarts(Set<Cart> carts) {
-		this.carts = carts;
+	public void setCarts(Cart cart) {
+		this.cart = cart;
 	}
 }

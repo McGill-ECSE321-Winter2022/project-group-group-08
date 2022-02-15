@@ -16,11 +16,12 @@ public class BusinessHour{
 	UUID uuid = UUID.randomUUID();
 	private int id = Integer.parseInt(uuid.toString());
 	
-	@Id
+	
 	public void setId(int id){
 		this.id = id;
 	}
 	
+	@Id
 	public int getId(){
 		return this.id;
 	}

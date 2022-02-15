@@ -35,14 +35,14 @@ public class Cart {
 		return id;
 	}
 	
-	private Set<Item> items;
-	@ManyToMany(cascade={CascadeType.ALL})
-	public Set<Item> getItems() {
-		return this.items;
+	private Set<Item> itemInCart;
+	@OneToMany(cascade={CascadeType.ALL})
+	public Set<Item> getItemInCart() {
+		return this.itemInCart;
 	}
 
-	public void setItems(Set<Item> items) {
-		this.items = items;
+	public void setItemInCart(Set<Item> itemInCart) {
+		this.itemInCart = itemInCart;
 	}
 
 	private Set<Order> orders;
