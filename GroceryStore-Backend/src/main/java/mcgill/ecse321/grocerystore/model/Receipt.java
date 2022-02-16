@@ -8,44 +8,44 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Receipt{
-	public enum OrderStatus { Processed, Transit, Fullfilled }
-	public enum OrderType { Delivery, Pickup }
+	public enum ReceiptStatus { Processed, Transit, Fullfilled }
+	public enum ReceiptType { Delivery, Pickup }
 	
 	@Id
-	private int orderNum;
+	private int receiptNum;
 	
 	@Enumerated
-	private OrderStatus orderStatus;
+	private ReceiptStatus receiptStatus;
 	
 	@Enumerated
-	private OrderType orderType;
+	private ReceiptType receiptType;
 	
 	@ManyToOne
 	@JoinColumn(name="cart_id", nullable=false)
 	private Cart cart;
 	
-	public void setOrderNum(int value) {
-		this.orderNum = value;
+	public void setReceiptNum(int value) {
+		this.receiptNum = value;
 	}
 	
-	public int getOrderNum() {
-		return this.orderNum;
+	public int getReceiptNum() {
+		return this.receiptNum;
 	}
 	
-	public void setOrderStatus(OrderStatus value) {
-		this.orderStatus = value;
+	public void setReceiptStatus(ReceiptStatus value) {
+		this.receiptStatus = value;
 	}
 	
-	public OrderStatus getOrderStatus() {
-		return this.orderStatus;
+	public ReceiptStatus getReceiptStatus() {
+		return this.receiptStatus;
 	}
 	
-	public void setOrderType(OrderType value) {
-		this.orderType = value;
+	public void setReceiptType(ReceiptType value) {
+		this.receiptType = value;
 	}
 	
-	public OrderType getOrderType() {
-		return this.orderType;
+	public ReceiptType getReceiptType() {
+		return this.receiptType;
 	}
 	
 	public Cart getCart() {
