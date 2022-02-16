@@ -4,6 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import mcgill.ecse321.grocerystore.model.UserRole;
 
-public interface UserRoleRepository extends CrudRepository<UserRole, String>{
-
+public interface UserRoleRepository extends CrudRepository<UserRole, Integer>{
+	
+	UserRole findUserRoleById(int id);
 }
