@@ -2,12 +2,13 @@ package mcgill.ecse321.grocerystore.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.Inheritance;
 import javax.persistence.OneToOne;
+import javax.persistence.InheritanceType;
 
-//@MappedSuperclass
 @Entity
-public class UserRole{
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class UserRole{
 	
 	@Id
 	private int id;
