@@ -6,7 +6,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -27,7 +26,7 @@ public class Cart {
 	@JoinColumn(name="account_username", referencedColumnName="username")
 	private Account account;
 	
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = {CascadeType.ALL})
 	private Set<Item> itemInCart;
 	
 	public void setDate(Date aDate){

@@ -6,7 +6,6 @@ import javax.persistence.OneToOne;
 
 @Entity
 public class Account{
-
 	private boolean inTown;
 	
 	@Id
@@ -42,7 +41,6 @@ public class Account{
 	public String getPassword(){
 		return password;
 	}
-
 
 	public Cart getCart() {
 	   return this.cart;

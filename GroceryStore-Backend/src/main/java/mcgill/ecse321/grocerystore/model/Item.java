@@ -1,8 +1,6 @@
 package mcgill.ecse321.grocerystore.model;
 
-import java.util.Date;
 import java.util.UUID;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -13,7 +11,7 @@ public class Item{
 	private String name;
 	private int price;
 	private int point;
-	private Date returnDate;
+	private int returnPolicy;
 	private boolean pickup;
 	private boolean delivery;
 	private boolean inStore;
@@ -51,12 +49,12 @@ public class Item{
 		return point;
 	}
 
-	public void setReturnDate(Date aReturnDate){
-		this.returnDate = aReturnDate;
+	public void setReturnPolicy(int aReturnPolicy){
+		this.returnPolicy = aReturnPolicy;
 	}
 
-	public Date getReturnDate(){
-		return returnDate;
+	public int getReturnDate(){
+		return returnPolicy;
 	}
 
 	public void setPickup(boolean aPickup){
