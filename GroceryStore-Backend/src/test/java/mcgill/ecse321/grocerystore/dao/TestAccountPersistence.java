@@ -2,6 +2,7 @@ package mcgill.ecse321.grocerystore.dao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -9,6 +10,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import mcgill.ecse321.grocerystore.model.Account;
+import mcgill.ecse321.grocerystore.model.Cart;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -25,7 +29,27 @@ public class TestAccountPersistence {
 	
 	@Test
 	public void testPersistAndLoadAccount() {
-		
+//		String username = "Joey";
+//		String password = "Koay";
+//		boolean inTown = true;
+//		Cart cart = new Cart();
+//		
+//		Account account = new Account();
+//		account.setCart(cart);
+//		account.setInTown(inTown);
+//		account.setPassword(password);
+//		account.setUsername(username);
+//		accountRepository.save(account);
+//		
+//		account = null;
+//		account = accountRepository.findAccountByUsername(username);
+//		
+//		assertNotNull(account);
+//		
+//		assertEquals(username,account.getUsername());
+//		assertEquals(password,account.getPassword());
+//		assertEquals(inTown,account.getInTown());
+//		assertEquals(cart,account.getCart());
 	}
 	
 }

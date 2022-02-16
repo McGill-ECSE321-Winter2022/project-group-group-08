@@ -23,8 +23,9 @@ public class Cart {
 		return date;
 	}
 	
-	UUID uuid = UUID.randomUUID();
-	private int id  = Integer.parseInt(uuid.toString());
+//	UUID uuid = UUID.randomUUID();
+//	private int id  = Integer.parseInt(uuid.toString());
+	private int id;
 	
 	public void setId(int id){
 		this.id = id;
