@@ -16,7 +16,9 @@ public class Person{
 	private String firstName;
 	private String lastName;
 	
-//	private UserRole userRole;
+	@OneToOne(cascade={CascadeType.ALL}, optional=true)
+	@JoinColumn(name="user_role_id", referencedColumnName="id")
+	private UserRole userRole;
 	
 	@OneToOne(cascade={CascadeType.ALL})
 	@JoinColumn(name="account_username", referencedColumnName="username")

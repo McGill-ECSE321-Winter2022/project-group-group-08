@@ -31,7 +31,6 @@ public class Account{
 		this.username = aUsername;
 	}
 	
-
 	public String getUsername(){
 		return username;
 	}
