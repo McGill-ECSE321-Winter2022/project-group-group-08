@@ -1,4 +1,4 @@
-package mcgill.ecse321.model;
+package mcgill.ecse321.grocerystore.model;
 import java.sql.Date;
 import java.util.*;
 
@@ -32,15 +32,14 @@ public class Cart {
 		return id;
 	}
 	
-	//!!! Check relationship. How do to 0..1 to many?
-	private Set<Quantity> quantities;
+	private Set<Item> itemInCart;
 	@OneToMany(cascade={CascadeType.ALL})
-	public Set<Quantity> getQuantities() {
-		return this.quantities;
+	public Set<Item> getItemInCart() {
+		return this.itemInCart;
 	}
 
-	public void setQuantities(Set<Quantity> quantities) {
-		this.quantities = quantities;
+	public void setItemInCart(Set<Item> itemInCart) {
+		this.itemInCart = itemInCart;
 	}
 
 	private Set<Order> orders;

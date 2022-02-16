@@ -1,4 +1,4 @@
-package mcgill.ecse321.model;
+package mcgill.ecse321.grocerystore.model;
 import java.sql.Time;
 
 import javax.persistence.Entity;
@@ -14,11 +14,12 @@ public class BusinessHour{
 	private boolean working;
 	private int id;
 	
-	@Id
+	
 	public void setId(int id){
 		this.id = id;
 	}
 	
+	@Id
 	public int getId(){
 		return this.id;
 	}

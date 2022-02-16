@@ -1,8 +1,9 @@
-package mcgill.ecse321.model;
+package mcgill.ecse321.grocerystore.model;
 import java.util.*;
 import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 public class GroceryStoreSystem{
@@ -20,6 +21,17 @@ public class GroceryStoreSystem{
 
 	public int getEmployeeDiscount(){
 		return employeeDiscount;
+	}
+	
+	private int id;
+	
+	public void setId(int id){
+		this.id = id;
+	}
+	
+	@Id
+	public int getId(){
+		return this.id;
 	}
 
 	//!!! one to seven
@@ -94,7 +106,6 @@ public class GroceryStoreSystem{
 		this.items = items;
 	}
 
-	
 	private Set<UserRole> userRoles;
 
 	@OneToMany(cascade={CascadeType.ALL})

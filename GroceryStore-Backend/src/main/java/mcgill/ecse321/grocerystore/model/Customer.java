@@ -1,4 +1,4 @@
-package mcgill.ecse321.model;
+package mcgill.ecse321.grocerystore.model;
 
 import javax.persistence.Entity;
 

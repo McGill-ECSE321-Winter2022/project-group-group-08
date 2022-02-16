@@ -1,13 +1,14 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 
-package mcgill.ecse321.model;
+package mcgill.ecse321.grocerystore.model;
 
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Item{
@@ -20,12 +21,13 @@ public class Item{
 	private boolean pickup;
 	private boolean delivery;
 	private boolean inStore;
-
-	@Id
+	
+	
 	public void setId(int aId){
 		this.id = aId;
 	}
-
+	
+	@Id
 	public int getId(){
 		return id;
 	}
@@ -84,15 +86,5 @@ public class Item{
 
 	public boolean getInStore(){
 		return inStore;
-	}
-
-	private Quantity quantity;
-	@OneToOne(optional=false)
-	public Quantity getQuantity() {
-		return this.quantity;
-	}
-
-	public void setQuantity(Quantity quantity) {
-		this.quantity = quantity;
 	}
 }
