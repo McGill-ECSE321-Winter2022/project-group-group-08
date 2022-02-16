@@ -1,25 +1,34 @@
 package mcgill.ecse321.grocerystore.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
-public class Order{
+public class Receipt{
 	public enum OrderStatus { Processed, Transit, Fullfilled }
 	public enum OrderType { Delivery, Pickup }
 	
+	@Id
 	private int orderNum;
+	
+	@Enumerated
 	private OrderStatus orderStatus;
+	
+	@Enumerated
 	private OrderType orderType;
 	
+	@ManyToOne
+	@JoinColumn(name="cart_id", nullable=false)
 	private Cart cart;
 	
 	public void setOrderNum(int value) {
 		this.orderNum = value;
 	}
 	
-	@Id
 	public int getOrderNum() {
 		return this.orderNum;
 	}
@@ -40,12 +49,12 @@ public class Order{
 		return this.orderType;
 	}
 	
-	@ManyToOne(optional=false)
-	public Cart getCart() {
-	   return this.cart;
-	}
-
-	public void setCart(Cart cart) {
-	   this.cart = cart;
-	}
+//	@ManyToOne(optional=false)
+//	public Cart getCart() {
+//	   return this.cart;
+//	}
+//
+//	public void setCart(Cart cart) {
+//	   this.cart = cart;
+//	}
 }

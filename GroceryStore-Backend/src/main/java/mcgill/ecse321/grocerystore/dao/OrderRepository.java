@@ -4,7 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import mcgill.ecse321.grocerystore.model.Order;
 
-public interface OrderRepository extends CrudRepository<Order, Integer>{
+public interface OrderRepository extends CrudRepository<Receipt, Integer>{
 	
-	Order findOrderByOrderNum(int orderNum);
+	Receipt findOrderByOrderNum(int orderNum);
 }

@@ -8,8 +8,14 @@ import javax.persistence.OneToOne;
 public class Account{
 
 	private boolean inTown;
+	
+	@Id
 	private String username;
+	
 	private String password;
+	
+	@OneToOne(mappedBy="account")
+	private Cart cart;
 
 	public void setInTown(boolean aInTown){
 		this.inTown = aInTown;
@@ -23,7 +29,7 @@ public class Account{
 		this.username = aUsername;
 	}
 	
-	@Id
+
 	public String getUsername(){
 		return username;
 	}
@@ -36,8 +42,7 @@ public class Account{
 		return password;
 	}
 
-	private Cart cart;
-	@OneToOne(optional=false)
+
 	public Cart getCart() {
 	   return this.cart;
 	}
