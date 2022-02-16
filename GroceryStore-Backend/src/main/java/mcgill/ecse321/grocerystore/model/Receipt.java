@@ -49,12 +49,11 @@ public class Receipt{
 		return this.orderType;
 	}
 	
-//	@ManyToOne(optional=false)
-//	public Cart getCart() {
-//	   return this.cart;
-//	}
-//
-//	public void setCart(Cart cart) {
-//	   this.cart = cart;
-//	}
+	public Cart getCart() {
+	   return this.cart;
+	}
+
+	public void setCart(Cart cart) {
+	   this.cart = cart;
+	}
 }

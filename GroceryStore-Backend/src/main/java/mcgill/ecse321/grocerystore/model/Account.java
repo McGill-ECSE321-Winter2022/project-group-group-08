@@ -11,7 +11,6 @@ public class Account{
 	
 	@Id
 	private String username;
-	
 	private String password;
 	
 	@OneToOne(mappedBy="account")
