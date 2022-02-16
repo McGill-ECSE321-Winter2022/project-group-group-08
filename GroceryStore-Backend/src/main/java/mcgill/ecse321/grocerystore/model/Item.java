@@ -1,7 +1,7 @@
 /*PLEASE DO NOT EDIT THIS CODE*/
 /*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
 
-package mcgill.ecse321.model;
+package mcgill.ecse321.grocerystore.model;
 
 import java.util.Date;
 import java.util.Set;
@@ -99,15 +99,5 @@ public class Item{
 
 	public int getQuantity(){
 		return quantity;
-	}
-	
-	private Cart cart;
-	@OneToMany(cascade={CascadeType.ALL})
-	public Cart getCart() {
-		return this.cart;
-	}
-
-	public void setCarts(Cart cart) {
-		this.cart = cart;
 	}
 }
