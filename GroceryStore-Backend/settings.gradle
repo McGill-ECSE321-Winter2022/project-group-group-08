@@ -1,2 +1,8 @@
-rootProject.name = 'project-group-group-08'
-include 'GroceryStore-Backend'
+pluginManagement {
+	repositories {
+		maven { url 'https://repo.spring.io/milestone' }
+		maven { url 'https://repo.spring.io/snapshot' }
+		gradlePluginPortal()
+	}
+}
+rootProject.name = 'GroceryStore-Backend'

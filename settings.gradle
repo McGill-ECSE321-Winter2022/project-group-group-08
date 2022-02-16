@@ -1,1 +1,2 @@
-include ':GroceryStore-Backend'
+rootProject.name = 'project-group-group-p8'
+include 'GroceryStore-Backend'
