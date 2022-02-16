@@ -6,7 +6,7 @@
 //
 //@Entity
 //public class UserRole{
-//	private User user;
+//	private Person person;
 //	private int id;
 //
 //	public void setId(int aId){
@@ -19,11 +19,11 @@
 //	}
 //
 //	@OneToOne(optional=false)
-//	public User getUser() {
-//		return this.user;
+//	public Person getPerson() {
+//		return this.person;
 //	}
-//	public void setUser(User user) {
-//		this.user = user;
+//	public void setPerson(Person person) {
+//		this.person = person;
 //	}
 //
 //}

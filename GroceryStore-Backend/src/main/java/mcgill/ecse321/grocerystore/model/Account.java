@@ -16,6 +16,9 @@ public class Account{
 	
 	@OneToOne(mappedBy="account")
 	private Cart cart;
+	
+	@OneToOne(mappedBy="account")
+	private Person person;
 
 	public void setInTown(boolean aInTown){
 		this.inTown = aInTown;
