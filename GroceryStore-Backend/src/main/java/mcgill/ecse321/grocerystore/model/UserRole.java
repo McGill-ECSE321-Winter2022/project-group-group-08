@@ -1,6 +1,8 @@
 package mcgill.ecse321.grocerystore.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.OneToOne;
@@ -10,6 +12,7 @@ import javax.persistence.InheritanceType;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class UserRole{
 	@Id
+//	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
 	@OneToOne(mappedBy="userRole")

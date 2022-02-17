@@ -1,16 +1,18 @@
 package mcgill.ecse321.grocerystore.model;
 import java.sql.Time;
-import java.util.UUID;
 
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class BusinessHour{
 	public enum WeekDay { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday }
 	@Id
-	private int id = Integer.parseInt(UUID.randomUUID().toString());
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int id;
 	@Enumerated
 	private WeekDay day;
 	private Time startTime;
