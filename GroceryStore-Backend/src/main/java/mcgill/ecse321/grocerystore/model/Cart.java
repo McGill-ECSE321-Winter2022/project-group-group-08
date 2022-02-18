@@ -4,10 +4,7 @@ import java.util.*;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -15,23 +12,8 @@ import javax.persistence.OneToOne;
 public class Cart {
 	public enum OrderStatus { Processed, Transit, Fullfilled }
 	public enum OrderType { Delivery, Pickup }
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
 
 	private Date date;
-	
-	@OneToMany(mappedBy="cart")	
-	private Set<Receipt> orders;
-	
-	@OneToOne(cascade={CascadeType.ALL})
-	@JoinColumn(name="account_username", referencedColumnName="username")
-	private Account account;
-	
-	@OneToMany(cascade = {CascadeType.ALL})
-	private Set<Item> itemInCart;
-	
 	public void setDate(Date aDate){
 		this.date = aDate;
 	}
@@ -40,10 +22,12 @@ public class Cart {
 		return date;
 	}
 	
+	private int id;
 	public void setId(int id){
 		this.id = id;
 	}
 
+	@Id
 	public int getId(){
 		return id;
 	}
@@ -58,14 +42,18 @@ public class Cart {
 		this.itemInCart = itemInCart;
 	}
 
-	public Set<Receipt> getOrders() {
+	private Set<Order> orders;
+	@OneToMany(cascade={CascadeType.ALL})
+	public Set<Order> getOrders() {
 		return this.orders;
 	}
 
-	public void setOrders(Set<Receipt> orders) {
+	public void setOrders(Set<Order> orders) {
 		this.orders = orders;
 	}
-
+	
+	private Account account;
+	@OneToOne(optional=false)
 	public Account getAccount() {
 		return this.account;
 	}
