@@ -1,23 +1,21 @@
-/*PLEASE DO NOT EDIT THIS CODE*/
-/*This code was generated using the UMPLE 1.31.1.5860.78bb27cc6 modeling language!*/
-
 package mcgill.ecse321.grocerystore.model;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity
 public class Item{
-
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private String name;
 	private int price;
 	private int point;
-	private Date returnDate;
+	private int returnPolicy;
 	private boolean pickup;
 	private boolean delivery;
 	private boolean inStore;
@@ -27,7 +25,6 @@ public class Item{
 		this.id = aId;
 	}
 	
-	@Id
 	public int getId(){
 		return id;
 	}
@@ -56,12 +53,12 @@ public class Item{
 		return point;
 	}
 
-	public void setReturnDate(Date aReturnDate){
-		this.returnDate = aReturnDate;
+	public void setReturnPolicy(int aReturnPolicy){
+		this.returnPolicy = aReturnPolicy;
 	}
 
-	public Date getReturnDate(){
-		return returnDate;
+	public int getReturnDate(){
+		return returnPolicy;
 	}
 
 	public void setPickup(boolean aPickup){

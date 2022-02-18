@@ -1,37 +1,34 @@
 package mcgill.ecse321.grocerystore.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.Inheritance;
+import javax.persistence.OneToOne;
+import javax.persistence.InheritanceType;
 
 @Entity
-public abstract class UserRole
-{
-	private User user;
-	private GroceryStoreSystem groceryStoreSystem;
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class UserRole{
+	@Id
+//	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
-
-	public UserRole(User aUser, GroceryStoreSystem aGroceryStoreSystem){
-		setUser(aUser);
-		this.groceryStoreSystem = aGroceryStoreSystem;
-	}
+	
+	@OneToOne(mappedBy="userRole")
+	private Person person;
 
 	public void setId(int aId){
 		this.id = aId;
 	}
-
-	@Id
 	public int getId(){
 		return id;
 	}
 
-	// !!! How to do generalization
-	@ManyToOne(optional=false)
-	public User getUser() {
-		return this.user;
+	public Person getPerson() {
+		return this.person;
 	}
-	public void setUser(User user) {
-		this.user = user;
+	public void setPerson(Person person) {
+		this.person = person;
 	}
-
 }

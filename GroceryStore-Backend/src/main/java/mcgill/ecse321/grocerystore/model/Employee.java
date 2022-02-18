@@ -6,10 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Employee extends Worker{
-
+public class Employee extends UserRole{
+	@OneToMany(cascade = CascadeType.ALL)
 	private Set<BusinessHour> workingHours;
-	@OneToMany(cascade={CascadeType.ALL})
 	public Set<BusinessHour> getWorkingHours() {
 		return this.workingHours;
 	}
