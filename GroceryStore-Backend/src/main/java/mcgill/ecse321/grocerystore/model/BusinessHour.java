@@ -19,6 +19,8 @@ public class BusinessHour{
 	private Time endTime;
 	private boolean working;
 	
+	//Attribute getters and setters
+	
 	public void setId(int id){
 		this.id = id;
 	}

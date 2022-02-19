@@ -16,16 +16,16 @@ public class Receipt{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int receiptNum;
-	
 	@Enumerated
 	private ReceiptStatus receiptStatus;
-	
 	@Enumerated
 	private ReceiptType receiptType;
 	
 	@ManyToOne
-	@JoinColumn(name="cart_id", nullable=false)
+	@JoinColumn(name="cart_id", nullable=false, referencedColumnName="id")
 	private Cart cart;
+	
+	//attribute getters and setters
 	
 	public void setReceiptNum(int value) {
 		this.receiptNum = value;
@@ -50,6 +50,8 @@ public class Receipt{
 	public ReceiptType getReceiptType() {
 		return this.receiptType;
 	}
+	
+	//relationships
 	
 	public Cart getCart() {
 	   return this.cart;

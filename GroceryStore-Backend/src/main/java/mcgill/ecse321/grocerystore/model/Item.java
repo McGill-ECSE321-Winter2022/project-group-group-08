@@ -15,9 +15,7 @@ public class Item{
 	private int point;
 	private int returnPolicy;
 	private boolean pickup;
-	private boolean delivery;
-	private boolean inStore;
-	private int quantity;
+	private int inStoreQuantity;
 	
 	public void setId(int aId){
 		this.id = aId;
@@ -55,7 +53,7 @@ public class Item{
 		this.returnPolicy = aReturnPolicy;
 	}
 
-	public int getReturnDate(){
+	public int getReturnPolicy(){
 		return returnPolicy;
 	}
 
@@ -67,27 +65,11 @@ public class Item{
 		return pickup;
 	}
 
-	public void setDelivery(boolean aDelivery) {
-		this.delivery = aDelivery;
+	public void setInStoreQuantity(int inStoreQuantity){
+		this.inStoreQuantity = inStoreQuantity;
 	}
 
-	public boolean getDelivery(){
-		return delivery;
-	}
-
-	public void setInStore(boolean aInStore){
-		this.inStore = aInStore;
-	}
-
-	public boolean getInStore(){
-		return inStore;
-	}
-	
-	public void setQuantity(int aQuantity){
-		this.quantity = aQuantity;
-	}
-
-	public int getQuantity(){
-		return quantity;
+	public int getInStoreQuantity(){
+		return inStoreQuantity;
 	}
 }
