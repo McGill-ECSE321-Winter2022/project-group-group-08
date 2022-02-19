@@ -18,6 +18,7 @@ public class GroceryStoreSystem{
 	@OneToMany(cascade = CascadeType.ALL)
 	private Set<Item> items;
 	
+	//attributes getters and setters
 	
 	public void setStoreName(String value) {
 		this.storeName = value;

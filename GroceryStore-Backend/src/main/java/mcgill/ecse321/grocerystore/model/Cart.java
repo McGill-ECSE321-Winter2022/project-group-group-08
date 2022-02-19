@@ -19,26 +19,20 @@ public class Cart {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-
 	private Date date;
 	
 	@OneToMany(mappedBy="cart")	
-	private Set<Receipt> orders;
+	private Set<Receipt> receipt;
 	
 	@OneToOne(cascade={CascadeType.ALL})
 	@JoinColumn(name="account_username", referencedColumnName="username")
 	private Account account;
 	
 	@OneToMany(cascade = {CascadeType.ALL})
-	private Set<Item> itemInCart;
+	private Set<Quantity> itemQuantities;
 	
-	public void setDate(Date aDate){
-		this.date = aDate;
-	}
-
-	public Date getDate(){
-		return date;
-	}
+	
+	//Attributes getters and setters
 	
 	public void setId(int id){
 		this.id = id;
@@ -48,20 +42,30 @@ public class Cart {
 		return id;
 	}
 	
-	public Set<Item> getItemInCart() {
-		return this.itemInCart;
+	public void setDate(Date aDate){
+		this.date = aDate;
 	}
 
-	public void setItemInCart(Set<Item> itemInCart) {
-		this.itemInCart = itemInCart;
+	public Date getDate(){
+		return date;
+	}
+	
+	//Relationships
+	
+	public Set<Quantity> getItemQuantities() {
+		return this.itemQuantities;
 	}
 
-	public Set<Receipt> getOrders() {
-		return this.orders;
+	public void setItemQuantities(Set<Quantity> itemQuantities) {
+		this.itemQuantities = itemQuantities;
 	}
 
-	public void setOrders(Set<Receipt> orders) {
-		this.orders = orders;
+	public Set<Receipt> getReceipts() {
+		return this.receipt;
+	}
+
+	public void setReceipts(Set<Receipt> orders) {
+		this.receipt = orders;
 	}
 
 	public Account getAccount() {

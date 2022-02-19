@@ -9,6 +9,8 @@ import javax.persistence.OneToMany;
 public class Employee extends UserRole{
 	@OneToMany(cascade = CascadeType.ALL)
 	private Set<BusinessHour> workingHours;
+	
+	//relationships
 	public Set<BusinessHour> getWorkingHours() {
 		return this.workingHours;
 	}

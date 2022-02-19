@@ -11,10 +11,10 @@ public class Person{
 	
 	@Id
 	private String email;
-	private int phoneNumber;
-	private String address;
 	private String firstName;
 	private String lastName;
+	private int phoneNumber;
+	private String address;
 	
 	@OneToOne(cascade={CascadeType.ALL}, optional=true)
 	@JoinColumn(name="user_role_id", referencedColumnName="id")
@@ -23,35 +23,7 @@ public class Person{
 	@OneToOne(cascade={CascadeType.ALL})
 	@JoinColumn(name="account_username", referencedColumnName="username")
 	private Account account;
-
-	public void setPhoneNumber(int value) {
-		this.phoneNumber = value;
-	}
-	public int getPhoneNumber() {
-		return this.phoneNumber;
-	}
-
-	public void setAddress(String value) {
-		this.address = value;
-	}
-	public String getAddress() {
-		return this.address;
-	}
-
-	public void setFirstName(String value) {
-		this.firstName = value;
-	}
-	public String getFirstName() {
-		return this.firstName;
-	}
-
-	public void setLastName(String value) {
-		this.lastName = value;
-	}
-	public String getLastName() {
-		return this.lastName;
-	}
-
+	
 	public void setEmail(String value) {
 		this.email = value;
 	}
@@ -59,14 +31,48 @@ public class Person{
 	public String getEmail() {
 		return this.email;
 	}
+	
+	public void setFirstName(String value) {
+		this.firstName = value;
+	}
+	
+	public String getFirstName() {
+		return this.firstName;
+	}
 
-//	@OneToOne(optional=false)
-//	public UserRole getUserRole() {
-//		return this.userRole;
-//	}
-//	public void setUserRole(UserRole userRole) {
-//		this.userRole = userRole;
-//	}
+	public void setLastName(String value) {
+		this.lastName = value;
+	}
+	
+	public String getLastName() {
+		return this.lastName;
+	}
+	
+	public void setPhoneNumber(int value) {
+		this.phoneNumber = value;
+	}
+	
+	public int getPhoneNumber() {
+		return this.phoneNumber;
+	}
+
+	public void setAddress(String value) {
+		this.address = value;
+	}
+	
+	public String getAddress() {
+		return this.address;
+	}
+
+	// relationships
+	
+	public UserRole getUserRole() {
+		return this.userRole;
+	}
+	
+	public void setUserRole(UserRole userRole) {
+		this.userRole = userRole;
+	}
 
 	public Account getAccount() {
 		return this.account;
