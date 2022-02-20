@@ -34,6 +34,7 @@ public class TestCartPersistence {
 	public void clearDatabase() {
 		// First, we clear registrations to avoid exceptions due to inconsistencies
 		cartRepository.deleteAll();
+		accountRepository.deleteAll();
 	}
 	
 	public Cart createCart(Date date) {

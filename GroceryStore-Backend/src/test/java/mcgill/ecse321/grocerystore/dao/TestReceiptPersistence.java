@@ -36,6 +36,7 @@ public class TestReceiptPersistence {
 	public void clearDatabase() {
 		// First, we clear registrations to avoid exceptions due to inconsistencies
 		receiptRepository.deleteAll();
+		cartRepository.deleteAll();
 	}
 	
 	public Receipt createReceipt(ReceiptStatus status, ReceiptType type) {

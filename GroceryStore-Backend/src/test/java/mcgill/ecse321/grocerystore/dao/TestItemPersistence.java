@@ -29,31 +29,11 @@ public class TestItemPersistence {
 
 	@Autowired
 	private ItemRepository itemRepository;
-	@Autowired
-	private GroceryStoreSystemRepository groceryStoreSystemRepository;
-	@Autowired
-	private QuantityRepository quantityRepository;
 
 	@AfterEach
 	public void clearDatabase() {
 		// First, we clear registrations to avoid exceptions due to inconsistencies
 		itemRepository.deleteAll();
-	}
-	
-	public GroceryStoreSystem createGroceryStoreSystem(String storeName, String address, int employeeDiscount) {
-		GroceryStoreSystem groceryStoreSystem = new GroceryStoreSystem();
-		groceryStoreSystem.setStoreName(storeName);
-		groceryStoreSystem.setAddress(address);
-		groceryStoreSystem.setEmployeeDiscount(employeeDiscount);
-		groceryStoreSystemRepository.save(groceryStoreSystem);
-		return groceryStoreSystem;
-	}
-	
-	public Quantity createQuantity(int count) {
-		Quantity quantity = new Quantity();
-		quantity.setCount(count);
-		quantityRepository.save(quantity);
-		return quantity;
 	}
 	
 	public Item createItem(String name, int price, int point, int returnPolicy, boolean pickup, int inStoreQuantity) {

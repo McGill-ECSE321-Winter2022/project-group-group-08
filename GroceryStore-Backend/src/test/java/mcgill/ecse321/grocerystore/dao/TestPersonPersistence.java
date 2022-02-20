@@ -32,6 +32,7 @@ public class TestPersonPersistence {
 	public void clearDatabase() {
 		// First, we clear registrations to avoid exceptions due to inconsistencies
 		personRepository.deleteAll();
+		accountRepository.deleteAll();
 	}
 	
 	public Account createAccount(String username, String password, boolean inTown) {
