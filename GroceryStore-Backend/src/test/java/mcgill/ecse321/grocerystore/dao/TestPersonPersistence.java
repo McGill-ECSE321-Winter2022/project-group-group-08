@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import mcgill.ecse321.grocerystore.model.Account;
 import mcgill.ecse321.grocerystore.model.BusinessHour;
 import mcgill.ecse321.grocerystore.model.Person;
 import mcgill.ecse321.grocerystore.model.BusinessHour.WeekDay;
@@ -23,11 +24,23 @@ public class TestPersonPersistence {
 
 	@Autowired
 	private PersonRepository personRepository;
+	@Autowired
+	private AccountRepository accountRepository;
+	
 
 	@AfterEach
 	public void clearDatabase() {
 		// First, we clear registrations to avoid exceptions due to inconsistencies
 		personRepository.deleteAll();
+	}
+	
+	public Account createAccount(String username, String password, boolean inTown) {
+		Account account = new Account();
+		account.setUsername(username);
+		account.setPassword(password);
+		account.setInTown(inTown);
+		accountRepository.save(account);
+		return account;
 	}
 	
 	public Person createPerson(String email, String firstName, String lastName, int phoneNumber, String address) {
@@ -54,6 +67,47 @@ public class TestPersonPersistence {
 		person = null;
 		person = personRepository.findPersonByEmail(email);
 		
+		assertNotNull(person);
+		
+		assertEquals(email,person.getEmail());
+		assertEquals(phoneNumber,person.getPhoneNumber());
+		assertEquals(address,person.getAddress());
+		assertEquals(firstName,person.getFirstName());
+		assertEquals(lastName,person.getLastName());
+	}
+	
+	@Test
+	public void testPersistAndLoadPersonByAccount() {
+		//create an instance of person
+		String email = "abc@gmail.com";
+		int phoneNumber = 1112223333;
+		String address = "845 Sherbrooke St W, Montreal, Quebec H3A 0G4";
+		String firstName = "Bob";
+		String lastName = "Smith";
+		Person person = createPerson(email, firstName, lastName, phoneNumber, address);
+		
+		//create an instance of account
+		String username = "Bob";
+		String password = "101";
+		boolean inTown = true;
+		Account account = createAccount(username, password, inTown);
+		
+		//reference them
+		person.setAccount(account);
+		account.setPerson(person);
+		
+		//save repositories
+		personRepository.save(person);
+		accountRepository.save(account);
+		
+		person = null;
+		account = null;
+		
+		account = accountRepository.findAccountByUsername(username);
+		assertNotNull(account);
+		
+		//get person through account
+		person = account.getPerson();
 		assertNotNull(person);
 		
 		assertEquals(email,person.getEmail());
