@@ -14,7 +14,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import mcgill.ecse321.grocerystore.model.BusinessHour;
+import mcgill.ecse321.grocerystore.model.Employee;
 import mcgill.ecse321.grocerystore.model.Manager;
+import mcgill.ecse321.grocerystore.model.Person;
 import mcgill.ecse321.grocerystore.model.BusinessHour.WeekDay;
 
 @ExtendWith(SpringExtension.class)
@@ -23,17 +25,34 @@ public class TestManagerPersistence {
 
 	@Autowired
 	private ManagerRepository managerRepository;
-
+	@Autowired
+	private PersonRepository personRepository;
+	@Autowired
+	private UserRoleRepository userRoleRepository;
+	
 	@AfterEach
 	public void clearDatabase() {
 		// First, we clear registrations to avoid exceptions due to inconsistencies
 		managerRepository.deleteAll();
+		personRepository.deleteAll();
+		userRoleRepository.deleteAll();
 	}
 	
 	public Manager createManager() {
 		Manager manager = new Manager();
 		managerRepository.save(manager);
 		return manager;
+	}
+	
+	public Person createPerson(String email, String firstName, String lastName, int phoneNumber, String address) {
+		Person person = new Person();
+		person.setEmail(email);
+		person.setFirstName(firstName);
+		person.setLastName(lastName);
+		person.setPhoneNumber(phoneNumber);
+		person.setAddress(address);
+		personRepository.save(person);
+		return person;
 	}
 	
 	@Test
@@ -46,6 +65,43 @@ public class TestManagerPersistence {
 		assertNotNull(manager);
 		
 		assertEquals(id,manager.getId());
+	}
+	
+	@Test
+	public void testPersistAndLoadManagerByPerson() {
+		//create instance of manager
+		Manager manager = createManager();
+		int id = manager.getId();
+		
+		//create instance of person
+		String email = "abc@gmail.com";
+		int phoneNumber = 1112223333;
+		String address = "845 Sherbrooke St W, Montreal, Quebec H3A 0G4";
+		String firstName = "Bob";
+		String lastName = "Smith";
+				
+		Person person = createPerson(email, firstName, lastName, phoneNumber, address);
+		
+		//reference objects
+		person.setUserRole(manager);
+		manager.setPerson(person);
+		
+		personRepository.save(person);
+		managerRepository.save(manager);
+		
+		person = null;
+		manager = null;
+		
+		//get instance of person
+		person = personRepository.findPersonByEmail(email);
+			
+		assertNotNull(person);
+			
+		//get employee from person
+		manager = (Manager) person.getUserRole();
+		assertNotNull(manager);
+		
+		assertEquals(id,manager.getId());		
 	}
 	
 }

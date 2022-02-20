@@ -15,7 +15,6 @@ public class Quantity{
 	private int count;
 
 	@OneToOne(cascade={CascadeType.ALL}, optional=true)
-	@JoinColumn(name="item_id", referencedColumnName="id")
 	private Item item;
 	
 	//attribute getters and setters

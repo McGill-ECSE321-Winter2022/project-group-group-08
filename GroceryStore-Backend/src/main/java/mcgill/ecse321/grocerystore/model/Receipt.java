@@ -22,7 +22,6 @@ public class Receipt{
 	private ReceiptType receiptType;
 	
 	@ManyToOne
-	@JoinColumn(name="cart_id", nullable=false, referencedColumnName="id")
 	private Cart cart;
 	
 	//attribute getters and setters

@@ -63,43 +63,21 @@ public class TestItemPersistence {
 		item.setPoint(point);
 		item.setReturnPolicy(returnPolicy);
 		item.setPickup(pickup);
-		System.out.println("inside function ====== in store quantity: " + inStoreQuantity);
 		item.setInStoreQuantity(inStoreQuantity);
 		itemRepository.save(item);
 		return item;
 	}
 	
 	@Test
-	public void testPersistAndLoadItem() {
-		HashSet<Item> items = new HashSet<Item> (); 
-		
+	public void testPersistAndLoadItem() {		
 		String name = "Carrot";
 		int price = 2;
 		int point = 10;
 		int returnPolicy = 2;
 		boolean pickup = true;
 		int inStoreQuantity = 58;
-		System.out.println("======inStoreQuantity: " + inStoreQuantity);
 		Item item = createItem(name, price, point, returnPolicy, pickup, inStoreQuantity);
-		System.out.println("======inStoreQuantity: " + inStoreQuantity);
 		int id = item.getId();
-		items.add(item);
-		
-		//quantity
-		int count = 7;
-		
-		Quantity quantity = createQuantity(count);
-		quantity.setItem(item);
-		quantityRepository.save(quantity);
-		
-		//grocery store system
-		String storeName = "My Market";
-		String address = "845 Sherbrooke St W, Montreal, Quebec H3A 0G4";
-		int employeeDiscount = 20;
-		
-		GroceryStoreSystem groceryStoreSystem = createGroceryStoreSystem(storeName, address, employeeDiscount);
-		groceryStoreSystem.setItems(items);
-		groceryStoreSystemRepository.save(groceryStoreSystem);
 		
 		item = null;
 		item = itemRepository.findItemById(id);

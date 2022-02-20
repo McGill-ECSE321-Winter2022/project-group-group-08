@@ -13,7 +13,7 @@ import javax.persistence.JoinColumn;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class UserRole{
 	@Id
-//	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
 	@OneToOne(mappedBy="userRole")
