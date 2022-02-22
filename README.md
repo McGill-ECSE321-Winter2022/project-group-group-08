@@ -1,7 +1,5 @@
 # Grocery Store Application
-The team should provide a welcome page that introduces the team and describes the main scope of the project in
-the README.md file in the root of each team’s repository. In addition, the README.md file should contain an
-overview table with names, team roles, and individual efforts (in hours) with separated entries for each deliverable.
+We are a team of 6 McGill Engineering students creating a grocery store website and application designed for a small town. The grocery store system would allow customers to browse through items in the store and order online delivery or pickup. The system is also designed to help facilitate the management of the the stores inventory, opening hours, and staff.
 
 ## Project Overview
 1. [Deliverable 1 – Requirements, Domain Modeling, and Database Design](https://github.com/McGill-ECSE321-Winter2022/project-group-group-08/wiki/Deliverable-1:-Requirements,-Domain-Model,-and-Database-Design)
