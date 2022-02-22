@@ -3,6 +3,7 @@ package mcgill.ecse321.grocerystore.dao;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,32 +11,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import mcgill.ecse321.grocerystore.model.Account;
+import mcgill.ecse321.grocerystore.model.Manager;
 import mcgill.ecse321.grocerystore.model.Person;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class TestAccountPersistence {
+public class TestManagerPersistence {
 
 	@Autowired
-	private AccountRepository accountRepository;
+	private ManagerRepository managerRepository;
 	@Autowired
 	private PersonRepository personRepository;
-
+	@Autowired
+	private UserRoleRepository userRoleRepository;
+	
 	@AfterEach
 	public void clearDatabase() {
 		// First, we clear registrations to avoid exceptions due to inconsistencies
-		accountRepository.deleteAll();
+		managerRepository.deleteAll();
 		personRepository.deleteAll();
+		userRoleRepository.deleteAll();
 	}
 	
-	public Account createAccount(String username, String password, boolean inTown) {
-		Account account = new Account();
-		account.setUsername(username);
-		account.setPassword(password);
-		account.setInTown(inTown);
-		accountRepository.save(account);
-		return account;
+	public Manager createManager() {
+		Manager manager = new Manager();
+		managerRepository.save(manager);
+		return manager;
 	}
 	
 	public Person createPerson(String email, String firstName, String lastName, int phoneNumber, String address) {
@@ -50,63 +51,52 @@ public class TestAccountPersistence {
 	}
 	
 	@Test
-	public void testPersistAndLoadAccount() {
-		String username = "Bob";
-		String password = "101";
-		boolean inTown = true;
+	public void testPersistAndLoadManager() {
+		Manager manager = createManager();
+		int id = manager.getId();
 		
-		Account account = createAccount(username, password, inTown);
+		manager = null;
+		manager = managerRepository.findManagerById(id);
+		assertNotNull(manager);
 		
-		account = null;
-		account = accountRepository.findAccountByUsername(username);
-		
-		assertNotNull(account);
-		
-		assertEquals(username,account.getUsername());
-		assertEquals(password,account.getPassword());
-		assertEquals(inTown,account.getInTown());
+		assertEquals(id,manager.getId());
 	}
 	
-	
 	@Test
-	public void testPersistAndLoadAccountByPerson() {
-		//create an instance of a person 
+	public void testPersistAndLoadManagerByPerson() {
+		//create instance of manager
+		Manager manager = createManager();
+		int id = manager.getId();
+		
+		//create instance of person
 		String email = "abc@gmail.com";
 		int phoneNumber = 1112223333;
 		String address = "845 Sherbrooke St W, Montreal, Quebec H3A 0G4";
 		String firstName = "Bob";
 		String lastName = "Smith";
+				
 		Person person = createPerson(email, firstName, lastName, phoneNumber, address);
 		
-		//create an instance of an account
-		String username = "Bob";
-		String password = "101";
-		boolean inTown = true;
-		Account account = createAccount(username, password, inTown);
+		//reference objects
+		person.setUserRole(manager);
+		manager.setPerson(person);
 		
-		//link both together
-		person.setAccount(account);
-		account.setPerson(person);
-		
-		//save repositories
 		personRepository.save(person);
-		accountRepository.save(account);
+		managerRepository.save(manager);
 		
 		person = null;
-		account = null;
+		manager = null;
 		
-		//find person
+		//get instance of person
 		person = personRepository.findPersonByEmail(email);
+			
 		assertNotNull(person);
+			
+		//get employee from person
+		manager = (Manager) person.getUserRole();
+		assertNotNull(manager);
 		
-		//find account through person
-		account = person.getAccount();
-		assertNotNull(account);
-		
-		//test attributes
-		assertEquals(username,account.getUsername());
-		assertEquals(password,account.getPassword());
-		assertEquals(inTown,account.getInTown());
+		assertEquals(id,manager.getId());		
 	}
 	
 }

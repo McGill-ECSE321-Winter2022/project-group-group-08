@@ -1,7 +1,5 @@
 package mcgill.ecse321.grocerystore.dao;
 
-import java.util.List;
-
 import org.springframework.data.repository.CrudRepository;
 
 import mcgill.ecse321.grocerystore.model.Receipt;
@@ -12,9 +10,9 @@ public interface ReceiptRepository extends CrudRepository<Receipt, Integer>{
 	
 	Receipt findReceiptByReceiptNum(int receiptNum);
 	
-	List<Receipt> findReceiptByReceiptStatus(ReceiptStatus receiptStatus);
+	Receipt findReceiptByReceiptStatus(ReceiptStatus receiptStatus);
 	
-	List<Receipt> findReceiptByReceiptType(ReceiptType receiptType);
+	Receipt findReceiptByReceiptType(ReceiptType receiptType);
 	
-	List<Receipt> findReceiptByReceiptStatusAndReceiptType(ReceiptStatus receiptStatus, ReceiptType receiptType);
+	Receipt findReceiptByReceiptStatusAndReceiptType(ReceiptStatus receiptStatus, ReceiptType receiptType);
 }

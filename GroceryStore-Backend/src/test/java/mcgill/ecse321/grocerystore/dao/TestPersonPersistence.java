@@ -15,18 +15,19 @@ import mcgill.ecse321.grocerystore.model.Person;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
-public class TestAccountPersistence {
+public class TestPersonPersistence {
 
 	@Autowired
-	private AccountRepository accountRepository;
-	@Autowired
 	private PersonRepository personRepository;
+	@Autowired
+	private AccountRepository accountRepository;
+	
 
 	@AfterEach
 	public void clearDatabase() {
 		// First, we clear registrations to avoid exceptions due to inconsistencies
-		accountRepository.deleteAll();
 		personRepository.deleteAll();
+		accountRepository.deleteAll();
 	}
 	
 	public Account createAccount(String username, String password, boolean inTown) {
@@ -50,27 +51,30 @@ public class TestAccountPersistence {
 	}
 	
 	@Test
-	public void testPersistAndLoadAccount() {
-		String username = "Bob";
-		String password = "101";
-		boolean inTown = true;
+	public void testPersistAndLoadPerson() {
+		String email = "abc@gmail.com";
+		int phoneNumber = 1112223333;
+		String address = "845 Sherbrooke St W, Montreal, Quebec H3A 0G4";
+		String firstName = "Bob";
+		String lastName = "Smith";
 		
-		Account account = createAccount(username, password, inTown);
+		Person person = createPerson(email, firstName, lastName, phoneNumber, address);
 		
-		account = null;
-		account = accountRepository.findAccountByUsername(username);
+		person = null;
+		person = personRepository.findPersonByEmail(email);
 		
-		assertNotNull(account);
+		assertNotNull(person);
 		
-		assertEquals(username,account.getUsername());
-		assertEquals(password,account.getPassword());
-		assertEquals(inTown,account.getInTown());
+		assertEquals(email,person.getEmail());
+		assertEquals(phoneNumber,person.getPhoneNumber());
+		assertEquals(address,person.getAddress());
+		assertEquals(firstName,person.getFirstName());
+		assertEquals(lastName,person.getLastName());
 	}
 	
-	
 	@Test
-	public void testPersistAndLoadAccountByPerson() {
-		//create an instance of a person 
+	public void testPersistAndLoadPersonByAccount() {
+		//create an instance of person
 		String email = "abc@gmail.com";
 		int phoneNumber = 1112223333;
 		String address = "845 Sherbrooke St W, Montreal, Quebec H3A 0G4";
@@ -78,13 +82,13 @@ public class TestAccountPersistence {
 		String lastName = "Smith";
 		Person person = createPerson(email, firstName, lastName, phoneNumber, address);
 		
-		//create an instance of an account
+		//create an instance of account
 		String username = "Bob";
 		String password = "101";
 		boolean inTown = true;
 		Account account = createAccount(username, password, inTown);
 		
-		//link both together
+		//reference them
 		person.setAccount(account);
 		account.setPerson(person);
 		
@@ -95,18 +99,17 @@ public class TestAccountPersistence {
 		person = null;
 		account = null;
 		
-		//find person
-		person = personRepository.findPersonByEmail(email);
-		assertNotNull(person);
-		
-		//find account through person
-		account = person.getAccount();
+		account = accountRepository.findAccountByUsername(username);
 		assertNotNull(account);
 		
-		//test attributes
-		assertEquals(username,account.getUsername());
-		assertEquals(password,account.getPassword());
-		assertEquals(inTown,account.getInTown());
+		//get person through account
+		person = account.getPerson();
+		assertNotNull(person);
+		
+		assertEquals(email,person.getEmail());
+		assertEquals(phoneNumber,person.getPhoneNumber());
+		assertEquals(address,person.getAddress());
+		assertEquals(firstName,person.getFirstName());
+		assertEquals(lastName,person.getLastName());
 	}
-	
 }

@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 
 @Entity
 public class Quantity{
@@ -15,7 +14,6 @@ public class Quantity{
 	private int count;
 
 	@OneToOne(cascade={CascadeType.ALL}, optional=true)
-	@JoinColumn(name="item_id", referencedColumnName="id")
 	private Item item;
 	
 	//attribute getters and setters

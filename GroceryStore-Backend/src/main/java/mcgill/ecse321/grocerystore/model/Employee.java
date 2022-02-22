@@ -3,11 +3,12 @@ import java.util.*;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 @Entity
 public class Employee extends UserRole{
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	private Set<BusinessHour> workingHours;
 	
 	//relationships

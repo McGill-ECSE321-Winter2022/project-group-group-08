@@ -5,7 +5,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -22,7 +21,6 @@ public class Receipt{
 	private ReceiptType receiptType;
 	
 	@ManyToOne
-	@JoinColumn(name="cart_id", nullable=false, referencedColumnName="id")
 	private Cart cart;
 	
 	//attribute getters and setters
