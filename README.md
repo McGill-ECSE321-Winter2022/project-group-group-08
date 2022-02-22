@@ -31,6 +31,7 @@ overview table with names, team roles, and individual efforts (in hours) with se
 
 
 ## Deliverable 1
+The project report for this deliverable can be found here.
 | Team Member | Tasks | Hours Spent |
 |:-----------:|:-------------:|:----:|
 | Aigiarn Cheuk | Requirements, Domain Model, Use Case Diagrams and Specifications, Recorded meeting minutes, Wiki, READ.me, DAO | 13 |
