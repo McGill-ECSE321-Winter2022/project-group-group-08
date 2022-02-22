@@ -33,7 +33,7 @@ The project report for this deliverable can be found here.
 | Team Member | Tasks | Hours Spent |
 |:-----------:|:-------------:|:----:|
 | Aigiarn Cheuk | Requirements, Domain Model, Use Case Diagrams and Specifications, Recorded meeting minutes, Wiki, READ.me, DAO | 13 |
-| Mihail Calitoiu | Requirements, Domain Model, Use Case Diagrams and Specifications, DAO, Persistence Layer, Persistence Testing | 15 |
+| Mihail Calitoiu | Requirements, Domain Model, Use Case Diagrams and Specifications, DAO, Persistence Layer, Persistence Testing | 12 |
 | Selina Gao | Requirements, Domain Model, Use Case Diagrams and Specifications, DAO | 10 |
 | Joey Koay | Requirements, Domain Model, Use Case Diagrams and Specifications, DAO, Persistence Layer, Persistence Testing | 15 |
 | Joey Liu | Requirements, Domain Model, Build System and Continous Integration, Set Up Heroku, DAO, Persistence Layer, Persistence Testing | 20 |
