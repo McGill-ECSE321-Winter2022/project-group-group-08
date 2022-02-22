@@ -4,9 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.sql.Date;
-import java.sql.Time;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.time.Month;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,10 +17,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import mcgill.ecse321.grocerystore.model.Account;
-import mcgill.ecse321.grocerystore.model.BusinessHour;
 import mcgill.ecse321.grocerystore.model.Cart;
 import mcgill.ecse321.grocerystore.model.Quantity;
-import mcgill.ecse321.grocerystore.model.BusinessHour.WeekDay;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest

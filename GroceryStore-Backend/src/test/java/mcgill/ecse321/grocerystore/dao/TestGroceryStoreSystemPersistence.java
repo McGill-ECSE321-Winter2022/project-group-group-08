@@ -2,7 +2,6 @@ package mcgill.ecse321.grocerystore.dao;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.sql.Time;
 import java.time.LocalTime;

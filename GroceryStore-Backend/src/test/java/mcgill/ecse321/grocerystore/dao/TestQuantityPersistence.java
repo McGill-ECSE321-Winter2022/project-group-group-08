@@ -3,11 +3,6 @@ package mcgill.ecse321.grocerystore.dao;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.sql.Time;
-import java.time.LocalTime;
-import java.util.HashSet;
-import java.util.Set;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,11 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import mcgill.ecse321.grocerystore.model.BusinessHour;
-import mcgill.ecse321.grocerystore.model.GroceryStoreSystem;
 import mcgill.ecse321.grocerystore.model.Item;
 import mcgill.ecse321.grocerystore.model.Quantity;
-import mcgill.ecse321.grocerystore.model.BusinessHour.WeekDay;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
