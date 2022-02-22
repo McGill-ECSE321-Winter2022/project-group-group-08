@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.sql.Time;
 import java.time.LocalTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -29,6 +31,8 @@ public class TestEmployeePersistence {
 	private PersonRepository personRepository;
 	@Autowired
 	private UserRoleRepository userRoleRepository;
+	@Autowired
+	private BusinessHourRepository businessHourRepository;
 
 	@AfterEach
 	public void clearDatabase() {
@@ -36,6 +40,7 @@ public class TestEmployeePersistence {
 		employeeRepository.deleteAll();
 		personRepository.deleteAll();
 		userRoleRepository.deleteAll();
+		businessHourRepository.deleteAll();
 	}
 	
 
@@ -54,6 +59,16 @@ public class TestEmployeePersistence {
 		person.setAddress(address);
 		personRepository.save(person);
 		return person;
+	}
+	
+	public BusinessHour createBusinessHour(WeekDay day, Time startTime, Time endTime, boolean working) {
+		BusinessHour bH = new BusinessHour();
+		bH.setDay(day);
+		bH.setStartTime(startTime);
+		bH.setEndTime(endTime);
+		bH.setWorking(working);
+		businessHourRepository.save(bH);
+		return bH;
 	}
 	
 	@Test
@@ -106,4 +121,37 @@ public class TestEmployeePersistence {
 		assertEquals(id,employee.getId());
 	}
 	
+	@Test
+	public void testPersistAndLoadWorkingHoursByEmployee() {
+		Employee employee = createEmployee();
+		int id= employee.getId();
+		
+		WeekDay dayOfWeek = WeekDay.Monday;
+		Time startTime = java.sql.Time.valueOf(LocalTime.of(9, 30));
+		Time endTime = java.sql.Time.valueOf(LocalTime.of(17, 00));
+		boolean working = true;
+		
+		BusinessHour bH = createBusinessHour(dayOfWeek,startTime,endTime,working);
+		
+		int idBH = bH.getId();
+		
+		Set<BusinessHour> workingHours = new HashSet<BusinessHour>();
+		workingHours.add(bH);
+		employee.setWorkingHours(workingHours);
+		employeeRepository.save(employee);
+		
+		bH = null;
+		workingHours = null;
+		employee = null;
+		
+		employee = employeeRepository.findEmployeeById(id);
+		bH = employee.getWorkingHours().iterator().next();
+		
+		assertNotNull(employee);
+		assertEquals(idBH,bH.getId());
+		assertEquals(dayOfWeek, bH.getDay());
+		assertEquals(startTime, bH.getStartTime());
+		assertEquals(endTime, bH.getEndTime());
+		assertEquals(working,bH.getWorking());
+	}
 }

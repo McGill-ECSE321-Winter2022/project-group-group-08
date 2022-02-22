@@ -8,6 +8,8 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -19,6 +21,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import mcgill.ecse321.grocerystore.model.Account;
 import mcgill.ecse321.grocerystore.model.BusinessHour;
 import mcgill.ecse321.grocerystore.model.Cart;
+import mcgill.ecse321.grocerystore.model.Quantity;
 import mcgill.ecse321.grocerystore.model.BusinessHour.WeekDay;
 
 @ExtendWith(SpringExtension.class)
@@ -29,12 +32,15 @@ public class TestCartPersistence {
 	private CartRepository cartRepository;
 	@Autowired
 	private AccountRepository accountRepository;
+	@Autowired
+	private QuantityRepository quantityRepository;
 
 	@AfterEach
 	public void clearDatabase() {
 		// First, we clear registrations to avoid exceptions due to inconsistencies
 		cartRepository.deleteAll();
 		accountRepository.deleteAll();
+		quantityRepository.deleteAll();
 	}
 	
 	public Cart createCart(Date date) {
@@ -51,6 +57,13 @@ public class TestCartPersistence {
 		account.setInTown(inTown);
 		accountRepository.save(account);
 		return account;
+	}
+	
+	public Quantity createQuantity(int count) {
+		Quantity quantity = new Quantity();
+		quantity.setCount(count);
+		quantityRepository.save(quantity);
+		return quantity;
 	}
 	
 	@Test
@@ -105,4 +118,32 @@ public class TestCartPersistence {
 		assertEquals(date,cart.getDate());
 	}
 	
+	@Test
+	public void testPersistAndLoadQuantityByCart() {
+		//create instance of cart
+		Date date = java.sql.Date.valueOf(LocalDate.of(2021, Month.DECEMBER, 2));
+		
+		Cart cart = createCart(date);
+		int id= cart.getId();
+		
+		int count = 7;
+		
+		Quantity quantity = createQuantity(count);
+		int id2 = quantity.getId();
+		
+		Set<Quantity> itemQuantities = new HashSet<Quantity>();
+		itemQuantities.add(quantity);
+		cart.setItemQuantities(itemQuantities);
+		cartRepository.save(cart);
+		
+		itemQuantities = null;
+		quantity = null;
+		cart = null;
+		
+		cart = cartRepository.findCartById(id);
+		quantity = cart.getItemQuantities().iterator().next();		
+		
+		assertEquals(id2,quantity.getId());
+		assertEquals(count,quantity.getCount());
+	}
 }

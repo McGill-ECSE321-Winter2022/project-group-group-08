@@ -3,6 +3,7 @@ import java.util.*;
 import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 
 @Entity
@@ -12,10 +13,10 @@ public class GroceryStoreSystem{
 	private String address;
 	private int employeeDiscount;
 
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	private Set<BusinessHour> openingHours;
 	
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	private Set<Item> items;
 	
 	//attributes getters and setters
