@@ -27,18 +27,20 @@ public class TestManagerPersistence {
 	
 	@AfterEach
 	public void clearDatabase() {
-		// First, we clear registrations to avoid exceptions due to inconsistencies
+		// First, we clear the repositories to avoid exceptions due to inconsistencies
 		managerRepository.deleteAll();
 		personRepository.deleteAll();
 		userRoleRepository.deleteAll();
 	}
 	
+	//creates a manager
 	public Manager createManager() {
 		Manager manager = new Manager();
 		managerRepository.save(manager);
 		return manager;
 	}
 	
+	//creates a person
 	public Person createPerson(String email, String firstName, String lastName, int phoneNumber, String address) {
 		Person person = new Person();
 		person.setEmail(email);
@@ -57,6 +59,8 @@ public class TestManagerPersistence {
 		
 		manager = null;
 		manager = managerRepository.findManagerById(id);
+		
+		//testing
 		assertNotNull(manager);
 		
 		assertEquals(id,manager.getId());
@@ -89,11 +93,13 @@ public class TestManagerPersistence {
 		
 		//get instance of person
 		person = personRepository.findPersonByEmail(email);
-			
-		assertNotNull(person);
-			
+		
 		//get employee from person
 		manager = (Manager) person.getUserRole();
+		
+		//testing
+		assertNotNull(person);
+		
 		assertNotNull(manager);
 		
 		assertEquals(id,manager.getId());		

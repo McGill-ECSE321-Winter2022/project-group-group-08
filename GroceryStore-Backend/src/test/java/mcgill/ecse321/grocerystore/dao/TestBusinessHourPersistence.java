@@ -25,12 +25,13 @@ public class TestBusinessHourPersistence {
 
 	@AfterEach
 	public void clearDatabase() {
-		// First, we clear registrations to avoid exceptions due to inconsistencies
+		// First, we clear the repositories to avoid exceptions due to inconsistencies
 		businessHourRepository.deleteAll();
 	}
 	
 	@Test
-	public void testPersistAndLoadAccount() {
+	public void testPersistAndLoadBusinessHour() {
+		//business hour attributes
 		WeekDay dayOfWeek = WeekDay.Monday;
 		Time startTime = java.sql.Time.valueOf(LocalTime.of(9, 30));
 		Time endTime = java.sql.Time.valueOf(LocalTime.of(17, 00));
@@ -47,6 +48,7 @@ public class TestBusinessHourPersistence {
 		bH = null;
 		bH = businessHourRepository.findBusinessHourById(id);
 		
+		//testing
 		assertNotNull(bH);
 		assertEquals(dayOfWeek, bH.getDay());
 		assertEquals(startTime, bH.getStartTime());

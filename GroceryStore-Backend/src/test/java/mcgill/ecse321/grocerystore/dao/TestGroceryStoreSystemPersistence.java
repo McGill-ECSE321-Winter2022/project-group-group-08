@@ -34,12 +34,13 @@ public class TestGroceryStoreSystemPersistence {
 
 	@AfterEach
 	public void clearDatabase() {
-		// First, we clear registrations to avoid exceptions due to inconsistencies
+		// First, we clear the repositories to avoid exceptions due to inconsistencies
 		groceryStoreSystemRepository.deleteAll();
 		itemRepository.deleteAll();
 		bHRepository.deleteAll();
 	}
 	
+	//creates a grocery store system
 	public GroceryStoreSystem createGroceryStoreSystem(String storeName, String address, int employeeDiscount) {
 		GroceryStoreSystem groceryStoreSystem = new GroceryStoreSystem();
 		groceryStoreSystem.setStoreName(storeName);
@@ -49,6 +50,7 @@ public class TestGroceryStoreSystemPersistence {
 		return groceryStoreSystem;
 	}
 	
+	//creates an item
 	public Item createItem(String name, int price, int point, int returnPolicy, boolean pickup, int inStoreQuantity) {
 		Item item = new Item();
 		item.setName(name);
@@ -61,6 +63,7 @@ public class TestGroceryStoreSystemPersistence {
 		return item;
 	}
 	
+	//creates a business hour
 	public BusinessHour createBusinessHour(WeekDay day, Time startTime, Time endTime, boolean working) {
 		BusinessHour bH = new BusinessHour();
 		bH.setDay(day);
@@ -73,6 +76,7 @@ public class TestGroceryStoreSystemPersistence {
 	
 	@Test
 	public void testPersistAndLoadGroceryStoreSystem() {
+		//grocery store system attributes
 		String storeName = "My Market";
 		String address = "845 Sherbrooke St W, Montreal, Quebec H3A 0G4";
 		int employeeDiscount = 20;
@@ -82,6 +86,7 @@ public class TestGroceryStoreSystemPersistence {
 		groceryStoreSystem = null;
 		groceryStoreSystem = groceryStoreSystemRepository.findGroceryStoreSystemByStoreName(storeName);
 		
+		//testing
 		assertNotNull(groceryStoreSystem);
 		
 		assertEquals(storeName,groceryStoreSystem.getStoreName());
@@ -123,6 +128,7 @@ public class TestGroceryStoreSystemPersistence {
 		groceryStoreSystem = groceryStoreSystemRepository.findGroceryStoreSystemByStoreName(storeName);
 		item = groceryStoreSystem.getItems().iterator().next();
 		
+		//testing
 		assertNotNull(groceryStoreSystem);
 		assertEquals(id,item.getId());
 		assertEquals(name,item.getName());
@@ -142,6 +148,7 @@ public class TestGroceryStoreSystemPersistence {
 		
 		GroceryStoreSystem groceryStoreSystem = createGroceryStoreSystem(storeName, address, employeeDiscount);
 		
+		//creates an instance of opening hours
 		WeekDay dayOfWeek = WeekDay.Monday;
 		Time startTime = java.sql.Time.valueOf(LocalTime.of(9, 30));
 		Time endTime = java.sql.Time.valueOf(LocalTime.of(17, 00));
@@ -151,6 +158,7 @@ public class TestGroceryStoreSystemPersistence {
 		
 		int id = bH.getId();
 		
+		//adding opening hours to the system
 		Set<BusinessHour> openingHours = new HashSet<BusinessHour>();
 		openingHours.add(bH);
 		groceryStoreSystem.setOpeningHours(openingHours);
@@ -163,6 +171,7 @@ public class TestGroceryStoreSystemPersistence {
 		groceryStoreSystem = groceryStoreSystemRepository.findGroceryStoreSystemByStoreName(storeName);
 		bH = groceryStoreSystem.getOpeningHours().iterator().next();
 		
+		//testing
 		assertNotNull(groceryStoreSystem);
 		assertEquals(id,bH.getId());
 		assertEquals(dayOfWeek, bH.getDay());

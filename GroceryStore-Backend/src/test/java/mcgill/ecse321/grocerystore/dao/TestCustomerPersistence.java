@@ -28,12 +28,13 @@ public class TestCustomerPersistence {
 
 	@AfterEach
 	public void clearDatabase() {
-		// First, we clear registrations to avoid exceptions due to inconsistencies
+		// First, we clear the repositories to avoid exceptions due to inconsistencies
 		customerRepository.deleteAll();
 		personRepository.deleteAll();
 		userRoleRepository.deleteAll();
 	}
 	
+	//creates a customer
 	public Customer createCustomer(TierClass tierClass, boolean ban) {
 		Customer customer = new Customer();
 		customer.setTierclass(tierClass);
@@ -42,6 +43,7 @@ public class TestCustomerPersistence {
 		return customer;
 	}
 	
+	//creates a person
 	public Person createPerson(String email, String firstName, String lastName, int phoneNumber, String address) {
 		Person person = new Person();
 		person.setEmail(email);
@@ -55,6 +57,7 @@ public class TestCustomerPersistence {
 	
 	@Test
 	public void testPersistAndLoadCustomer() {
+		//customer attributes
 		TierClass tierClass = TierClass.Bronze;
 		boolean ban = false;
 		Customer customer = createCustomer(tierClass, ban);
@@ -63,6 +66,7 @@ public class TestCustomerPersistence {
 		customer = null;
 		customer = customerRepository.findCustomerById(id);
 		
+		//testing
 		assertNotNull(customer);
 		
 		assertEquals(id,customer.getId());
@@ -100,10 +104,11 @@ public class TestCustomerPersistence {
 		//get instance of person
 		person = personRepository.findPersonByEmail(email);
 		
-		assertNotNull(person);
-		
 		//get customer from person
 		customer = (Customer) person.getUserRole();
+		
+		//testing
+		assertNotNull(person);
 		
 		assertNotNull(customer);
 		assertEquals(id,customer.getId());

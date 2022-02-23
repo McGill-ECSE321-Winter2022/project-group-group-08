@@ -21,10 +21,11 @@ public class TestItemPersistence {
 
 	@AfterEach
 	public void clearDatabase() {
-		// First, we clear registrations to avoid exceptions due to inconsistencies
+		// First, we clear the repositories to avoid exceptions due to inconsistencies
 		itemRepository.deleteAll();
 	}
 	
+	//creates an item
 	public Item createItem(String name, int price, int point, int returnPolicy, boolean pickup, int inStoreQuantity) {
 		Item item = new Item();
 		item.setName(name);
@@ -38,7 +39,8 @@ public class TestItemPersistence {
 	}
 	
 	@Test
-	public void testPersistAndLoadItem() {		
+	public void testPersistAndLoadItem() {	
+		//item attributes
 		String name = "Carrot";
 		int price = 2;
 		int point = 10;
@@ -51,6 +53,7 @@ public class TestItemPersistence {
 		item = null;
 		item = itemRepository.findItemById(id);
 		
+		//testing
 		assertNotNull(item);
 		
 		assertEquals(id,item.getId());

@@ -25,11 +25,12 @@ public class TestPersonPersistence {
 
 	@AfterEach
 	public void clearDatabase() {
-		// First, we clear registrations to avoid exceptions due to inconsistencies
+		// First, we clear the repositories to avoid exceptions due to inconsistencies
 		personRepository.deleteAll();
 		accountRepository.deleteAll();
 	}
 	
+	//creates an account
 	public Account createAccount(String username, String password, boolean inTown) {
 		Account account = new Account();
 		account.setUsername(username);
@@ -39,6 +40,7 @@ public class TestPersonPersistence {
 		return account;
 	}
 	
+	//creates a person
 	public Person createPerson(String email, String firstName, String lastName, int phoneNumber, String address) {
 		Person person = new Person();
 		person.setEmail(email);
@@ -52,6 +54,7 @@ public class TestPersonPersistence {
 	
 	@Test
 	public void testPersistAndLoadPerson() {
+		//person attributes
 		String email = "abc@gmail.com";
 		int phoneNumber = 1112223333;
 		String address = "845 Sherbrooke St W, Montreal, Quebec H3A 0G4";
@@ -63,6 +66,7 @@ public class TestPersonPersistence {
 		person = null;
 		person = personRepository.findPersonByEmail(email);
 		
+		//testing
 		assertNotNull(person);
 		
 		assertEquals(email,person.getEmail());
@@ -100,10 +104,13 @@ public class TestPersonPersistence {
 		account = null;
 		
 		account = accountRepository.findAccountByUsername(username);
-		assertNotNull(account);
 		
 		//get person through account
 		person = account.getPerson();
+		
+		//testing
+		assertNotNull(account);
+		
 		assertNotNull(person);
 		
 		assertEquals(email,person.getEmail());

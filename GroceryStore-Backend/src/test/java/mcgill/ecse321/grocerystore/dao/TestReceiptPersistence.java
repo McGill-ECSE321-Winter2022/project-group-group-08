@@ -30,11 +30,12 @@ public class TestReceiptPersistence {
 
 	@AfterEach
 	public void clearDatabase() {
-		// First, we clear registrations to avoid exceptions due to inconsistencies
+		// First, we clear the repositories to avoid exceptions due to inconsistencies
 		receiptRepository.deleteAll();
 		cartRepository.deleteAll();
 	}
 	
+	//creates receipts
 	public Receipt createReceipt(ReceiptStatus status, ReceiptType type) {
 		Receipt receipt = new Receipt();
 		receipt.setReceiptStatus(status);
@@ -43,6 +44,7 @@ public class TestReceiptPersistence {
 		return receipt;
 	}	
 	
+	//creates carts
 	public Cart createCart(Date date) {
 		Cart cart = new Cart();
 		cart.setDate(date);
@@ -52,6 +54,7 @@ public class TestReceiptPersistence {
 	
 	@Test
 	public void testPersistAndLoadReceipt() {
+		//receipt attributes
 		ReceiptStatus status = ReceiptStatus.Processed;
 		ReceiptType type = ReceiptType.Pickup;
 		
@@ -69,6 +72,7 @@ public class TestReceiptPersistence {
 		receipt = null;
 		receipt = receiptRepository.findReceiptByReceiptNum(receiptNum);
 		
+		//testing
 		assertNotNull(receipt);
 		
 		assertEquals(receiptNum,receipt.getReceiptNum());

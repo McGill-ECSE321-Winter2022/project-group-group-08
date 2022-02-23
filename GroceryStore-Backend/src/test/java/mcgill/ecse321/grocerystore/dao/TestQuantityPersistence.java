@@ -24,11 +24,12 @@ public class TestQuantityPersistence {
 
 	@AfterEach
 	public void clearDatabase() {
-		// First, we clear registrations to avoid exceptions due to inconsistencies
+		// First, we clear the repositories to avoid exceptions due to inconsistencies
 		quantityRepository.deleteAll();
 		itemRepository.deleteAll();
 	}
 	
+	//creates a quantity
 	public Quantity createQuantity(int count) {
 		Quantity quantity = new Quantity();
 		quantity.setCount(count);
@@ -36,6 +37,7 @@ public class TestQuantityPersistence {
 		return quantity;
 	}
 	
+	//creates an item
 	public Item createItem(String name, int price, int point, int returnPolicy, boolean pickup, int inStoreQuantity) {
 		Item item = new Item();
 		item.setName(name);
@@ -50,6 +52,7 @@ public class TestQuantityPersistence {
 	
 	@Test
 	public void testPersistAndLoadQuantity() {
+		//quantity attributes
 		int count = 7;
 		
 		Quantity quantity = createQuantity(count);
@@ -58,6 +61,7 @@ public class TestQuantityPersistence {
 		quantity = null;
 		quantity = quantityRepository.findQuantityById(id);
 		
+		//testing
 		assertNotNull(quantity);
 		
 		assertEquals(id,quantity.getId());
@@ -92,6 +96,7 @@ public class TestQuantityPersistence {
 		quantity = quantityRepository.findQuantityById(id);
 		item = quantity.getItem();
 		
+		//testing
 		assertNotNull(quantity);
 		assertEquals(id2,item.getId());
 		assertEquals(name,item.getName());

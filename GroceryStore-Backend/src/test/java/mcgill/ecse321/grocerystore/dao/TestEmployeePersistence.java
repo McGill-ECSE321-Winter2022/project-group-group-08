@@ -35,20 +35,21 @@ public class TestEmployeePersistence {
 
 	@AfterEach
 	public void clearDatabase() {
-		// First, we clear registrations to avoid exceptions due to inconsistencies
+		// First, we clear the repositories to avoid exceptions due to inconsistencies
 		employeeRepository.deleteAll();
 		personRepository.deleteAll();
 		userRoleRepository.deleteAll();
 		businessHourRepository.deleteAll();
 	}
 	
-
+	//creates an employee
 	public Employee createEmployee() {
 		Employee employee = new Employee();
 		employeeRepository.save(employee);
 		return employee;
 	}
 	
+	//creates a person
 	public Person createPerson(String email, String firstName, String lastName, int phoneNumber, String address) {
 		Person person = new Person();
 		person.setEmail(email);
@@ -60,6 +61,7 @@ public class TestEmployeePersistence {
 		return person;
 	}
 	
+	//creates a business hour
 	public BusinessHour createBusinessHour(WeekDay day, Time startTime, Time endTime, boolean working) {
 		BusinessHour bH = new BusinessHour();
 		bH.setDay(day);
@@ -78,6 +80,7 @@ public class TestEmployeePersistence {
 		employee = null;
 		employee = employeeRepository.findEmployeeById(id);
 		
+		//testing
 		assertNotNull(employee);
 		
 		assertEquals(id,employee.getId());
@@ -109,11 +112,12 @@ public class TestEmployeePersistence {
 		
 		//get instance of person
 		person = personRepository.findPersonByEmail(email);
-			
-		assertNotNull(person);
-			
+		
 		//get employee from person
 		employee = (Employee) person.getUserRole();
+			
+		//testing
+		assertNotNull(person);
 				
 		assertNotNull(employee);
 		
@@ -125,6 +129,7 @@ public class TestEmployeePersistence {
 		Employee employee = createEmployee();
 		int id= employee.getId();
 		
+		//creating an instance of working hour
 		WeekDay dayOfWeek = WeekDay.Monday;
 		Time startTime = java.sql.Time.valueOf(LocalTime.of(9, 30));
 		Time endTime = java.sql.Time.valueOf(LocalTime.of(17, 00));
@@ -134,6 +139,7 @@ public class TestEmployeePersistence {
 		
 		int idBH = bH.getId();
 		
+		//setting employee's working hours
 		Set<BusinessHour> workingHours = new HashSet<BusinessHour>();
 		workingHours.add(bH);
 		employee.setWorkingHours(workingHours);
@@ -146,6 +152,7 @@ public class TestEmployeePersistence {
 		employee = employeeRepository.findEmployeeById(id);
 		bH = employee.getWorkingHours().iterator().next();
 		
+		//testing
 		assertNotNull(employee);
 		assertEquals(idBH,bH.getId());
 		assertEquals(dayOfWeek, bH.getDay());

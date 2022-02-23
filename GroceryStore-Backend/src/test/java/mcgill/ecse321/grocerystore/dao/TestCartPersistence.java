@@ -33,12 +33,13 @@ public class TestCartPersistence {
 
 	@AfterEach
 	public void clearDatabase() {
-		// First, we clear registrations to avoid exceptions due to inconsistencies
+		// First, we clear the repositories to avoid exceptions due to inconsistencies
 		cartRepository.deleteAll();
 		accountRepository.deleteAll();
 		quantityRepository.deleteAll();
 	}
 	
+	//creates a cart
 	public Cart createCart(Date date) {
 		Cart cart = new Cart();
 		cart.setDate(date);
@@ -46,6 +47,7 @@ public class TestCartPersistence {
 		return cart;
 	}
 	
+	//creates an account
 	public Account createAccount(String username, String password, boolean inTown) {
 		Account account = new Account();
 		account.setUsername(username);
@@ -55,6 +57,7 @@ public class TestCartPersistence {
 		return account;
 	}
 	
+	//creates quantity
 	public Quantity createQuantity(int count) {
 		Quantity quantity = new Quantity();
 		quantity.setCount(count);
@@ -73,6 +76,7 @@ public class TestCartPersistence {
 		cart = null;
 		cart = cartRepository.findCartById(id);
 		
+		//testing
 		assertNotNull(cart);
 		assertEquals(id,cart.getId());
 		assertEquals(date,cart.getDate());
@@ -101,8 +105,9 @@ public class TestCartPersistence {
 		
 		cart = null;
 		account = null;
-		
 		account = accountRepository.findAccountByUsername(username);
+		
+		//testing
 		assertNotNull(account);
 		
 		//get cart through account
@@ -139,6 +144,7 @@ public class TestCartPersistence {
 		cart = cartRepository.findCartById(id);
 		quantity = cart.getItemQuantities().iterator().next();		
 		
+		//testing
 		assertEquals(id2,quantity.getId());
 		assertEquals(count,quantity.getCount());
 	}
