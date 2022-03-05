@@ -13,7 +13,7 @@ public class Person{
 	private String email;
 	private String firstName;
 	private String lastName;
-	private int phoneNumber;
+	private String phoneNumber;
 	private String address;
 	
 	@OneToOne(cascade={CascadeType.ALL}, optional=true)
@@ -48,11 +48,11 @@ public class Person{
 		return this.lastName;
 	}
 	
-	public void setPhoneNumber(int value) {
+	public void setPhoneNumber(String value) {
 		this.phoneNumber = value;
 	}
 	
-	public int getPhoneNumber() {
+	public String getPhoneNumber() {
 		return this.phoneNumber;
 	}
 

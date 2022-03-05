@@ -41,7 +41,7 @@ public class TestManagerPersistence {
 	}
 	
 	//creates a person
-	public Person createPerson(String email, String firstName, String lastName, int phoneNumber, String address) {
+	public Person createPerson(String email, String firstName, String lastName, String phoneNumber, String address) {
 		Person person = new Person();
 		person.setEmail(email);
 		person.setFirstName(firstName);
@@ -74,7 +74,7 @@ public class TestManagerPersistence {
 		
 		//create instance of person
 		String email = "abc@gmail.com";
-		int phoneNumber = 1112223333;
+		String phoneNumber = "1112223333";
 		String address = "845 Sherbrooke St W, Montreal, Quebec H3A 0G4";
 		String firstName = "Bob";
 		String lastName = "Smith";
