@@ -32,12 +32,13 @@ public class AccountRestController {
 		return convertToDto(service.getPerson(email));
 	}
 	
-	@PostMapping(value = { "/person/{email}", "/person/{email}/" })
-	public PersonDto createPerson(@PathVariable("email") String email, @RequestParam String firstName, @RequestParam String lastName,
-			@RequestParam String phoneNumber, @RequestParam String address) throws IllegalArgumentException {
-		Person person = service.createPerson(email, firstName, lastName, phoneNumber, address);
-		return convertToDto(person);
-	}
+//	@PostMapping(value = { "/person/{email}", "/person/{email}/" })
+//	public PersonDto createPerson(@PathVariable("email") String email, @RequestParam String firstName,
+//			@RequestParam String lastName,@RequestParam String phoneNumber,
+//			@RequestParam String address) throws IllegalArgumentException {
+//		Person person = service.createPerson(email, firstName, lastName, phoneNumber, address);
+//		return convertToDto(person);
+//	}
 	
 	//CARTDTO
 	@GetMapping(value = { "/cart/{id}", "/cart/{id}/" })
