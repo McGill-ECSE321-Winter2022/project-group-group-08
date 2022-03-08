@@ -55,7 +55,20 @@ public class PersonService {
 	//ACCOUNT
 	@Transactional
 	public Account createAccount(String username, String password, boolean inTown, int totalPoints) {
-		
+		String error = "";
+		if (username == null || username.trim().length() == 0) {
+		    error = error + "Account username cannot be empty! ";
+		}
+		if (password == null || password.trim().length() == 0) {
+		    error = error + "Account password cannot be empty! ";
+		}
+		if (totalPoints < 0) {
+		    error = error + "Account Total points cannot be negative ";
+		}
+		error = error.trim();
+		if (error.length() > 0) {
+		    throw new IllegalArgumentException(error);
+		}
 		Account account = new Account();
 		account.setUsername(username);
 		account.setPassword(password);
@@ -75,6 +88,30 @@ public class PersonService {
 	@Transactional
 	public Person createPerson(String email, String firstName, String lastName, String phoneNumber,
 			String address, UserRole userRole, Account account) {
+		String error = "";
+		if (email == null || email.trim().length() == 0) {
+		    error = error + "Person email cannot be empty! ";
+		}
+		if (firstName == null || firstName.trim().length() == 0) {
+		    error = error + "Person first name cannot be empty! ";
+		}
+		if (lastName == null || lastName.trim().length() == 0) {
+		    error = error + "Person last name cannot be empty! ";
+		}
+		if (phoneNumber == null || phoneNumber.trim().length() == 0) {
+		    error = error + "Person phone number cannot be empty! ";
+		}
+		if(phoneNumber.length() < 10) {
+			error = error + "Person phone number cannot be less than 10 digits";
+		}
+		if (address == null || address.trim().length() == 0) {
+		    error = error + "Person last name cannot be empty! ";
+		}
+		
+		error = error.trim();
+		if (error.length() > 0) {
+		    throw new IllegalArgumentException(error);
+		}
 		Person person = new Person();
 		person.setEmail(email);
 		person.setFirstName(firstName);

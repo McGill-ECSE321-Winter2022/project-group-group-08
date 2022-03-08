@@ -5,7 +5,7 @@ public class PersonDto {
 	private String email;
 	private String firstName;
 	private String lastName;
-	private int phoneNumber;
+	private String phoneNumber;
 	private String address;
 	private UserRoleDto userRole;
 	private AccountDto account;
@@ -14,7 +14,7 @@ public class PersonDto {
 		
 	}
 
-	public PersonDto(String email, String firstName, String lastName, int phoneNumber, String address, 
+	public PersonDto(String email, String firstName, String lastName, String phoneNumber, String address, 
 			UserRoleDto userRole, AccountDto account) {
 		this.email = email;
 		this.firstName = firstName;
@@ -37,7 +37,7 @@ public class PersonDto {
 		return lastName;
 	}
 	
-	public int getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 	

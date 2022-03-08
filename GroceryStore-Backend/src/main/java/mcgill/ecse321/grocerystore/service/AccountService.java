@@ -70,7 +70,6 @@ public class AccountService {
 		if (error.length() > 0) {
 		    throw new IllegalArgumentException(error);
 		}
-		
 		Person person = new Person();
 		person.setEmail(email);
 		person.setFirstName(firstName);
