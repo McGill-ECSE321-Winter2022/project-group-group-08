@@ -6,6 +6,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import mcgill.ecse321.grocerystore.dao.AccountRepository;
 import mcgill.ecse321.grocerystore.dao.PersonRepository;
@@ -18,6 +19,7 @@ import mcgill.ecse321.grocerystore.model.Manager;
 import mcgill.ecse321.grocerystore.model.Person;
 import mcgill.ecse321.grocerystore.model.UserRole;
 
+@Service
 public class PersonService {
 	
 	@Autowired
