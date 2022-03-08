@@ -1,6 +1,5 @@
 package mcgill.ecse321.grocerystore.dto;
 
-import mcgill.ecse321.grocerystore.model.Item;
 import mcgill.ecse321.grocerystore.model.Quantity;
 
 public class QuantityDto {

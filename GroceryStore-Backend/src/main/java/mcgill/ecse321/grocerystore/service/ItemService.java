@@ -9,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mcgill.ecse321.grocerystore.dao.ItemRepository;
-import mcgill.ecse321.grocerystore.dao.QuantityRepository;
 import mcgill.ecse321.grocerystore.model.Item;
-import mcgill.ecse321.grocerystore.model.Quantity;
 
 @Service
 public class ItemService {

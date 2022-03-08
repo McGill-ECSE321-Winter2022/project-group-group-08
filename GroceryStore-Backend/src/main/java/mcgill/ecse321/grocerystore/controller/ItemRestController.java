@@ -1,6 +1,4 @@
 package mcgill.ecse321.grocerystore.controller;
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,7 +27,12 @@ public class ItemRestController {
 	@GetMapping(value = {baseURL+"/all", baseURL+"/all/"})
 	public List<ItemDto> getAllItems() {
 		return itemService.getAllItems().stream().map(i -> convertToDto(i)).collect(Collectors.toList());
-
+	}
+	
+	@GetMapping(value = {baseURL+"/{id}", baseURL+"/{id}/"})
+	public ItemDto getItem(@PathVariable("id") int id) {
+		Item item = itemService.getItemById(id);
+		return convertToDto(item);
 	}
 	
 	@PostMapping(value = {baseURL, baseURL+"/"})
