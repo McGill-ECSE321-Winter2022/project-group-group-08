@@ -1,5 +1,7 @@
 package mcgill.ecse321.grocerystore.dto;
 
+import mcgill.ecse321.grocerystore.model.Item;
+
 public class ItemDto {
 
 	private int id;
@@ -23,6 +25,11 @@ public class ItemDto {
 		this.returnPolicy = returnPolicy;
 		this.pickup = pickup;
 		this.inStoreQuantity = inStoreQuantity;
+	}
+	
+	public static ItemDto convertToDto(Item item) {
+		ItemDto itemDto = new ItemDto(item.getId(), item.getName(), item.getPrice(), item.getPoint(), item.getReturnPolicy(), item.getPickup(), item.getInStoreQuantity());
+		return itemDto;
 	}
 	
 	public int getId() {

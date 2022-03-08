@@ -1,5 +1,6 @@
 package mcgill.ecse321.grocerystore.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -33,7 +34,10 @@ public class ItemService {
 		return item;
 	}
 	
-
+	@Transactional
+	public List<Item> getAllItems() {
+		return toList(itemRepository.findAll());
+	}
 	
 	@Transactional
 	public Item getItemById(int id) {
@@ -150,6 +154,40 @@ public class ItemService {
 	}
 	
 	@Transactional
+	public Item updateItem(int id, String name, int price, int point, int returnPolicy, boolean pickup, int inStoreQuantity) {
+		if(id < 0) {
+			throw new IllegalArgumentException("Id cannot be a negative number");
+		}
+		if(name == null || name.strip() == "") {
+			throw new IllegalArgumentException("Name cannot be null or empty");
+		}
+		if(price < 0) {
+			throw new IllegalArgumentException("Price cannot be a negative number");
+		}
+		if(point < 0) {
+			throw new IllegalArgumentException("Point cannot be a negative number");
+		}
+		if(returnPolicy < 0) {
+			throw new IllegalArgumentException("Return policy cannot be a negative number");
+		}
+		if(inStoreQuantity < 0) {
+			throw new IllegalArgumentException("In store quantity cannot be a negative number");
+		}
+		Item item = itemRepository.findItemById(id);
+		if(item == null) {
+			throw new IllegalArgumentException("Item with id " + id + " does not exists");
+		}
+		item.setName(name);
+		item.setPrice(price);
+		item.setPoint(point);
+		item.setReturnPolicy(returnPolicy);
+		item.setPickup(pickup);
+		item.setInStoreQuantity(inStoreQuantity);
+		itemRepository.save(item);
+		return item;
+	}
+	
+	@Transactional
 	public boolean deleteItem(Item item) {
 		if (item == null) {
 			return false;
@@ -168,5 +206,13 @@ public class ItemService {
 			itemRepository.delete(item);
 			return true;
 		}
+	}
+	
+	private <T> List<T> toList(Iterable<T> iterable){
+		List<T> resultList = new ArrayList<T>();
+		for (T t : iterable) {
+			resultList.add(t);
+		}
+		return resultList;
 	}
 }
