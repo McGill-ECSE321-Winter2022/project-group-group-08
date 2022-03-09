@@ -13,6 +13,7 @@ import mcgill.ecse321.grocerystore.dao.BusinessHourRepository;
 import mcgill.ecse321.grocerystore.dao.ItemRepository;
 import mcgill.ecse321.grocerystore.dao.GroceryStoreSystemRepository;
 import mcgill.ecse321.grocerystore.model.BusinessHour;
+import mcgill.ecse321.grocerystore.model.BusinessHour.WeekDay;
 import mcgill.ecse321.grocerystore.model.Item;
 import mcgill.ecse321.grocerystore.model.GroceryStoreSystem;
 
@@ -49,7 +50,7 @@ public class GroceryStoreSystemService {
 	}
 	
 	@Transactional
-	public Item createItem(int id, String name, int price, int point, int returnPolicy, boolean pickup, int inStoreQuanitity) {
+	public Item createItem(int id, String name, int price, int point, int returnPolicy, boolean pickup, int inStoreQuantity) {
 		String error = "";
 		if (name == null || name.trim().length() == 0) {
 		    error = error + "Item name cannot be empty! ";
@@ -95,42 +96,46 @@ public class GroceryStoreSystemService {
 		return toList(itemRepository.findAll());
 	}
 	
- //BusinessHour
-    @Transactional
-    public BusinessHour createBusinessHour(int id, WeekDay day, Time startTime, Time endTime, boolean working){
-        String error= "";
-        if (id == 0){
-            throw new IllegalArgumentException("Business Hour id cannot be empty");
-        }
-        if (day == null){
-            throw new IllegalArgumentException("Week day cannot be empty");
-        }
-        if (startTime == null){
-            throw new IllegalArgumentException("Start time cannot be empty");
-        }
-        if (endTime == null){
-            throw new IllegalArgumentException("End time cannot be empty");
-        }
-        if (startTime.toLocalTime().isAfter(endTime.toLocalTime())){
-            throw new IllegalArgumentException("End time cannot be earlier than Start time");
-        }
-        error = error.trim();
-        if (error.length() > 0) {
-            throw new IllegalArgumentException(error);
-        }
-        BusinessHour businessHour = new BusinessHour();
-        businessHour.setId(id);
-        businessHour.setDay(day);
-        businessHour.setStartTime(startTime);
-        businessHour.setEndTime(endTime);
-        return businessHour;
-    }
+	@Transactional 
+	public BusinessHour createBusinessHour(int id, WeekDay day, Time startTime, Time endTime, boolean working){
+		String error= "";
+		if (id == 0){
+			throw new IllegalArgumentException("Business Hour id cannot be empty");
+		}
+		if (day == null){
+			throw new IllegalArgumentException("Week day cannot be empty");
+		}
+		if (startTime == null){
+			throw new IllegalArgumentException("Start time cannot be empty");
+		}
+		if (endTime == null){
+			throw new IllegalArgumentException("End time cannot be empty");
+		}
+		if (startTime.toLocalTime().isAfter(endTime.toLocalTime())){
+			throw new IllegalArgumentException("End time cannot be earlier than Start time");
+		}
+		error = error.trim();
+		if (error.length() > 0) {
+			throw new IllegalArgumentException(error);
+		}
+		BusinessHour businessHour = new BusinessHour();
+		businessHour.setId(id);
+		businessHour.setDay(day);
+		businessHour.setStartTime(startTime);
+		businessHour.setEndTime(endTime);
+		return businessHour;
+	}
+	
 
-    @Transactional
+	
+	@Transactional
 	public BusinessHour getBusinessHour(int id) {
-		BusinessHour businessHour = BusinessHourRepository.findBusinessHourById(id);
+		BusinessHour businessHour = businessHourRepository.findBusinessHourById(id);
 		return businessHour;
 }
+	
+
+
 	
 	private <T> List<T> toList(Iterable<T> iterable){
 		List<T> resultList = new ArrayList<T>();
@@ -142,6 +147,9 @@ public class GroceryStoreSystemService {
 	
 	
 }
+
+
+
 
 
 
