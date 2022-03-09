@@ -35,10 +35,7 @@ public class ReceiptDto {
 		return this.receiptType;
 	}
 	
-	
-	
-	
-	public Cart getCart() {
+	public CartDto getCartDto() {
 	   return this.cart;
 	}
 

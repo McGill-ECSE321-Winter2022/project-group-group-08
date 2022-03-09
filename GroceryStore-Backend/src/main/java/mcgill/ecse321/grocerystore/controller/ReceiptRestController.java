@@ -71,9 +71,9 @@ public class ReceiptRestController {
 	}
 	
 	@DeleteMapping(value = {baseURL + "/delete/{id}", baseURL+"/delete/{id}/"})
-	public ReceiptDto deleteReceipt(@PathVariable("id") int id) {
+	public ReceiptDto deleteReceipt(@PathVariable("id") int id) { //not sure if this is needed
 		Receipt receipt = receiptService.getReceiptById(id);
-		receiptService.deleteReceipt(receipt);
+		receiptService.deleteReceipt(receipt); 
 		return convertToDto(receipt);
 	}
 	
