@@ -22,6 +22,18 @@ public class ItemService {
 		if(name == null || name.strip() == ""|| name.equals("undefined")) {
 			throw new IllegalArgumentException("Item name cannot be null or empty");
 		}
+		if (price < 0) {
+			throw new IllegalArgumentException("The price cannot be a negative number");
+		}
+		if (point < 0) {
+			throw new IllegalArgumentException("The point cannot be a negative number");
+		}
+		if (returnPolicy < 0) {
+			throw new IllegalArgumentException("The returnPolicy cannot be a negative number");
+		}
+		if (inStoreQuantity < 0) {
+			throw new IllegalArgumentException("The inStoreQuantity cannot be a negative number");
+		}
 		Item item = new Item();
 		item.setName(name);
 		item.setPrice(price);
@@ -29,6 +41,7 @@ public class ItemService {
 		item.setReturnPolicy(returnPolicy);
 		item.setPickup(pickup);
 		item.setInStoreQuantity(inStoreQuantity);
+		itemRepository.save(item);
 		return item;
 	}
 	
