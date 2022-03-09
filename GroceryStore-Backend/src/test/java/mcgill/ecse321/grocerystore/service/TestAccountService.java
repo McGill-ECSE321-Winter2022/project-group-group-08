@@ -50,15 +50,52 @@ public class TestAccountService {
 	@InjectMocks
 	private AccountService service;
 	
-	private static final String ACC_KEY = "TestAccount";
+	private static final String ACCOUNT_KEY = "TestAccount";
+	private static final String PASSWORD = "101";
+	private static final boolean INTOWN = true;
+	private static final int TOTALPOINTS = 200;
+	
+	private static final String EMAIL = "abc@gmail.com";
+	private static final String PHONENUMBER = "1112223333";
+	private static final String ADDRESS = "845 Sherbrooke St W, Montreal, Quebec H3A 0G4";
+	private static final String FIRSTNAME = "Bob";
+	private static final String LASTNAME = "Smith";
 	
 	
 	@BeforeEach
 	public void setMockOutput() {
 	    lenient().when(accountDao.findAccountByUsername(anyString())).thenAnswer( (InvocationOnMock invocation) -> {
-	        if(invocation.getArgument(0).equals(ACC_KEY)) {
+	        if(invocation.getArgument(0).equals(ACCOUNT_KEY)) {
 	            Account account = new Account();
-	            account.setUsername(ACC_KEY);
+	            account.setUsername(ACCOUNT_KEY);
+	            account.setPassword(PASSWORD);
+	            account.setInTown(INTOWN);
+	            account.setTotalPoints(TOTALPOINTS);
+	            return account;
+	        } else {
+	            return null;
+	        }
+	    });
+	    lenient().when(personDao.findPersonByEmail(anyString())).thenAnswer( (InvocationOnMock invocation) -> {
+	        if(invocation.getArgument(0).equals(EMAIL)) {
+	            Person person = new Person();
+	            person.setEmail(EMAIL);
+	            person.setPhoneNumber(PHONENUMBER);
+	            person.setAddress(ADDRESS);
+	            person.setFirstName(FIRSTNAME);
+	            person.setLastName(LASTNAME);
+	            return person;
+	        } else {
+	            return null;
+	        }
+	    });
+	    lenient().when(accountDao.findAccountByUsername(anyString())).thenAnswer( (InvocationOnMock invocation) -> {
+	        if(invocation.getArgument(0).equals(ACCOUNT_KEY)) {
+	            Account account = new Account();
+	            account.setUsername(ACCOUNT_KEY);
+	            account.setPassword(PASSWORD);
+	            account.setInTown(INTOWN);
+	            account.setTotalPoints(TOTALPOINTS);
 	            return account;
 	        } else {
 	            return null;
