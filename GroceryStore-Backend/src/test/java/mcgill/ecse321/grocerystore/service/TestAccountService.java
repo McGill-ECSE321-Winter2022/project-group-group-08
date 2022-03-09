@@ -107,30 +107,6 @@ public class TestAccountService {
 	@Test
 	public void testCreateAccount() {
 		
-		String email = "abc@gmail.com";
-		String phoneNumber = "1112223333";
-		String address = "845 Sherbrooke St W, Montreal, Quebec H3A 0G4";
-		String firstName = "Bob";
-		String lastName = "Smith";
-		Person person = service.createPerson(email, firstName, lastName, phoneNumber, address);
 		
-		Date date = java.sql.Date.valueOf(LocalDate.of(2021, Month.DECEMBER, 2));
-		Cart cart = service.createCart(date);
-		
-		String username = "Bob";
-		String password = "101";
-		boolean inTown = true;
-		int totalPoints = 0;
-		Account account = null;
-		
-		try {
-			account = service.createAccount(username, password, inTown, totalPoints, person, cart);
-		} catch (IllegalArgumentException e) {
-			// Check that no error occurred
-			fail();
-		}
-		
-		assertNotNull(account);
-		assertEquals(username, account.getUsername());
 	}
 }
