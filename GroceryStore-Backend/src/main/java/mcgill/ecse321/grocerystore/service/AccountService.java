@@ -128,6 +128,42 @@ public class AccountService {
 		return account;
 	}
 	
+	@Transactional 
+	public List<Account> findAccountByUsernameIgnoreCase(String username){
+		List<Account> accountList = new ArrayList<Account>();
+		for(Account a: accountRepository.findAccountByUsernameIgnoreCase(username)) {
+			accountList.add(a);
+		}
+		return accountList;
+	}
+	
+	@Transactional 
+	public List<Account> findAccountByTotalPointsBetween(int minPoint, int maxPoint){
+		List<Account> accountList = new ArrayList<Account>();
+		for(Account a: accountRepository.findAccountByTotalPointsBetween(minPoint,maxPoint)) {
+			accountList.add(a);
+		}
+		return accountList;
+	}
+	
+	@Transactional 
+	public List<Account> findAccountByUsernameContaining(String username){
+		List<Account> accountList = new ArrayList<Account>();
+		for(Account a: accountRepository.findAccountByUsernameContaining(username)) {
+			accountList.add(a);
+		}
+		return accountList;
+	}
+	
+	@Transactional 
+	public List<Account> findAccountByInTown(boolean inTown){
+		List<Account> accountList = new ArrayList<Account>();
+		for(Account a: accountRepository.findAccountByInTown(inTown)) {
+			accountList.add(a);
+		}
+		return accountList;
+	}
+	
 	@Transactional
 	public List<Account> getAllAccounts(){
 		return toList(accountRepository.findAll());

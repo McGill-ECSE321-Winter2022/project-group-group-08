@@ -125,7 +125,34 @@ public class PersonService {
 		personRepository.save(person);
 		return person;
 	}
-		
+
+	@Transactional 
+	public List<Person> findPersonByAddress(String address){
+		List<Person> personList = new ArrayList<Person>();
+		for(Person p: personRepository.findPersonByLastName(address)) {
+			personList.add(p);
+		}
+		return personList;
+	}
+	
+	@Transactional 
+	public List<Person> findPersonByLastName(String lastName){
+		List<Person> personList = new ArrayList<Person>();
+		for(Person p: personRepository.findPersonByLastName(lastName)) {
+			personList.add(p);
+		}
+		return personList;
+	}
+	
+	@Transactional 
+	public List<Person> findPersonByFirstName(String firstName){
+		List<Person> personList = new ArrayList<Person>();
+		for(Person p: personRepository.findPersonByFirstName(firstName)) {
+			personList.add(p);
+		}
+		return personList;
+	}
+	
 	@Transactional
 	public List<Person> getAllPerson(){
 		return toList(personRepository.findAll());
