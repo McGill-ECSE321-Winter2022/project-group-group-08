@@ -30,8 +30,11 @@ public class GroceryStoreSystemService {
 	
 	@Transactional
 	public GroceryStoreSystem createGroceryStoreSystem(String storeName, String address, int employeeDiscount) {
-		if (storeName == null || address == null) {
-			throw new IllegalArgumentException("The store name or the address cannot be empty.");
+		if (storeName == null || storeName.trim().length() == 0) {
+			throw new IllegalArgumentException("The store name cannot be empty.");
+		}
+		if (address == null || address.trim().length() == 0) {
+			throw new IllegalArgumentException("The address cannot be empty.");
 		}
 		if(employeeDiscount < 0) {
 			throw new IllegalArgumentException("The employee discount cannot be less than 0.");
@@ -56,18 +59,21 @@ public class GroceryStoreSystemService {
 		    error = error + "Item name cannot be empty! ";
 		}
 		if (id < 0) {
-		    error = error + "ID cannot be negative ";
+		    error = error + "ID cannot be negative.";
 		}
 		if (price < 0) {
-			error = error + "Price cannot be negative ";
+			error = error + "Price cannot be negative.";
 		}
 		if (point < 0) {
-			error = error + "Point cannot be negative ";
+			error = error + "Point cannot be negative.";
 		}
 		if (returnPolicy < 0) {
-			error = error + "Return policy cannot be negative ";
+			error = error + "Return policy cannot be negative.";
 		}
 		if (inStoreQuantity < 0) {
+			error = error + "In store quantity cannot be negative.";
+		}
+		if (pickup != true || pickup != false) {
 			error = error + "In store quantity cannot be negative ";
 		}
 		error = error.trim();
