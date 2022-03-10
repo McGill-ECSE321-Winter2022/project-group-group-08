@@ -24,7 +24,6 @@ public class Receipt{
 	private Cart cart;
 	
 	//attribute getters and setters
-	
 	public void setReceiptNum(int value) {
 		this.receiptNum = value;
 	}

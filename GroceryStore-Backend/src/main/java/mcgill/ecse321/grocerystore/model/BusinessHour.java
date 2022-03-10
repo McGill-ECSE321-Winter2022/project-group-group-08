@@ -6,6 +6,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class BusinessHour{
@@ -19,8 +20,13 @@ public class BusinessHour{
 	private Time endTime;
 	private boolean working;
 	
-	//Attribute getters and setters
+	@ManyToOne(optional=true)
+	private Employee employee;
 	
+	@ManyToOne(optional=true)
+	private GroceryStoreSystem groceryStoreSystem;
+	
+	//Attribute getters and setters
 	public void setId(int id){
 		this.id = id;
 	}
