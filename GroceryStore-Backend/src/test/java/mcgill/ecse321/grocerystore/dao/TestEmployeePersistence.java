@@ -50,7 +50,7 @@ public class TestEmployeePersistence {
 	}
 	
 	//creates a person
-	public Person createPerson(String email, String firstName, String lastName, int phoneNumber, String address) {
+	public Person createPerson(String email, String firstName, String lastName, String phoneNumber, String address) {
 		Person person = new Person();
 		person.setEmail(email);
 		person.setFirstName(firstName);
@@ -84,80 +84,5 @@ public class TestEmployeePersistence {
 		assertNotNull(employee);
 		
 		assertEquals(id,employee.getId());
-	}
-	
-	@Test
-	public void testPersistAndLoadEmployeeByPerson() {
-		Employee employee = createEmployee();
-		int id= employee.getId();
-		
-		//create instance of person
-		String email = "abc@gmail.com";
-		int phoneNumber = 1112223333;
-		String address = "845 Sherbrooke St W, Montreal, Quebec H3A 0G4";
-		String firstName = "Bob";
-		String lastName = "Smith";
-				
-		Person person = createPerson(email, firstName, lastName, phoneNumber, address);
-		
-		//reference objects
-		person.setUserRole(employee);
-		employee.setPerson(person);
-				
-		personRepository.save(person);
-		employeeRepository.save(employee);
-		
-		person = null;
-		employee = null;
-		
-		//get instance of person
-		person = personRepository.findPersonByEmail(email);
-		
-		//get employee from person
-		employee = (Employee) person.getUserRole();
-			
-		//testing
-		assertNotNull(person);
-				
-		assertNotNull(employee);
-		
-		assertEquals(id,employee.getId());
-	}
-	
-	@Test
-	public void testPersistAndLoadWorkingHoursByEmployee() {
-		Employee employee = createEmployee();
-		int id= employee.getId();
-		
-		//creating an instance of working hour
-		WeekDay dayOfWeek = WeekDay.Monday;
-		Time startTime = java.sql.Time.valueOf(LocalTime.of(9, 30));
-		Time endTime = java.sql.Time.valueOf(LocalTime.of(17, 00));
-		boolean working = true;
-		
-		BusinessHour bH = createBusinessHour(dayOfWeek,startTime,endTime,working);
-		
-		int idBH = bH.getId();
-		
-		//setting employee's working hours
-		Set<BusinessHour> workingHours = new HashSet<BusinessHour>();
-		workingHours.add(bH);
-		employee.setWorkingHours(workingHours);
-		employeeRepository.save(employee);
-		
-		bH = null;
-		workingHours = null;
-		employee = null;
-		
-		employee = employeeRepository.findEmployeeById(id);
-		bH = employee.getWorkingHours().iterator().next();
-		
-		//testing
-		assertNotNull(employee);
-		assertEquals(idBH,bH.getId());
-		assertEquals(dayOfWeek, bH.getDay());
-		assertEquals(startTime, bH.getStartTime());
-		assertEquals(endTime, bH.getEndTime());
-		assertEquals(working,bH.getWorking());
 	}
 }

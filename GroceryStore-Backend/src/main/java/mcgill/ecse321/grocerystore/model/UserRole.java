@@ -15,11 +15,10 @@ public abstract class UserRole{
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	
-	@OneToOne(mappedBy="userRole")
+	@OneToOne(optional=false)
 	private Person person;
 
 	//attribute getters and setters
-	
 	public void setId(int aId){
 		this.id = aId;
 	}

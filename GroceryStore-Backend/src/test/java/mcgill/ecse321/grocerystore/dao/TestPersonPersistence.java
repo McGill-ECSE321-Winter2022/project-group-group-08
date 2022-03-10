@@ -41,7 +41,7 @@ public class TestPersonPersistence {
 	}
 	
 	//creates a person
-	public Person createPerson(String email, String firstName, String lastName, int phoneNumber, String address) {
+	public Person createPerson(String email, String firstName, String lastName, String phoneNumber, String address) {
 		Person person = new Person();
 		person.setEmail(email);
 		person.setFirstName(firstName);
@@ -56,7 +56,7 @@ public class TestPersonPersistence {
 	public void testPersistAndLoadPerson() {
 		//person attributes
 		String email = "abc@gmail.com";
-		int phoneNumber = 1112223333;
+		String phoneNumber = "1112223333";
 		String address = "845 Sherbrooke St W, Montreal, Quebec H3A 0G4";
 		String firstName = "Bob";
 		String lastName = "Smith";
@@ -67,50 +67,6 @@ public class TestPersonPersistence {
 		person = personRepository.findPersonByEmail(email);
 		
 		//testing
-		assertNotNull(person);
-		
-		assertEquals(email,person.getEmail());
-		assertEquals(phoneNumber,person.getPhoneNumber());
-		assertEquals(address,person.getAddress());
-		assertEquals(firstName,person.getFirstName());
-		assertEquals(lastName,person.getLastName());
-	}
-	
-	@Test
-	public void testPersistAndLoadPersonByAccount() {
-		//create an instance of person
-		String email = "abc@gmail.com";
-		int phoneNumber = 1112223333;
-		String address = "845 Sherbrooke St W, Montreal, Quebec H3A 0G4";
-		String firstName = "Bob";
-		String lastName = "Smith";
-		Person person = createPerson(email, firstName, lastName, phoneNumber, address);
-		
-		//create an instance of account
-		String username = "Bob";
-		String password = "101";
-		boolean inTown = true;
-		Account account = createAccount(username, password, inTown);
-		
-		//reference them
-		person.setAccount(account);
-		account.setPerson(person);
-		
-		//save repositories
-		personRepository.save(person);
-		accountRepository.save(account);
-		
-		person = null;
-		account = null;
-		
-		account = accountRepository.findAccountByUsername(username);
-		
-		//get person through account
-		person = account.getPerson();
-		
-		//testing
-		assertNotNull(account);
-		
 		assertNotNull(person);
 		
 		assertEquals(email,person.getEmail());

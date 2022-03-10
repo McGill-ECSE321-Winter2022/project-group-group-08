@@ -41,7 +41,7 @@ public class TestManagerPersistence {
 	}
 	
 	//creates a person
-	public Person createPerson(String email, String firstName, String lastName, int phoneNumber, String address) {
+	public Person createPerson(String email, String firstName, String lastName, String phoneNumber, String address) {
 		Person person = new Person();
 		person.setEmail(email);
 		person.setFirstName(firstName);
@@ -65,44 +65,4 @@ public class TestManagerPersistence {
 		
 		assertEquals(id,manager.getId());
 	}
-	
-	@Test
-	public void testPersistAndLoadManagerByPerson() {
-		//create instance of manager
-		Manager manager = createManager();
-		int id = manager.getId();
-		
-		//create instance of person
-		String email = "abc@gmail.com";
-		int phoneNumber = 1112223333;
-		String address = "845 Sherbrooke St W, Montreal, Quebec H3A 0G4";
-		String firstName = "Bob";
-		String lastName = "Smith";
-				
-		Person person = createPerson(email, firstName, lastName, phoneNumber, address);
-		
-		//reference objects
-		person.setUserRole(manager);
-		manager.setPerson(person);
-		
-		personRepository.save(person);
-		managerRepository.save(manager);
-		
-		person = null;
-		manager = null;
-		
-		//get instance of person
-		person = personRepository.findPersonByEmail(email);
-		
-		//get employee from person
-		manager = (Manager) person.getUserRole();
-		
-		//testing
-		assertNotNull(person);
-		
-		assertNotNull(manager);
-		
-		assertEquals(id,manager.getId());		
-	}
-	
 }

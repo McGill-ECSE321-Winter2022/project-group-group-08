@@ -44,7 +44,7 @@ public class TestCustomerPersistence {
 	}
 	
 	//creates a person
-	public Person createPerson(String email, String firstName, String lastName, int phoneNumber, String address) {
+	public Person createPerson(String email, String firstName, String lastName, String phoneNumber, String address) {
 		Person person = new Person();
 		person.setEmail(email);
 		person.setFirstName(firstName);
@@ -73,46 +73,4 @@ public class TestCustomerPersistence {
 		assertEquals(tierClass, customer.getTierclass());
 		assertEquals(ban, customer.getBan());
 	}
-	
-	@Test
-	public void testPersistAndLoadCustomerByPerson() {
-		//create instance of customer
-		TierClass tierClass = TierClass.Bronze;
-		boolean ban = false;
-		Customer customer = createCustomer(tierClass, ban);
-		int id= customer.getId();
-		
-		//create instance of person
-		String email = "abc@gmail.com";
-		int phoneNumber = 1112223333;
-		String address = "845 Sherbrooke St W, Montreal, Quebec H3A 0G4";
-		String firstName = "Bob";
-		String lastName = "Smith";
-		
-		Person person = createPerson(email, firstName, lastName, phoneNumber, address);
-		
-		//reference objects
-		person.setUserRole(customer);
-		customer.setPerson(person);
-		
-		personRepository.save(person);
-		customerRepository.save(customer);
-		
-		person = null;
-		customer = null;
-		
-		//get instance of person
-		person = personRepository.findPersonByEmail(email);
-		
-		//get customer from person
-		customer = (Customer) person.getUserRole();
-		
-		//testing
-		assertNotNull(person);
-		
-		assertNotNull(customer);
-		assertEquals(id,customer.getId());
-		assertEquals(tierClass, customer.getTierclass());
-		assertEquals(ban, customer.getBan());
-	} 
 }

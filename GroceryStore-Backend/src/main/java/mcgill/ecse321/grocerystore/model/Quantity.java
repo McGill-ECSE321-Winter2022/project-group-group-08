@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Quantity{
@@ -15,6 +16,9 @@ public class Quantity{
 
 	@OneToOne(cascade={CascadeType.ALL}, optional=true)
 	private Item item;
+	
+	@ManyToOne(cascade={CascadeType.ALL}, optional=true)
+	private Cart cart;
 	
 	//attribute getters and setters
 	public void setId(int id){
