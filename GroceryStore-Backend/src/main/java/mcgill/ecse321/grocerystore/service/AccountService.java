@@ -24,68 +24,7 @@ public class AccountService {
 	PersonRepository personRepository;
 	@Autowired
 	CartRepository cartRepository;
-		
-//	//CART
-//	@Transactional
-//	public Cart createCart(Date date) {
-//		if (date == null) {
-//			throw new IllegalArgumentException("Cart date cannot be empty!");
-//		}
-//		Cart cart  = new Cart();
-//		cart.setDate(date);
-//		cartRepository.save(cart);
-//		return cart;
-//	}
-//	
-//	@Transactional
-//	public Cart getCart(int id) {
-//		Cart cart  = cartRepository.findCartById(id);
-//		return cart;
-//	}
-//
-//	//PERSON
-//	@Transactional
-//	public Person createPerson(String email, String firstName, String lastName, String phoneNumber, String address) {
-//		String error = "";
-//		if (email == null || email.trim().length() == 0) {
-//		    error = error + "Person email cannot be empty! ";
-//		}
-//		if (firstName == null || firstName.trim().length() == 0) {
-//		    error = error + "Person first name cannot be empty! ";
-//		}
-//		if (lastName == null || lastName.trim().length() == 0) {
-//		    error = error + "Person last name cannot be empty! ";
-//		}
-//		if (phoneNumber == null || phoneNumber.trim().length() == 0) {
-//		    error = error + "Person phone number cannot be empty! ";
-//		}
-//		if(phoneNumber.length() < 10) {
-//			error = error + "Person phone number cannot be less than 10 digits";
-//		}
-//		if (address == null || address.trim().length() == 0) {
-//		    error = error + "Person last name cannot be empty! ";
-//		}
-//		error = error.trim();
-//		if (error.length() > 0) {
-//		    throw new IllegalArgumentException(error);
-//		}
-//		Person person = new Person();
-//		person.setEmail(email);
-//		person.setFirstName(firstName);
-//		person.setLastName(lastName);
-//		person.setPhoneNumber(phoneNumber);
-//		person.setAddress(address);
-//		personRepository.save(person);
-//		return person;
-//	}
-//	
-//	@Transactional
-//	public Person getPerson(String email) {
-//		Person person = personRepository.findPersonByEmail(email);
-//		return person;
-//	}
-	
-	//ACCOUNT
+
 	@Transactional
 	public Account createAccount(String username, String password, boolean inTown,
 			int totalPoints, Person person, Cart cart) {

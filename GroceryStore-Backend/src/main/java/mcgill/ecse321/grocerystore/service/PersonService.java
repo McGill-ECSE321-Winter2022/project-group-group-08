@@ -25,64 +25,6 @@ public class PersonService {
 	@Autowired
 	UserRoleRepository userRoleRepository;
 		
-//	//USERROLE
-//	@Transactional
-//	public UserRole createManager() {
-//		Manager manager = new Manager();
-//		return manager;
-//	}
-//	
-//	@Transactional
-//	public UserRole createEmployee() {
-//		Employee employee = new Employee();
-//		return employee;
-//	}
-//	
-//	@Transactional
-//	public UserRole createCustomer(TierClass tierClass, boolean ban) {
-//		Customer customer = new Customer();
-//		return customer;
-//	}
-//	
-//	@Transactional
-//	public UserRole getUserRole(int id) {
-//		UserRole userRole = userRoleRepository.findUserRoleById(id);
-//		return userRole;
-//	}
-//	
-//	//ACCOUNT
-//	@Transactional
-//	public Account createAccount(String username, String password, boolean inTown, int totalPoints) {
-//		String error = "";
-//		if (username == null || username.trim().length() == 0) {
-//		    error = error + "Account username cannot be empty! ";
-//		}
-//		if (password == null || password.trim().length() == 0) {
-//		    error = error + "Account password cannot be empty! ";
-//		}
-//		if (totalPoints < 0) {
-//		    error = error + "Account Total points cannot be negative ";
-//		}
-//		error = error.trim();
-//		if (error.length() > 0) {
-//		    throw new IllegalArgumentException(error);
-//		}
-//		Account account = new Account();
-//		account.setUsername(username);
-//		account.setPassword(password);
-//		account.setInTown(inTown);
-//		account.setTotalPoints(totalPoints);
-//		accountRepository.save(account);
-//		return account;
-//	}
-//	
-//	@Transactional
-//	public Account getAccount(String username) {
-//		Account account = accountRepository.findAccountByUsername(username);
-//		return account;
-//	}
-	
-	//PERSON
 	@Transactional
 	public Person createPerson(String email, String firstName, String lastName, String phoneNumber,
 			String address, UserRole userRole, Account account) {
@@ -123,11 +65,15 @@ public class PersonService {
 	}
 	
 	@Transactional
-	public Person updatePerson(String email, String firstName, String lastName, String phoneNumber,
+	public Person updatePerson(String currentEmail, String newEmail,
+			String firstName, String lastName, String phoneNumber,
 			String address, UserRole userRole, Account account) {
 		String error = "";
-		if (email == null || email.trim().length() == 0) {
-		    error = error + "Person email cannot be empty! ";
+		if (currentEmail == null || currentEmail.trim().length() == 0) {
+		    error = error + "Person current email cannot be empty! ";
+		}
+		if (newEmail == null || newEmail.trim().length() == 0) {
+		    error = error + "Person new email cannot be empty! ";
 		}
 		if (firstName == null || firstName.trim().length() == 0) {
 		    error = error + "Person first name cannot be empty! ";
@@ -144,14 +90,15 @@ public class PersonService {
 		if (address == null || address.trim().length() == 0) {
 		    error = error + "Person address name cannot be empty! ";
 		}
-		Person person = personRepository.findPersonByEmail(email);
+		Person person = personRepository.findPersonByEmail(currentEmail);
 		if(person == null) {
-			throw new IllegalArgumentException("Person with email " + email + " does not exists");
+			throw new IllegalArgumentException("Person with email " + currentEmail + " does not exists");
 		}
 		error = error.trim();
 		if (error.length() > 0) {
 		    throw new IllegalArgumentException(error);
 		}
+		person.setEmail(newEmail);
 		person.setFirstName(firstName);
 		person.setLastName(lastName);
 		person.setPhoneNumber(phoneNumber);

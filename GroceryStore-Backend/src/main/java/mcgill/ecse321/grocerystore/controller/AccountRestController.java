@@ -37,32 +37,6 @@ public class AccountRestController {
 	@Autowired
 	private CartService cartService;
 	
-	//PERSONDTO
-//	@GetMapping(value = { "/person/{email}", "/person/{email}/" })
-//	public PersonDto getPerson(@PathVariable("email") String email) throws IllegalArgumentException {
-//		return convertToDto(service.getPerson(email));
-//	}
-	
-//	@PostMapping(value = { "/person/{email}", "/person/{email}/" })
-//	public PersonDto createPerson(@PathVariable("email") String email, @RequestParam String firstName,
-//			@RequestParam String lastName,@RequestParam String phoneNumber,
-//			@RequestParam String address) throws IllegalArgumentException {
-//		Person person = service.createPerson(email, firstName, lastName, phoneNumber, address);
-//		return convertToDto(person);
-//	}
-	
-	//CARTDTO
-//	@GetMapping(value = { "/cart/{id}", "/cart/{id}/" })
-//	public CartDto getCart(@PathVariable("id") int id) throws IllegalArgumentException {
-//		return convertToDto(service.getCart(id));
-//	}
-//	
-//	@PostMapping(value = { "/cart/{id}", "/cart/{id}/" })
-//	public CartDto createCart(@PathVariable("id") int id, @RequestParam Date date) throws IllegalArgumentException {
-//		Cart cart = service.createCart(date);
-//		return convertToDto(cart);
-//	}
-	
 //	public void deleteAccount(Account account) {
 
 //	public void deleteAccountByUsername(String username) {
