@@ -4,6 +4,9 @@ import static org.mockito.Mockito.lenient;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -17,22 +20,25 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import mcgill.ecse321.grocerystore.dao.GroceryStoreSystemRepository;
-import mcgill.ecse321.grocerystore.dao.ManagerRepository;
+import mcgill.ecse321.grocerystore.dao.ItemRepository;
 import mcgill.ecse321.grocerystore.model.GroceryStoreSystem;
-import mcgill.ecse321.grocerystore.model.Manager;
+import mcgill.ecse321.grocerystore.model.Item;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
+
+@ExtendWith(MockitoExtension.class)
 public class TestGroceryStoreSystemService {
 
 	@Mock
 	private GroceryStoreSystemRepository groceryStoreSystemDao;
 
+
 	@InjectMocks
 	private GroceryStoreSystemService service;
-	
+
 	private static final String storeName = "GStore";
 	private static final String address = "173 Wellington St";
 	private static final int employeeDiscount = 20;
@@ -41,11 +47,11 @@ public class TestGroceryStoreSystemService {
 	public void setMockOutput() {
 		lenient().when(groceryStoreSystemDao.findGroceryStoreSystemByStoreName(anyString())).thenAnswer( (InvocationOnMock invocation) -> {
 			if(invocation.getArgument(0).equals(storeName)) {
-				GroceryStoreSystem groceryStoreSystem = new GroceryStoreSystem();
-				groceryStoreSystem.setStoreName(storeName);
-				groceryStoreSystem.setAddress(address);
-				groceryStoreSystem.setEmployeeDiscount(employeeDiscount);
-				return groceryStoreSystem;
+				GroceryStoreSystem g  = new GroceryStoreSystem();
+				g.setStoreName(storeName);
+				g.setAddress(address);
+				g.setEmployeeDiscount(employeeDiscount);
+				return g;
 			} else {
 				return null;
 			}
@@ -55,7 +61,6 @@ public class TestGroceryStoreSystemService {
 		};
 		lenient().when(groceryStoreSystemDao.save(any(GroceryStoreSystem.class))).thenAnswer(returnParameterAsAnswer);
 	}
-	
 	@Test
 	public void testCreateGroceryStoreSystem() {
 		
@@ -86,7 +91,7 @@ public class TestGroceryStoreSystemService {
 			error = e.getMessage();
 		}
 		assertNull(groceryStoreSystem);
-		assertEquals(error,"Grocery store system's name cannot be null or empty");
+		assertEquals("The store name cannot be empty.", error);
 	}
 	
 	@Test
@@ -102,7 +107,7 @@ public class TestGroceryStoreSystemService {
 			error = e.getMessage();
 		}
 		assertNull(groceryStoreSystem);
-		assertEquals(error,"Grocery store system's name cannot be null or empty");
+		assertEquals("The store name cannot be empty.", error);
 	}
 	
 	@Test
@@ -118,7 +123,7 @@ public class TestGroceryStoreSystemService {
 			error = e.getMessage();
 		}
 		assertNull(groceryStoreSystem);
-		assertEquals(error,"Grocery store system's address cannot be null or empty");
+		assertEquals("The address cannot be empty.", error);
 	}
 	
 	@Test
@@ -134,13 +139,13 @@ public class TestGroceryStoreSystemService {
 			error = e.getMessage();
 		}
 		assertNull(groceryStoreSystem);
-		assertEquals(error,"Grocery store system's address cannot be null or empty");
+		assertEquals("The address cannot be empty.", error);
 	}
 	
 	@Test
 	public void testCreateGroceryStoreSystemEmployeeDiscountNegative() {		
 		String storeName = "GStore";
-		String address = "";
+		String address = "173 Wellington St";
 		int employeeDiscount = -1;
 		GroceryStoreSystem groceryStoreSystem = null;
 		String error = null;
@@ -150,7 +155,7 @@ public class TestGroceryStoreSystemService {
 			error = e.getMessage();
 		}
 		assertNull(groceryStoreSystem);
-		assertEquals(error,"Grocery store system's employee discount cannot be null or empty");
+		assertEquals("The employee discount cannot be less than 0.", error);
 	}
 	
 	@Test
@@ -178,7 +183,7 @@ public class TestGroceryStoreSystemService {
 			error = e.getMessage();
 		}
 		assertNull(groceryStoreSystem);
-		assertEquals(error,"Grocery store name cannot be null");
+		assertEquals("The store name cannot be empty.", error);
 	}
 	
 	@Test
@@ -192,11 +197,6 @@ public class TestGroceryStoreSystemService {
 			error = e.getMessage();
 		}
 		assertNull(groceryStoreSystem);
-		assertEquals(error,"Grocery store name cannot be empty");
+		assertEquals("The store name cannot be empty.", error);
 	}
-	
-	
-	
-	
-	
 }

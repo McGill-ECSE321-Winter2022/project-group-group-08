@@ -157,14 +157,5 @@ public class GroceryStoreSystemService {
 		groceryStoreSystem.setEmployeeDiscount(employeeDiscount);
 		//groceryStoreSystem.setOpeningHours(businessHours);
 		return groceryStoreSystem;
-	}
-	
-	
-	
+	}	
 }
-
-
-
-
-
-
