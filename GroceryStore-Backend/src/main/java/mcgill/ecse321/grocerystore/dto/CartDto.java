@@ -14,10 +14,12 @@ public class CartDto {
 		
 	}
 
-	public CartDto(int id, Date date, AccountDto account) {
+	public CartDto(int id, Date date, AccountDto account/*, QuantityDto quantity, ReceiptDto receipt*/) {
 		this.id = id;
 		this.date = date;
 		this.account = account;
+		//this.quantity = quantity;
+		//this.receipt = receipt;
 	}
 		
 	public int getId() {
@@ -38,5 +40,7 @@ public class CartDto {
 	
 	public ReceiptDto getReceipt() {
 		return account;
+	}
+	
 	}*/
 }

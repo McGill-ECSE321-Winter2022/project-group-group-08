@@ -10,18 +10,20 @@ public class BusinessHourDto {
 	private Time endTime;
 	private boolean working;
 	//private EmployeeDto employee;
-	//private GroceryStoreSystemDto grocerystore;
+	//private GroceryStoreSystemDto grocerystoresystem;
 	
 	public BusinessHourDto() {
 		
 	}
 
-	public BusinessHourDto(int id, WeekDay day, Time startTime, Time endTime, Boolean working) {
+	public BusinessHourDto(int id, WeekDay day, Time startTime, Time endTime, Boolean working/*, EmployeeDto employee, GroceryStoreSystemDto grocerystoresystem*/) {
 		this.id = id;
 		this.day = day;
 		this.startTime = startTime;
 		this.endTime = endTime;
         this.working = working;
+		//this.employee=employee;
+		//this.grocerystoresystem=grocerystoresystem;
  	}
 		
 	public int getId() {
@@ -44,11 +46,11 @@ public class BusinessHourDto {
 		return working;
 	}
 	
-	/*public UserRoleDto getUserRole() {
-		return userRole;
+	/*public EmployeeDto getEmployee() {
+		return employee;
 	}
 	
-	public AccountDto getAccount() {
-		return account;
+	public GroceryStoreSystemDto getGroceryStoreSystem() {
+		return grocerystoresystem;
 	}*/
 }
