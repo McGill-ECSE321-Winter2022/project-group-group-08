@@ -8,26 +8,18 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import mcgill.ecse321.grocerystore.dao.AccountRepository;
 import mcgill.ecse321.grocerystore.dao.PersonRepository;
-import mcgill.ecse321.grocerystore.dao.UserRoleRepository;
-import mcgill.ecse321.grocerystore.model.Account;
 import mcgill.ecse321.grocerystore.model.Person;
-import mcgill.ecse321.grocerystore.model.UserRole;
 
 @Service
 public class PersonService {
 	
 	@Autowired
 	PersonRepository personRepository;
-	@Autowired
-	AccountRepository accountRepository;
-	@Autowired
-	UserRoleRepository userRoleRepository;
 		
 	@Transactional
 	public Person createPerson(String email, String firstName, String lastName, String phoneNumber,
-			String address, UserRole userRole, Account account) {
+			String address) {
 		String error = "";
 		if (email == null || email.trim().length() == 0) {
 		    error = error + "Person email cannot be empty! ";
@@ -58,8 +50,6 @@ public class PersonService {
 		person.setLastName(lastName);
 		person.setPhoneNumber(phoneNumber);
 		person.setAddress(address);
-		person.setUserRole(userRole);
-		person.setAccount(account);
 		personRepository.save(person);
 		return person;
 	}
@@ -67,7 +57,7 @@ public class PersonService {
 	@Transactional
 	public Person updatePerson(String currentEmail, String newEmail,
 			String firstName, String lastName, String phoneNumber,
-			String address, UserRole userRole, Account account) {
+			String address) {
 		String error = "";
 		if (currentEmail == null || currentEmail.trim().length() == 0) {
 		    error = error + "Person current email cannot be empty! ";
@@ -103,16 +93,24 @@ public class PersonService {
 		person.setLastName(lastName);
 		person.setPhoneNumber(phoneNumber);
 		person.setAddress(address);
-		person.setUserRole(userRole);
-		person.setAccount(account);
 		personRepository.save(person);
 		return person;
+	}
+	
+	@Transactional 
+	public Person findPersonByEmail(String email){
+		if (email == null || email.trim().length() == 0) {
+		    throw new IllegalArgumentException("Person email cannot be empty! ");
+		}else {
+			Person person = personRepository.findPersonByEmail(email);
+			return person;
+		}
 	}
 
 	@Transactional 
 	public List<Person> findPersonByAddress(String address){
 		List<Person> personList = new ArrayList<Person>();
-		for(Person p: personRepository.findPersonByLastName(address)) {
+		for(Person p: personRepository.findPersonByAddress(address)) {
 			personList.add(p);
 		}
 		return personList;
@@ -147,8 +145,7 @@ public class PersonService {
 	}
 	
 	@Transactional
-	public boolean deleteItemByEmail(String email) {
-		
+	public boolean deletePersonByEmail(String email) {
 		if (email == null || email.trim().length() == 0) {
 		    return false;
 		}else {
@@ -156,12 +153,6 @@ public class PersonService {
 			personRepository.delete(person);
 			return true;
 		}
-	}
-	
-	@Transactional
-	public Person getPerson(String email) {
-		Person person = personRepository.findPersonByEmail(email);
-		return person;
 	}
 	
 	@Transactional

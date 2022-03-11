@@ -12,7 +12,6 @@ import mcgill.ecse321.grocerystore.dao.AccountRepository;
 import mcgill.ecse321.grocerystore.dao.CartRepository;
 import mcgill.ecse321.grocerystore.dao.PersonRepository;
 import mcgill.ecse321.grocerystore.model.Account;
-import mcgill.ecse321.grocerystore.model.Cart;
 import mcgill.ecse321.grocerystore.model.Person;
 
 @Service
@@ -24,10 +23,19 @@ public class AccountService {
 	PersonRepository personRepository;
 	@Autowired
 	CartRepository cartRepository;
+	
+	@Transactional 
+	public Person getPersonByAccount(Account account) {
+		if(account == null) {
+			throw new IllegalArgumentException("Account does not exists");
+		}else {
+			return accountRepository.findAccountByUsername(account.getUsername()).getPerson();
+		}
+	}
 
 	@Transactional
 	public Account createAccount(String username, String password, boolean inTown,
-			int totalPoints, Person person, Cart cart) {
+			int totalPoints, Person person) {
 		String error = "";
 		if (username == null || username.trim().length() == 0) {
 		    error = error + "Account username cannot be empty! ";
@@ -43,14 +51,6 @@ public class AccountService {
 	    } else if (!personRepository.existsById(person.getEmail())) {
 	        error = error + "Person does not exist! ";
 	    }
-	    if (cart == null) {
-	        error = error + "Cart needs to be selected for account!";
-	    } else if (!cartRepository.existsById(cart.getId())) {
-	        error = error + "Cart does not exist!";
-	    }
-	    if (accountRepository.existsByPersonAndCart(person, cart)) {
-	        error = error + "Account already has a person and cart associated!";
-	    }
 	    error = error.trim();
 	    if (error.length() > 0) {
 	        throw new IllegalArgumentException(error);
@@ -61,14 +61,13 @@ public class AccountService {
 		account.setInTown(inTown);
 		account.setTotalPoints(totalPoints);
 		account.setPerson(person);
-		account.setCart(cart);
 		accountRepository.save(account);
 		return account;
 	}
 	
 	@Transactional
 	public Account updateAccount(String oldUsername, String newUsername, String password, boolean inTown,
-			int totalPoints, Person person, Cart cart) {
+			int totalPoints, Person person) {
 		String error = "";
 		if (oldUsername == null || oldUsername.trim().length() == 0) {
 		    error = error + "Account username cannot be empty! ";
@@ -84,14 +83,6 @@ public class AccountService {
 	    } else if (!personRepository.existsById(person.getEmail())) {
 	        error = error + "Person does not exist! ";
 	    }
-	    if (cart == null) {
-	        error = error + "Cart needs to be selected for account!";
-	    } else if (!cartRepository.existsById(cart.getId())) {
-	        error = error + "Cart does not exist!";
-	    }
-	    if (accountRepository.existsByPersonAndCart(person, cart)) {
-	        error = error + "Account already has a person and cart associated!";
-	    }
 	    Account account = accountRepository.findAccountByUsername(oldUsername);
 	    if(account == null) {
 			throw new IllegalArgumentException("Account with username " + account + " does not exists");
@@ -105,17 +96,17 @@ public class AccountService {
 		account.setInTown(inTown);
 		account.setTotalPoints(totalPoints);
 		account.setPerson(person);
-		account.setCart(cart);
 		accountRepository.save(account);
 		return account;
 	}
 	
 	@Transactional
-	public void deleteAccount(Account account) {
+	public boolean deleteAccount(Account account) {
 	    if(account == null) {
 			throw new IllegalArgumentException("Account with username " + account + " does not exists");
 		}else {
 			accountRepository.delete(account);
+			return true;
 		}
 	}
 	
@@ -166,9 +157,12 @@ public class AccountService {
 	}
 	
 	@Transactional
-	public Account getAccount(String username) {
-		Account account = accountRepository.findAccountByUsername(username);
-		return account;
+	public Account findAccountByUsername(String username){
+		if (username == null || username.trim().length() == 0) {
+			throw new IllegalArgumentException("Username cannot be empty!");
+		}else {
+			return accountRepository.findAccountByUsername(username);
+		}
 	}
 	
 	@Transactional

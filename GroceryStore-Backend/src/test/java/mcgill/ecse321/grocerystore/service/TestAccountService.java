@@ -4,14 +4,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.lenient;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.time.Month;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,10 +19,8 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 import mcgill.ecse321.grocerystore.dao.AccountRepository;
-import mcgill.ecse321.grocerystore.dao.CartRepository;
 import mcgill.ecse321.grocerystore.dao.PersonRepository;
 import mcgill.ecse321.grocerystore.model.Account;
-import mcgill.ecse321.grocerystore.model.Cart;
 import mcgill.ecse321.grocerystore.model.Person;
 
 
@@ -37,27 +33,27 @@ public class TestAccountService {
 	@Mock
 	private PersonRepository personDao;
 	
-	@Mock
-	private CartRepository cartDao;	
+	@InjectMocks
+	private AccountService accountService;
 	
 	@InjectMocks
-	private AccountService service;
+	private PersonService personService;
 	
 
+	private static final String USERNAME = "Bob";
+	private static final String NEWUSERNAME = "Bob L'Eponge";
+	private static final String PASSWORD = "101";
+	private static final String NEWPASSWORD = "111";
+	private static final boolean INTOWN = true;
+	private static final boolean NEWINTOWN = false;
+	private static final int TOTALPOINTS = 0;
+	private static final int NEWTOTALPOINTS = 10;
+	
 	private static final String EMAIL = "abc@gmail.com";
 	private static final String PHONENUMBER = "1112223333";
 	private static final String ADDRESS = "845 Sherbrooke St W, Montreal, Quebec H3A 0G4";
 	private static final String FIRSTNAME = "Bob";
 	private static final String LASTNAME = "Smith";
-
-	private static final String USERNAME = "Bob";
-	private static final String PASSWORD = "101";
-	private static final boolean INTOWN = true;
-	private static final int TOTALPOINTS = 0;
-	
-	private static final Date DATE = java.sql.Date.valueOf(LocalDate.of(2021, Month.DECEMBER, 2));
-	private static final int ID = 1;
-
 
 	@BeforeEach
 	public void setMockOutput() {
@@ -68,6 +64,7 @@ public class TestAccountService {
 	            account.setPassword(PASSWORD);
 	            account.setInTown(INTOWN);
 	            account.setTotalPoints(TOTALPOINTS);
+	            account.setPerson(personService.createPerson(EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS));
 	            return account;
 	        } else {
 	            return null;
@@ -85,28 +82,120 @@ public class TestAccountService {
 	        } else {
 	            return null;
 	        }
-	    });
-	    lenient().when(cartDao.findCartById(anyInt())).thenAnswer( (InvocationOnMock invocation) -> {
-	        if(invocation.getArgument(0).equals(ID)) {
-	           Cart cart = new Cart();
-	           cart.setDate(DATE);
-	           return cart;
-	        } else {
-	            return null;
-	        }
-	    });
-	    
+	    });	    
 	    Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> {
 			return invocation.getArgument(0);
 		};
 		lenient().when(accountDao.save(any(Account.class))).thenAnswer(returnParameterAsAnswer);
 		lenient().when(personDao.save(any(Person.class))).thenAnswer(returnParameterAsAnswer);
-		lenient().when(cartDao.save(any(Cart.class))).thenAnswer(returnParameterAsAnswer);
 	}
 	
 	@Test
 	public void testCreateAccount() {
+		lenient().when(personDao.existsById(anyString())).thenReturn(true);
+		Person person = personService.findPersonByEmail(EMAIL);
+		Account account = null;
+		assertEquals(0, accountService.getAllAccounts().size());
+		assertNotNull(person);
 		
+		try {
+			account = accountService.createAccount(USERNAME, PASSWORD, INTOWN, TOTALPOINTS, person);
+		} catch (IllegalArgumentException e) {
+			// Check that no error occurred
+			fail();
+		}
+		assertNotNull(account);
+		assertEquals(USERNAME,account.getUsername());
+		assertEquals(PASSWORD,account.getPassword());
+		assertEquals(INTOWN,account.getInTown());
+		assertEquals(TOTALPOINTS,account.getTotalPoints());
+	}
+	
+	@Test
+	public void testCreateAccountWithInvalidUsername() {
+		lenient().when(personDao.existsById(anyString())).thenReturn(true);
+		Person person = personService.findPersonByEmail(EMAIL);
+		Account account = null;
+		String error = "";
+		assertEquals(0, accountService.getAllAccounts().size());
+		assertNotNull(person);
 		
+		try {
+			account = accountService.createAccount("", PASSWORD, INTOWN, TOTALPOINTS, person);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertNull(account);
+		assertEquals("Account username cannot be empty!",error);
+	}
+	
+	@Test
+	public void testUpdateAccount() {
+		lenient().when(personDao.existsById(anyString())).thenReturn(true);
+		Person person = personService.findPersonByEmail(EMAIL);
+		Account account = null;
+		assertEquals(0, accountService.getAllAccounts().size());
+		assertNotNull(person);
+		
+		try {
+			account = accountService.updateAccount(USERNAME, NEWUSERNAME, NEWPASSWORD, NEWINTOWN, NEWTOTALPOINTS, person);
+		} catch (IllegalArgumentException e) {
+			// Check that no error occurred
+			fail();
+		}
+		assertNotNull(account);
+		assertEquals(NEWUSERNAME,account.getUsername());
+		assertEquals(NEWPASSWORD,account.getPassword());
+		assertEquals(NEWINTOWN,account.getInTown());
+		assertEquals(NEWTOTALPOINTS,account.getTotalPoints());
+	}
+	
+	@Test
+	public void testUpdateAccountWithInvalidTotalPoints() {
+		lenient().when(personDao.existsById(anyString())).thenReturn(true);
+		Person person = personService.findPersonByEmail(EMAIL);
+		Account account = null;
+		String error = "";
+		assertEquals(0, accountService.getAllAccounts().size());
+		assertNotNull(person);
+		
+		try {
+			account = accountService.updateAccount(USERNAME, NEWUSERNAME, NEWPASSWORD, NEWINTOWN, -1, person);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertNull(account);
+		assertEquals("Account Total points cannot be negative",error);
+	}
+	
+	@Test
+	public void testDeleteAccount() {
+		boolean delete = false;
+		Account account = accountService.findAccountByUsername(USERNAME);
+		
+		try {
+			delete = accountService.deleteAccount(account);
+		} catch (IllegalArgumentException e) {
+			// Check that no error occurred
+			fail();
+		}
+		assertTrue(delete);
+	}
+	
+	@Test
+	public void testGetPersonByAccount() {
+		Person person = null;
+		Account account = accountDao.findAccountByUsername(USERNAME);
+		try {
+			person = accountService.getPersonByAccount(account);
+		}catch(IllegalArgumentException e) {
+			fail();
+		}
+		assertNotNull(person);
+		assertEquals(EMAIL, person.getEmail());
+		assertEquals(FIRSTNAME, person.getFirstName());
+		assertEquals(LASTNAME, person.getLastName());
+		assertEquals(PHONENUMBER, person.getPhoneNumber());
+		assertEquals(ADDRESS, person.getAddress());	
 	}
 }
