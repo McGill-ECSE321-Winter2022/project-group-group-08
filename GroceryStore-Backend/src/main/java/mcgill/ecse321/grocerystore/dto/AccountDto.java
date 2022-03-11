@@ -14,13 +14,12 @@ public class AccountDto {
 		
 	}
 
-	public AccountDto(String username, String password, boolean inTown, int totalPoints,PersonDto person, CartDto cart) {
+	public AccountDto(String username, String password, boolean inTown, int totalPoints,PersonDto person) {
 		this.username = username;
 		this.password = password;
 		this.inTown = inTown;
 		this.totalPoints = totalPoints;
 		this.person = person;
-		this.cart = cart;
 	}
 	
 	public String getUsername() {

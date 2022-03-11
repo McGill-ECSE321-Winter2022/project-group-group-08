@@ -58,8 +58,7 @@ public class CustomerRestController {
 			throw new IllegalArgumentException("There is no such Person!");
 		}
 		PersonDto personDto = new PersonDto(person.getEmail(),person.getFirstName(),person.getLastName(),
-				person.getPhoneNumber(), person.getAddress(),convertToDto(person.getUserRole()),
-				convertToDto(person.getAccount()));
+				person.getPhoneNumber(), person.getAddress());
 		return personDto;
 	}
 
@@ -68,10 +67,11 @@ public class CustomerRestController {
 			throw new IllegalArgumentException("There is no such Account!");
 		}
 		AccountDto accountDto = new AccountDto(a.getUsername(),a.getPassword(),a.getInTown(),a.getTotalPoints(),
-				convertToDto(a.getPerson()),convertToDto(a.getCart()));
+				convertToDto(a.getPerson()));
 		return accountDto;
 	}
 
+	@SuppressWarnings("unused")
 	private CartDto convertToDto(Cart c) {
 		if (c == null) {
 			throw new IllegalArgumentException("There is no such Cart!");
@@ -81,6 +81,7 @@ public class CustomerRestController {
 	}
 
 
+	@SuppressWarnings("unused")
 	private UserRoleDto convertToDto(UserRole role) {
 		if (role == null) {
 			throw new IllegalArgumentException("There is no such UserRole!");
