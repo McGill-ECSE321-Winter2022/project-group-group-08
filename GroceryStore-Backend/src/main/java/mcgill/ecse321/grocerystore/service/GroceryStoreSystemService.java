@@ -113,6 +113,51 @@ public class GroceryStoreSystemService {
 		
 	}
 	
+	@Transactional
+	public boolean deleteGroceryStoreSystem(GroceryStoreSystem groceryStoreSystem) {
+		if (groceryStoreSystem == null) {
+			return false;
+		}else {
+			groceryStoreSystemRepository.delete(groceryStoreSystem);
+			return true;
+		}
+	}
+	
+	@Transactional
+	public boolean deleteGroceryStoreSystemByStoreName(String storeName) {
+		if (storeName.trim().length() == 0 || storeName.equals(null)) {
+			return false;
+		}else {
+			GroceryStoreSystem groceryStoreSystem = groceryStoreSystemRepository.findGroceryStoreSystemByStoreName(storeName);
+			groceryStoreSystemRepository.delete(groceryStoreSystem);
+			return true;
+		}
+	}
+	
+	@Transactional
+	public GroceryStoreSystem updateGroceryStoreSystem(String storeName, String address, int employeeDiscount) {
+		if(storeName.trim().length() == 0 || storeName.equals(null)) {
+			throw new IllegalArgumentException("Store name cannot be empty");
+		}
+		if(address.trim().length() == 0 || address.equals(null)) {
+			throw new IllegalArgumentException("Address cannot be empty");
+		}
+		if(employeeDiscount < 0) {
+			throw new IllegalArgumentException("Employee discount cannot be negative");
+		}
+		GroceryStoreSystem groceryStoreSystem = groceryStoreSystemRepository.findGroceryStoreSystemByStoreName(storeName);
+		if(groceryStoreSystem == null) {
+			throw new IllegalArgumentException("The grocery store system does not exist");
+		}
+		groceryStoreSystem.setStoreName(storeName);
+		groceryStoreSystem.setAddress(address);;
+		groceryStoreSystem.setEmployeeDiscount(employeeDiscount);
+		//groceryStoreSystem.setOpeningHours(businessHours);
+		return groceryStoreSystem;
+	}
+	
+	
+	
 }
 
 

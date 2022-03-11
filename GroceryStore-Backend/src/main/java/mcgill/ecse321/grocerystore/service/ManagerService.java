@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import mcgill.ecse321.grocerystore.dao.ManagerRepository;
 import mcgill.ecse321.grocerystore.dao.UserRoleRepository;
 import mcgill.ecse321.grocerystore.model.Manager;
 import mcgill.ecse321.grocerystore.model.UserRole;
@@ -18,16 +19,28 @@ public class ManagerService {
 	
 	@Autowired
 	UserRoleRepository userRoleRepository;
+	@Autowired
+	ManagerRepository managerRepository;
 	
 	@Transactional 
-	public UserRole createManager() {
+	public Manager createManager() {
 		Manager manager = new Manager();
 		return manager;
 	}
 	
-	public UserRole getManager(int id) {
-		UserRole managerID = userRoleRepository.findUserRoleById(id);
+	public Manager getManager(int id) {
+		Manager managerID = managerRepository.findManagerById(id);
 		return managerID;
+	}
+	
+	@Transactional
+	public boolean deleteManager(Manager manager) {
+		if (manager == null) {
+			return false;
+		}else {
+			managerRepository.delete(manager);
+			return true;
+		}
 	}
 	 	
 
