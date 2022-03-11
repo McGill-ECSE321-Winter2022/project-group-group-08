@@ -23,11 +23,19 @@ public class ManagerService {
 	ManagerRepository managerRepository;
 	
 	@Transactional 
-	public Manager createManager() {
+	public Manager createManager(int id) {
+		if(id < 0) {
+			throw new IllegalArgumentException("The manager's id cannot be negative");
+		}
 		Manager manager = new Manager();
 		return manager;
 	}
+	@Transactional
+	public List<Manager> getAllManagers() {
+		return toList(managerRepository.findAll());
+	}
 	
+	@Transactional
 	public Manager getManager(int id) {
 		Manager managerID = managerRepository.findManagerById(id);
 		return managerID;
@@ -42,6 +50,15 @@ public class ManagerService {
 			return true;
 		}
 	}
+	
+	private <T> List<T> toList(Iterable<T> iterable){
+		List<T> resultList = new ArrayList<T>();
+		for (T t : iterable) {
+			resultList.add(t);
+		}
+		return resultList;
+	}
+	
 	 	
 
 }

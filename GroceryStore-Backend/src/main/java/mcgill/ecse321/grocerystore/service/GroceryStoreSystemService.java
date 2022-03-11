@@ -49,6 +49,9 @@ public class GroceryStoreSystemService {
 	
 	@Transactional
 	public GroceryStoreSystem getGroceryStoreSystem(String storeName) {
+		if (storeName == null || storeName.trim().length() == 0) {
+			throw new IllegalArgumentException("The store name cannot be empty.");
+		}
 		GroceryStoreSystem groceryStoreSystem = groceryStoreSystemRepository.findGroceryStoreSystemByStoreName(storeName);
 		return groceryStoreSystem;
 	}
