@@ -48,6 +48,7 @@ public class GroceryStoreSystem{
 	public Set<BusinessHour> getOpeningHours() {
 		return this.openingHours;
 	}
+	
 
 	public void setOpeningHours(Set<BusinessHour> openingHours) {
 		this.openingHours = openingHours;
