@@ -53,7 +53,7 @@ public class ReceiptRestController {
 		) {
 		
 		Cart attCart = CartService.getCartById(cartid);
-		Receipt receipt = receiptService.createReceipt(receiptNum, receiptStatus, receiptType, attCart);
+		Receipt receipt = receiptService.createReceipt(attCart, receiptStatus, receiptType);
 		return convertToDto(receipt);
 	}
 	
@@ -66,13 +66,13 @@ public class ReceiptRestController {
 			@RequestParam(name = "receiptType") ReceiptType receiptType
 			) {
 		Cart attCart = CartService.getCartById(cartid);
-		Receipt receipt = receiptService.createReceipt(receiptNum, receiptStatus, receiptType, attCart);
+		Receipt receipt = receiptService.updateReceipt(receiptStatus, receiptType);
 		return convertToDto(receipt);
 	}
 	
 	@DeleteMapping(value = {baseURL + "/delete/{id}", baseURL+"/delete/{id}/"})
 	public ReceiptDto deleteReceipt(@PathVariable("id") int id) { //not sure if this is needed
-		Receipt receipt = receiptService.getReceiptById(id);
+		Receipt receipt = receiptService.getReceiptByReceiptNum(id);
 		receiptService.deleteReceipt(receipt); 
 		return convertToDto(receipt);
 	}

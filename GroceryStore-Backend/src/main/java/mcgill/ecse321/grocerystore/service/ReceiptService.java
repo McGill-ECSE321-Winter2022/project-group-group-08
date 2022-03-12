@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mcgill.ecse321.grocerystore.dao.ReceiptRepository;
+import mcgill.ecse321.grocerystore.model.Cart;
 import mcgill.ecse321.grocerystore.model.Receipt;
 import mcgill.ecse321.grocerystore.model.Receipt.ReceiptStatus;
 import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
@@ -17,6 +18,53 @@ import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
 public class ReceiptService {
 	@Autowired
 	private ReceiptRepository receiptRepository;
+	
+	@Transactional
+	public Receipt createReceipt(Cart curr, ReceiptStatus status, ReceiptType type) {
+		
+		Receipt currReceipt = new Receipt();
+
+		currReceipt.setCart(curr);
+		currReceipt.setReceiptStatus(status);
+		currReceipt.setReceiptType(type);
+		receiptRepository.save(currReceipt);
+		
+		return currReceipt;
+	}
+	
+	@Transactional
+	public Receipt updateReceipt(ReceiptStatus status, ReceiptType type) {
+		
+		Receipt currReceipt = new Receipt();
+
+		currReceipt.setReceiptStatus(status);
+		currReceipt.setReceiptType(type);
+		receiptRepository.save(currReceipt);
+		
+		return currReceipt;
+	}
+	
+	@Transactional
+	public boolean deleteReceipt(Receipt curr) {
+		if (curr == null) {
+			return false;
+		}else {
+			receiptRepository.delete(curr);
+			return true;
+		}
+	}
+	
+	@Transactional
+	public boolean deleteItemById(int id) {
+		if (id < 0) {
+			return false;
+		}else {
+			Receipt curr = receiptRepository.findReceiptByReceiptNum(id);
+			receiptRepository.delete(curr);
+			return true;
+		}
+	}
+	
 	
 	@Transactional
 	public Receipt getReceiptByReceiptNum(int receiptNum) {
