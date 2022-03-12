@@ -117,6 +117,35 @@ import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
         
  		
  	}
+ 	
+ 	@Test
+ 	public void testUpdateReceipt() {
+ 		
+ 		Account account = new Account();
+ 		account.setUsername(USERNAME);
+        account.setPassword(PASSWORD);
+        account.setInTown(INTOWN);
+        account.setTotalPoints(TOTALPOINTS);
+        account.setPerson(personService.createPerson(EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS));
+
+        Receipt curr = service.updateReceipt(ReceiptStatus.Processed, ReceiptType.Pickup);
+
+        assertEquals(curr.getReceiptStatus(), ReceiptStatus.Processed);
+        assertEquals(curr.getReceiptType(), ReceiptType.Pickup);
+        
+ 		
+ 	}
+ 	@Test
+ 	public void testGetReceiptReceiptNum() {
+ 		testCreateReceipt();
+ 		
+ 		Receipt curr = service.getReceiptByReceiptNum(ID);
+ 		assertEquals(curr.getReceiptStatus(), ReceiptStatus.Processed);
+ 		assertEquals(curr.getReceiptType(), ReceiptType.Pickup);
+ 		
+ 	}
+ 	
+ 	
 
 
  } 

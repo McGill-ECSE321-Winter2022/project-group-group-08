@@ -44,15 +44,6 @@ public class ReceiptService {
 		return currReceipt;
 	}
 	
-	@Transactional
-	public boolean cartService(Receipt curr) {
-		if (curr == null) {
-			return false;
-		}else {
-			receiptRepository.delete(curr);
-			return true;
-		}
-	}
 	
 	@Transactional
 	public boolean deleteItemById(int id) {
