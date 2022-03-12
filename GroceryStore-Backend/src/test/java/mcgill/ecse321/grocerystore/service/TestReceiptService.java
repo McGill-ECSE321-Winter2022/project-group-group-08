@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
@@ -29,41 +30,63 @@ import org.mockito.stubbing.Answer;
 import mcgill.ecse321.grocerystore.dao.AccountRepository;
 import mcgill.ecse321.grocerystore.dao.CartRepository;
 import mcgill.ecse321.grocerystore.dao.PersonRepository;
+import mcgill.ecse321.grocerystore.dao.ReceiptRepository;
 import mcgill.ecse321.grocerystore.model.Account;
 import mcgill.ecse321.grocerystore.model.Cart;
 import mcgill.ecse321.grocerystore.model.Person;
+import mcgill.ecse321.grocerystore.model.Receipt;
+import mcgill.ecse321.grocerystore.model.Receipt.ReceiptStatus;
+import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
 
 @ExtendWith(MockitoExtension.class)
- public class TestReceiptService1 {
+ public class TestReceiptService {
 
  	@Mock
- 	private ItemRepository itemDao;
+ 	private ReceiptRepository receiptDao;
 
 
  	@InjectMocks
- 	private ItemService service;
-
+ 	private ReceiptService service;
+ 	
+ 	@Mock 
+	private AccountRepository accountDao;
+	
+	@Mock
+	private PersonRepository personDao;
+	
+	@InjectMocks
+	private AccountService accountService;
+	
+	@InjectMocks
+	private PersonService personService;
+ 	
  	private static int ID = 0;
- 	private static final String NAME = "Carrot";
- 	private static final int PRICE = 3;
- 	private static final int POINT = 100;
- 	private static final int RETURN_POLICY = 2;
- 	private static final boolean PICKUP = true;
- 	private static final int IN_STORE_QUANTITY = 52;
-
+ 	
+ 	private static final String USERNAME = "Bob";
+	private static final String NEWUSERNAME = "Bob L'Eponge";
+	private static final String PASSWORD = "101";
+	private static final String NEWPASSWORD = "111";
+	private static final boolean INTOWN = true;
+	private static final boolean NEWINTOWN = false;
+	private static final int TOTALPOINTS = 0;
+	private static final int NEWTOTALPOINTS = 10;
+	
+	private static final String EMAIL = "abc@gmail.com";
+	private static final String PHONENUMBER = "1112223333";
+	private static final String ADDRESS = "845 Sherbrooke St W, Montreal, Quebec H3A 0G4";
+	private static final String FIRSTNAME = "Bob";
+	private static final String LASTNAME = "Smith";
+	private static final Date date = java.sql.Date.valueOf(LocalDate.of(2022, Month.DECEMBER, 31));;
 
  	@BeforeEach
  	public void setMockOutput() {
- 		lenient().when(itemDao.findItemById(anyInt())).thenAnswer( (InvocationOnMock invocation) -> {
+ 		lenient().when(receiptDao.findReceiptByReceiptNum(anyInt())).thenAnswer( (InvocationOnMock invocation) -> {
  			if(invocation.getArgument(0).equals(ID)) {
- 				Item item = new Item();
- 				item.setName(NAME);
- 				item.setPrice(PRICE);
- 				item.setPoint(POINT);
- 				item.setReturnPolicy(RETURN_POLICY);
- 				item.setPickup(PICKUP);
- 				item.setInStoreQuantity(IN_STORE_QUANTITY);
- 				return item;
+ 				Receipt curr = new Receipt();
+ 				curr.setCart(null);
+ 				curr.setReceiptStatus(ReceiptStatus.Processed);
+ 				curr.setReceiptType(ReceiptType.Pickup);
+ 				return curr;
  			} else {
  				return null;
  			}
@@ -71,259 +94,29 @@ import mcgill.ecse321.grocerystore.model.Person;
  		Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> {
  			return invocation.getArgument(0);
  		};
- 		lenient().when(itemDao.save(any(Item.class))).thenAnswer(returnParameterAsAnswer);
+ 		lenient().when(receiptDao.save(any(Receipt.class))).thenAnswer(returnParameterAsAnswer);
  	}
 
  	@Test
  	public void testCreateReceipt() {
- 		assertEquals(0, service.getAllItems().size());
+ 		
+ 		Account account = new Account();
+ 		account.setUsername(USERNAME);
+        account.setPassword(PASSWORD);
+        account.setInTown(INTOWN);
+        account.setTotalPoints(TOTALPOINTS);
+        account.setPerson(personService.createPerson(EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS));
 
- 		String name = "Carrot";
- 		int price = 2;
- 		int point = 10;
- 		int returnPolicy = 2;
- 		boolean pickup = true;
- 		int inStoreQuantity = 58;
- 		Item item = null;
- 		try {
- 			item = service.createItem(name, price, point, returnPolicy, pickup, inStoreQuantity);
- 		} catch (IllegalArgumentException e) {
- 			fail();
- 		}
- 		int id = item.getId();
- 		assertNotNull(item);
-
- 		assertEquals(id,item.getId());
- 		assertEquals(name,item.getName());
- 		assertEquals(price,item.getPrice());
- 		assertEquals(point,item.getPoint());
- 		assertEquals(returnPolicy,item.getReturnPolicy());
- 		assertEquals(pickup,item.getPickup());
- 		assertEquals(inStoreQuantity,item.getInStoreQuantity());
+        Cart cart = new Cart();
+        cart.setDate(date);
+        
+        Receipt curr = service.createReceipt(cart, ReceiptStatus.Processed, ReceiptType.Pickup);
+        assertEquals(curr.getCart(), cart);
+        assertEquals(curr.getReceiptStatus(), ReceiptStatus.Processed);
+        assertEquals(curr.getReceiptType(), ReceiptType.Pickup);
+        
+ 		
  	}
 
- 	@Test
- 	public void testCreateItemNameNull() {		
- 		String name = null;
- 		int price = 2;
- 		int point = 10;
- 		int returnPolicy = 2;
- 		boolean pickup = true;
- 		int inStoreQuantity = 58;
- 		Item item = null;
- 		String error = null;
- 		try {
- 			item = service.createItem(name, price, point, returnPolicy, pickup, inStoreQuantity);
- 		} catch (IllegalArgumentException e) {
- 			error = e.getMessage();
- 		}
- 		assertNull(item);
- 		assertEquals(error,"Item name cannot be null or empty");
- 	}
-
- 	@Test
- 	public void testCreateItemNameEmpty() {		
- 		String name = "";
- 		int price = -1;
- 		int point = -1;
- 		int returnPolicy = -1;
- 		boolean pickup = true;
- 		int inStoreQuantity = -1;
- 		Item item = null;
- 		String error = null;
- 		try {
- 			item = service.createItem(name, price, point, returnPolicy, pickup, inStoreQuantity);
- 		} catch (IllegalArgumentException e) {
- 			error = e.getMessage();
- 		}
- 		assertNull(item);
- 		assertEquals(error,"Item name cannot be null or empty");
- 	}
-
- 	@Test
- 	public void testCreateItemNameSpaces() {		
- 		String name = " ";
- 		int price = -1;
- 		int point = -1;
- 		int returnPolicy = -1;
- 		boolean pickup = true;
- 		int inStoreQuantity = -1;
- 		Item item = null;
- 		String error = null;
- 		try {
- 			item = service.createItem(name, price, point, returnPolicy, pickup, inStoreQuantity);
- 		} catch (IllegalArgumentException e) {
- 			error = e.getMessage();
- 		}
- 		assertNull(item);
- 		assertEquals(error,"Item name cannot be null or empty");
- 	}
-
- 	@Test
- 	public void testCreateItemPriceNegative() {		
- 		String name = "Carrot";
- 		int price = -2;
- 		int point = 10;
- 		int returnPolicy = 2;
- 		boolean pickup = true;
- 		int inStoreQuantity = 58;
- 		Item item = null;
- 		String error = null;
- 		try {
- 			item = service.createItem(name, price, point, returnPolicy, pickup, inStoreQuantity);
- 		} catch (IllegalArgumentException e) {
- 			error = e.getMessage();
- 		}
- 		assertNull(item);
- 		assertEquals(error,"The price cannot be a negative number");
- 	}
-
- 	@Test
- 	public void testCreateItemPointNegative() {		
- 		String name = "Carrot";
- 		int price = 2;
- 		int point = -10;
- 		int returnPolicy = 2;
- 		boolean pickup = true;
- 		int inStoreQuantity = 58;
- 		Item item = null;
- 		String error = null;
- 		try {
- 			item = service.createItem(name, price, point, returnPolicy, pickup, inStoreQuantity);
- 		} catch (IllegalArgumentException e) {
- 			error = e.getMessage();
- 		}
- 		assertNull(item);
- 		assertEquals(error,"The point cannot be a negative number");
- 	}
-
- 	@Test
- 	public void testCreateItemReturnPolicyNegative() {		
- 		String name = "Carrot";
- 		int price = 2;
- 		int point = 10;
- 		int returnPolicy = -2;
- 		boolean pickup = true;
- 		int inStoreQuantity = 58;
- 		Item item = null;
- 		String error = null;
- 		try {
- 			item = service.createItem(name, price, point, returnPolicy, pickup, inStoreQuantity);
- 		} catch (IllegalArgumentException e) {
- 			error = e.getMessage();
- 		}
- 		assertNull(item);
- 		assertEquals(error,"The returnPolicy cannot be a negative number");
- 	}
-
- 	@Test
- 	public void testCreateItemInStoreQuantityyNegative() {		
- 		String name = "Carrot";
- 		int price = 2;
- 		int point = 10;
- 		int returnPolicy = 2;
- 		boolean pickup = true;
- 		int inStoreQuantity = -58;
- 		Item item = null;
- 		String error = null;
- 		try {
- 			item = service.createItem(name, price, point, returnPolicy, pickup, inStoreQuantity);
- 		} catch (IllegalArgumentException e) {
- 			error = e.getMessage();
- 		}
- 		assertNull(item);
- 		assertEquals(error,"The inStoreQuantity cannot be a negative number");
- 	}
-
- //	@Test
- //	public void testGetAllItems() {
- //		try {
- //			System.out.println(service.createItem(NAME, PRICE, POINT, RETURN_POLICY, PICKUP, IN_STORE_QUANTITY).getId());
- //			System.out.println(service.createItem(NAME, PRICE, POINT, RETURN_POLICY, PICKUP, IN_STORE_QUANTITY).getId());
- //		} catch (IllegalArgumentException e) {
- //			fail();
- //		}
- //		try {
- //			System.out.println(service.createItem(NAME, PRICE, POINT, RETURN_POLICY, PICKUP, IN_STORE_QUANTITY).getId());
- //		} catch (IllegalArgumentException e) {
- //			fail();
- //		}
- //		
- //		List<Item> items = null;
- //		try {
- //			items = service.getAllItems();
- //		} catch (IllegalArgumentException e) {
- //			fail();
- //		}
- //		System.out.println(items);
- //		assertNotNull(items);
- //		assertEquals(2, items.size());
- //	}
-
- 	@Test
- 	public void testGetItemById() {
- 		Item item = null;
- 		String error = "";
- 		try {
- 			item = service.getItemById(ID);
- 		} catch (IllegalArgumentException e) {
- 			fail();
- 		}
- 		assertNotNull(item);
- 		assertEquals(ID,item.getId());
- 		assertEquals(NAME,item.getName());
- 		assertEquals(PRICE,item.getPrice());
- 		assertEquals(POINT,item.getPoint());
- 		assertEquals(RETURN_POLICY,item.getReturnPolicy());
- 		assertEquals(PICKUP,item.getPickup());
- 		assertEquals(IN_STORE_QUANTITY,item.getInStoreQuantity());
- 	}
-
- 	@Test
- 	public void testGetItemByIdNegative() {
- 		Item item = null;
- 		String error = "";
- 		int id = -1;
- 		try {
- 			item = service.getItemById(id);
- 		} catch (IllegalArgumentException e) {
- 			error = e.getMessage();
- 		}
- 		assertNull(item);
- 		assertEquals(error,"The id cannot be a negative number");
- 	}
-
- 	@Test
- 	public void testGetItemByIdNull() {
- 		Item item = null;
- 		String error = "";
- 		int id = 3;
- 		try {
- 			item = service.getItemById(id);
- 		} catch (IllegalArgumentException e) {
- 			error = e.getMessage();
- 		}
- 		assertNull(item);
- 		assertEquals(error,"No item with id " + id + " exists");
- 	}
-
- //	@Test
- //	public void testGetItemByName() {
- //		List<Item> item = null;
- //		String error = "";
- //		try {
- //			item = service.getItemByName(NAME);
- //		} catch (IllegalArgumentException e) {
- //			fail();
- //		}
- //		assertNotNull(item);
- //		assertEquals(ID,item.getId());
- //		assertEquals(NAME,item.getName());
- //		assertEquals(PRICE,item.getPrice());
- //		assertEquals(POINT,item.getPoint());
- //		assertEquals(RETURN_POLICY,item.getReturnPolicy());
- //		assertEquals(PICKUP,item.getPickup());
- //		assertEquals(IN_STORE_QUANTITY,item.getInStoreQuantity());
- //	}
 
  } 

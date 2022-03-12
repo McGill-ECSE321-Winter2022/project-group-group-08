@@ -37,6 +37,7 @@ public class CartService {
 		return cart;
 	}
 
+	
 	@Transactional
 	public List<Cart> getCartbyDate(Date minDate, Date maxDate) {
 		List<Cart> cart  = cartRepository.findCartByDateAfterAndDateBefore(minDate,maxDate);
@@ -54,6 +55,11 @@ public class CartService {
 		Cart cart = cartRepository.findCartById(id);
 		cart.setId(id);
 		cart.setDate(date);
+		return cart;
+	}
+
+	public Cart getCartById(int cartid) {
+		Cart cart  = cartRepository.findCartById(cartid);
 		return cart;
 	}
 }

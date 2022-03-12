@@ -2,6 +2,8 @@ package mcgill.ecse321.grocerystore.dto;
 
 import java.sql.Date;
 
+import mcgill.ecse321.grocerystore.model.Cart;
+
 public class CartDto {
 
     private int id;
@@ -33,6 +35,8 @@ public class CartDto {
 	public AccountDto getAccount() {
 		return account;
 	}
+
+	
 
     /*public QuantityDto getQuantity() {
 		return quantity;

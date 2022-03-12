@@ -45,7 +45,7 @@ public class ReceiptService {
 	}
 	
 	@Transactional
-	public boolean deleteReceipt(Receipt curr) {
+	public boolean cartService(Receipt curr) {
 		if (curr == null) {
 			return false;
 		}else {

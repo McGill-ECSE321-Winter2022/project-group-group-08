@@ -18,6 +18,7 @@ import mcgill.ecse321.grocerystore.model.Cart;
 import mcgill.ecse321.grocerystore.model.Receipt;
 import mcgill.ecse321.grocerystore.model.Receipt.ReceiptStatus;
 import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
+import mcgill.ecse321.grocerystore.service.CartService;
 import mcgill.ecse321.grocerystore.service.ReceiptService;
 
 
@@ -52,7 +53,7 @@ public class ReceiptRestController {
 		
 		) {
 		
-		Cart attCart = CartService.getCartById(cartid);
+		Cart attCart = cartService.getCartById(cartid);
 		Receipt receipt = receiptService.createReceipt(attCart, receiptStatus, receiptType);
 		return convertToDto(receipt);
 	}
@@ -65,15 +66,15 @@ public class ReceiptRestController {
 			@RequestParam(name = "receiptStatus") ReceiptStatus receiptStatus,
 			@RequestParam(name = "receiptType") ReceiptType receiptType
 			) {
-		Cart attCart = CartService.getCartById(cartid);
+		Cart attCart = cartService.getCartById(cartid);
 		Receipt receipt = receiptService.updateReceipt(receiptStatus, receiptType);
 		return convertToDto(receipt);
 	}
 	
 	@DeleteMapping(value = {baseURL + "/delete/{id}", baseURL+"/delete/{id}/"})
-	public ReceiptDto deleteReceipt(@PathVariable("id") int id) { //not sure if this is needed
+	public ReceiptDto deleteReceipt(@PathVariable("id") int id) { 
 		Receipt receipt = receiptService.getReceiptByReceiptNum(id);
-		receiptService.deleteReceipt(receipt); 
+		//receiptService.deleteReceipt(receipt); 
 		return convertToDto(receipt);
 	}
 	
@@ -82,7 +83,7 @@ public class ReceiptRestController {
 			throw new IllegalArgumentException("There is no such receipt!");
 			//int receiptNum, ReceiptStatus receiptStatus, ReceiptType receiptType, CartDto cart
 		}
-		CartDto cartDto = CartDto.convertToDto(receipt.getCart());
+		CartDto cartDto = cartDto.convertToDto(receipt.getCart());
 		ReceiptDto receiptDto = new ReceiptDto(receipt.getReceiptNum(), receipt.getReceiptStatus(), receipt.getReceiptType(), cartDto);
 		return receiptDto;
 	}
