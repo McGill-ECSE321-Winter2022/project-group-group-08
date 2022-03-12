@@ -15,5 +15,9 @@ public class UserRoleDto {
 	public int getId() {
 		return this.id;
 	}
+	
+	public PersonDto getPersonDto() {
+		 return this.person;
+	}
 
 }
