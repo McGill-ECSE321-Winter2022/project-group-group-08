@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mcgill.ecse321.grocerystore.dao.QuantityRepository;
+import mcgill.ecse321.grocerystore.model.Cart;
 import mcgill.ecse321.grocerystore.model.Item;
 import mcgill.ecse321.grocerystore.model.Quantity;
 
@@ -19,13 +20,14 @@ public class QuantityService {
 	private QuantityRepository quantityRepository;
 	
 	@Transactional
-	public Quantity createQuantity(int count, Item item) {
+	public Quantity createQuantity(int count, Item item, Cart cart) {
 		if(item == null || item.equals("undefined")) {
 			throw new IllegalArgumentException("Item cannot be null or empty");
 		}
 		Quantity quantity = new Quantity();
 		quantity.setCount(count);
 		quantity.setItem(item);
+		quantity.setCart(cart);
 		return quantity;
 	}
 	
@@ -54,7 +56,7 @@ public class QuantityService {
 	}
 	
 	@Transactional
-	public Quantity updateQuantity(int id, int count, Item item) {
+	public Quantity updateQuantity(int id, int count, Item item, Cart cart) {
 		if(count < 0) {
 			throw new IllegalArgumentException("Count cannot be a negative number");
 		}
@@ -67,6 +69,7 @@ public class QuantityService {
 		}
 		quantity.setCount(count);
 		quantity.setItem(item);
+		quantity.setCart(cart);
 		quantityRepository.save(quantity);
 		return quantity;
 	}
