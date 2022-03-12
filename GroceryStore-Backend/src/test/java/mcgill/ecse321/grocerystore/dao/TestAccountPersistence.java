@@ -30,11 +30,12 @@ public class TestAccountPersistence {
 	}
 	
 	//creates an account
-	public Account createAccount(String username, String password, boolean inTown) {
+	public Account createAccount(String username, String password, boolean inTown, Person person) {
 		Account account = new Account();
 		account.setUsername(username);
 		account.setPassword(password);
 		account.setInTown(inTown);
+		account.setPerson(person);
 		accountRepository.save(account);
 		return account;
 	}
@@ -53,12 +54,20 @@ public class TestAccountPersistence {
 	
 	@Test
 	public void testPersistAndLoadAccount() {
+		String email = "abc@gmail.com";
+		String phoneNumber = "1112223333";
+		String address = "845 Sherbrooke St W, Montreal, Quebec H3A 0G4";
+		String firstName = "Bob";
+		String lastName = "Smith";
+		
+		Person person = createPerson(email, firstName, lastName, phoneNumber, address);
+		
 		//person details
 		String username = "Bob";
 		String password = "101";
 		boolean inTown = true;
 		
-		Account account = createAccount(username, password, inTown);
+		Account account = createAccount(username, password, inTown, person);
 		
 		account = null;
 		account = accountRepository.findAccountByUsername(username);
@@ -70,47 +79,4 @@ public class TestAccountPersistence {
 		assertEquals(password,account.getPassword());
 		assertEquals(inTown,account.getInTown());
 	}
-	
-	
-	@Test
-	public void testPersistAndLoadAccountByPerson() {
-		//create an instance of a person 
-		String email = "abc@gmail.com";
-		String phoneNumber = "1112223333";
-		String address = "845 Sherbrooke St W, Montreal, Quebec H3A 0G4";
-		String firstName = "Bob";
-		String lastName = "Smith";
-		Person person = createPerson(email, firstName, lastName, phoneNumber, address);
-		
-		//create an instance of an account
-		String username = "Bob";
-		String password = "101";
-		boolean inTown = true;
-		Account account = createAccount(username, password, inTown);
-		
-		//link both together
-		person.setAccount(account);
-		account.setPerson(person);
-		
-		//save repositories
-		personRepository.save(person);
-		accountRepository.save(account);
-		
-		person = null;
-		account = null;
-		
-		//find person
-		person = personRepository.findPersonByEmail(email);
-		assertNotNull(person);
-		
-		//find account through person
-		account = person.getAccount();
-		assertNotNull(account);
-		
-		//test attributes
-		assertEquals(username,account.getUsername());
-		assertEquals(password,account.getPassword());
-		assertEquals(inTown,account.getInTown());
-	}
-	
 }
