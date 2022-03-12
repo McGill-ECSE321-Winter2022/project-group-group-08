@@ -12,15 +12,8 @@ public class GroceryStoreSystem{
 	private String storeName;
 	private String address;
 	private int employeeDiscount;
-
-	@OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-	private Set<BusinessHour> openingHours;
-	
-	@OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-	private Set<Item> items;
 	
 	//attributes getters and setters
-	
 	public void setStoreName(String value) {
 		this.storeName = value;
 	}
@@ -43,21 +36,5 @@ public class GroceryStoreSystem{
 	
 	public int getEmployeeDiscount() {
 		return this.employeeDiscount;
-	}
-	
-	public Set<BusinessHour> getOpeningHours() {
-		return this.openingHours;
-	}
-
-	public void setOpeningHours(Set<BusinessHour> openingHours) {
-		this.openingHours = openingHours;
-	}
-	
-	public Set<Item> getItems() {
-		return this.items;
-	}
-
-	public void setItems(Set<Item> items) {
-		this.items = items;
 	}
 }

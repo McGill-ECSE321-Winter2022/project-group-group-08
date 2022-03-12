@@ -12,14 +12,10 @@ public class Account{
 	private boolean inTown;
 	private int totalPoints;
 	
-	@OneToOne(mappedBy="account")
-	private Cart cart;
-	
-	@OneToOne(mappedBy="account")
+	@OneToOne(optional=false)
 	private Person person;
 	
 	//Attribute getters and setters
-	
 	public void setUsername(String aUsername){
 		this.username = aUsername;
 	}
@@ -52,16 +48,7 @@ public class Account{
 		return totalPoints;
 	}
 
-	//Relationships
-
-	public Cart getCart() {
-	   return this.cart;
-	}
-
-	public void setCart(Cart cart) {
-	   this.cart = cart;
-	}
-	
+	//Relationships	
 	public Person getPerson() {
 	   return this.person;
 	}
