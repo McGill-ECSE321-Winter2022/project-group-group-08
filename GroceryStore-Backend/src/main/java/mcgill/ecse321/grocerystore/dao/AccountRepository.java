@@ -21,6 +21,4 @@ public interface AccountRepository extends CrudRepository<Account, String>{
 	List<Account> findAccountByTotalPointsBetween(int minPoint, int maxPoint);
 	
 	List<Account> findAccountByInTownAndTotalPointsBetween(boolean inTown, int minPoint, int maxPoint);	
-	
-	boolean existsByPersonAndCart(Person person, Cart cart);
 }

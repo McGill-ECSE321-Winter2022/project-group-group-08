@@ -14,10 +14,10 @@ public class Quantity{
 	private int id;
 	private int count;
 
-	@OneToOne(cascade={CascadeType.ALL}, optional=true)
+	@OneToOne(cascade={CascadeType.MERGE}, optional=false)
 	private Item item;
 	
-	@ManyToOne(cascade={CascadeType.ALL}, optional=true)
+	@ManyToOne(cascade={CascadeType.MERGE}, optional=false)
 	private Cart cart;
 	
 	//attribute getters and setters
@@ -45,5 +45,13 @@ public class Quantity{
 
 	public void setItem(Item item) {
 		this.item = item;
+	}
+	
+	public Cart getCart() {
+		return this.cart;
+	}
+
+	public void setCart(Cart cart) {
+		this.cart = cart;
 	}
 }

@@ -43,8 +43,9 @@ public class TestEmployeePersistence {
 	}
 	
 	//creates an employee
-	public Employee createEmployee() {
+	public Employee createEmployee(Person person) {
 		Employee employee = new Employee();
+		employee.setPerson(person);
 		employeeRepository.save(employee);
 		return employee;
 	}
@@ -74,7 +75,15 @@ public class TestEmployeePersistence {
 	
 	@Test
 	public void testPersistAndLoadEmployee() {
-		Employee employee = createEmployee();
+		String email = "abc@gmail.com";
+		String phoneNumber = "1112223333";
+		String address = "845 Sherbrooke St W, Montreal, Quebec H3A 0G4";
+		String firstName = "Bob";
+		String lastName = "Smith";
+		
+		Person person = createPerson(email, firstName, lastName, phoneNumber, address);
+		
+		Employee employee = createEmployee(person);
 		int id= employee.getId();
 		
 		employee = null;

@@ -34,8 +34,9 @@ public class TestManagerPersistence {
 	}
 	
 	//creates a manager
-	public Manager createManager() {
+	public Manager createManager(Person person) {
 		Manager manager = new Manager();
+		manager.setPerson(person);
 		managerRepository.save(manager);
 		return manager;
 	}
@@ -54,7 +55,15 @@ public class TestManagerPersistence {
 	
 	@Test
 	public void testPersistAndLoadManager() {
-		Manager manager = createManager();
+		String email = "abc@gmail.com";
+		String phoneNumber = "1112223333";
+		String address = "845 Sherbrooke St W, Montreal, Quebec H3A 0G4";
+		String firstName = "Bob";
+		String lastName = "Smith";
+		
+		Person person = createPerson(email, firstName, lastName, phoneNumber, address);
+		
+		Manager manager = createManager(person);
 		int id = manager.getId();
 		
 		manager = null;

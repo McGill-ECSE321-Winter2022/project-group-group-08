@@ -35,10 +35,11 @@ public class TestCustomerPersistence {
 	}
 	
 	//creates a customer
-	public Customer createCustomer(TierClass tierClass, boolean ban) {
+	public Customer createCustomer(TierClass tierClass, boolean ban, Person person) {
 		Customer customer = new Customer();
 		customer.setTierclass(tierClass);
 		customer.setBan(ban);
+		customer.setPerson(person);
 		customerRepository.save(customer);
 		return customer;
 	}
@@ -57,10 +58,18 @@ public class TestCustomerPersistence {
 	
 	@Test
 	public void testPersistAndLoadCustomer() {
+		String email = "abc@gmail.com";
+		String phoneNumber = "1112223333";
+		String address = "845 Sherbrooke St W, Montreal, Quebec H3A 0G4";
+		String firstName = "Bob";
+		String lastName = "Smith";
+		
+		Person person = createPerson(email, firstName, lastName, phoneNumber, address);
+		
 		//customer attributes
 		TierClass tierClass = TierClass.Bronze;
 		boolean ban = false;
-		Customer customer = createCustomer(tierClass, ban);
+		Customer customer = createCustomer(tierClass, ban, person);
 		int id= customer.getId();
 		
 		customer = null;
