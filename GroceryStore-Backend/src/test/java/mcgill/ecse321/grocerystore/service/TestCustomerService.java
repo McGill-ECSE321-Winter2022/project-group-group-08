@@ -3,21 +3,31 @@ package mcgill.ecse321.grocerystore.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.lenient;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.stubbing.Answer;
 
 import mcgill.ecse321.grocerystore.dao.CustomerRepository;
 import mcgill.ecse321.grocerystore.model.Customer;
 import mcgill.ecse321.grocerystore.model.Customer.TierClass;
 
+@ExtendWith(MockitoExtension.class)
 public class TestCustomerService {
 
 	@Mock
@@ -52,7 +62,7 @@ public class TestCustomerService {
 				return null;
 			}
 		});
-		
+
 		lenient().when(customerDao.findCustomerByBan(anyBoolean())).thenAnswer((InvocationOnMock invocation) -> {
 			if (invocation.getArgument(0).equals(BAN_KEY)) {
 				Customer customer = new Customer();
@@ -62,6 +72,10 @@ public class TestCustomerService {
 				return null;
 			}
 		});
+		Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> {
+			return invocation.getArgument(0);
+		};
+		lenient().when(customerDao.save(any(Customer.class))).thenAnswer(returnParameterAsAnswer);
 	}
 
 	private TierClass anyTier() {
@@ -71,7 +85,7 @@ public class TestCustomerService {
 	public static TierClass getRandomTier() {
 		return TierClass.values()[(int) (Math.random() * TierClass.values().length)];
 	}
-	
+
 	@Test
 	public void testCreateCustomerSimple() {
 		assertEquals(0, service.getAllCustomers().size());
@@ -88,7 +102,7 @@ public class TestCustomerService {
 		assertEquals(defaultTier, customer.getTierclass());
 		assertEquals(defaultBan, customer.getBan());
 	}
-	
+
 	@Test
 	public void testCreateCustomer() {
 		assertEquals(0, service.getAllCustomers().size());
@@ -96,7 +110,7 @@ public class TestCustomerService {
 		boolean ban = true;
 		Customer customer = null;
 		try {
-			customer = service.createCustomer();
+			customer = service.createCustomer(tier, ban);
 		} catch (IllegalArgumentException e) {
 			// Check that no error occurred
 			fail();
@@ -110,7 +124,7 @@ public class TestCustomerService {
 	public void testGetExistingCustomer() {
 		assertEquals(ID_KEY, service.getCustomer(ID_KEY).getId());
 	}
-	
+
 	@Test
 	public void testGetNonExistingCustomer() {
 		assertNull(service.getCustomer(FAKE_ID_KEY));

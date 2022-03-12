@@ -76,9 +76,8 @@ public class CustomerService {
 	 * @return list of all customers of the given tier
 	 */
 	@Transactional
-	public List<Customer> getAllPersonsByTier(TierClass tier) {
-		List<Customer> customersByTier = customerRepository.findCustomerByTierclass(tier);
-	    return customersByTier;
+	public List<Customer> getAllCustomerByTier(TierClass tier) {
+		return toList(customerRepository.findCustomerByTierclass(tier));
 	}
 	
 	/**
@@ -87,9 +86,8 @@ public class CustomerService {
 	 * @return list of all customers of the given ban
 	 */
 	@Transactional
-	public List<Customer> getAllPersonsByBan(boolean ban) {
-		List<Customer> customersByBan = customerRepository.findCustomerByBan(ban);
-	    return customersByBan;
+	public List<Customer> getAllCustomerByBan(boolean ban) {
+		return toList(customerRepository.findCustomerByBan(ban));
 	}
 	
 	private <T> List<T> toList(Iterable<T> iterable){
