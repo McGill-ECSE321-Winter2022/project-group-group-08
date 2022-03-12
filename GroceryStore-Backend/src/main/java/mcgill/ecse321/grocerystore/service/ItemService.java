@@ -2,6 +2,7 @@ package mcgill.ecse321.grocerystore.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -61,32 +62,6 @@ public class ItemService {
 			throw new IllegalArgumentException("No item with id " + id + " exists");
 		}
 		return item;
-	}
-	
-	@Transactional
-	public List<Item> getItemByName(String name) {
-		
-		if (name == null || name == "") {
-			throw new IllegalArgumentException("The name cannot be null or empty");
-		}
-		List<Item> items = itemRepository.findItemByNameIgnoreCase(name);
-		if(items == null || items.isEmpty()) {
-			throw new IllegalArgumentException("No items with name '" + name + "' exists");
-		}
-		return items;
-	}
-	
-	@Transactional
-	public List<Item> getItemByNameAndPickup(String name, boolean pickup) {
-		
-		if (name == null || name == "") {
-			throw new IllegalArgumentException("The name cannot be null or empty");
-		}
-		List<Item> items = itemRepository.findItemByNameAndPickup(name, pickup);
-		if(items == null || items.isEmpty()) {
-			throw new IllegalArgumentException("No items with name '" + name + "' and pickup '" + pickup + "' exists");
-		}
-		return items;
 	}
 	
 	@Transactional
@@ -196,16 +171,6 @@ public class ItemService {
 		item.setInStoreQuantity(inStoreQuantity);
 		itemRepository.save(item);
 		return item;
-	}
-	
-	@Transactional
-	public boolean deleteItem(Item item) {
-		if (item == null) {
-			return false;
-		}else {
-			itemRepository.delete(item);
-			return true;
-		}
 	}
 	
 	@Transactional

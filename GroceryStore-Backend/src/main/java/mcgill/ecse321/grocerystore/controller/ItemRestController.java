@@ -63,10 +63,9 @@ public class ItemRestController {
 	}
 	
 	@DeleteMapping(value = {baseURL + "/delete/{id}", baseURL+"/delete/{id}/"})
-	public ItemDto deleteItem(@PathVariable("id") int id) {
-		Item item = itemService.getItemById(id);
-		itemService.deleteItem(item);
-		return convertToDto(item);
+	public boolean deleteItem(@PathVariable("id") int id) {
+		boolean deleted = itemService.deleteItemById(id);
+		return deleted;
 	}
 	
 	private ItemDto convertToDto(Item item) {
