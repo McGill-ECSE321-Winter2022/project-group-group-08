@@ -17,16 +17,18 @@ import mcgill.ecse321.grocerystore.dto.ReceiptDto;
 import mcgill.ecse321.grocerystore.dto.UserRoleDto;
 import mcgill.ecse321.grocerystore.model.Person;
 import mcgill.ecse321.grocerystore.model.Receipt;
+import mcgill.ecse321.grocerystore.service.ReceiptService;
 import mcgill.ecse321.grocerystore.service.UserRoleService;
 
 
 public class UserRoleRestController {
-
+	
+	private UserRoleService userRoleService;
 	private static final String baseURL="userRole";
 	@GetMapping(value = { "/getAllItems", "/getAllItems/" })
     
 	public List<UserRoleDto> getAllUserRoles() {
-        return UserRoleService.getAllUserRoles().stream().map(u -> convertToDto(u)).collect(Collectors.toList());
+        return userRoleService.getAllUserRoles().stream().map(u -> convertToDto(u)).collect(Collectors.toList());
     }
 	
 	@GetMapping(value = { "/getItemById/{stringId}", "/getItemById/{stringId}/" })

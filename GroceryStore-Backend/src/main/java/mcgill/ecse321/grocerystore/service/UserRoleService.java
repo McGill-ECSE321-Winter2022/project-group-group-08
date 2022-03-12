@@ -30,7 +30,7 @@ public class UserRoleService {
 	@Transactional
 	public List<UserRole>  getAllUserRoles() {
 		
-		return toList(UserRoleRepository.findAll());
+		return toList(userRoleRepository.findAll());
 		
 	};
 	
