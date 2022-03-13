@@ -462,4 +462,81 @@ public class TestBusinessHourService {
 		assertEquals(curr.getStartTime(),Time.valueOf("18:45:20"));
 		assertEquals(curr.getEndTime(),Time.valueOf("18:45:21"));
 	}
+
+    @Test
+    public void testDeleteBusinessHourByID(){
+        boolean businesshourdeleted=false;
+        try{
+            businesshourdeleted=service.deleteBusinessHourbyID(ID);
+        }catch(IllegalArgumentException e){
+            fail();
+        }
+        assertTrue(businesshourdeleted);
+    }
+
+    @Test
+    public void testDeleteBusinessHourByIDNegative(){
+        boolean businesshourdeleted=false;
+        try{
+            businesshourdeleted=service.deleteBusinessHourbyID(-1);
+        }catch(IllegalArgumentException e){
+            fail();
+        }
+        assertTrue(businesshourdeleted);
+    }
+
+    @Test
+    public void testDeleteBusinessHourByDay(){
+        boolean businesshourdeleted=false;
+        try{
+            businesshourdeleted=service.deleteBusinessHourbyDay(day);
+        }catch(IllegalArgumentException e){
+            fail();
+        }
+        assertTrue(businesshourdeleted);
+    }
+
+    @Test
+    public void testDeleteBusinessHourByTime(){
+        boolean businesshourdeleted=false;
+        try{
+            businesshourdeleted=service.deleteBusinessHourbyTime(startTime,endTime);
+        }catch(IllegalArgumentException e){
+            fail();
+        }
+        assertTrue(businesshourdeleted);
+    }
+
+    @Test
+    public void testDeleteBusinessHourByWrongTime(){
+        boolean businesshourdeleted=false;
+        try{
+            businesshourdeleted=service.deleteBusinessHourbyTime(Time.valueOf("18:45:21"),Time.valueOf("18:45:20"));
+        }catch(IllegalArgumentException e){
+            fail();
+        }
+        assertTrue(businesshourdeleted);
+    }
+
+    @Test
+    public void testDeleteBusinessHourBySameTime(){
+        boolean businesshourdeleted=false;
+        try{
+            businesshourdeleted=service.deleteBusinessHourbyTime(Time.valueOf("18:45:20"),Time.valueOf("18:45:20"));
+        }catch(IllegalArgumentException e){
+            fail();
+        }
+        assertTrue(businesshourdeleted);
+    }
+
+    @Test
+    public void testDeleteBusinessHourByWorking(){
+        boolean businesshourdeleted=false;
+        try{
+            businesshourdeleted=service.deleteBusinessHourbyWoring(working);
+        }catch(IllegalArgumentException e){
+            fail();
+        }
+        assertTrue(businesshourdeleted);
+    }
 }
