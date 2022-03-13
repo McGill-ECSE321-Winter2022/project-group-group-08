@@ -19,7 +19,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
+import mcgill.ecse321.grocerystore.dao.AccountRepository;
+import mcgill.ecse321.grocerystore.dao.CartRepository;
 import mcgill.ecse321.grocerystore.dao.ItemRepository;
+import mcgill.ecse321.grocerystore.dao.PersonRepository;
+import mcgill.ecse321.grocerystore.dao.QuantityRepository;
 import mcgill.ecse321.grocerystore.model.Item;
 
 import org.junit.jupiter.api.Test;
@@ -32,10 +36,26 @@ public class TestItemService {
 
 	@Mock
 	private ItemRepository itemDao;
+	@Mock
+	private QuantityRepository quantityDao;
+	@Mock
+	private CartRepository cartDao;
+	@Mock
+	private PersonRepository personDao;
+	@Mock
+	private AccountRepository accountDao;
 
 
 	@InjectMocks
 	private ItemService service;
+	@InjectMocks
+	private QuantityService quantityService;
+	@InjectMocks
+	private CartService cartService;
+	@InjectMocks
+	private PersonService personService;
+	@InjectMocks
+	private AccountService accountService;
 
 	private static int ID = 0;
 	private static final String NAME = "Carrot";
@@ -50,6 +70,14 @@ public class TestItemService {
 
 	@BeforeEach
 	public void setMockOutput() {
+		Item item2 = new Item();
+		item2.setName(NAME);
+		item2.setPrice(PRICE);
+		item2.setPoint(POINT);
+		item2.setReturnPolicy(RETURN_POLICY);
+		item2.setPickup(PICKUP);
+		item2.setInStoreQuantity(IN_STORE_QUANTITY);
+		
 		lenient().when(itemDao.findItemById(anyInt())).thenAnswer( (InvocationOnMock invocation) -> {
 			if(invocation.getArgument(0).equals(ID)) {
 				Item item = new Item();

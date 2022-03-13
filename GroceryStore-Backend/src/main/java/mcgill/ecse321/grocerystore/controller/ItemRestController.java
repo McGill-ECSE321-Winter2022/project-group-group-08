@@ -42,9 +42,9 @@ public class ItemRestController {
 			@RequestParam(name = "point") int point,
 			@RequestParam(name = "returnPolicy") int returnPolicy,
 			@RequestParam(name = "pickup") boolean pickup,
-			@RequestParam(name = "inStoreQuantity") int inStorQuantity
+			@RequestParam(name = "inStoreQuantity") int inStoreQuantity
 			) {
-		Item item = itemService.createItem(name, price, point, returnPolicy, pickup, inStorQuantity);
+		Item item = itemService.createItem(name, price, point, returnPolicy, pickup, inStoreQuantity);
 		return convertToDto(item);
 	}
 	

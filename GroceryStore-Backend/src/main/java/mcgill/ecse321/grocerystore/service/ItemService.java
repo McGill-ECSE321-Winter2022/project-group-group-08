@@ -9,13 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mcgill.ecse321.grocerystore.dao.ItemRepository;
+import mcgill.ecse321.grocerystore.dao.QuantityRepository;
 import mcgill.ecse321.grocerystore.model.Item;
+import mcgill.ecse321.grocerystore.model.Quantity;
 
 @Service
 public class ItemService {
 	
 	@Autowired
 	private ItemRepository itemRepository;
+	@Autowired
+	private QuantityRepository quantityRepository;
 	
 	@Transactional
 	public Item createItem(String name, int price, int point, int returnPolicy, boolean pickup, int inStoreQuantity) {
@@ -180,6 +184,10 @@ public class ItemService {
 			Item item = itemRepository.findItemById(id);
 			if(item == null) {
 				return false;
+			}
+			List<Quantity> quantities = quantityRepository.findQuantityByItem(item);
+			for(int i=0; i<quantities.size(); i++) {
+				quantityRepository.delete(quantities.get(i));
 			}
 			itemRepository.delete(item);
 			return true;

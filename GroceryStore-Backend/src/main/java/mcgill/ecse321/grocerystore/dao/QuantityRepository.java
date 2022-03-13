@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
+import mcgill.ecse321.grocerystore.model.Item;
 import mcgill.ecse321.grocerystore.model.Quantity;
 
 public interface QuantityRepository extends CrudRepository<Quantity, Integer>{
@@ -11,5 +12,6 @@ public interface QuantityRepository extends CrudRepository<Quantity, Integer>{
 	Quantity findQuantityById(int id);
 	
 	List<Quantity> findQuantityByCount(int count);
-
+	
+	List<Quantity> findQuantityByItem(Item item);
 }
