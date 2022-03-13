@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mcgill.ecse321.grocerystore.dao.AccountRepository;
-import mcgill.ecse321.grocerystore.dao.CartRepository;
 import mcgill.ecse321.grocerystore.dao.PersonRepository;
 import mcgill.ecse321.grocerystore.model.Account;
 import mcgill.ecse321.grocerystore.model.Person;
@@ -21,8 +20,6 @@ public class AccountService {
 	AccountRepository accountRepository;
 	@Autowired
 	PersonRepository personRepository;
-	@Autowired
-	CartRepository cartRepository;
 	
 	@Transactional 
 	public Person getPersonByAccount(Account account) {
@@ -44,7 +41,7 @@ public class AccountService {
 		    error = error + "Account password cannot be empty! ";
 		}
 		if (totalPoints < 0) {
-		    error = error + "Account Total points cannot be negative ";
+		    error = error + "Account Total points cannot be negative! ";
 		}
 	    if (person == null) {
 	        error = error + "Person needs to be selected for account! ";
@@ -130,7 +127,7 @@ public class AccountService {
 	}
 	
 	@Transactional 
-	public List<Account> findAccountByNameContainingIgnoreCase(String username){
+	public List<Account> findAccountByUsernameContainingIgnoreCase(String username){
 		List<Account> accountList = new ArrayList<Account>();
 		for(Account a: accountRepository.findAccountByUsernameContainingIgnoreCase(username)) {
 			accountList.add(a);

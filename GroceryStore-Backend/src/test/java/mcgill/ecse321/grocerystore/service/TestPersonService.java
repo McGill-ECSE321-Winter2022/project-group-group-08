@@ -9,6 +9,9 @@ import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.lenient;
+
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -50,6 +53,54 @@ public class TestPersonService {
 	            return null;
 	        }
 	    });	    
+	    lenient().when(personDao.findAll()).thenAnswer((InvocationOnMock invocation) -> {
+	    	 Person person = new Person();
+	         person.setEmail(EMAIL);
+	         person.setPhoneNumber(PHONENUMBER);
+	         person.setAddress(ADDRESS);
+	         person.setFirstName(FIRSTNAME);
+	         person.setLastName(LASTNAME);
+
+	        List<Person> persons = new ArrayList<Person>();
+	        persons.add(person);
+	        return persons;
+	      });
+	    lenient().when(personDao.findPersonByFirstNameContainingIgnoreCase(FIRSTNAME)).thenAnswer((InvocationOnMock invocation) -> {
+	    	 Person person = new Person();
+	         person.setEmail(EMAIL);
+	         person.setPhoneNumber(PHONENUMBER);
+	         person.setAddress(ADDRESS);
+	         person.setFirstName(FIRSTNAME);
+	         person.setLastName(LASTNAME);
+
+	        List<Person> persons = new ArrayList<Person>();
+	        persons.add(person);
+	        return persons;
+	      });
+	    lenient().when(personDao.findPersonByLastNameContainingIgnoreCase(LASTNAME)).thenAnswer((InvocationOnMock invocation) -> {
+	    	 Person person = new Person();
+	         person.setEmail(EMAIL);
+	         person.setPhoneNumber(PHONENUMBER);
+	         person.setAddress(ADDRESS);
+	         person.setFirstName(FIRSTNAME);
+	         person.setLastName(LASTNAME);
+
+	        List<Person> persons = new ArrayList<Person>();
+	        persons.add(person);
+	        return persons;
+	      });
+	    lenient().when(personDao.findPersonByAddressContainingIgnoreCase(anyString())).thenAnswer((InvocationOnMock invocation) -> {
+	    	 Person person = new Person();
+	         person.setEmail(EMAIL);
+	         person.setPhoneNumber(PHONENUMBER);
+	         person.setAddress(ADDRESS);
+	         person.setFirstName(FIRSTNAME);
+	         person.setLastName(LASTNAME);
+
+	        List<Person> persons = new ArrayList<Person>();
+	        persons.add(person);
+	        return persons;
+	      });
 	    lenient().when(personDao.existsById(anyString())).thenReturn(true);
 	    Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> {
 			return invocation.getArgument(0);
@@ -117,6 +168,32 @@ public class TestPersonService {
 	}
 	
 	@Test
+	public void testUpdatePersonWithInvalidFirstName() {
+		Person person = null;
+		String error = "";
+		try {
+			person = personService.updatePerson(EMAIL,"", LASTNAME, PHONENUMBER, ADDRESS);
+		} catch (Exception e) {
+			error = e.getMessage();
+		}
+		assertNull(person);
+		assertEquals("Person first name cannot be empty!", error);
+	}
+	
+	@Test
+	public void testUpdatePersonWithInvalidPhoneNumber() {
+		Person person = null;
+		String error = "";
+		try {
+			person = personService.updatePerson(EMAIL,FIRSTNAME, LASTNAME, "", ADDRESS);
+		} catch (Exception e) {
+			error = e.getMessage();
+		}
+		assertNull(person);
+		assertEquals("Person phone number is invalid!", error);
+	}
+	
+	@Test
 	public void testUpdatePersonWithInvalidAddress() {
 		Person person = null;
 		String error = "";
@@ -141,6 +218,57 @@ public class TestPersonService {
 	}
 	
 	@Test
+	public void testfindPersonByFirstName() {
+		List<Person> persons = new ArrayList<Person>();
+		
+		try {
+			persons = personService.findPersonByFirstNameContainingIgnoreCase(FIRSTNAME);
+		}catch(IllegalArgumentException e){
+			fail();
+		}
+		Person person = persons.get(0);
+		assertNotNull(person);
+		assertEquals(FIRSTNAME, person.getFirstName());
+		assertEquals(LASTNAME, person.getLastName());
+		assertEquals(PHONENUMBER, person.getPhoneNumber());
+		assertEquals(ADDRESS, person.getAddress());		
+	}
+	
+	@Test
+	public void testfindPersonByLastName() {
+		List<Person> persons = new ArrayList<Person>();
+		
+		try {
+			persons = personService.findPersonByLastNameContainingIgnoreCase(LASTNAME);
+		}catch(IllegalArgumentException e){
+			fail();
+		}
+		Person person = persons.get(0);
+		assertNotNull(person);
+		assertEquals(FIRSTNAME, person.getFirstName());
+		assertEquals(LASTNAME, person.getLastName());
+		assertEquals(PHONENUMBER, person.getPhoneNumber());
+		assertEquals(ADDRESS, person.getAddress());				
+	}
+	
+	@Test
+	public void testfindPersonByAddress() {
+		List<Person> persons = new ArrayList<Person>();
+		
+		try {
+			persons = personService.findPersonByAddressContainingIgnoreCase("845");
+		}catch(IllegalArgumentException e){
+			fail();
+		}
+		Person person = persons.get(0);
+		assertNotNull(person);
+		assertEquals(FIRSTNAME, person.getFirstName());
+		assertEquals(LASTNAME, person.getLastName());
+		assertEquals(PHONENUMBER, person.getPhoneNumber());
+		assertEquals(ADDRESS, person.getAddress());				
+	}
+	
+	@Test
 	public void testDeletePerson() {
 		Person person = personService.findPersonByEmail(EMAIL);
 		try {
@@ -160,5 +288,26 @@ public class TestPersonService {
 			fail();
 		}
 		assertNotNull(person);
+		assertEquals(FIRSTNAME, person.getFirstName());
+		assertEquals(LASTNAME, person.getLastName());
+		assertEquals(PHONENUMBER, person.getPhoneNumber());
+		assertEquals(ADDRESS, person.getAddress());	
+	}
+	
+	@Test
+	public void testGetAllPerson() {
+		List<Person> persons = new ArrayList<Person>();
+		
+		try {
+			persons = personService.getAllPerson();
+		}catch(IllegalArgumentException e){
+			fail();
+		}
+		Person person = persons.get(0);
+		assertNotNull(person);
+		assertEquals(FIRSTNAME, person.getFirstName());
+		assertEquals(LASTNAME, person.getLastName());
+		assertEquals(PHONENUMBER, person.getPhoneNumber());
+		assertEquals(ADDRESS, person.getAddress());	
 	}
 }

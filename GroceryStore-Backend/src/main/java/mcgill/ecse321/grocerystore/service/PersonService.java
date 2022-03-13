@@ -68,11 +68,8 @@ public class PersonService {
 		if (lastName == null || lastName.trim().length() == 0) {
 		    error = error + "Person last name cannot be empty! ";
 		}
-		if (phoneNumber == null || phoneNumber.trim().length() == 0) {
-		    error = error + "Person phone number cannot be empty! ";
-		}
-		if(phoneNumber.length() < 10) {
-			error = error + "Person phone number cannot be less than 10 digits";
+		if (phoneNumber == null || phoneNumber.trim().length() == 0 || phoneNumber.length() < 10) {
+		    error = error + "Person phone number is invalid! ";
 		}
 		if (address == null || address.trim().length() == 0) {
 		    error = error + "Person address name cannot be empty! ";
@@ -104,27 +101,27 @@ public class PersonService {
 	}
 
 	@Transactional 
-	public List<Person> findPersonByAddress(String address){
+	public List<Person> findPersonByAddressContainingIgnoreCase(String address){
 		List<Person> personList = new ArrayList<Person>();
-		for(Person p: personRepository.findPersonByAddress(address)) {
+		for(Person p: personRepository.findPersonByAddressContainingIgnoreCase(address)) {
 			personList.add(p);
 		}
 		return personList;
 	}
 	
 	@Transactional 
-	public List<Person> findPersonByLastName(String lastName){
+	public List<Person> findPersonByLastNameContainingIgnoreCase(String lastName){
 		List<Person> personList = new ArrayList<Person>();
-		for(Person p: personRepository.findPersonByLastName(lastName)) {
+		for(Person p: personRepository.findPersonByLastNameContainingIgnoreCase(lastName)) {
 			personList.add(p);
 		}
 		return personList;
 	}
 	
 	@Transactional 
-	public List<Person> findPersonByFirstName(String firstName){
+	public List<Person> findPersonByFirstNameContainingIgnoreCase(String firstName){
 		List<Person> personList = new ArrayList<Person>();
-		for(Person p: personRepository.findPersonByFirstName(firstName)) {
+		for(Person p: personRepository.findPersonByFirstNameContainingIgnoreCase(firstName)) {
 			personList.add(p);
 		}
 		return personList;

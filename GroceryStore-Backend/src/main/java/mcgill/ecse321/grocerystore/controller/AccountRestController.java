@@ -48,12 +48,11 @@ public class AccountRestController {
 	}
 	
 	@GetMapping(value = { "/getAllAccounts/{word}", "/getAllAccounts/{word}/" })
-	public List<AccountDto> getAccountByUsernameContaining(@PathVariable("word") String word) {
-		List<AccountDto> accountDtos = new ArrayList<>();
-		for (Account account: accountService.getAllAccounts()) {
-			if(account.getUsername().contains(word)) {
-				accountDtos.add(convertToDto(account));
-			}
+	public List<AccountDto> getAccountByNameContainingIgnoreCase (@PathVariable("word") String word) {
+		List<Account> accounts = accountService.findAccountByUsernameContainingIgnoreCase(word);
+		List<AccountDto> accountDtos = new ArrayList<AccountDto>();
+		for(Account account: accounts) {
+			accountDtos.add(convertToDto(account));
 		}
 		return accountDtos;
 	}
