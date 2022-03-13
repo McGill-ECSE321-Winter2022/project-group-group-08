@@ -2,6 +2,9 @@ package mcgill.ecse321.grocerystore.service;
 
 import static org.mockito.Mockito.lenient;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +19,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
+import mcgill.ecse321.grocerystore.dao.CartRepository;
 import mcgill.ecse321.grocerystore.dao.ItemRepository;
 import mcgill.ecse321.grocerystore.dao.QuantityRepository;
+import mcgill.ecse321.grocerystore.model.Cart;
 import mcgill.ecse321.grocerystore.model.Item;
 import mcgill.ecse321.grocerystore.model.Quantity;
 
@@ -31,6 +36,12 @@ public class TestQuantityService {
 
 	@Mock
 	private QuantityRepository quantityDao;
+	
+	@Mock
+	private ItemRepository itemDao;
+	
+	@Mock
+	private CartRepository cartDao;
 
 
 	@InjectMocks
@@ -38,12 +49,46 @@ public class TestQuantityService {
 	
 	@InjectMocks
 	private ItemService itemService;
+	
+	@InjectMocks
+	private CartService cartService;
 
 	private static int ID = 0;
 	private static int COUNT = 10;
-
+	private static final Date DATE = java.sql.Date.valueOf(LocalDate.of(2022, Month.DECEMBER, 31));
+	
 	@BeforeEach
 	public void setMockOutput() {
+		lenient().when(quantityDao.findQuantityById(anyInt())).thenAnswer( (InvocationOnMock invocation) -> {
+			if(invocation.getArgument(0).equals(ID)) {
+				Quantity quantity = new Quantity();
+				quantity.setCount(COUNT);
+				quantity.setCart(cartService.createCart(DATE));
+				quantity.setItem(itemService.createItem("Carrot", 2, 10, 2, true, 58));
+				return quantity;
+			} else {
+				return null;
+			}
+		});
+		lenient().when(quantityDao.findAll()).thenAnswer((InvocationOnMock invocation) -> {
+			Quantity quantity = new Quantity();
+			quantity.setCount(COUNT);
+			quantity.setCart(cartService.createCart(DATE));
+			quantity.setItem(itemService.createItem("Carrot", 2, 10, 2, true, 58));
+			ArrayList<Quantity> list = new ArrayList<Quantity>();
+			list.add(quantity);
+			return list;
+		});
+		lenient().when(quantityDao.findQuantityByCount(COUNT)).thenAnswer((InvocationOnMock invocation) -> {
+			Quantity quantity = new Quantity();
+			quantity.setCount(COUNT);
+			quantity.setCart(cartService.createCart(DATE));
+			quantity.setItem(itemService.createItem("Carrot", 2, 10, 2, true, 58));
+			ArrayList<Quantity> list = new ArrayList<Quantity>();
+			list.add(quantity);
+			return list;
+		});
+		
 		Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> {
 			return invocation.getArgument(0);
 		};
@@ -51,28 +96,275 @@ public class TestQuantityService {
 	}
 	
 	@Test
-	public void testCreateItem() {
+	public void testCreateQuantity() {
 		assertEquals(1, service.getAllQuantities().size());
 		Item item = itemService.createItem("Carrot", 2, 10, 2, true, 58);
+		Cart cart = cartService.createCart(DATE);
+		
 		int count = 2;
 		Quantity quantity = null;
 		try {
-			quantity = service.createQuantity(count, null, null);
+			quantity = service.createQuantity(count, item, cart);
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
-		int id = item.getId();
-		assertNotNull(item);
-
-//		assertEquals(id,item.getId());
-//		assertEquals(name,item.getName());
-//		assertEquals(price,item.getPrice());
-//		assertEquals(point,item.getPoint());
-//		assertEquals(returnPolicy,item.getReturnPolicy());
-//		assertEquals(pickup,item.getPickup());
-//		assertEquals(inStoreQuantity,item.getInStoreQuantity());
+		int id = quantity.getId();
+		assertNotNull(quantity);
+		assertEquals(id,quantity.getId());
+		assertEquals(count,quantity.getCount());
+		assertEquals(item,quantity.getItem());
+		assertEquals(cart,quantity.getCart());
 	}
 	
+	@Test
+	public void testCreateQuantityItemNull() {
+		assertEquals(1, service.getAllQuantities().size());
+		Cart cart = cartService.createCart(DATE);
+		String error = "";
+		
+		int count = 2;
+		Quantity quantity = null;
+		try {
+			quantity = service.createQuantity(count, null, cart);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertNull(quantity);
+		assertEquals(error, "Item cannot be null or empty");
+	}
 	
+	@Test
+	public void testCreateQuantityCartNull() {
+		assertEquals(1, service.getAllQuantities().size());
+		Item item = itemService.createItem("Carrot", 2, 10, 2, true, 58);
+		String error = "";
+		
+		int count = 2;
+		Quantity quantity = null;
+		try {
+			quantity = service.createQuantity(count, item, null);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertNull(quantity);
+		assertEquals(error, "Cart cannot be null or empty");
+	}
+	
+	@Test
+	public void testGetAllQuantities() {
+		List<Quantity> quantities = new ArrayList<Quantity>();
+		quantities = service.getAllQuantities();
+		Quantity quantity = quantities.get(0);
+		assertNotNull(quantity);
+	}
+	
+	@Test
+	public void testGetQuantityById() {
+		Quantity quantity = null;
+		try {
+			quantity = service.getQuantityById(ID);
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+		assertNotNull(quantity);
+		assertEquals(ID,quantity.getId());
+		assertEquals(COUNT,quantity.getCount());
+		assertNotNull(quantity.getItem());
+		assertNotNull(quantity.getCart());
+	}
+	
+	@Test
+	public void testGetQuantityByIdNegative() {
+		Quantity quantity = null;
+		String error = "";
+		try {
+			quantity = service.getQuantityById(-1);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertNull(quantity);
+		assertEquals(error,"The id cannot be a negative number");
+	}
+	
+	@Test
+	public void testGetQuantityByIdNotExist() {
+		int tempId = 5;
+		Quantity quantity = null;
+		String error = "";
+		try {
+			quantity = service.getQuantityById(tempId);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertNull(quantity);
+		assertEquals(error,"No quantity with  id " + tempId + " exists");
+	
+	}
+	@Test
+	public void testGetQuantityByCount() {
+		List<Quantity> quantities = new ArrayList<Quantity>();
+		quantities = service.getQuantityByCount(COUNT);
+		Quantity quantity = quantities.get(0);
+		assertNotNull(quantity);
+	}
+	
+	@Test
+	public void testGetQuantityByCountNegative() {
+		List<Quantity> quantities = new ArrayList<Quantity>();
+		String error = "";
+		try {
+			quantities = service.getQuantityByCount(-1);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		
+		assertEquals(quantities.size(),0);
+		assertEquals(error,"The count cannot be a negative number");
+	}
+	
+	@Test
+	public void testGetQuantityByCountnull() {
+		int tempCount = 1;
+		List<Quantity> quantities = new ArrayList<Quantity>();
+		String error = "";
+		try {
+			quantities = service.getQuantityByCount(tempCount);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		
+		assertEquals(quantities.size(),0);
+		assertEquals(error,"No quantity with count " + tempCount + " exists");
+	}
+	
+	@Test
+    public void testUpdateQuantity() {
+		int count = 20;
+		Item item = itemService.createItem("Onion", 3, 20, 3, false, 60);
+		Cart cart = cartService.createCart(java.sql.Date.valueOf(LocalDate.of(2022, Month.DECEMBER, 30)));
+		Quantity quantity = null;
+		
+        try {
+        	quantity = service.updateQuantity(ID, count, item, cart);
+        } catch (IllegalArgumentException e) {
+        	fail();
+        }
+        assertNotNull(quantity);
+        assertEquals(count, quantity.getCount());
+        assertEquals(item, quantity.getItem());
+        assertEquals(cart, quantity.getCart());
+    }
+	
+	@Test
+    public void testUpdateQuantityId() {
+		int count = 20;
+		Item item = itemService.createItem("Onion", 3, 20, 3, false, 60);
+		Cart cart = cartService.createCart(java.sql.Date.valueOf(LocalDate.of(2022, Month.DECEMBER, 30)));
+		Quantity quantity = null;
+		String error = "";
+        try {
+        	quantity = service.updateQuantity(-1, count, item, cart);
+        } catch (IllegalArgumentException e) {
+        	error = e.getMessage();
+        }
+        assertNull(quantity);
+        assertEquals(error, "The id cannot be a negative number");
+    }
+	
+	@Test
+    public void testUpdateQuantityCount() {
+		int count = -20;
+		Item item = itemService.createItem("Onion", 3, 20, 3, false, 60);
+		Cart cart = cartService.createCart(java.sql.Date.valueOf(LocalDate.of(2022, Month.DECEMBER, 30)));
+		Quantity quantity = null;
+		String error = "";
+        try {
+        	quantity = service.updateQuantity(ID, count, item, cart);
+        } catch (IllegalArgumentException e) {
+        	error = e.getMessage();
+        }
+        assertNull(quantity);
+        assertEquals(error, "Count cannot be a negative number");
+    }
+	
+	@Test
+    public void testUpdateQuantityItem() {
+		int count = 20;
+		Cart cart = cartService.createCart(java.sql.Date.valueOf(LocalDate.of(2022, Month.DECEMBER, 30)));
+		Quantity quantity = null;
+		String error = "";
+        try {
+        	quantity = service.updateQuantity(ID, count, null, cart);
+        } catch (IllegalArgumentException e) {
+        	error = e.getMessage();
+        }
+        assertNull(quantity);
+        assertEquals(error, "Item cannot be null");
+    }
+	
+	@Test
+    public void testUpdateQuantityCart() {
+		int count = 20;
+		Item item = itemService.createItem("Onion", 3, 20, 3, false, 60);
+		Quantity quantity = null;
+		String error = "";
+        try {
+        	quantity = service.updateQuantity(ID, count, item, null);
+        } catch (IllegalArgumentException e) {
+        	error = e.getMessage();
+        }
+        assertNull(quantity);
+        assertEquals(error, "Cart cannot be null");
+    }
+	
+	@Test
+    public void testUpdateQuantityNotExist() {
+		int tempId = 4;
+		int count = 20;
+		Item item = itemService.createItem("Onion", 3, 20, 3, false, 60);
+		Cart cart = cartService.createCart(java.sql.Date.valueOf(LocalDate.of(2022, Month.DECEMBER, 30)));
+		Quantity quantity = null;
+		String error = "";
+        try {
+        	quantity = service.updateQuantity(tempId, count, item, cart);
+        } catch (IllegalArgumentException e) {
+        	error = e.getMessage();
+        }
+        assertNull(quantity);
+        assertEquals(error, "Quantity with id " + tempId + " does not exists");
+    }
+	
+	@Test
+    public void testDeleteQuantityById() {
+		boolean quantityDeleted = false;
+        try {
+        	quantityDeleted = service.deleteQuantityById(ID);
+        } catch (IllegalArgumentException e) {
+        	fail();
+        }
+        assertTrue(quantityDeleted);
+    }
+	
+	@Test
+    public void testDeleteQuantityByIdNegative() {
+		boolean quantityDeleted = true;
+        try {
+        	quantityDeleted = service.deleteQuantityById(-1);
+        } catch (IllegalArgumentException e) {
+        	fail();
+        }
+        assertFalse(quantityDeleted);
+    }
+	
+	@Test
+    public void testDeleteQuantityByIdNotExist() {
+		boolean quantityDeleted = true;
+        try {
+        	quantityDeleted = service.deleteQuantityById(3);
+        } catch (IllegalArgumentException e) {
+        	fail();
+        }
+        assertFalse(quantityDeleted);
+    }
 
 }

@@ -757,9 +757,20 @@ public class TestItemService {
 	
 	@Test
     public void testDeleteItemByIdNegative() {
-		boolean itemDeleted = false;
+		boolean itemDeleted = true;
         try {
         	itemDeleted = service.deleteItemById(-1);
+        } catch (IllegalArgumentException e) {
+        	fail();
+        }
+        assertFalse(itemDeleted);
+    }
+	
+	@Test
+    public void testDeleteItemByIdNotExists() {
+		boolean itemDeleted = true;
+        try {
+        	itemDeleted = service.deleteItemById(4);
         } catch (IllegalArgumentException e) {
         	fail();
         }

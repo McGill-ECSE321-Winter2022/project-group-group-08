@@ -21,8 +21,11 @@ public class QuantityService {
 	
 	@Transactional
 	public Quantity createQuantity(int count, Item item, Cart cart) {
-		if(item == null || item.equals("undefined")) {
+		if(item == null) {
 			throw new IllegalArgumentException("Item cannot be null or empty");
+		}
+		if(cart == null) {
+			throw new IllegalArgumentException("Cart cannot be null or empty");
 		}
 		Quantity quantity = new Quantity();
 		quantity.setCount(count);
@@ -38,6 +41,9 @@ public class QuantityService {
 	
 	@Transactional
 	public Quantity getQuantityById(int id) {
+		if (id < 0) {
+			throw new IllegalArgumentException("The id cannot be a negative number");
+		}
 		Quantity quantity = quantityRepository.findQuantityById(id);
 		if(quantity == null) {
 			throw new IllegalArgumentException("No quantity with  id " + id + " exists");
@@ -47,6 +53,9 @@ public class QuantityService {
 	
 	@Transactional
 	public List<Quantity> getQuantityByCount(int count){
+		if (count < 0) {
+			throw new IllegalArgumentException("The count cannot be a negative number");
+		}
 		List<Quantity> quantityList = quantityRepository.findQuantityByCount(count);
 		if(quantityList == null || quantityList.isEmpty()) {
 			throw new IllegalArgumentException("No quantity with count " + count + " exists");
@@ -57,11 +66,17 @@ public class QuantityService {
 	
 	@Transactional
 	public Quantity updateQuantity(int id, int count, Item item, Cart cart) {
+		if (id < 0) {
+			throw new IllegalArgumentException("The id cannot be a negative number");
+		}
 		if(count < 0) {
 			throw new IllegalArgumentException("Count cannot be a negative number");
 		}
 		if(item == null) {
 			throw new IllegalArgumentException("Item cannot be null");
+		}
+		if(cart == null) {
+			throw new IllegalArgumentException("Cart cannot be null");
 		}
 		Quantity quantity = quantityRepository.findQuantityById(id);
 		if(quantity == null) {
@@ -75,21 +90,14 @@ public class QuantityService {
 	}
 	
 	@Transactional
-	public boolean deleteQuantity(Quantity quantity) {
-		if (quantity == null) {
-			return false;
-		}else {
-			quantityRepository.delete(quantity);
-			return true;
-		}
-	}
-	
-	@Transactional
 	public boolean deleteQuantityById(int id) {
 		if (id < 0) {
 			return false;
 		}else {
 			Quantity quantity = quantityRepository.findQuantityById(id);
+			if(quantity == null) {
+				return false;
+			}
 			quantityRepository.delete(quantity);
 			return true;
 		}

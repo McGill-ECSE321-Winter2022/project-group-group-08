@@ -2,7 +2,6 @@ package mcgill.ecse321.grocerystore.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -179,6 +178,9 @@ public class ItemService {
 			return false;
 		}else {
 			Item item = itemRepository.findItemById(id);
+			if(item == null) {
+				return false;
+			}
 			itemRepository.delete(item);
 			return true;
 		}

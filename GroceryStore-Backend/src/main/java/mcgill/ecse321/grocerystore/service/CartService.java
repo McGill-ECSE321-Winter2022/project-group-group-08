@@ -17,26 +17,15 @@ public class CartService {
 
 	//Cart
 	@Transactional
-	public Cart createCart(int id, Date date) {
-        if (id == 0) {
-			throw new IllegalArgumentException("Cart id cannot be empty!");
-		}
+	public Cart createCart(Date date) {
 		if (date == null) {
 			throw new IllegalArgumentException("Cart date cannot be empty!");
 		}
 		Cart cart  = new Cart();
-		cart.setId(id);
 		cart.setDate(date);
 		cartRepository.save(cart);
 		return cart;
 	}
-	
-	@Transactional
-	public Cart getCart(int id) {
-		Cart cart  = cartRepository.findCartById(id);
-		return cart;
-	}
-
 	
 	@Transactional
 	public List<Cart> getCartbyDate(Date minDate, Date maxDate) {
@@ -53,7 +42,6 @@ public class CartService {
 			throw new IllegalArgumentException("Cart date cannot be empty!");
 		}
 		Cart cart = cartRepository.findCartById(id);
-		cart.setId(id);
 		cart.setDate(date);
 		return cart;
 	}
