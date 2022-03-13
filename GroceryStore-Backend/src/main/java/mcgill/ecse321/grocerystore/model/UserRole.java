@@ -35,4 +35,5 @@ public abstract class UserRole{
 	public void setPerson(Person person) {
 		this.person = person;
 	}
+	
 }
