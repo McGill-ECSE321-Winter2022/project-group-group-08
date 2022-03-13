@@ -32,3 +32,14 @@ The project report for this deliverable can be found here.
 | Joey Koay | Requirements, Domain Model, Use Case Diagrams and Specifications, DAO, Persistence Layer, Persistence Testing | 15 |
 | Joey Liu | Requirements, Domain Model, Build System and Continous Integration, Set Up Heroku, DAO, Persistence Layer, Persistence Testing | 20 |
 | Kevin Liu | Requirements, Domain Model, Use Case Diagrams and Specifications, DAO, Key Decisions | 12 |
+
+## Deliverable 2
+The project report for this deliverable can be found here.
+| Team Member | Tasks | Hours Spent |
+|:-----------:|:-------------:|:----:|
+| Aigiarn Cheuk | Customer, Employee : DTO, Controllers, Services, Tests |  |
+| Mihail Calitoiu | Receipt, UserRole : DTO, Controllers, Services, Tests |  |
+| Selina Gao | GroceryStoreSystem, Manager : DTO, Controllers, Services, Tests |  |
+| Joey Koay | Item, Quantity : DTO, Controllers, Services, Tests |  |
+| Joey Liu | Person, Account : DTO, Controllers, Services, Tests |  |
+| Kevin Liu | Cart, BusinessHours : DTO, Controllers, Services, Tests |  |
