@@ -57,60 +57,7 @@ public class GroceryStoreSystemService {
 	}
 	
 	
-	@Transactional 
-	public BusinessHour createBusinessHour(int id, WeekDay day, Time startTime, Time endTime, boolean working){
-		if (id == 0){
-			throw new IllegalArgumentException("Business Hour id cannot be empty");
-		}
-		if (day == null){
-			throw new IllegalArgumentException("Week day cannot be empty");
-		}
-		if (startTime == null){
-			throw new IllegalArgumentException("Start time cannot be empty");
-		}
-		if (endTime == null){
-			throw new IllegalArgumentException("End time cannot be empty");
-		}
-		if (startTime.toLocalTime().isAfter(endTime.toLocalTime())){
-			throw new IllegalArgumentException("End time cannot be earlier than Start time");
-		}
-		BusinessHour businessHour = new BusinessHour();
-		businessHour.setId(id);
-		businessHour.setDay(day);
-		businessHour.setStartTime(startTime);
-		businessHour.setEndTime(endTime);
-		return businessHour;
-	}
 	
-
-	@Transactional
-	public void updateBusinessHour(GroceryStoreSystem groceryStoreSystem, WeekDay day, Time startTime, Time endTime, boolean working) {
-		if (groceryStoreSystem == null) {
-			throw new IllegalArgumentException("Grocery store is null");
-		}
-		if(day == null) {
-			throw new IllegalArgumentException("Week day cannot be empty");
-		}
-		if (startTime == null){
-			throw new IllegalArgumentException("Start time cannot be empty");
-		}
-		if (endTime == null){
-			throw new IllegalArgumentException("End time cannot be empty");
-		}
-		if (startTime.toLocalTime().isAfter(endTime.toLocalTime())){
-			throw new IllegalArgumentException("End time cannot be earlier than Start time");
-		}
-		/*Set<BusinessHour> businessHours = groceryStoreSystem.getOpeningHours();
-		for(BusinessHour businessHour : businessHours) {
-			WeekDay shift = businessHour.getDay();
-			if(day.equals(shift)) {
-				businessHour.setStartTime(startTime);
-				businessHour.setEndTime(endTime);
-				businessHour.setWorking(working);
-			}
-		}	*/
-		
-	}
 	
 	@Transactional
 	public boolean deleteGroceryStoreSystem(GroceryStoreSystem groceryStoreSystem) {
