@@ -26,7 +26,7 @@ public class PersonService {
 	UserRoleRepository userRoleRepository;
 	@Autowired
 	private AccountService accountService;
-	@Autowired
+//	@Autowired
 //	private UserRoleService userRoleService;
 	
 	@Transactional

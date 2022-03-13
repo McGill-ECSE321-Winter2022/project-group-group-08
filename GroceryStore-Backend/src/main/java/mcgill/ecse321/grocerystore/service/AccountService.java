@@ -24,7 +24,7 @@ public class AccountService {
 	PersonRepository personRepository;
 	@Autowired 
 	CartRepository cartRepository;
-	@Autowired
+//	@Autowired
 //	private CartService cartService;
 	
 	@Transactional 
