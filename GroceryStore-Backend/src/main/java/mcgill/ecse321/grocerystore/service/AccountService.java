@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mcgill.ecse321.grocerystore.dao.AccountRepository;
+import mcgill.ecse321.grocerystore.dao.CartRepository;
 import mcgill.ecse321.grocerystore.dao.PersonRepository;
 import mcgill.ecse321.grocerystore.model.Account;
+import mcgill.ecse321.grocerystore.model.Cart;
 import mcgill.ecse321.grocerystore.model.Person;
 
 @Service
@@ -20,6 +22,10 @@ public class AccountService {
 	AccountRepository accountRepository;
 	@Autowired
 	PersonRepository personRepository;
+	@Autowired 
+	CartRepository cartRepository;
+	@Autowired
+//	private CartService cartService;
 	
 	@Transactional 
 	public Person getPersonByAccount(Account account) {
@@ -101,6 +107,9 @@ public class AccountService {
 	    if(account == null) {
 			throw new IllegalArgumentException("Account with username " + account + " does not exists");
 		}else {
+//			Cart cart = cartRepository.findCartByAccount(account);
+//			cartService.deleteCart(cart);
+			
 			accountRepository.delete(account);
 			return account;
 		}
@@ -112,6 +121,10 @@ public class AccountService {
 			throw new IllegalArgumentException("Account with username " + username + " does not exists");
 		}else {
 			Account account = accountRepository.findAccountByUsername(username);
+			
+//			Cart cart = cartRepository.findCartByAccount(account);
+//			cartService.deleteCart(cart);
+			
 			accountRepository.delete(account);
 			return account;
 		}

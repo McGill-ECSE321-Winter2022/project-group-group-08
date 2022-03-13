@@ -5,11 +5,14 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
+import mcgill.ecse321.grocerystore.model.Account;
 import mcgill.ecse321.grocerystore.model.Cart;
 
 public interface CartRepository extends CrudRepository<Cart, Integer>{
 
 	Cart findCartById(int id);
+	
+	Cart findCartByAccount(Account account);
 	
 	List<Cart> findCartByDateAfter(Date date);
 	

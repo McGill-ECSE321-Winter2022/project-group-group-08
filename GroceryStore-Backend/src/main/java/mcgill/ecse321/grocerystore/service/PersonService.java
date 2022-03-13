@@ -8,15 +8,27 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import mcgill.ecse321.grocerystore.dao.AccountRepository;
 import mcgill.ecse321.grocerystore.dao.PersonRepository;
+import mcgill.ecse321.grocerystore.dao.UserRoleRepository;
+import mcgill.ecse321.grocerystore.model.Account;
 import mcgill.ecse321.grocerystore.model.Person;
+import mcgill.ecse321.grocerystore.model.UserRole;
 
 @Service
 public class PersonService {
 	
 	@Autowired
 	PersonRepository personRepository;
-		
+	@Autowired
+	AccountRepository accountRepository;
+	@Autowired 
+	UserRoleRepository userRoleRepository;
+	@Autowired
+	private AccountService accountService;
+	@Autowired
+//	private UserRoleService userRoleService;
+	
 	@Transactional
 	public Person createPerson(String email, String firstName, String lastName, String phoneNumber,
 			String address) {
@@ -132,6 +144,12 @@ public class PersonService {
 		if (person == null) {
 			throw new IllegalArgumentException("Person does not exist.");
 		}else {
+			Account account = accountRepository.findAccountByPerson(person);
+			accountService.deleteAccount(account);
+			
+			UserRole userRole = userRoleRepository.findUserRoleByPerson(person);
+//			userRoleService.deleteUserRole(userRole);
+			
 			personRepository.delete(person);
 			return person;
 		}
@@ -142,7 +160,14 @@ public class PersonService {
 		if (email == null || email.trim().length() == 0 || !personRepository.existsById(email)) {
 			throw new IllegalArgumentException("Person with provided email does not exist.");
 		}else {
-			Person person = personRepository.findPersonByEmail(email);
+			Person person = personRepository.findPersonByEmail(email);		
+			
+			Account account = accountRepository.findAccountByPerson(person);
+			accountService.deleteAccount(account);
+			
+			UserRole userRole = userRoleRepository.findUserRoleByPerson(person);
+//			userRoleService.deleteUserRole(userRole);
+					
 			personRepository.delete(person);
 			return person;
 		}

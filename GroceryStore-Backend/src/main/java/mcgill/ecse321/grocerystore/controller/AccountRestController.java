@@ -47,8 +47,22 @@ public class AccountRestController {
 		return convertToDto(a);
 	}
 	
-	@GetMapping(value = { "/getAllAccounts/{word}", "/getAllAccounts/{word}/" })
-	public List<AccountDto> getAccountByNameContainingIgnoreCase (@PathVariable("word") String word) {
+	@GetMapping(value = { "/getAccountByUsername/{username}", "/getAccountByUsername/{username}/" })
+	public AccountDto getAccountByUsername(@PathVariable("username") String username) {
+		return convertToDto(accountService.findAccountByUsername(username));
+	}
+	
+	@GetMapping(value = { "/getAllAccounts", "/getAllAccounts/" })
+	public List<AccountDto> getAllAccounts() {
+		List<AccountDto> accountDtos = new ArrayList<>();
+		for (Account account: accountService.getAllAccounts()) {
+			accountDtos.add(convertToDto(account));
+		}
+		return accountDtos;
+	}
+	
+	@GetMapping(value = { "/getAccountByUsernameContaining/{word}", "/getAccountByUsernameContaining/{word}/" })
+	public List<AccountDto> getAccountByUsernameContainingIgnoreCase (@PathVariable("word") String word) {
 		List<Account> accounts = accountService.findAccountByUsernameContainingIgnoreCase(word);
 		List<AccountDto> accountDtos = new ArrayList<AccountDto>();
 		for(Account account: accounts) {
@@ -57,8 +71,9 @@ public class AccountRestController {
 		return accountDtos;
 	}
 	
-	@GetMapping(value = { "/getAllAccounts/{minPoints}/{maxPoints}", "/getAllAccounts/{minPoints}/{maxPoints}/" })
-	public List<AccountDto> getAccountByTotalPointsBetween(@PathVariable("minPoints") int minPoints,
+	@GetMapping(value = { "/getAccountsByTotalPointsBetween/{minPoints}/{maxPoints}",
+			"/getAccountsByTotalPointsBetween/{minPoints}/{maxPoints}/" })
+	public List<AccountDto> getAccountsByTotalPointsBetween(@PathVariable("minPoints") int minPoints,
 			@PathVariable("maxPoints") int maxPoints) {
 		List<AccountDto> accountDtos = new ArrayList<>();
 		for (Account account: accountService.getAllAccounts()) {
@@ -69,8 +84,8 @@ public class AccountRestController {
 		return accountDtos;
 	}
 	
-	@GetMapping(value = { "/getAllAccounts/{inTown}", "/getAllAccounts/{inTown}/" })
-	public List<AccountDto> getAccountInTown(@PathVariable("inTown") boolean inTown) {
+	@GetMapping(value = { "/getAccountsInTown/{inTown}", "/getAccountsInTown/{inTown}/" })
+	public List<AccountDto> getAccountsInTown(@PathVariable("inTown") boolean inTown) {
 		List<AccountDto> accountDtos = new ArrayList<>();
 		for (Account account: accountService.getAllAccounts()) {
 			if(account.getInTown() == inTown) {
@@ -84,16 +99,14 @@ public class AccountRestController {
 	public AccountDto deleteAccountByUsername(@PathVariable("username") String username) {
 		return convertToDto(accountService.deleteAccountByUsername(username));
 	}
-
-	@GetMapping(value = { "/getAccountByUsername/{username}", "/getAccountByUsername/{username}/" })
-	public AccountDto getAccountByUsername(@PathVariable("username") String username) {
-		return convertToDto(accountService.findAccountByUsername(username));
-	}
 	
-	@GetMapping(value = { "/getAllAccounts", "/getAllAccounts/" })
-	public List<AccountDto> getAllAccounts() {
-		List<AccountDto> accountDtos = new ArrayList<>();
-		for (Account account: accountService.getAllAccounts()) {
+	@DeleteMapping(value = { "/deleteAllAccounts", "/deleteAllAccounts/" })
+	public List<AccountDto> deleteAllPersons() throws IllegalArgumentException {
+		List <Account> accountList = accountService.getAllAccounts();
+		List <AccountDto> accountDtos = new ArrayList<AccountDto>();
+		
+		for(Account account: accountList) {
+			accountService.deleteAccount(account);
 			accountDtos.add(convertToDto(account));
 		}
 		return accountDtos;

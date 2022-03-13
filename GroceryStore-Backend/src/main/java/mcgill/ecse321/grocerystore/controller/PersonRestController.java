@@ -41,13 +41,6 @@ public class PersonRestController {
 		return convertToDto(person);
 	}
 	
-	@DeleteMapping(value = { "/deletePerson/{email}", "/deletePerson/{email}/" })
-	public PersonDto deletePerson(@PathVariable("email") String email) throws IllegalArgumentException {
-		
-		Person person = personService.deletePersonByEmail(email);
-		return convertToDto(person);
-	}
-	
 	@GetMapping(value = { "/getAllPersons", "/getAllPersons/" })
 	public List<PersonDto> getAllPersons(){
 		List<PersonDto> personDtos = new ArrayList<>();
@@ -93,6 +86,25 @@ public class PersonRestController {
 	    	}
 	    }
 	    return personDtos;
+	}
+	
+	@DeleteMapping(value = { "/deletePerson/{email}", "/deletePerson/{email}/" })
+	public PersonDto deletePerson(@PathVariable("email") String email) throws IllegalArgumentException {
+		
+		Person person = personService.deletePersonByEmail(email);
+		return convertToDto(person);
+	}
+	
+	@DeleteMapping(value = { "/deleteAllPersons", "/deleteAllPersons/" })
+	public List<PersonDto> deleteAllPersons() throws IllegalArgumentException {
+		List <Person> personList = personService.getAllPerson();
+		List <PersonDto> personDtos = new ArrayList<PersonDto>();
+		
+		for(Person person: personList) {
+			personService.deletePerson(person);
+			personDtos.add(convertToDto(person));
+		}
+		return personDtos;
 	}
 	
 	//UTILITIES
