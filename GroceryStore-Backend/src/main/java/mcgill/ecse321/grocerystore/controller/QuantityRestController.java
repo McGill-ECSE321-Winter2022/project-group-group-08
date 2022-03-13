@@ -85,7 +85,7 @@ public class QuantityRestController {
 	@DeleteMapping(value = {baseURL + "/delete/{id}", baseURL+"/delete/{id}/"})
 	public QuantityDto deleteQuantity(@PathVariable("id") int id) {
 		Quantity quantity = quantityService.getQuantityById(id);
-		quantityService.deleteQuantity(quantity);
+		quantityService.deleteQuantityById(id);
 		return convertToDto(quantity);
 	}
 	

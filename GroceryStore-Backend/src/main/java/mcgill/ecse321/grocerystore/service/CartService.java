@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.List;
 import javax.transaction.Transactional;
 
+import mcgill.ecse321.grocerystore.model.Account;
 import mcgill.ecse321.grocerystore.model.Cart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,12 +18,13 @@ public class CartService {
 
 	//Cart
 	@Transactional
-	public Cart createCart(Date date) {
+	public Cart createCart(Date date, Account account) {
 		if (date == null) {
 			throw new IllegalArgumentException("Cart date cannot be empty!");
 		}
 		Cart cart  = new Cart();
 		cart.setDate(date);
+		cart.setAccount(account);
 		cartRepository.save(cart);
 		return cart;
 	}

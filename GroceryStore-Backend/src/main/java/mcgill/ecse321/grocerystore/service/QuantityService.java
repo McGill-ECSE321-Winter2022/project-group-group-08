@@ -31,6 +31,7 @@ public class QuantityService {
 		quantity.setCount(count);
 		quantity.setItem(item);
 		quantity.setCart(cart);
+		quantityRepository.save(quantity);
 		return quantity;
 	}
 	

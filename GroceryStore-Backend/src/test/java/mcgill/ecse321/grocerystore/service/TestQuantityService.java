@@ -11,6 +11,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,11 +20,15 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
+import mcgill.ecse321.grocerystore.dao.AccountRepository;
 import mcgill.ecse321.grocerystore.dao.CartRepository;
 import mcgill.ecse321.grocerystore.dao.ItemRepository;
+import mcgill.ecse321.grocerystore.dao.PersonRepository;
 import mcgill.ecse321.grocerystore.dao.QuantityRepository;
+import mcgill.ecse321.grocerystore.model.Account;
 import mcgill.ecse321.grocerystore.model.Cart;
 import mcgill.ecse321.grocerystore.model.Item;
+import mcgill.ecse321.grocerystore.model.Person;
 import mcgill.ecse321.grocerystore.model.Quantity;
 
 import org.junit.jupiter.api.Test;
@@ -42,6 +47,12 @@ public class TestQuantityService {
 	
 	@Mock
 	private CartRepository cartDao;
+	
+	@Mock
+	private PersonRepository personDao;
+	
+	@Mock
+	private AccountRepository accountDao;
 
 
 	@InjectMocks
@@ -52,6 +63,12 @@ public class TestQuantityService {
 	
 	@InjectMocks
 	private CartService cartService;
+	
+	@InjectMocks
+	private PersonService personService;
+	
+	@InjectMocks
+	private AccountService accountService;
 
 	private static int ID = 0;
 	private static int COUNT = 10;
@@ -61,9 +78,11 @@ public class TestQuantityService {
 	public void setMockOutput() {
 		lenient().when(quantityDao.findQuantityById(anyInt())).thenAnswer( (InvocationOnMock invocation) -> {
 			if(invocation.getArgument(0).equals(ID)) {
+				Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
+				Account account = accountService.createAccount("username123", "password123", false, 123, person);
 				Quantity quantity = new Quantity();
 				quantity.setCount(COUNT);
-				quantity.setCart(cartService.createCart(DATE));
+				quantity.setCart(cartService.createCart(DATE, account));
 				quantity.setItem(itemService.createItem("Carrot", 2, 10, 2, true, 58));
 				return quantity;
 			} else {
@@ -71,23 +90,28 @@ public class TestQuantityService {
 			}
 		});
 		lenient().when(quantityDao.findAll()).thenAnswer((InvocationOnMock invocation) -> {
+			Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
+			Account account = accountService.createAccount("username123", "password123", false, 123, person);
 			Quantity quantity = new Quantity();
 			quantity.setCount(COUNT);
-			quantity.setCart(cartService.createCart(DATE));
+			quantity.setCart(cartService.createCart(DATE, account));
 			quantity.setItem(itemService.createItem("Carrot", 2, 10, 2, true, 58));
 			ArrayList<Quantity> list = new ArrayList<Quantity>();
 			list.add(quantity);
 			return list;
 		});
 		lenient().when(quantityDao.findQuantityByCount(COUNT)).thenAnswer((InvocationOnMock invocation) -> {
+			Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
+			Account account = accountService.createAccount("username123", "password123", false, 123, person);
 			Quantity quantity = new Quantity();
 			quantity.setCount(COUNT);
-			quantity.setCart(cartService.createCart(DATE));
+			quantity.setCart(cartService.createCart(DATE, account));
 			quantity.setItem(itemService.createItem("Carrot", 2, 10, 2, true, 58));
 			ArrayList<Quantity> list = new ArrayList<Quantity>();
 			list.add(quantity);
 			return list;
 		});
+		lenient().when(personDao.existsById(anyString())).thenReturn(true);
 		
 		Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> {
 			return invocation.getArgument(0);
@@ -98,8 +122,10 @@ public class TestQuantityService {
 	@Test
 	public void testCreateQuantity() {
 		assertEquals(1, service.getAllQuantities().size());
+		Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
+		Account account = accountService.createAccount("username123", "password123", false, 123, person);
 		Item item = itemService.createItem("Carrot", 2, 10, 2, true, 58);
-		Cart cart = cartService.createCart(DATE);
+		Cart cart = cartService.createCart(DATE, account);
 		
 		int count = 2;
 		Quantity quantity = null;
@@ -119,7 +145,9 @@ public class TestQuantityService {
 	@Test
 	public void testCreateQuantityItemNull() {
 		assertEquals(1, service.getAllQuantities().size());
-		Cart cart = cartService.createCart(DATE);
+		Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
+		Account account = accountService.createAccount("username123", "password123", false, 123, person);
+		Cart cart = cartService.createCart(DATE, account);
 		String error = "";
 		
 		int count = 2;
@@ -239,9 +267,11 @@ public class TestQuantityService {
 	
 	@Test
     public void testUpdateQuantity() {
+		Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
+		Account account = accountService.createAccount("username123", "password123", false, 123, person);
 		int count = 20;
 		Item item = itemService.createItem("Onion", 3, 20, 3, false, 60);
-		Cart cart = cartService.createCart(java.sql.Date.valueOf(LocalDate.of(2022, Month.DECEMBER, 30)));
+		Cart cart = cartService.createCart(java.sql.Date.valueOf(LocalDate.of(2022, Month.DECEMBER, 30)), account);
 		Quantity quantity = null;
 		
         try {
@@ -257,9 +287,11 @@ public class TestQuantityService {
 	
 	@Test
     public void testUpdateQuantityId() {
+		Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
+		Account account = accountService.createAccount("username123", "password123", false, 123, person);
 		int count = 20;
 		Item item = itemService.createItem("Onion", 3, 20, 3, false, 60);
-		Cart cart = cartService.createCart(java.sql.Date.valueOf(LocalDate.of(2022, Month.DECEMBER, 30)));
+		Cart cart = cartService.createCart(java.sql.Date.valueOf(LocalDate.of(2022, Month.DECEMBER, 30)), account);
 		Quantity quantity = null;
 		String error = "";
         try {
@@ -273,9 +305,11 @@ public class TestQuantityService {
 	
 	@Test
     public void testUpdateQuantityCount() {
+		Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
+		Account account = accountService.createAccount("username123", "password123", false, 123, person);
 		int count = -20;
 		Item item = itemService.createItem("Onion", 3, 20, 3, false, 60);
-		Cart cart = cartService.createCart(java.sql.Date.valueOf(LocalDate.of(2022, Month.DECEMBER, 30)));
+		Cart cart = cartService.createCart(java.sql.Date.valueOf(LocalDate.of(2022, Month.DECEMBER, 30)), account);
 		Quantity quantity = null;
 		String error = "";
         try {
@@ -289,8 +323,10 @@ public class TestQuantityService {
 	
 	@Test
     public void testUpdateQuantityItem() {
+		Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
+		Account account = accountService.createAccount("username123", "password123", false, 123, person);
 		int count = 20;
-		Cart cart = cartService.createCart(java.sql.Date.valueOf(LocalDate.of(2022, Month.DECEMBER, 30)));
+		Cart cart = cartService.createCart(java.sql.Date.valueOf(LocalDate.of(2022, Month.DECEMBER, 30)), account);
 		Quantity quantity = null;
 		String error = "";
         try {
@@ -319,10 +355,12 @@ public class TestQuantityService {
 	
 	@Test
     public void testUpdateQuantityNotExist() {
+		Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
+		Account account = accountService.createAccount("username123", "password123", false, 123, person);
 		int tempId = 4;
 		int count = 20;
 		Item item = itemService.createItem("Onion", 3, 20, 3, false, 60);
-		Cart cart = cartService.createCart(java.sql.Date.valueOf(LocalDate.of(2022, Month.DECEMBER, 30)));
+		Cart cart = cartService.createCart(java.sql.Date.valueOf(LocalDate.of(2022, Month.DECEMBER, 30)), account);
 		Quantity quantity = null;
 		String error = "";
         try {
