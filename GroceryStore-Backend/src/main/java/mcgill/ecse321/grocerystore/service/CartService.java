@@ -5,15 +5,24 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import mcgill.ecse321.grocerystore.model.Cart;
+import mcgill.ecse321.grocerystore.model.Quantity;
+import mcgill.ecse321.grocerystore.model.Receipt;
+import mcgill.ecse321.grocerystore.model.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mcgill.ecse321.grocerystore.dao.CartRepository;
+import mcgill.ecse321.grocerystore.dao.QuantityRepository;
+import mcgill.ecse321.grocerystore.dao.ReceiptRepository;
 
 @Service
 public class CartService {
     @Autowired
     CartRepository cartRepository;
+	@Autowired
+    QuantityRepository quantityRepository;
+	@Autowired
+    ReceiptRepository receiptRepository;
 
 	//Cart
 	@Transactional
@@ -38,6 +47,10 @@ public class CartService {
 	}
 
 	@Transactional
+	public Cart getCartbyAccount(Account account) {
+		return account.getCart();
+	}
+	@Transactional
 	public List<Cart> getCartbyDate(Date minDate, Date maxDate) {
 		List<Cart> cart  = cartRepository.findCartByDateAfterAndDateBefore(minDate,maxDate);
 		return cart;
@@ -56,4 +69,35 @@ public class CartService {
 		cart.setDate(date);
 		return cart;
 	}
+
+	@Transactional
+	public boolean deleteCart(Cart cart) {
+		if(cart==null){
+			return false;
+		}
+		else{
+			//Quantity quantity=quantityRepository.findQuantityByCart(cart);
+			//quantityService.delete(quantity);
+
+			//Receipt receipt=receiptRepository.findReceiptByCart(cart);
+			//receiptService.delete(receipt);
+
+			cartRepository.delete(cart);
+			return true;
+		}
+	}
+
+	@Transactional
+	public boolean deleteCartbyID(int id) {
+		if(id<0){
+			return false;
+		}
+		else{
+			Cart cart=cartRepository.findCartById(id);
+			cartRepository.delete(cart);
+			return true;
+		}
+	}
+
+
 }
