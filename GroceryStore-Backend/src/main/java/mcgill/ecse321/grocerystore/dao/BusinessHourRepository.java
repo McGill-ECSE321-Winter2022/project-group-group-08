@@ -7,10 +7,16 @@ import org.springframework.data.repository.CrudRepository;
 
 import mcgill.ecse321.grocerystore.model.BusinessHour;
 import mcgill.ecse321.grocerystore.model.BusinessHour.WeekDay;
+import mcgill.ecse321.grocerystore.model.Employee;
+import mcgill.ecse321.grocerystore.model.GroceryStoreSystem;
 
 public interface BusinessHourRepository extends CrudRepository<BusinessHour, Integer>{
 
 	BusinessHour findBusinessHourById(int id);
+	
+	BusinessHour findBusinessHourByGroceryStoreSystem(GroceryStoreSystem groceryStoreSystem);
+	
+	BusinessHour findBusinessHourByEmployee(Employee employee);
 	
 	List<BusinessHour> findBusinessHourByDay(WeekDay weekday);
 	
