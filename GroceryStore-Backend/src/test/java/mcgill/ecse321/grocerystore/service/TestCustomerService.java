@@ -52,28 +52,19 @@ public class TestCustomerService {
 		});
 
 		lenient().when(customerDao.findCustomerByTierclass(anyTier())).thenAnswer((InvocationOnMock invocation) -> {
-			if (invocation.getArgument(0).equals(TIER_KEY)) {
 				List<Customer> customerByTierList = new ArrayList<Customer>();
 				Customer customer = new Customer();
 				customer.setTierclass(TIER_KEY);
 				customerByTierList.add(customer);
 				return customerByTierList;
-			} else {
-				return null;
-			}
 		});
 
 		lenient().when(customerDao.findCustomerByBan(anyBoolean())).thenAnswer((InvocationOnMock invocation) -> {
-			System.out.print(BAN_KEY);
-			if (invocation.getArgument(0).equals(BAN_KEY)) {
 				List<Customer> customerByBanList = new ArrayList<Customer>();
 				Customer customer = new Customer();
 				customer.setBan(BAN_KEY);
 				customerByBanList.add(customer);
 				return customerByBanList;
-			} else {
-				return null;
-			}
 		});
 		Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> {
 			return invocation.getArgument(0); 
@@ -131,5 +122,21 @@ public class TestCustomerService {
 	@Test
 	public void testGetNonExistingCustomer() {
 		assertNull(service.getCustomer(FAKE_ID_KEY));
+	}
+	
+	@Test
+	public void testGetAllCustomerByTier() {
+		List<Customer> customers = new ArrayList<Customer>();
+		customers = service.getAllCustomerByTier(TIER_KEY);
+		Customer customer = customers.get(0);
+		assertNotNull(customer);
+	}
+	
+	@Test
+	public void testGetAllCustomerByBan() {
+		List<Customer> customers = new ArrayList<Customer>();
+		customers = service.getAllCustomerByBan(BAN_KEY);
+		Customer customer = customers.get(0);
+		assertNotNull(customer);
 	}
 }
