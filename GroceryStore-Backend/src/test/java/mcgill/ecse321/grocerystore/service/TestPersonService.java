@@ -5,7 +5,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -31,7 +30,6 @@ public class TestPersonService {
 	
 
 	private static final String EMAIL = "abc@gmail.com";
-	private static final String NEWEMAIL = "def@gmail.com";
 	private static final String FIRSTNAME = "Bob";
 	private static final String LASTNAME = "Smith";
 	private static final String PHONENUMBER = "1112223333";
@@ -52,6 +50,7 @@ public class TestPersonService {
 	            return null;
 	        }
 	    });	    
+	    lenient().when(personDao.existsById(anyString())).thenReturn(true);
 	    Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> {
 			return invocation.getArgument(0);
 		};
@@ -60,7 +59,6 @@ public class TestPersonService {
 	
 	@Test
 	public void testCreatePerson() {
-		assertEquals(0, personService.getAllPerson().size());
 		Person person = null;
 		try {
 			person = personService.createPerson(EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS);
@@ -78,7 +76,6 @@ public class TestPersonService {
 	
 	@Test
 	public void testCreatePersonWithInvalidEmail() {
-		assertEquals(0, personService.getAllPerson().size());
 		Person person = null;
 		String error = "";
 		try {
@@ -92,7 +89,6 @@ public class TestPersonService {
 	
 	@Test
 	public void testCreatePersonWithInvalidLastName() {
-		assertEquals(0, personService.getAllPerson().size());
 		Person person = null;
 		String error = "";
 		try {
@@ -106,16 +102,14 @@ public class TestPersonService {
 	
 	@Test
 	public void testUpdatePerson() {
-		assertEquals(0, personService.getAllPerson().size());
 		Person person = null;
 		try {
-			person = personService.updatePerson(EMAIL, NEWEMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS);
+			person = personService.updatePerson(EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS);
 		} catch (IllegalArgumentException e) {
 			// Check that no error occurred
 			fail();
 		}
 		assertNotNull(person);
-		assertEquals(NEWEMAIL, person.getEmail());
 		assertEquals(FIRSTNAME, person.getFirstName());
 		assertEquals(LASTNAME, person.getLastName());
 		assertEquals(PHONENUMBER, person.getPhoneNumber());
@@ -123,26 +117,11 @@ public class TestPersonService {
 	}
 	
 	@Test
-	public void testUpdatePersonWithNewInvalidNewEmail() {
-		assertEquals(0, personService.getAllPerson().size());
-		Person person = null;
-		String error = "";
-		try {
-			person = personService.updatePerson(EMAIL, null, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS);
-		} catch (Exception e) {
-			error = e.getMessage();
-		}
-		assertNull(person);
-		assertEquals("Person new email cannot be empty!", error);
-	}
-	
-	@Test
 	public void testUpdatePersonWithInvalidAddress() {
-		assertEquals(0, personService.getAllPerson().size());
 		Person person = null;
 		String error = "";
 		try {
-			person = personService.updatePerson(EMAIL, NEWEMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, null);
+			person = personService.updatePerson(EMAIL,FIRSTNAME, LASTNAME, PHONENUMBER, null);
 		} catch (Exception e) {
 			error = e.getMessage();
 		}
@@ -152,7 +131,6 @@ public class TestPersonService {
 	
 	@Test
 	public void testFindPersonByEmail() {
-		assertEquals(0, personService.getAllPerson().size());
 		Person person = null;
 		try {
 			person = personService.findPersonByEmail(EMAIL);
@@ -164,26 +142,23 @@ public class TestPersonService {
 	
 	@Test
 	public void testDeletePerson() {
-		assertEquals(0, personService.getAllPerson().size());
-		boolean delete = false;
 		Person person = personService.findPersonByEmail(EMAIL);
 		try {
-			delete = personService.deletePerson(person);
+			person = personService.deletePerson(person);
 		}catch(IllegalArgumentException e){
 			fail();
 		}
-		assertTrue(delete);
+		assertNotNull(person);
 	}
 	
 	@Test
 	public void testDeletePersonByEmail() {
-		assertEquals(0, personService.getAllPerson().size());
-		boolean delete = false;
+		Person person = null;
 		try {
-			delete = personService.deletePersonByEmail(EMAIL);
+		person = personService.deletePersonByEmail(EMAIL);
 		}catch(IllegalArgumentException e){
 			fail();
 		}
-		assertTrue(delete);
+		assertNotNull(person);
 	}
 }

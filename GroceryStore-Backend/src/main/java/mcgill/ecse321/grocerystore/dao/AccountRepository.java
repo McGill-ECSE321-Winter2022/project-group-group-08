@@ -12,9 +12,7 @@ public interface AccountRepository extends CrudRepository<Account, String>{
 
 	Account findAccountByUsername(String username);
 	
-	List<Account> findAccountByUsernameIgnoreCase(String username);
-	
-	List<Account> findAccountByUsernameContaining(String username);
+	List<Account> findAccountByUsernameContainingIgnoreCase(String username);
 	
 	List<Account> findAccountByInTown(boolean inTown);
 	
