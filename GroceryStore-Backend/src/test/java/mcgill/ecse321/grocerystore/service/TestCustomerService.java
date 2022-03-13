@@ -3,7 +3,6 @@ package mcgill.ecse321.grocerystore.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
@@ -11,7 +10,6 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.lenient;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -38,8 +36,8 @@ public class TestCustomerService {
 
 	private static final int ID_KEY = 1234567;
 	private static final int FAKE_ID_KEY = 6666666;
-	private static final TierClass TIER_KEY = TierClass.Gold;
-	private static final boolean BAN_KEY = true;
+	private static final TierClass TIER_KEY = TierClass.Bronze;
+	private static final boolean BAN_KEY = false;
 
 	@BeforeEach
 	public void setMockOutput() {
@@ -55,25 +53,30 @@ public class TestCustomerService {
 
 		lenient().when(customerDao.findCustomerByTierclass(anyTier())).thenAnswer((InvocationOnMock invocation) -> {
 			if (invocation.getArgument(0).equals(TIER_KEY)) {
+				List<Customer> customerByTierList = new ArrayList<Customer>();
 				Customer customer = new Customer();
 				customer.setTierclass(TIER_KEY);
-				return customer;
+				customerByTierList.add(customer);
+				return customerByTierList;
 			} else {
 				return null;
 			}
 		});
 
 		lenient().when(customerDao.findCustomerByBan(anyBoolean())).thenAnswer((InvocationOnMock invocation) -> {
+			System.out.print(BAN_KEY);
 			if (invocation.getArgument(0).equals(BAN_KEY)) {
+				List<Customer> customerByBanList = new ArrayList<Customer>();
 				Customer customer = new Customer();
 				customer.setBan(BAN_KEY);
-				return customer;
+				customerByBanList.add(customer);
+				return customerByBanList;
 			} else {
 				return null;
 			}
 		});
 		Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> {
-			return invocation.getArgument(0);
+			return invocation.getArgument(0); 
 		};
 		lenient().when(customerDao.save(any(Customer.class))).thenAnswer(returnParameterAsAnswer);
 	}
