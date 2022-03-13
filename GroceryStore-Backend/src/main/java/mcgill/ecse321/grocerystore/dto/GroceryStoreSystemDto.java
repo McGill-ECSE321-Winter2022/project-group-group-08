@@ -1,12 +1,14 @@
 package mcgill.ecse321.grocerystore.dto;
 
+import mcgill.ecse321.grocerystore.model.BusinessHour;
+
 public class GroceryStoreSystemDto {
 	
 	private String storeName;
 	private String address;
 	private int employeeDiscount;
-	//private BusinessHourDto businessHour;
-	
+	private BusinessHourDto businessHour;
+
 	public GroceryStoreSystemDto() {
 		
 	}
@@ -29,10 +31,10 @@ public class GroceryStoreSystemDto {
 	public int getEmployeeDiscount() {
 		return employeeDiscount;
 	}
-/*	
-	public BusinessHour getBusinessHour() {
-		return businessHour;
+	
+	public BusinessHourDto getBusinessHour() {
+		return this.businessHour;
 	}
-	*/
+	
 	
 }

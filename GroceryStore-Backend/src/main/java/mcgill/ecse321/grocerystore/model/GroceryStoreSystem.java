@@ -12,7 +12,7 @@ public class GroceryStoreSystem{
 	private String storeName;
 	private String address;
 	private int employeeDiscount;
-	
+	private Set<BusinessHour> hours;
 	//attributes getters and setters
 	public void setStoreName(String value) {
 		this.storeName = value;
@@ -36,5 +36,9 @@ public class GroceryStoreSystem{
 	
 	public int getEmployeeDiscount() {
 		return this.employeeDiscount;
+	}
+
+	public Set<BusinessHour> getOpeningHours() {
+		return hours;
 	}
 }

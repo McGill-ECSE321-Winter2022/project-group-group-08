@@ -83,15 +83,11 @@ public class GroceryStoreSystemService {
 	}
 	
 
-	
-	@Transactional
-	public BusinessHour getBusinessHour(int id) {
-		BusinessHour businessHour = businessHourRepository.findBusinessHourById(id);
-		return businessHour;
-}
-	
 	@Transactional
 	public void updateBusinessHour(GroceryStoreSystem groceryStoreSystem, WeekDay day, Time startTime, Time endTime, boolean working) {
+		if (groceryStoreSystem == null) {
+			throw new IllegalArgumentException("Grocery store is null");
+		}
 		if(day == null) {
 			throw new IllegalArgumentException("Week day cannot be empty");
 		}
@@ -104,7 +100,7 @@ public class GroceryStoreSystemService {
 		if (startTime.toLocalTime().isAfter(endTime.toLocalTime())){
 			throw new IllegalArgumentException("End time cannot be earlier than Start time");
 		}
-		Set<BusinessHour> businessHours = groceryStoreSystem.getOpeningHours();
+		/*Set<BusinessHour> businessHours = groceryStoreSystem.getOpeningHours();
 		for(BusinessHour businessHour : businessHours) {
 			WeekDay shift = businessHour.getDay();
 			if(day.equals(shift)) {
@@ -112,7 +108,7 @@ public class GroceryStoreSystemService {
 				businessHour.setEndTime(endTime);
 				businessHour.setWorking(working);
 			}
-		}	
+		}	*/
 		
 	}
 	
@@ -128,7 +124,7 @@ public class GroceryStoreSystemService {
 	
 	@Transactional
 	public boolean deleteGroceryStoreSystemByStoreName(String storeName) {
-		if (storeName.trim().length() == 0 || storeName.equals(null)) {
+		if (storeName == null || storeName.trim().length() == 0 ) {
 			return false;
 		}else {
 			GroceryStoreSystem groceryStoreSystem = groceryStoreSystemRepository.findGroceryStoreSystemByStoreName(storeName);
@@ -139,10 +135,10 @@ public class GroceryStoreSystemService {
 	
 	@Transactional
 	public GroceryStoreSystem updateGroceryStoreSystem(String storeName, String address, int employeeDiscount) {
-		if(storeName.trim().length() == 0 || storeName.equals(null)) {
+		if(storeName == null || storeName.trim().length() == 0) {
 			throw new IllegalArgumentException("Store name cannot be empty");
 		}
-		if(address.trim().length() == 0 || address.equals(null)) {
+		if(address == null || address.trim().length() == 0) {
 			throw new IllegalArgumentException("Address cannot be empty");
 		}
 		if(employeeDiscount < 0) {
