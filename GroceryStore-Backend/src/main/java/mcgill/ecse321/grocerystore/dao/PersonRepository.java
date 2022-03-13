@@ -10,13 +10,13 @@ public interface PersonRepository extends CrudRepository<Person, String>{
 
 	Person findPersonByEmail(String email);
 	
-	List<Person> findPersonByFirstName(String firstName);
+	List<Person> findPersonByFirstNameContainingIgnoreCase(String firstName);
 	
-	List<Person> findPersonByLastName(String lastName);
+	List<Person> findPersonByLastNameContainingIgnoreCase(String lastName);
 	
-	List<Person> findPersonByFirstNameAndLastName(String firstName, String lastName);
+	List<Person> findPersonByFirstNameAndLastNameContainingIgnoreCase(String firstName, String lastName);
 	
 	List<Person> findPersonByPhoneNumber(String phoneNumber);
 	
-	List<Person> findPersonByAddress(String address);
+	List<Person> findPersonByAddressContainingIgnoreCase(String address);
 }
