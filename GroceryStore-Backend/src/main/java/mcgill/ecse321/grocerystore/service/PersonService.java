@@ -24,10 +24,6 @@ public class PersonService {
 	AccountRepository accountRepository;
 	@Autowired 
 	UserRoleRepository userRoleRepository;
-	@Autowired
-	private AccountService accountService;
-//	@Autowired
-//	private UserRoleService userRoleService;
 	
 	@Transactional
 	public Person createPerson(String email, String firstName, String lastName, String phoneNumber,
@@ -145,7 +141,11 @@ public class PersonService {
 			throw new IllegalArgumentException("Person does not exist.");
 		}else {
 			Account account = accountRepository.findAccountByPerson(person);
-			accountService.deleteAccount(account);
+			if(account != null) {
+				accountRepository.delete(account);
+//				accountService.deleteAccount(account);
+			}
+			
 			
 			UserRole userRole = userRoleRepository.findUserRoleByPerson(person);
 //			userRoleService.deleteUserRole(userRole);
@@ -163,10 +163,10 @@ public class PersonService {
 			Person person = personRepository.findPersonByEmail(email);		
 			
 			Account account = accountRepository.findAccountByPerson(person);
-			accountService.deleteAccount(account);
+			accountRepository.delete(account);
 			
 			UserRole userRole = userRoleRepository.findUserRoleByPerson(person);
-//			userRoleService.deleteUserRole(userRole);
+			userRoleRepository.delete(userRole);
 					
 			personRepository.delete(person);
 			return person;

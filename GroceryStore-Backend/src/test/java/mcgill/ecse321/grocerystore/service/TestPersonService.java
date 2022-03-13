@@ -19,7 +19,9 @@ import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
+import mcgill.ecse321.grocerystore.dao.AccountRepository;
 import mcgill.ecse321.grocerystore.dao.PersonRepository;
+import mcgill.ecse321.grocerystore.dao.UserRoleRepository;
 import mcgill.ecse321.grocerystore.model.Person;
 
 @ExtendWith(MockitoExtension.class)
@@ -27,9 +29,17 @@ public class TestPersonService {
 	
 	@Mock
 	private PersonRepository personDao;
+	@Mock
+	private AccountRepository accountDao;
+	@Mock
+	private UserRoleRepository userRoletDao;
 	
 	@InjectMocks
 	private PersonService personService;
+	@InjectMocks
+	private AccountService accountService;
+//	@InjectMocks
+//	private UserRoleService userRoleService;
 	
 
 	private static final String EMAIL = "abc@gmail.com";
