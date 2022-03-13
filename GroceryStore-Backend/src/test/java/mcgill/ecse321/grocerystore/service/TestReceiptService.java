@@ -16,7 +16,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -95,6 +97,47 @@ import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
  			return invocation.getArgument(0);
  		};
  		lenient().when(receiptDao.save(any(Receipt.class))).thenAnswer(returnParameterAsAnswer);
+ 		
+ 		lenient().when(receiptDao.findReceiptByReceiptStatus(ReceiptStatus.Processed)).thenAnswer((InvocationOnMock invocation) -> {
+ 			Receipt curr = new Receipt();
+			curr.setCart(null);
+			curr.setReceiptStatus(ReceiptStatus.Processed);
+			curr.setReceiptType(ReceiptType.Pickup);
+			ArrayList<Receipt> list = new ArrayList<Receipt>();
+			list.add(curr);
+			return list;
+		});
+ 		lenient().when(receiptDao.findReceiptByReceiptType(ReceiptType.Pickup)).thenAnswer((InvocationOnMock invocation) -> {
+ 			Receipt curr = new Receipt();
+			curr.setCart(null);
+			curr.setReceiptStatus(ReceiptStatus.Processed);
+			curr.setReceiptType(ReceiptType.Pickup);
+			ArrayList<Receipt> list = new ArrayList<Receipt>();
+			list.add(curr);
+			return list;
+		});
+ 		
+ 		lenient().when(receiptDao.findReceiptByReceiptStatusAndReceiptType(ReceiptStatus.Processed, ReceiptType.Pickup)).thenAnswer((InvocationOnMock invocation) -> {
+ 			Receipt curr = new Receipt();
+			curr.setCart(null);
+			curr.setReceiptStatus(ReceiptStatus.Processed);
+			curr.setReceiptType(ReceiptType.Pickup);
+			ArrayList<Receipt> list = new ArrayList<Receipt>();
+			list.add(curr);
+			return list;
+		});
+ 		
+ 		lenient().when(receiptDao.findAll()).thenAnswer((InvocationOnMock invocation) -> {
+ 			Receipt curr = new Receipt();
+			curr.setCart(null);
+			curr.setReceiptStatus(ReceiptStatus.Processed);
+			curr.setReceiptType(ReceiptType.Pickup);
+			ArrayList<Receipt> list = new ArrayList<Receipt>();
+			list.add(curr);
+			return list;
+		});
+ 		
+ 		
  	}
 
  	@Test
@@ -136,7 +179,7 @@ import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
  		
  	}
  	@Test
- 	public void testGetReceiptReceiptNum() {
+ 	public void testGetReceiptNum() {
  		testCreateReceipt();
  		
  		Receipt curr = service.getReceiptByReceiptNum(ID);
@@ -144,6 +187,91 @@ import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
  		assertEquals(curr.getReceiptType(), ReceiptType.Pickup);
  		
  	}
+ 	@Test
+ 	public void testGetReceiptInvalidNum() {
+ 		testCreateReceipt();
+ 		String error = "";
+ 		Receipt curr = null;
+ 		try {
+ 			curr = service.getReceiptByReceiptNum(-1);
+ 		} catch (IllegalArgumentException e) {
+ 			error = e.getMessage();
+ 		}
+ 		
+ 		assertNull(curr);
+ 	}
+ 	
+ 	
+ 	
+ 	@Test
+ 	public void testGetReceiptWithStatus() {
+ 		List<Receipt> receipts = new ArrayList<Receipt>();
+ 		receipts = service.getReceiptByReceiptStatus(ReceiptStatus.Processed);
+		Receipt receipt = receipts.get(0);
+		assertNotNull(receipt);
+ 	}
+ 	@Test
+ 	public void testGetReceiptWithBadStatus() {
+ 		List<Receipt> receipts = new ArrayList<Receipt>();
+ 		String error = "";
+ 		try {
+ 			receipts = service.getReceiptByReceiptStatus(ReceiptStatus.Fullfilled);
+ 		}
+ 		catch (IllegalArgumentException e) {
+ 			error = e.getMessage();
+ 		}
+ 		
+ 		assertEquals(error, "There are no receipts with that status");
+ 	}
+ 	
+ 	@Test
+ 	public void testGetReceiptWithReceiptType() {
+ 		List<Receipt> receipts = new ArrayList<Receipt>();
+ 		receipts = service.getReceiptByReceiptType(ReceiptType.Pickup);
+		Receipt receipt = receipts.get(0);
+		assertNotNull(receipt);
+ 	}
+ 	@Test
+ 	public void testGetReceiptWithBadReceiptType() {
+ 		List<Receipt> receipts = new ArrayList<Receipt>();
+ 		String error = "";
+ 		try {
+ 			receipts = service.getReceiptByReceiptType(ReceiptType.Delivery);
+ 		}
+ 		catch (IllegalArgumentException e) {
+ 			error = e.getMessage();
+ 		}
+ 		
+ 		assertEquals(error, "There are no receipts with that type");
+ 	}
+ 	@Test
+ 	public void testGetReceiptWithReceiptStatusAndReceiptType() {
+ 		List<Receipt> receipts = new ArrayList<Receipt>();
+ 		receipts = service.getReceiptByReceiptStatusAndReceiptType(ReceiptStatus.Processed, ReceiptType.Pickup);
+		Receipt receipt = receipts.get(0);
+		assertNotNull(receipt);
+ 	}
+ 	@Test
+ 	public void testGetReceiptWithBadReceiptStatusAndReceiptType() {
+ 		List<Receipt> receipts = new ArrayList<Receipt>();
+ 		String error = "";
+ 		try {
+ 			receipts = service.getReceiptByReceiptStatusAndReceiptType(ReceiptStatus.Fullfilled, ReceiptType.Pickup);
+ 		}
+ 		catch (IllegalArgumentException e) {
+ 			error = e.getMessage();
+ 		}
+ 		
+ 		assertEquals(error, "There are no receipts with that status and type");
+ 	}
+ 	@Test
+ 	public void testGetAllReceipts() {
+ 		List<Receipt> receipts = new ArrayList<Receipt>();
+ 		receipts = service.getAllReceipts();
+		Receipt receipt = receipts.get(0);
+		assertNotNull(receipt);
+ 	}
+ 	
  	
  	
 

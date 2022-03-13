@@ -61,7 +61,7 @@ public class ReceiptService {
 	public Receipt getReceiptByReceiptNum(int receiptNum) {
 		Receipt curr = receiptRepository.findReceiptByReceiptNum(receiptNum);
 		if (curr == null) {
-			throw new IllegalArgumentException("No receipt with that status");
+			throw new IllegalArgumentException("No receipt with that id");
 		}
 		return curr;
 	};

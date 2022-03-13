@@ -347,12 +347,4 @@ public class TestGroceryStoreSystemService {
 		assertEquals(groceryStoreSystem.getAddress(), address);
 		assertEquals(groceryStoreSystem.getEmployeeDiscount(), employeeDiscount);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 }
