@@ -5,7 +5,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -41,7 +40,6 @@ public class TestAccountService {
 	
 
 	private static final String USERNAME = "Bob";
-	private static final String NEWUSERNAME = "Bob L'Eponge";
 	private static final String PASSWORD = "101";
 	private static final String NEWPASSWORD = "111";
 	private static final boolean INTOWN = true;
@@ -138,13 +136,13 @@ public class TestAccountService {
 		assertNotNull(person);
 		
 		try {
-			account = accountService.updateAccount(USERNAME, NEWUSERNAME, NEWPASSWORD, NEWINTOWN, NEWTOTALPOINTS, person);
+			account = accountService.updateAccount(USERNAME, NEWPASSWORD, NEWINTOWN, NEWTOTALPOINTS, person);
 		} catch (IllegalArgumentException e) {
 			// Check that no error occurred
 			fail();
 		}
 		assertNotNull(account);
-		assertEquals(NEWUSERNAME,account.getUsername());
+		assertEquals(USERNAME,account.getUsername());
 		assertEquals(NEWPASSWORD,account.getPassword());
 		assertEquals(NEWINTOWN,account.getInTown());
 		assertEquals(NEWTOTALPOINTS,account.getTotalPoints());
@@ -160,7 +158,7 @@ public class TestAccountService {
 		assertNotNull(person);
 		
 		try {
-			account = accountService.updateAccount(USERNAME, NEWUSERNAME, NEWPASSWORD, NEWINTOWN, -1, person);
+			account = accountService.updateAccount(USERNAME, NEWPASSWORD, NEWINTOWN, -1, person);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -170,16 +168,15 @@ public class TestAccountService {
 	
 	@Test
 	public void testDeleteAccount() {
-		boolean delete = false;
 		Account account = accountService.findAccountByUsername(USERNAME);
 		
 		try {
-			delete = accountService.deleteAccount(account);
+			account = accountService.deleteAccount(account);
 		} catch (IllegalArgumentException e) {
 			// Check that no error occurred
 			fail();
 		}
-		assertTrue(delete);
+		assertNotNull(account);
 	}
 	
 	@Test
@@ -198,4 +195,6 @@ public class TestAccountService {
 		assertEquals(PHONENUMBER, person.getPhoneNumber());
 		assertEquals(ADDRESS, person.getAddress());	
 	}
+	
+	
 }

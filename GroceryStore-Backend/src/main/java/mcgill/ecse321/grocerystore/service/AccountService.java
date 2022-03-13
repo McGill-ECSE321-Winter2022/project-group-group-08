@@ -66,10 +66,10 @@ public class AccountService {
 	}
 	
 	@Transactional
-	public Account updateAccount(String oldUsername, String newUsername, String password, boolean inTown,
+	public Account updateAccount(String username, String password, boolean inTown,
 			int totalPoints, Person person) {
 		String error = "";
-		if (oldUsername == null || oldUsername.trim().length() == 0) {
+		if (username == null || username.trim().length() == 0) {
 		    error = error + "Account username cannot be empty! ";
 		}
 		if (password == null || password.trim().length() == 0) {
@@ -83,7 +83,7 @@ public class AccountService {
 	    } else if (!personRepository.existsById(person.getEmail())) {
 	        error = error + "Person does not exist! ";
 	    }
-	    Account account = accountRepository.findAccountByUsername(oldUsername);
+	    Account account = accountRepository.findAccountByUsername(username);
 	    if(account == null) {
 			throw new IllegalArgumentException("Account with username " + account + " does not exists");
 		}
@@ -91,7 +91,6 @@ public class AccountService {
 	    if (error.length() > 0) {
 	        throw new IllegalArgumentException(error);
 	    }
-		account.setUsername(newUsername);
 		account.setPassword(password);
 		account.setInTown(inTown);
 		account.setTotalPoints(totalPoints);
@@ -101,32 +100,24 @@ public class AccountService {
 	}
 	
 	@Transactional
-	public boolean deleteAccount(Account account) {
+	public Account deleteAccount(Account account) {
 	    if(account == null) {
 			throw new IllegalArgumentException("Account with username " + account + " does not exists");
 		}else {
 			accountRepository.delete(account);
-			return true;
+			return account;
 		}
 	}
 	
 	@Transactional
-	public void deleteAccountByUsername(String username) {
-		Account account = accountRepository.findAccountByUsername(username);
-	    if(account == null) {
-			throw new IllegalArgumentException("Account with username " + account + " does not exists");
+	public Account deleteAccountByUsername(String username) {
+	    if(!accountRepository.existsById(username)) {
+			throw new IllegalArgumentException("Account with username " + username + " does not exists");
 		}else {
+			Account account = accountRepository.findAccountByUsername(username);
 			accountRepository.delete(account);
+			return account;
 		}
-	}
-	
-	@Transactional 
-	public List<Account> findAccountByUsernameIgnoreCase(String username){
-		List<Account> accountList = new ArrayList<Account>();
-		for(Account a: accountRepository.findAccountByUsernameIgnoreCase(username)) {
-			accountList.add(a);
-		}
-		return accountList;
 	}
 	
 	@Transactional 
@@ -139,9 +130,9 @@ public class AccountService {
 	}
 	
 	@Transactional 
-	public List<Account> findAccountByUsernameContaining(String username){
+	public List<Account> findAccountByNameContainingIgnoreCase(String username){
 		List<Account> accountList = new ArrayList<Account>();
-		for(Account a: accountRepository.findAccountByUsernameContaining(username)) {
+		for(Account a: accountRepository.findAccountByUsernameContainingIgnoreCase(username)) {
 			accountList.add(a);
 		}
 		return accountList;

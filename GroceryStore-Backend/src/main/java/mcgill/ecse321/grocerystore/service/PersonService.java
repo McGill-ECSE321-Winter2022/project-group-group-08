@@ -55,15 +55,12 @@ public class PersonService {
 	}
 	
 	@Transactional
-	public Person updatePerson(String currentEmail, String newEmail,
+	public Person updatePerson(String email,
 			String firstName, String lastName, String phoneNumber,
 			String address) {
 		String error = "";
-		if (currentEmail == null || currentEmail.trim().length() == 0) {
-		    error = error + "Person current email cannot be empty! ";
-		}
-		if (newEmail == null || newEmail.trim().length() == 0) {
-		    error = error + "Person new email cannot be empty! ";
+		if (email == null || email.trim().length() == 0) {
+		    error = error + "Person email cannot be empty! ";
 		}
 		if (firstName == null || firstName.trim().length() == 0) {
 		    error = error + "Person first name cannot be empty! ";
@@ -80,15 +77,14 @@ public class PersonService {
 		if (address == null || address.trim().length() == 0) {
 		    error = error + "Person address name cannot be empty! ";
 		}
-		Person person = personRepository.findPersonByEmail(currentEmail);
+		Person person = personRepository.findPersonByEmail(email);
 		if(person == null) {
-			throw new IllegalArgumentException("Person with email " + currentEmail + " does not exists");
+			throw new IllegalArgumentException("Person with email " + email + " does not exists");
 		}
 		error = error.trim();
 		if (error.length() > 0) {
 		    throw new IllegalArgumentException(error);
 		}
-		person.setEmail(newEmail);
 		person.setFirstName(firstName);
 		person.setLastName(lastName);
 		person.setPhoneNumber(phoneNumber);
@@ -135,23 +131,23 @@ public class PersonService {
 	}
 	
 	@Transactional
-	public boolean deletePerson(Person person) {
+	public Person deletePerson(Person person) {
 		if (person == null) {
-			return false;
+			throw new IllegalArgumentException("Person does not exist.");
 		}else {
 			personRepository.delete(person);
-			return true;
+			return person;
 		}
 	}
 	
 	@Transactional
-	public boolean deletePersonByEmail(String email) {
-		if (email == null || email.trim().length() == 0) {
-		    return false;
+	public Person deletePersonByEmail(String email) {
+		if (email == null || email.trim().length() == 0 || !personRepository.existsById(email)) {
+			throw new IllegalArgumentException("Person with provided email does not exist.");
 		}else {
 			Person person = personRepository.findPersonByEmail(email);
 			personRepository.delete(person);
-			return true;
+			return person;
 		}
 	}
 	
