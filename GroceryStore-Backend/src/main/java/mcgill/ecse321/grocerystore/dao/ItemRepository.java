@@ -14,9 +14,7 @@ public interface ItemRepository extends CrudRepository<Item, Integer>{
 	
 	List<Item> findItemByNameAndPickup(String name, boolean pickup);
 	
-	List<Item> findItemByNameIgnoreCase(String name);
-	
-	List<Item> findItemByNameContaining(String name);
+	List<Item> findItemByNameContainingIgnoreCase(String name);
 	
 	List<Item> findItemByPriceBetween(int minPrice, int maxPrice);
 	

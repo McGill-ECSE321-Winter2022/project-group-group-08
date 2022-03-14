@@ -20,6 +20,8 @@ public class ItemService {
 	private ItemRepository itemRepository;
 	@Autowired
 	private QuantityRepository quantityRepository;
+	@Autowired
+	private QuantityService quantityService;
 	
 	@Transactional
 	public Item createItem(String name, int price, int point, int returnPolicy, boolean pickup, int inStoreQuantity) {
@@ -73,7 +75,7 @@ public class ItemService {
 		if (name == null || name == "") {
 			throw new IllegalArgumentException("The name cannot be null or empty");
 		}
-		List<Item> items = itemRepository.findItemByNameContaining(name);
+		List<Item> items = itemRepository.findItemByNameContainingIgnoreCase(name);
 		if(items == null || items.isEmpty()) {
 			throw new IllegalArgumentException("No items with name containing '" + name + "' exists");
 		}
@@ -187,7 +189,7 @@ public class ItemService {
 			}
 			List<Quantity> quantities = quantityRepository.findQuantityByItem(item);
 			for(int i=0; i<quantities.size(); i++) {
-				quantityRepository.delete(quantities.get(i));
+				quantityService.deleteQuantityById(quantities.get(i).getId());
 			}
 			itemRepository.delete(item);
 			return true;

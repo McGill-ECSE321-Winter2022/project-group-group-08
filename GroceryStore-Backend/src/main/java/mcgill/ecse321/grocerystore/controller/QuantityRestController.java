@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import mcgill.ecse321.grocerystore.dto.CartDto;
 import mcgill.ecse321.grocerystore.dto.ItemDto;
 import mcgill.ecse321.grocerystore.dto.QuantityDto;
 import mcgill.ecse321.grocerystore.model.Cart;
@@ -43,6 +44,16 @@ public class QuantityRestController {
 	public QuantityDto getQuantity(@PathVariable("id") int id) {
 		Quantity quantity = quantityService.getQuantityById(id);
 		return convertToDto(quantity);
+	}
+	
+	@GetMapping(value = {baseURL+"/itemId/{itemId}", baseURL+"/itemId/{itemId}/"})
+	public List<QuantityDto> getQuantityByItem(@PathVariable("itemId") int itemId) {
+		return quantityService.getQuantityByItemId(itemId).stream().map(q -> convertToDto(q)).collect(Collectors.toList());
+	}
+	
+	@GetMapping(value = {baseURL+"/cartId/{cartId}", baseURL+"/cartId/{cartId}/"})
+	public List<QuantityDto> getQuantityByCart(@PathVariable("cartId") int cartId) {
+		return quantityService.getQuantityByCartId(cartId).stream().map(q -> convertToDto(q)).collect(Collectors.toList());
 	}
 	
 	@PostMapping(value = {baseURL, baseURL+"/"})
@@ -93,7 +104,7 @@ public class QuantityRestController {
 		if(quantity == null) {
 			throw new IllegalArgumentException("There is no such quantity!");
 		}
-		QuantityDto quantityDto = new QuantityDto(quantity.getId(), quantity.getCount(), ItemDto.convertToDto(quantity.getItem()));
+		QuantityDto quantityDto = new QuantityDto(quantity.getId(), quantity.getCount(), ItemDto.convertToDto(quantity.getItem()), CartDto.convertToDto(quantity.getCart()));
 		return quantityDto;
 	}
 

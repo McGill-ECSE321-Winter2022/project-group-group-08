@@ -89,6 +89,28 @@ public class TestQuantityService {
 				return null;
 			}
 		});
+		lenient().when(quantityDao.findQuantityByItem(any())).thenAnswer((InvocationOnMock invocation) -> {
+			Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
+			Account account = accountService.createAccount("username123", "password123", false, 123, person);
+			Quantity quantity = new Quantity();
+			quantity.setCount(COUNT);
+			quantity.setCart(cartService.createCart(DATE, account));
+			quantity.setItem(itemService.createItem("Carrot", 2, 10, 2, true, 58));
+			ArrayList<Quantity> list = new ArrayList<Quantity>();
+			list.add(quantity);
+			return list;
+		});
+		lenient().when(quantityDao.findQuantityByCart(any())).thenAnswer((InvocationOnMock invocation) -> {
+			Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
+			Account account = accountService.createAccount("username123", "password123", false, 123, person);
+			Quantity quantity = new Quantity();
+			quantity.setCount(COUNT);
+			quantity.setCart(cartService.createCart(DATE, account));
+			quantity.setItem(itemService.createItem("Carrot", 2, 10, 2, true, 58));
+			ArrayList<Quantity> list = new ArrayList<Quantity>();
+			list.add(quantity);
+			return list;
+		});
 		lenient().when(quantityDao.findAll()).thenAnswer((InvocationOnMock invocation) -> {
 			Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
 			Account account = accountService.createAccount("username123", "password123", false, 123, person);
@@ -100,16 +122,21 @@ public class TestQuantityService {
 			list.add(quantity);
 			return list;
 		});
-		lenient().when(quantityDao.findQuantityByCount(COUNT)).thenAnswer((InvocationOnMock invocation) -> {
+		lenient().when(itemDao.findItemById(ID)).thenAnswer((InvocationOnMock invocation) -> {
+			Item item = new Item();
+			item.setName("Carrot");
+			item.setPrice(2);
+			item.setPoint(1);
+			item.setReturnPolicy(3);
+			item.setPickup(true);
+			item.setInStoreQuantity(7);
+			return item;
+		});
+		lenient().when(cartDao.findCartById(ID)).thenAnswer((InvocationOnMock invocation) -> {
 			Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
 			Account account = accountService.createAccount("username123", "password123", false, 123, person);
-			Quantity quantity = new Quantity();
-			quantity.setCount(COUNT);
-			quantity.setCart(cartService.createCart(DATE, account));
-			quantity.setItem(itemService.createItem("Carrot", 2, 10, 2, true, 58));
-			ArrayList<Quantity> list = new ArrayList<Quantity>();
-			list.add(quantity);
-			return list;
+			Cart cart = cartService.createCart(DATE, account);
+			return cart;
 		});
 		lenient().when(personDao.existsById(anyString())).thenReturn(true);
 		
@@ -228,41 +255,83 @@ public class TestQuantityService {
 		assertEquals(error,"No quantity with  id " + tempId + " exists");
 	
 	}
+	
 	@Test
-	public void testGetQuantityByCount() {
+	public void testGetQuantityByItemId() {
+		int itemId = 0;
 		List<Quantity> quantities = new ArrayList<Quantity>();
-		quantities = service.getQuantityByCount(COUNT);
+		quantities = service.getQuantityByItemId(itemId);
 		Quantity quantity = quantities.get(0);
 		assertNotNull(quantity);
 	}
 	
 	@Test
-	public void testGetQuantityByCountNegative() {
+	public void testGetQuantityByItemIdNegative() {
+		int itemId = -1;
 		List<Quantity> quantities = new ArrayList<Quantity>();
 		String error = "";
 		try {
-			quantities = service.getQuantityByCount(-1);
+			quantities = service.getQuantityByItemId(itemId);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
+		assertEquals(quantities.size(), 0);
+		assertEquals(error, "The itemId cannot be a negative number");
 		
-		assertEquals(quantities.size(),0);
-		assertEquals(error,"The count cannot be a negative number");
 	}
 	
 	@Test
-	public void testGetQuantityByCountnull() {
-		int tempCount = 1;
+	public void testGetQuantityByItemIdNoItem() {
+		int itemId = 100;
 		List<Quantity> quantities = new ArrayList<Quantity>();
 		String error = "";
 		try {
-			quantities = service.getQuantityByCount(tempCount);
+			quantities = service.getQuantityByItemId(itemId);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
+		assertEquals(quantities.size(), 0);
+		assertEquals(error, "No item found");
 		
-		assertEquals(quantities.size(),0);
-		assertEquals(error,"No quantity with count " + tempCount + " exists");
+	}
+	
+	@Test
+	public void testGetQuantityByCartId() {
+		int cartId = 0;
+		List<Quantity> quantities = new ArrayList<Quantity>();
+		quantities = service.getQuantityByCartId(cartId);
+		Quantity quantity = quantities.get(0);
+		assertNotNull(quantity);
+	}
+	
+	@Test
+	public void testGetQuantityByCartIdNegative() {
+		int cartId = -1;
+		List<Quantity> quantities = new ArrayList<Quantity>();
+		String error = "";
+		try {
+			quantities = service.getQuantityByCartId(cartId);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertEquals(quantities.size(), 0);
+		assertEquals(error, "The cartId cannot be a negative number");
+		
+	}
+	
+	@Test
+	public void testGetQuantityByCartIdNoCart() {
+		int cartId = 100;
+		List<Quantity> quantities = new ArrayList<Quantity>();
+		String error = "";
+		try {
+			quantities = service.getQuantityByCartId(cartId);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertEquals(quantities.size(), 0);
+		assertEquals(error, "No cart found");
+		
 	}
 	
 	@Test

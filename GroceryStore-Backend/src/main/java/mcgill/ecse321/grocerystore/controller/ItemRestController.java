@@ -35,6 +35,54 @@ public class ItemRestController {
 		return convertToDto(item);
 	}
 	
+	@GetMapping(value = {baseURL+"/name/{name}", baseURL+"/name/{name}/"})
+	public List<ItemDto> getItemByNameContaining(@PathVariable("name") String name) {
+		List<ItemDto> items = itemService.getItemByNameContaining(name).stream().map(i -> convertToDto(i)).collect(Collectors.toList());
+		return items;
+	}
+	
+	@GetMapping(value = {baseURL+"/price/{minPrice}/{maxPrice}", baseURL+"/price/{minPrice}/{maxPrice}/"})
+	public List<ItemDto> getItemByPriceBetween(
+			@PathVariable("minPrice") int minPrice, 
+			@PathVariable("maxPrice") int maxPrice
+			) {
+		List<ItemDto> items = itemService.getItemByPriceBetween(minPrice, maxPrice).stream().map(i -> convertToDto(i)).collect(Collectors.toList());
+		return items;
+	}
+	
+	@GetMapping(value = {baseURL+"/point/{minPoint}/{maxPoint}", baseURL+"/point/{minPoint}/{maxPoint}/"})
+	public List<ItemDto> getItemByPointBetween(
+			@PathVariable("minPoint") int minPoint, 
+			@PathVariable("maxPoint") int maxPoint
+			) {
+		List<ItemDto> items = itemService.getItemByPointBetween(minPoint, maxPoint).stream().map(i -> convertToDto(i)).collect(Collectors.toList());
+		return items;
+	}
+	
+	@GetMapping(value = {baseURL+"/returnPolicy/{minReturnPolicy}/{maxReturnPolicy}", baseURL+"/returnPolicy/{minReturnPolicy}/{maxReturnPolicy}/"})
+	public List<ItemDto> getItemByReturnPolicyBetween(
+			@PathVariable("minReturnPolicy") int minReturnPolicy, 
+			@PathVariable("maxReturnPolicy") int maxReturnPolicy
+			) {
+		List<ItemDto> items = itemService.getItemByReturnPolicyBetween(minReturnPolicy, maxReturnPolicy).stream().map(i -> convertToDto(i)).collect(Collectors.toList());
+		return items;
+	}
+	
+	@GetMapping(value = {baseURL+"/pickup/{pickup}", baseURL+"/pickup/{pickup}/"})
+	public List<ItemDto> getItemByPickup(@PathVariable("pickup") boolean pickup) {
+		List<ItemDto> items = itemService.getItemByPickup(pickup).stream().map(i -> convertToDto(i)).collect(Collectors.toList());
+		return items;
+	}
+	
+	@GetMapping(value = {baseURL+"/inStoreQuantity/{minInStoreQuantity}/{maxInStoreQuantity}", baseURL+"/inStoreQuantity/{minInStoreQuantity}/{maxInStoreQuantity}/"})
+	public List<ItemDto> getItemByInStoreQuantityBetween(
+			@PathVariable("minInStoreQuantity") int minInStoreQuantity, 
+			@PathVariable("maxInStoreQuantity") int maxInStoreQuantity
+			) {
+		List<ItemDto> items = itemService.getItemByInStoreQuantityBetween(minInStoreQuantity, maxInStoreQuantity).stream().map(i -> convertToDto(i)).collect(Collectors.toList());
+		return items;
+	}
+	
 	@PostMapping(value = {baseURL, baseURL+"/"})
 	public ItemDto createItem(
 			@RequestParam(name = "name") String name,

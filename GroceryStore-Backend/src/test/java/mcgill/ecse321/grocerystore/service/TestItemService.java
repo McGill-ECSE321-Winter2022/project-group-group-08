@@ -106,7 +106,7 @@ public class TestItemService {
 			return list;
 		});
 		
-		lenient().when(itemDao.findItemByNameContaining(NAME)).thenAnswer((InvocationOnMock invocation) -> {
+		lenient().when(itemDao.findItemByNameContainingIgnoreCase(NAME)).thenAnswer((InvocationOnMock invocation) -> {
 			Item item = new Item();
 			item.setName(NAME);
 			item.setPrice(PRICE);
