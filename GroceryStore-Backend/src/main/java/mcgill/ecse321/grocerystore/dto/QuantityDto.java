@@ -1,6 +1,5 @@
 package mcgill.ecse321.grocerystore.dto;
 
-import mcgill.ecse321.grocerystore.controller.CartRestController;
 import mcgill.ecse321.grocerystore.model.Quantity;
 
 public class QuantityDto {
@@ -37,5 +36,9 @@ public class QuantityDto {
 	
 	public ItemDto getItem() {
 		return item;
+	}
+	
+	public CartDto getCaart() {
+		return cart;
 	}
 }

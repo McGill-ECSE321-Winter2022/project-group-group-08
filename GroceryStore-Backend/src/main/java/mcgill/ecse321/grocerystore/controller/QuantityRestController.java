@@ -66,7 +66,7 @@ public class QuantityRestController {
 		if(item == null) {
 			throw new IllegalArgumentException("This item does not exists");
 		}
-		Cart cart = cartService.getCartById(cartId);
+		Cart cart = cartService.getCart(cartId);
 		if(cart == null) {
 			throw new IllegalArgumentException("This cart does not exists");
 		}
@@ -85,7 +85,7 @@ public class QuantityRestController {
 		if(item == null) {
 			throw new IllegalArgumentException("This item does not exists");
 		}
-		Cart cart = cartService.getCartById(cartId);
+		Cart cart = cartService.getCart(cartId);
 		if(cart == null) {
 			throw new IllegalArgumentException("This cart does not exists");
 		}

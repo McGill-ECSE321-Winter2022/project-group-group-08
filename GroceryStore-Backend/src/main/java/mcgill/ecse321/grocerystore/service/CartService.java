@@ -25,16 +25,13 @@ public class CartService {
 
 	//Cart
 	@Transactional
-	public Cart createCart(int id, Date date) {
-        if (id == 0) {
-			throw new IllegalArgumentException("Cart id cannot be empty!");
-		}
+	public Cart createCart(Date date, Account account) {
 		if (date == null) {
 			throw new IllegalArgumentException("Cart date cannot be empty!");
 		}
 		Cart cart  = new Cart();
-		cart.setId(id);
 		cart.setDate(date);
+		cart.setAccount(account);
 		cartRepository.save(cart);
 		return cart;
 	}
@@ -57,7 +54,7 @@ public class CartService {
 	}
 
 	@Transactional
-	public Cart updateCart(int id, Date date) {
+	public Cart updateCart(int id, Date date, Account account) {
 		if (id == 0) {
 			throw new IllegalArgumentException("Cart id cannot be empty!");
 		}
@@ -65,8 +62,8 @@ public class CartService {
 			throw new IllegalArgumentException("Cart date cannot be empty!");
 		}
 		Cart cart = cartRepository.findCartById(id);
-		cart.setId(id);
 		cart.setDate(date);
+		cart.setAccount(account);
 		return cart;
 	}
 
@@ -94,6 +91,11 @@ public class CartService {
 		}
 		else{
 			Cart cart=cartRepository.findCartById(id);
+			//Quantity quantity=quantityRepository.findQuantityByCart(cart);
+			//quantityService.delete(quantity);
+
+			//Receipt receipt=receiptRepository.findReceiptByCart(cart);
+			//receiptService.delete(receipt);
 			cartRepository.delete(cart);
 			return true;
 		}

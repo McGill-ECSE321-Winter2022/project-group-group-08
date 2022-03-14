@@ -1,5 +1,7 @@
 package mcgill.ecse321.grocerystore.dto;
 
+import mcgill.ecse321.grocerystore.model.Account;
+
 public class AccountDto {
 
 	private String username;
@@ -38,5 +40,10 @@ public class AccountDto {
 
 	public PersonDto getPerson() {
 		return person;
+	}
+	
+	public static AccountDto convertToDto(Account account) {
+		AccountDto accountDto = new AccountDto(account.getUsername(), account.getPassword(), account.getInTown(), account.getTotalPoints(), PersonDto.convertToDto(account.getPerson()));
+		return accountDto;
 	}
 }

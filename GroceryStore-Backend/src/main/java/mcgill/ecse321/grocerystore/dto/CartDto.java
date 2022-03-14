@@ -35,10 +35,10 @@ public class CartDto {
 		return account;
 	}
 	
-	// public static CartDto convertToDto(Cart cart) {
-	// 	CartDto cartDto = new CartDto(cart.getId(), cart.getDate(), AccountRestController);
-	// 	return cartDto;
-	// }
+	 public static CartDto convertToDto(Cart cart) {
+	 	CartDto cartDto = new CartDto(cart.getId(), cart.getDate(), AccountDto.convertToDto(cart.getAccount()));
+	 	return cartDto;
+	 }
 	
 
 }
