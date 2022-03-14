@@ -31,7 +31,7 @@ public class GroceryStoreSystemRestController {
 			@RequestParam(name = "address") String address,
 			@RequestParam(name = "employeeDiscount") int employeeDiscount
 			) {
-		GroceryStoreSystem groceryStoreSystem = groceryStoreSystemService.createGroceryStoreSystem(storeName, address, employeeDiscount);
+		GroceryStoreSystem groceryStoreSystem = groceryStoreSystemService.createGroceryStoreSystem(storename, address, employeeDiscount);
 		return convertToDto(groceryStoreSystem);
 	}
 	
