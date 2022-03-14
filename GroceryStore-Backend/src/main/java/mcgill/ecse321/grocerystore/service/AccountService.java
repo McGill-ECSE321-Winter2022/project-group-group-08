@@ -25,7 +25,7 @@ public class AccountService {
 	@Autowired 
 	CartRepository cartRepository;
 //	@Autowired
-//	private CartService cartService;
+//	CartService cartService;
 	
 	@Transactional 
 	public Person getPersonByAccount(Account account) {
@@ -108,8 +108,9 @@ public class AccountService {
 			throw new IllegalArgumentException("Account with username " + account + " does not exists");
 		}else {
 //			Cart cart = cartRepository.findCartByAccount(account);
-//			cartService.deleteCart(cart);
-			
+//			if(cart != null) {
+//				cartService.deleteCart(cart);
+//			}
 			accountRepository.delete(account);
 			return account;
 		}
@@ -123,8 +124,9 @@ public class AccountService {
 			Account account = accountRepository.findAccountByUsername(username);
 			
 //			Cart cart = cartRepository.findCartByAccount(account);
-//			cartService.deleteCart(cart);
-			
+//			if(cart != null) {
+//				cartService.deleteCart(cart);
+//			}
 			accountRepository.delete(account);
 			return account;
 		}
