@@ -22,7 +22,7 @@ public class BusinessHourService {
 
     //BusinessHour
     @Transactional
-    public BusinessHour createBusinessHour(int id, WeekDay day, Time startTime, Time endTime, boolean working){
+    public BusinessHour createBusinessHourforEmployee(int id, WeekDay day, Time startTime, Time endTime, boolean working, Employee employee){
         if (id == 0){
             throw new IllegalArgumentException("Business Hour id cannot be empty");
         }
@@ -44,6 +44,34 @@ public class BusinessHourService {
         businessHour.setStartTime(startTime);
         businessHour.setEndTime(endTime);
         businessHour.setWorking(working);
+        businessHour.setEmployee(employee);
+        return businessHour;
+    }
+
+    @Transactional
+    public BusinessHour createBusinessHourforGroceryStoreSystem(int id, WeekDay day, Time startTime, Time endTime, boolean working, GroceryStoreSystem groceryStoreSystem){
+        if (id == 0){
+            throw new IllegalArgumentException("Business Hour id cannot be empty");
+        }
+        if (day == null){
+            throw new IllegalArgumentException("Week day cannot be empty");
+        }
+        if (startTime == null){
+            throw new IllegalArgumentException("Start time cannot be empty");
+        }
+        if (endTime == null){
+            throw new IllegalArgumentException("End time cannot be empty");
+        }
+        if (startTime.toLocalTime().isAfter(endTime.toLocalTime())){
+            throw new IllegalArgumentException("End time cannot be earlier than Start time");
+        }
+        BusinessHour businessHour = new BusinessHour();
+        businessHour.setId(id);
+        businessHour.setDay(day);
+        businessHour.setStartTime(startTime);
+        businessHour.setEndTime(endTime);
+        businessHour.setWorking(working);
+        businessHour.setGroceryStoreSystem(groceryStoreSystem);
         return businessHour;
     }
 
@@ -99,7 +127,7 @@ public class BusinessHourService {
 	}
 
     @Transactional
-    public void updateBusinessHour(GroceryStoreSystem groceryStoreSystem, WeekDay day, Time startTime, Time endTime, boolean working) {
+    public BusinessHour updateBusinessHour(GroceryStoreSystem groceryStoreSystem, WeekDay day, Time startTime, Time endTime, boolean working) {
         if(day == null) {
             throw new IllegalArgumentException("Week day cannot be empty");
         }
@@ -113,14 +141,17 @@ public class BusinessHourService {
             throw new IllegalArgumentException("End time cannot be earlier than Start time");
         }
         Set<BusinessHour> businessHours = groceryStoreSystem.getOpeningHours();
+        BusinessHour businessHour1=null;
         for(BusinessHour businessHour : businessHours) {
             WeekDay shift = businessHour.getDay();
             if(day.equals(shift)) {
                 businessHour.setStartTime(startTime);
                 businessHour.setEndTime(endTime);
                 businessHour.setWorking(working);
-            }
-        } 
+                businessHour1=businessHour;
+            } 
+        }
+        return businessHour1;
     }
 
     @Transactional
