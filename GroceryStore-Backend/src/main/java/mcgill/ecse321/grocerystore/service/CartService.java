@@ -1,12 +1,11 @@
 package mcgill.ecse321.grocerystore.service;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import javax.transaction.Transactional;
 
 import mcgill.ecse321.grocerystore.model.Cart;
-import mcgill.ecse321.grocerystore.model.Quantity;
-import mcgill.ecse321.grocerystore.model.Receipt;
 import mcgill.ecse321.grocerystore.model.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,9 +49,10 @@ public class CartService {
 	public Cart getCartbyAccount(Account account) {
 		return account.getCart();
 	}
+
 	@Transactional
-	public List<Cart> getCartbyDate(Date minDate, Date maxDate) {
-		List<Cart> cart  = cartRepository.findCartByDateAfterAndDateBefore(minDate,maxDate);
+	public List<Cart> getCartbyDate(Date date) {
+		List<Cart> cart  = cartRepository.findCartByDate(date);
 		return cart;
 	}
 
@@ -99,5 +99,24 @@ public class CartService {
 		}
 	}
 
+	@Transactional
+	public boolean deleteCartbyDate(Date date) {
+		if(date==null){
+			return false;
+		}
+		else{
+			List<Cart> allCarts=toList(cartRepository.findAll());
+			List<Cart> cart=cartRepository.findCartByDate(date);
+			allCarts.removeAll(cart);
+			return true;
+		}
+	}
 
+	private <T> List<T> toList(Iterable<T> iterable){
+		List<T> resultList = new ArrayList<T>();
+		for (T t : iterable) {
+			resultList.add(t);
+		}
+		return resultList;
+	}
 }
