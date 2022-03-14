@@ -40,11 +40,8 @@ public class PersonService {
 		if (lastName == null || lastName.trim().length() == 0) {
 		    error = error + "Person last name cannot be empty! ";
 		}
-		if (phoneNumber == null || phoneNumber.trim().length() == 0) {
-		    error = error + "Person phone number cannot be empty! ";
-		}
-		if(phoneNumber.length() < 10) {
-			error = error + "Person phone number cannot be less than 10 digits";
+		if (phoneNumber == null || phoneNumber.trim().length() == 0 || phoneNumber.length() < 10) {
+		    error = error + "Person phone number is invalid! ";
 		}
 		if (address == null || address.trim().length() == 0) {
 		    error = error + "Person address name cannot be empty! ";

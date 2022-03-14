@@ -149,6 +149,19 @@ public class TestPersonService {
 	}
 	
 	@Test
+	public void testCreatePersonWithInvalidPhoneNumber() {
+		Person person = null;
+		String error = "";
+		try {
+			person = personService.createPerson(EMAIL, FIRSTNAME, LASTNAME, "0987", ADDRESS);
+		} catch (Exception e) {
+			error = e.getMessage();
+		}
+		assertNull(person);
+		assertEquals("Person phone number is invalid!", error);
+	}
+	
+	@Test
 	public void testCreatePersonWithInvalidLastName() {
 		Person person = null;
 		String error = "";
