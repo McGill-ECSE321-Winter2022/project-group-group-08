@@ -18,6 +18,7 @@ import org.mockito.Mock;
 import mcgill.ecse321.grocerystore.dao.BusinessHourRepository;
 import mcgill.ecse321.grocerystore.model.BusinessHour;
 import mcgill.ecse321.grocerystore.model.Employee;
+import mcgill.ecse321.grocerystore.model.GroceryStoreSystem;
 import mcgill.ecse321.grocerystore.model.BusinessHour.WeekDay;
 
 import org.junit.jupiter.api.Test;
@@ -30,8 +31,8 @@ public class TestBusinessHourService {
 
  @InjectMocks
  private BusinessHourService service;
-//  @InjectMocks
-//  private GroceryStoreSystemService groceryService;
+ @InjectMocks
+ private GroceryStoreSystemService groceryService;
 //  @InjectMocks
 //  private EmployeeService employeeService;
 
@@ -42,7 +43,7 @@ public class TestBusinessHourService {
  private static final Time endTime = Time.valueOf("18:30:00");
  private static final boolean working = true;
  //Employee employee=employeeSerive.createEmployee(1);
- //GroceryStoreSystem groceryStoreSystem= groceryService.createdGroceryStoreSystem("a","a",1);
+ GroceryStoreSystem groceryStoreSystem= groceryService.createGroceryStoreSystem("a","a", 1);
  
  @BeforeEach
  public void setMockOutput() {
@@ -373,237 +374,232 @@ public class TestBusinessHourService {
 	// }
 
     // //GroceryStoreSystem
-    // @Test
-    // public void testCreateBusinessHourforGroceryStoreSystem() {
-    //     BusinessHour businessHour = null;
-    //     int id=0;
-    //     try {
-    //         businessHour = service.createBusinessHourforGroceryStoreSystem(id, day, startTime, endTime, working,groceryStoreSystem);
-    //     } catch (IllegalArgumentException e) {
-    //         fail();
-    //     }
-    //     assertNotNull(businessHour);
-    //     assertEquals(id,businessHour.getId());
-    //     assertEquals(day,businessHour.getDay());
-    //     assertEquals(startTime,businessHour.getStartTime());
-    //     assertEquals(endTime,businessHour.getEndTime());
-    //     assertEquals(working,businessHour.getWorking());
-    //     assertEquals(groceryStoreSystem,businessHour.getGroceryStoreSystem());
-    // }
+    @Test
+    public void testCreateBusinessHourforGroceryStoreSystem() {
+        BusinessHour businessHour = null;
+        int id=0;
+        try {
+            businessHour = service.createBusinessHourforGroceryStoreSystem(id, day, startTime, endTime, working,groceryStoreSystem);
+        } catch (IllegalArgumentException e) {
+            fail();
+        }
+        assertNotNull(businessHour);
+        assertEquals(id,businessHour.getId());
+        assertEquals(day,businessHour.getDay());
+        assertEquals(startTime,businessHour.getStartTime());
+        assertEquals(endTime,businessHour.getEndTime());
+        assertEquals(working,businessHour.getWorking());
+        assertEquals(groceryStoreSystem,businessHour.getGroceryStoreSystem());
+    }
  
  
-    // @Test
-    // public void testCreateBusinessHourforGroceryStoreSystemIDNull() {  
-    //     int id=0;
-    //     WeekDay day = WeekDay.Tuesday;
-    //     Time startTime = Time.valueOf("18:45:20");
-    //     Time endTime = Time.valueOf("18:45:20");
-    //     boolean working = true;
-    //     BusinessHour businessHour=null;
-    //     String error = "";
-    //     try {
-    //         businessHour = service.createBusinessHour(id, day, startTime, endTime, working, groceryStoreSystem);
-    //     } catch (IllegalArgumentException e) {
-    //         error = e.getMessage();
-    //     }
-    //     assertNull(businessHour);
-    //     assertEquals(error,"Business hour's id cannot be null");
-    // }
+    @Test
+    public void testCreateBusinessHourforGroceryStoreSystemIDNull() {  
+        int id=0;
+        WeekDay day = WeekDay.Tuesday;
+        Time startTime = Time.valueOf("18:45:20");
+        Time endTime = Time.valueOf("18:45:20");
+        boolean working = true;
+        BusinessHour businessHour=null;
+        String error = "";
+        try {
+            businessHour = service.createBusinessHourforGroceryStoreSystem(id, day, startTime, endTime, working, groceryStoreSystem);
+        } catch (IllegalArgumentException e) {
+            error = e.getMessage();
+        }
+        assertNull(businessHour);
+        assertEquals(error,"Business hour's id cannot be null");
+    }
  
-    // @Test
-    // public void testCreatBusinessHourforGroceryStoreSystemDayNull() {  
-    //     int id=2;
-    //     WeekDay day = null;
-    //     Time startTime = Time.valueOf("18:45:20");
-    //     Time endTime = Time.valueOf("18:45:20");
-    //     boolean working = true;
-    //     BusinessHour businessHour=null;
-    //     String error = "";
-    //     try {
-    //         businessHour = service.createBusinessHour(id, day, startTime, endTime, working, groceryStoreSystem);
-    //     } catch (IllegalArgumentException e) {
-    //         error = e.getMessage();
-    //     }
-    //     assertNull(businessHour);
-    //     assertEquals(error,"Business hour's day cannot be null");
-    // }
+    @Test
+    public void testCreatBusinessHourforGroceryStoreSystemDayNull() {  
+        int id=2;
+        WeekDay day = null;
+        Time startTime = Time.valueOf("18:45:20");
+        Time endTime = Time.valueOf("18:45:20");
+        boolean working = true;
+        BusinessHour businessHour=null;
+        String error = "";
+        try {
+            businessHour = service.createBusinessHourforGroceryStoreSystem(id, day, startTime, endTime, working, groceryStoreSystem);
+        } catch (IllegalArgumentException e) {
+            error = e.getMessage();
+        }
+        assertNull(businessHour);
+        assertEquals(error,"Business hour's day cannot be null");
+    }
     
-    // @Test
-    // public void testCreateBusinessHourforGroceryStoreSystemstartTimeNull() {  
-    //     int id=2;
-    //     WeekDay day = WeekDay.Monday;
-    //     Time startTime = null;
-    //     Time endTime = Time.valueOf("18:45:20");
-    //     boolean working = true;
-    //     BusinessHour businessHour=null;
-    //     String error = "";
-    //     try {
-    //         businessHour = service.createBusinessHour(id, day, startTime, endTime, working, groceryStoreSystem);
-    //     } catch (IllegalArgumentException e) {
-    //         error = e.getMessage();
-    //     }
-    //     assertNull(businessHour);
-    //     assertEquals(error,"Business hour's start Time cannot be null");
-    // }
+    @Test
+    public void testCreateBusinessHourforGroceryStoreSystemstartTimeNull() {  
+        int id=2;
+        WeekDay day = WeekDay.Monday;
+        Time startTime = null;
+        Time endTime = Time.valueOf("18:45:20");
+        boolean working = true;
+        BusinessHour businessHour=null;
+        String error = "";
+        try {
+            businessHour = service.createBusinessHourforGroceryStoreSystem(id, day, startTime, endTime, working, groceryStoreSystem);
+        } catch (IllegalArgumentException e) {
+            error = e.getMessage();
+        }
+        assertNull(businessHour);
+        assertEquals(error,"Business hour's start Time cannot be null");
+    }
  
-    // @Test
-    // public void testCreateBusinessHourforGroceryStoreSystemendTimeNull() {  
-    //     int id=2;
-    //     WeekDay day = WeekDay.Monday;
-    //     Time startTime = Time.valueOf("18:45:20");
-    //     Time endTime = null;
-    //     boolean working = true;
-    //     BusinessHour businessHour=null;
-    //     String error = "";
-    //     try {
-    //         businessHour = service.createBusinessHour(id, day, startTime, endTime, working, groceryStoreSystem);
-    //     } catch (IllegalArgumentException e) {
-    //         error = e.getMessage();
-    //     }
-    //     assertNull(businessHour);
-    //     assertEquals(error,"Business hour's end Time cannot be null");
-    // }
+    @Test
+    public void testCreateBusinessHourforGroceryStoreSystemendTimeNull() {  
+        int id=2;
+        WeekDay day = WeekDay.Monday;
+        Time startTime = Time.valueOf("18:45:20");
+        Time endTime = null;
+        boolean working = true;
+        BusinessHour businessHour=null;
+        String error = "";
+        try {
+            businessHour = service.createBusinessHourforGroceryStoreSystem(id, day, startTime, endTime, working, groceryStoreSystem);
+        } catch (IllegalArgumentException e) {
+            error = e.getMessage();
+        }
+        assertNull(businessHour);
+        assertEquals(error,"Business hour's end Time cannot be null");
+    }
 
-    // @Test
-    // public void testCreateBusinessHourForGroceryStoreSystemWithBadOrderTimes() {  
-    //     int id=2;
-    //     WeekDay day = WeekDay.Monday;
-    //     Time startTime = Time.valueOf("18:45:21");
-    //     Time endTime = Time.valueOf("18:45:20");
-    //     boolean working = true;
-    //     BusinessHour businessHour=null;
-    //     String error = "";
-    //     try {
-    //         businessHour = service.createBusinessHour(id, day, startTime, endTime, working, groceryStoreSystem);
-    //     } catch (IllegalArgumentException e) {
-    //         error = e.getMessage();
-    //     }
-    //     assertNull(businessHour);
-    //     assertEquals(error,"Business hour's end time cannot be earlier than start time");
-    // }
+    @Test
+    public void testCreateBusinessHourForGroceryStoreSystemWithBadOrderTimes() {  
+        int id=2;
+        WeekDay day = WeekDay.Monday;
+        Time startTime = Time.valueOf("18:45:21");
+        Time endTime = Time.valueOf("18:45:20");
+        boolean working = true;
+        BusinessHour businessHour=null;
+        String error = "";
+        try {
+            businessHour = service.createBusinessHourforGroceryStoreSystem(id, day, startTime, endTime, working, groceryStoreSystem);
+        } catch (IllegalArgumentException e) {
+            error = e.getMessage();
+        }
+        assertNull(businessHour);
+        assertEquals(error,"Business hour's end time cannot be earlier than start time");
+    }
 
-    // @Test
-    // public void testCreateBusinessHourforGroceryStoreSystemWithSameTime() {  
-    //     int id=2;
-    //     WeekDay day = WeekDay.Monday;
-    //     Time startTime = Time.valueOf("18:45:20");
-    //     Time endTime = Time.valueOf("18:45:20");
-    //     boolean working = true;
-    //     BusinessHour businessHour=null;
-    //     String error = "";
-    //     try {
-    //         businessHour = service.createBusinessHour(id, day, startTime, endTime, working, groceryStoreSystem);
-    //     } catch (IllegalArgumentException e) {
-    //         error = e.getMessage();
-    //     }
-    //     assertNull(businessHour);
-    //     assertEquals(error,"Business hour's end time cannot be equal to start time");
-    // } 
+    @Test
+    public void testCreateBusinessHourforGroceryStoreSystemWithSameTime() {  
+        int id=2;
+        WeekDay day = WeekDay.Monday;
+        Time startTime = Time.valueOf("18:45:20");
+        Time endTime = Time.valueOf("18:45:20");
+        boolean working = true;
+        BusinessHour businessHour=null;
+        String error = "";
+        try {
+            businessHour = service.createBusinessHourforGroceryStoreSystem(id, day, startTime, endTime, working, groceryStoreSystem);
+        } catch (IllegalArgumentException e) {
+            error = e.getMessage();
+        }
+        assertNull(businessHour);
+        assertEquals(error,"Business hour's end time cannot be equal to start time");
+    } 
 
-    // @Test
-	// public void createBusinessHourforGroceryStoreSystemGood() {
+    @Test
+	public void createBusinessHourforGroceryStoreSystemGood() {
 	
-	// 	BusinessHour curr = service.createBusinessHour(2, WeekDay.Monday, Time.valueOf("18:45:20"),Time.valueOf("18:45:21"), true, groceryStoreSystem);
+		BusinessHour curr = service.createBusinessHourforGroceryStoreSystem(2, WeekDay.Monday, Time.valueOf("18:45:20"),Time.valueOf("18:45:21"), true, groceryStoreSystem);
 		
-	// 	assertEquals(curr.getId(),2);
-	// 	assertEquals(curr.getDay(), WeekDay.Monday);
-	// 	assertEquals(curr.getStartTime(),Time.valueOf("18:45:20"));
-	// 	assertEquals(curr.getEndTime(),Time.valueOf("18:45:21"));
-    //     assertEquals(curr.getGroceryStoreSystem(), groceryService.createdGroceryStoreSystem("a","a",1));
-	// }
-    // //updating
+		assertEquals(curr.getId(),2);
+		assertEquals(curr.getDay(), WeekDay.Monday);
+		assertEquals(curr.getStartTime(),Time.valueOf("18:45:20"));
+		assertEquals(curr.getEndTime(),Time.valueOf("18:45:21"));
+        assertEquals(curr.getGroceryStoreSystem(), groceryService.createGroceryStoreSystem("a","a",1));
+	}
+    //updating
 	
-	// @Test
-	// public void testUpdateBusinessHourWithGroceryEmpty() {
+	@Test
+	public void testUpdateBusinessHourWithGroceryEmpty() {
 		
-	// 	String error = "";
-	// 	try {
-	// 		service.updateBusinessHour(null, WeekDay.Monday, Time.valueOf("18:45:20"),Time.valueOf("18:45:21"), true);
-	// 	}
-	// 	catch (IllegalArgumentException e){
-	// 		error = e.getMessage();
-	// 	}
+		String error = "";
+		try {
+			service.updateBusinessHour(null, WeekDay.Monday, Time.valueOf("18:45:20"),Time.valueOf("18:45:21"), true);
+		}
+		catch (IllegalArgumentException e){
+			error = e.getMessage();
+		}
 		
-	// 	assertEquals("Grocery store is null", error);
-	// }
+		assertEquals("Grocery store is null", error);
+	}
 	
-	// @Test
-	// public void testUpdateBusinessHourWithDayEmpty() {
+	@Test
+	public void testUpdateBusinessHourWithDayEmpty() {
 		
-	// 	String error = "";
-	// 	BusinessHour curr = service.createBusinessHour(2, WeekDay.Monday, Time.valueOf("18:45:20"),Time.valueOf("18:45:21"), true);
-    //     GroceryStoreSystem currSystem = groceryService.createGroceryStoreSystem("a", "a", 0);
-	// 	try {
-	// 		service.updateBusinessHour(currSystem, null, Time.valueOf("18:45:20"),Time.valueOf("18:45:21"), true);
-	// 	}
-	// 	catch (IllegalArgumentException e){
-	// 		error = e.getMessage();
-	// 	}
+		String error = "";
+        GroceryStoreSystem currSystem = groceryService.createGroceryStoreSystem("a", "a", 0);
+		try {
+			service.updateBusinessHour(currSystem, null, Time.valueOf("18:45:20"),Time.valueOf("18:45:21"), true);
+		}
+		catch (IllegalArgumentException e){
+			error = e.getMessage();
+		}
 		
-	// 	assertEquals("Week day cannot be empty", error);
-	// }
+		assertEquals("Week day cannot be empty", error);
+	}
 	
-	// @Test
-	// public void testUpdateeBusinessHourWithStartTimeEmpty() {
+	@Test
+	public void testUpdateeBusinessHourWithStartTimeEmpty() {
 		
-	// 	String error = "";
-	// 	BusinessHour curr = service.createBusinessHour(2, WeekDay.Monday, Time.valueOf("18:45:20"),Time.valueOf("18:45:21"), true);
-	// 	GroceryStoreSystem currSystem = groceryService.createGroceryStoreSystem("a", "a", 0);
-	// 	try {
-	// 		service.updateBusinessHour(currSystem, WeekDay.Monday, null,Time.valueOf("18:45:21"), true);
-	// 	}
-	// 	catch (IllegalArgumentException e){
-	// 		error = e.getMessage();
-	// 	}
+		String error = "";
+		GroceryStoreSystem currSystem = groceryService.createGroceryStoreSystem("a", "a", 0);
+		try {
+			service.updateBusinessHour(currSystem, WeekDay.Monday, null,Time.valueOf("18:45:21"), true);
+		}
+		catch (IllegalArgumentException e){
+			error = e.getMessage();
+		}
 	
-	// 	assertEquals("Start time cannot be empty", error);
-	// }
+		assertEquals("Start time cannot be empty", error);
+	}
 	
-	// @Test
-	// public void testUpdateBusinessHourWithEndTimeEmpty() {
+	@Test
+	public void testUpdateBusinessHourWithEndTimeEmpty() {
 		
-	// 	String error = "";
-	// 	BusinessHour curr = service.createBusinessHour(2, WeekDay.Monday, Time.valueOf("18:45:20"),Time.valueOf("18:45:21"), true);
-	// 	GroceryStoreSystem currSystem = groceryService.createGroceryStoreSystem("a", "a", 0);
-	// 	try {
-	// 		service.updateBusinessHour(currSystem, WeekDay.Monday, Time.valueOf("18:45:20"),null, true);
-	// 	}
-	// 	catch (IllegalArgumentException e){
-	// 		error = e.getMessage();
-	// 	}
+		String error = "";
+		GroceryStoreSystem currSystem = groceryService.createGroceryStoreSystem("a", "a", 0);
+		try {
+			service.updateBusinessHour(currSystem, WeekDay.Monday, Time.valueOf("18:45:20"),null, true);
+		}
+		catch (IllegalArgumentException e){
+			error = e.getMessage();
+		}
 		
-	// 	assertEquals("End time cannot be empty", error);
+		assertEquals("End time cannot be empty", error);
 		
 	
-	// }
+	}
 	
-	// @Test
-	// public void testUpdateBusinessHourWithBadOrderTimes() {
+	@Test
+	public void testUpdateBusinessHourWithBadOrderTimes() {
 		
-	// 	String error = "";
-	// 	BusinessHour curr = service.createBusinessHour(2, WeekDay.Monday, Time.valueOf("18:45:20"),Time.valueOf("18:45:21"), true);
-	// 	GroceryStoreSystem currSystem = groceryService.createGroceryStoreSystem("a", "a", 0);
-	// 	try {
-	// 		service.updateBusinessHour(currSystem, WeekDay.Monday, Time.valueOf("18:45:21"),Time.valueOf("18:45:20"), true);
-	// 	}
-	// 	catch (IllegalArgumentException e){
-	// 		error = e.getMessage();
-	// 	}
+		String error = "";
+		GroceryStoreSystem currSystem = groceryService.createGroceryStoreSystem("a", "a", 0);
+		try {
+			service.updateBusinessHour(currSystem, WeekDay.Monday, Time.valueOf("18:45:21"),Time.valueOf("18:45:20"), true);
+		}
+		catch (IllegalArgumentException e){
+			error = e.getMessage();
+		}
 
-	// 	assertEquals("End time cannot be earlier than Start time", error);
-	// }
+		assertEquals("End time cannot be earlier than Start time", error);
+	}
 	
-	// @Test
-	// public void testUpdateBusinessHourGood() {
-	// 	String error = "";
-	// 	BusinessHour curr = service.createBusinessHour(2, WeekDay.Monday, Time.valueOf("18:45:20"),Time.valueOf("18:45:21"), true);
-	// 	GroceryStoreSystem currSystem = groceryService.createGroceryStoreSystem("a", "a", 0);
-	// 	service.updateBusinessHour(currSystem, WeekDay.Monday, Time.valueOf("18:45:20"),Time.valueOf("18:45:21"), true);
+	@Test
+	public void testUpdateBusinessHourGood() {
+		BusinessHour curr = service.createBusinessHourforGroceryStoreSystem(2, WeekDay.Monday, Time.valueOf("18:45:20"),Time.valueOf("18:45:21"), true, groceryStoreSystem);
+		GroceryStoreSystem currSystem = groceryService.createGroceryStoreSystem("a", "a", 0);
+		service.updateBusinessHour(currSystem, WeekDay.Monday, Time.valueOf("18:45:20"),Time.valueOf("18:45:21"), true);
 		
-	// 	assertEquals(curr.getDay(), WeekDay.Monday);
-	// 	assertEquals(curr.getStartTime(),Time.valueOf("18:45:20"));
-	// 	assertEquals(curr.getEndTime(),Time.valueOf("18:45:21"));
-	// }
+		assertEquals(curr.getDay(), WeekDay.Monday);
+		assertEquals(curr.getStartTime(),Time.valueOf("18:45:20"));
+		assertEquals(curr.getEndTime(),Time.valueOf("18:45:21"));
+	}
 
     @Test
     public void testDeleteBusinessHourByID(){

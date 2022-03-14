@@ -22,7 +22,9 @@ import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
+import mcgill.ecse321.grocerystore.dao.AccountRepository;
 import mcgill.ecse321.grocerystore.dao.CartRepository;
+import mcgill.ecse321.grocerystore.dao.PersonRepository;
 import mcgill.ecse321.grocerystore.model.Account;
 import mcgill.ecse321.grocerystore.model.Cart;
 import mcgill.ecse321.grocerystore.model.Person;
@@ -31,6 +33,10 @@ public class TestCartService {
    
    @Mock
    private CartRepository cartDao;
+   @Mock
+   private PersonRepository personDao;
+   @Mock
+   private AccountRepository accountDao;
 
    @InjectMocks
    private CartService service;
@@ -53,7 +59,6 @@ public class TestCartService {
                Cart cart = new Cart();
                cart.setAccount(account);
                cart.setDate(date);
-//                cart.setId(ID);
                return cart;
            } 
            else {
