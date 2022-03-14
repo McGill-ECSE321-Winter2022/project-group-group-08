@@ -1,6 +1,7 @@
 package mcgill.ecse321.grocerystore.service;
 
 import mcgill.ecse321.grocerystore.model.BusinessHour;
+import mcgill.ecse321.grocerystore.model.Employee;
 import mcgill.ecse321.grocerystore.model.GroceryStoreSystem;
 import mcgill.ecse321.grocerystore.model.BusinessHour.WeekDay;
 
@@ -88,6 +89,16 @@ public class BusinessHourService {
 	}
 
     @Transactional
+	public Set<BusinessHour> getBusinessHoursbyEmployee(Employee employee){
+		return employee.getWorkingHours();
+	}
+
+    @Transactional
+	public Set<BusinessHour> getOpeningHours(GroceryStoreSystem system){
+		return system.getOpeningHours();
+	}
+
+    @Transactional
     public void updateBusinessHour(GroceryStoreSystem groceryStoreSystem, WeekDay day, Time startTime, Time endTime, boolean working) {
         if(day == null) {
             throw new IllegalArgumentException("Week day cannot be empty");
@@ -111,6 +122,70 @@ public class BusinessHourService {
             }
         } 
     }
+
+    @Transactional
+	public boolean deleteBusinessHour(BusinessHour businessHour){
+        if (businessHour==null){
+            return false;
+        }
+        else{
+            businessHourRepository.delete(businessHour);
+            return true;
+        }
+		
+	}
+
+    @Transactional
+	public boolean deleteBusinessHourbyID(int id){
+        if (id<0){
+            return false;
+        }
+        else{
+            BusinessHour businesshour=businessHourRepository.findBusinessHourById(id);
+            businessHourRepository.delete(businesshour);
+            return true;
+        }
+		
+	}
+
+    @Transactional
+	public boolean deleteBusinessHourbyDay(WeekDay day){
+        if (day==null){
+            return false;
+        }
+        else{
+            List<BusinessHour> allbusinesshour=toList(businessHourRepository.findAll());
+            List<BusinessHour> businesshour=businessHourRepository.findBusinessHourByDay(day);
+            allbusinesshour.removeAll(businesshour);
+            return true;
+        }
+	}
+
+    @Transactional
+	public boolean deleteBusinessHourbyWoring(Boolean working){
+        if (working==null){
+            return false;
+        }
+        else{
+            List<BusinessHour> allbusinesshour=toList(businessHourRepository.findAll());
+            List<BusinessHour> businesshour=businessHourRepository.findBusinessHourByWorking(working);
+            allbusinesshour.removeAll(businesshour);
+            return true;
+        }
+	}
+
+    @Transactional
+	public boolean deleteBusinessHourbyTime(Time startTime, Time endTime){
+        if (startTime==null||endTime==null){
+            return false;
+        }
+        else{
+            List<BusinessHour> allbusinesshour=toList(businessHourRepository.findAll());
+            List<BusinessHour> businesshour=businessHourRepository.findBusinessHourByStartTimeBetween(startTime,endTime);
+            allbusinesshour.removeAll(businesshour);
+            return true;
+        }
+	}
 
 	private <T> List<T> toList(Iterable<T> iterable){
 		List<T> resultList = new ArrayList<T>();

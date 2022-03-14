@@ -23,6 +23,8 @@ public interface BusinessHourRepository extends CrudRepository<BusinessHour, Int
 	List<BusinessHour> findBusinessHourByWorking(boolean working);
 	
 	List<BusinessHour> findBusinessHourByDayAndWorking(WeekDay weekday, boolean working);
+
+	List<BusinessHour> findBusinessHourByTimeBetween(Time startTime, Time endTime);
 	
 	List<BusinessHour> findBusinessHourByStartTimeBetween(Time minStartTime, Time maxStartTime);
 	
