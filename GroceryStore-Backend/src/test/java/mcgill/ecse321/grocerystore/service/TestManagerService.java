@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.lenient;
 
 import java.util.ArrayList;
@@ -47,35 +48,32 @@ public class TestManagerService {
 	public void setMockOutput() {
 		lenient().when(managerDao.findManagerById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
 			if (invocation.getArgument(0).equals(0)) {
-				Person person = personService.createPerson("email@gmail.com", "Bob", 
-						"The Builder", "111-222-3333", "123 street");
 				Manager manager = new Manager();
-				manager.setPerson(person);
 				return manager;
 			} else {
 				return null;
 			}
 		});
 		lenient().when(managerDao.findAll()).thenAnswer((InvocationOnMock invocation) -> {
-			Person person = personService.createPerson("email@gmail.com", "Bob", 
-					"The Builder", "111-222-3333", "123 street");
 			Manager manager = new Manager();
-			manager.setPerson(person);
 			List<Manager> managers = new ArrayList<Manager>();
 			managers.add(manager);
 			return managers;
 		});
+		lenient().when(managerDao.existsById(anyInt())).thenReturn(true);
+		lenient().when(personDao.existsById(anyString())).thenReturn(true);
 		Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> {
 			return invocation.getArgument(0);
 		};
 		lenient().when(managerDao.save(any(Manager.class))).thenAnswer(returnParameterAsAnswer);
+		lenient().when(personDao.save(any(Person.class))).thenAnswer(returnParameterAsAnswer);
 	}
 	
 	@Test
 	public void testCreateManager() {
-		
+		Person person = personService.createPerson("email@gmail.com", "Bob", 
+				"The Builder", "111-222-3333", "123 street");
 		Manager manager = null;
-		Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
 		try {
 			manager = service.createManager(person);
 		} catch (IllegalArgumentException e) {
@@ -130,13 +128,17 @@ public class TestManagerService {
 	}
 	
 	
-	
-	
 	@Test
 	public void testDeleteManager() {
 		Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
 		Manager manager = service.createManager(person);
-		assertTrue(service.deleteManager(manager));
+		boolean delete = false;
+		try {
+			delete = service.deleteManager(manager);
+		}catch(IllegalArgumentException e){
+			fail();
+		}
+		assertTrue(delete);
 	}
 	
 	@Test
@@ -166,12 +168,14 @@ public class TestManagerService {
     public void testDeleteManagerByIdNotExists() {
 		Manager managerDeleted = null;
 		String error = null;
+
         try {
         	managerDeleted = service.deleteManagerById(4);
         } catch (IllegalArgumentException e) {
         	error = e.getMessage();
         }
         assertEquals(error, "No manager with that id");
+
     }
 	
 	@Test

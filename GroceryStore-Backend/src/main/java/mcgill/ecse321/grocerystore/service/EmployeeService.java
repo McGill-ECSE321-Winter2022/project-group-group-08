@@ -9,12 +9,10 @@ import org.springframework.stereotype.Service;
 
 import mcgill.ecse321.grocerystore.dao.BusinessHourRepository;
 import mcgill.ecse321.grocerystore.dao.EmployeeRepository;
-import mcgill.ecse321.grocerystore.dao.UserRoleRepository;
+import mcgill.ecse321.grocerystore.dao.PersonRepository;
 import mcgill.ecse321.grocerystore.model.BusinessHour;
 import mcgill.ecse321.grocerystore.model.Employee;
-import mcgill.ecse321.grocerystore.model.Item;
 import mcgill.ecse321.grocerystore.model.Person;
-import mcgill.ecse321.grocerystore.model.Quantity;
 
 @Service
 public class EmployeeService {
@@ -23,6 +21,8 @@ public class EmployeeService {
 	EmployeeRepository employeeRepository;
 	@Autowired
 	BusinessHourRepository businessHourRepository;
+	@Autowired
+	PersonRepository personRepository;
 	@Autowired
 	BusinessHourService businessHourService;
 
@@ -33,6 +33,9 @@ public class EmployeeService {
 	 */
 	@Transactional
 	public Employee createEmployee(Person person) {
+		if(person == null || !personRepository.existsById(person.getEmail())) {
+			throw new InvalidInputException("Invalid person");
+		}
 		Employee employee = new Employee();
 		employee.setPerson(person);
 		employeeRepository.save(employee);
@@ -46,6 +49,12 @@ public class EmployeeService {
 	 */
 	@Transactional
 	public Employee updateEmployee(int id, Person person) {
+		if(id <= 0) {
+			throw new InvalidInputException("Invalid id");
+		}
+		if(person == null || !personRepository.existsById(person.getEmail())) {
+			throw new InvalidInputException("Invalid person");
+		}
 		Employee employee = employeeRepository.findEmployeeById(id);
 		employee.setPerson(person);
 		employeeRepository.save(employee);
@@ -59,6 +68,9 @@ public class EmployeeService {
 	 */
 	@Transactional
 	public Employee getEmployee(int id) {
+		if(id <= 0) {
+			throw new InvalidInputException("Invalid id");
+		}
 		Employee employee = employeeRepository.findEmployeeById(id);
 	    return employee;
 	}
@@ -70,6 +82,9 @@ public class EmployeeService {
 	 */
 	@Transactional
 	public Employee deleteEmployee(int id) {
+		if(id <= 0) {
+			throw new InvalidInputException("Invalid id");
+		}
 		Employee employee = employeeRepository.findEmployeeById(id);
 		if(employee == null) {
 			return null;

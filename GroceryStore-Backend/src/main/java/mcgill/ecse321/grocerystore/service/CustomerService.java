@@ -9,15 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mcgill.ecse321.grocerystore.dao.CustomerRepository;
-import mcgill.ecse321.grocerystore.dao.UserRoleRepository;
+import mcgill.ecse321.grocerystore.dao.PersonRepository;
 import mcgill.ecse321.grocerystore.model.Customer;
-import mcgill.ecse321.grocerystore.model.Employee;
 import mcgill.ecse321.grocerystore.model.Person;
 import mcgill.ecse321.grocerystore.model.Customer.TierClass;
 
 @Service
 public class CustomerService {
 	
+	@Autowired
+	PersonRepository personRepository;
 	@Autowired
 	CustomerRepository customerRepository;
 	
@@ -29,6 +30,12 @@ public class CustomerService {
 	 */
 	@Transactional
 	public Customer createCustomer(Person person, TierClass tierClass, boolean ban) {
+		if(person == null || !personRepository.existsById(person.getEmail())) {
+			throw new InvalidInputException("Invalid person");
+		}
+		if(tierClass == null || !(tierClass instanceof TierClass)) {
+			throw new InvalidInputException("Invalid tier Class");
+		}
 		Customer customer = new Customer();
 		customer.setPerson(person);
 		customer.setTierclass(tierClass);
@@ -44,6 +51,9 @@ public class CustomerService {
 	 */
 	@Transactional
 	public Customer createCustomer(Person person) {
+		if(person == null || !personRepository.existsById(person.getEmail())) {
+			throw new InvalidInputException("Invalid person");
+		}
 		TierClass defaultTier = TierClass.Bronze;
 		boolean defaultBan = false;
 		Customer customer = new Customer();
@@ -56,6 +66,18 @@ public class CustomerService {
 	
 	@Transactional
 	public Customer updateCustomer(int id, Person person, TierClass tierClass, boolean ban) {
+		if(!customerRepository.existsById(id)) {
+			throw new InvalidInputException("Customer does not exists");
+		}
+		if(id <= 0) {
+			throw new InvalidInputException("Invalid id");
+		}
+		if(person == null || !personRepository.existsById(person.getEmail())) {
+			throw new InvalidInputException("Invalid person");
+		}
+		if(tierClass == null || !(tierClass instanceof TierClass)) {
+			throw new InvalidInputException("Invalid tier Class");
+		}
 		Customer customer = customerRepository.findCustomerById(id);
 		customer.setPerson(person);
 		customer.setTierclass(tierClass);
@@ -71,6 +93,12 @@ public class CustomerService {
 	 */
 	@Transactional
 	public Customer getCustomer(int id) {
+		if(id <= 0) {
+			throw new InvalidInputException("Invalid id");
+		}
+		if(!customerRepository.existsById(id)) {
+			throw new InvalidInputException("Customer does not exist");
+		}
 		Customer customer = customerRepository.findCustomerById(id);
 	    return customer;
 	}
@@ -90,8 +118,11 @@ public class CustomerService {
 	 * @return list of all customers of the given tier
 	 */
 	@Transactional
-	public List<Customer> getAllCustomerByTier(TierClass tier) {
-		return toList(customerRepository.findCustomerByTierclass(tier));
+	public List<Customer> getAllCustomerByTier(TierClass tierClass) {
+		if(tierClass == null || !(tierClass instanceof TierClass)) {
+			throw new InvalidInputException("Invalid tier Class");
+		}
+		return toList(customerRepository.findCustomerByTierclass(tierClass));
 	}
 	
 	/**
@@ -111,6 +142,12 @@ public class CustomerService {
 	 */
 	@Transactional
 	public Customer deleteCustomer(int id) {
+		if(id <= 0) {
+			throw new InvalidInputException("Invalid id");
+		}
+		if(!customerRepository.existsById(id)) {
+			throw new InvalidInputException("Customer does not exist");
+		}
 		Customer customer = customerRepository.findCustomerById(id);
 		customerRepository.delete(customer);
 	    return customer;

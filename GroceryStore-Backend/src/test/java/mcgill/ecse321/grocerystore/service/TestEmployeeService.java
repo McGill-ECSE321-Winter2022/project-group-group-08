@@ -5,7 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.lenient;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -15,11 +17,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.stubbing.Answer;
 
 import mcgill.ecse321.grocerystore.dao.BusinessHourRepository;
 import mcgill.ecse321.grocerystore.dao.EmployeeRepository;
 import mcgill.ecse321.grocerystore.dao.PersonRepository;
 import mcgill.ecse321.grocerystore.model.Employee;
+import mcgill.ecse321.grocerystore.model.Item;
 import mcgill.ecse321.grocerystore.model.Person;
 
 @ExtendWith(MockitoExtension.class)
@@ -51,6 +55,11 @@ public class TestEmployeeService {
 				return null;
 			}
 		});
+		lenient().when(personDao.existsById(anyString())).thenReturn(true);
+		Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> {
+			return invocation.getArgument(0);
+		};
+		lenient().when(employeeDao.save(any(Employee.class))).thenAnswer(returnParameterAsAnswer);
 	}
 
 	@Test

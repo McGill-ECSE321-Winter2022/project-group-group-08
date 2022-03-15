@@ -8,13 +8,11 @@ import mcgill.ecse321.grocerystore.model.BusinessHour.WeekDay;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import mcgill.ecse321.grocerystore.dao.BusinessHourRepository;
-import mcgill.ecse321.grocerystore.dao.EmployeeRepository;
 
 import javax.transaction.Transactional;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class BusinessHourService {
@@ -23,7 +21,8 @@ public class BusinessHourService {
 
     //BusinessHour
     @Transactional
-    public BusinessHour createBusinessHourforEmployee(int id, WeekDay day, Time startTime, Time endTime, boolean working, Employee employee){
+    public BusinessHour createBusinessHourforEmployee(int id, WeekDay day, Time startTime,
+    		Time endTime, boolean working, Employee employee){
         if (id == 0){
             throw new IllegalArgumentException("Business Hour id cannot be empty");
         }
@@ -50,7 +49,8 @@ public class BusinessHourService {
     }
 
     @Transactional
-    public BusinessHour createBusinessHourforGroceryStoreSystem(int id, WeekDay day, Time startTime, Time endTime, boolean working, GroceryStoreSystem groceryStoreSystem){
+    public BusinessHour createBusinessHourforGroceryStoreSystem(int id, WeekDay day, 
+    		Time startTime, Time endTime, boolean working, GroceryStoreSystem groceryStoreSystem){
         if (id == 0){
             throw new IllegalArgumentException("Business Hour id cannot be empty");
         }
@@ -92,6 +92,9 @@ public class BusinessHourService {
 
     @Transactional
 	public List<BusinessHour> getBusinessHoursbyDay(WeekDay day){
+    	if(!(day instanceof WeekDay)) {
+    		throw new InvalidInputException("Invalid week day");
+    	}
         List<BusinessHour> businessHours = businessHourRepository.findBusinessHourByDay(day);
         if (businessHours == null || businessHours.isEmpty()){
             throw new IllegalArgumentException("No such business hour with weekday " + day + " exists");
@@ -128,9 +131,10 @@ public class BusinessHourService {
 	}
 
     @Transactional
-    public BusinessHour updateBusinessHour(GroceryStoreSystem groceryStoreSystem, WeekDay day, Time startTime, Time endTime, boolean working) {
-        if(day == null) {
-            throw new IllegalArgumentException("Week day cannot be empty");
+    public BusinessHour updateBusinessHour(GroceryStoreSystem groceryStoreSystem, WeekDay day, 
+    		Time startTime, Time endTime, boolean working) {
+        if(day == null || !(day instanceof WeekDay)) {
+            throw new IllegalArgumentException("Week day is invalid");
         }
         if (startTime == null){
             throw new IllegalArgumentException("Start time cannot be empty");

@@ -1,7 +1,5 @@
 package mcgill.ecse321.grocerystore.service;
 
-import java.sql.Date;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,22 +8,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import mcgill.ecse321.grocerystore.dao.ManagerRepository;
-import mcgill.ecse321.grocerystore.dao.UserRoleRepository;
+import mcgill.ecse321.grocerystore.dao.PersonRepository;
 import mcgill.ecse321.grocerystore.model.Manager;
 import mcgill.ecse321.grocerystore.model.Person;
-import mcgill.ecse321.grocerystore.model.UserRole;
 
 @Service
 public class ManagerService {
 	
 	@Autowired
-	UserRoleRepository userRoleRepository;
-	@Autowired
 	ManagerRepository managerRepository;
+	@Autowired 
+	PersonRepository personRepository;
 	
 	
 	@Transactional 
 	public Manager createManager(Person person) {
+		if(person == null || !personRepository.existsById(person.getEmail())) {
+			throw new IllegalArgumentException("Invalid person");
+		}
 		Manager manager = new Manager();
 		manager.setPerson(person);
 		managerRepository.save(manager);
@@ -67,8 +67,8 @@ public class ManagerService {
 	
 	@Transactional
 	public boolean deleteManager(Manager manager) {
-		if (manager == null) {
-			return false;
+		if (manager == null || !managerRepository.existsById(manager.getId())) {
+			throw new IllegalArgumentException("Manager does not exist");
 		}else {
 			managerRepository.delete(manager);
 			return true;
