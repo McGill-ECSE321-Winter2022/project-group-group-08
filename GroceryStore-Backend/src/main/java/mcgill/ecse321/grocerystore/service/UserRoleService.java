@@ -9,11 +9,13 @@ import org.springframework.stereotype.Service;
 
 import mcgill.ecse321.grocerystore.dao.CustomerRepository;
 import mcgill.ecse321.grocerystore.dao.EmployeeRepository;
+import mcgill.ecse321.grocerystore.dao.ManagerRepository;
 import mcgill.ecse321.grocerystore.dao.ReceiptRepository;
 import mcgill.ecse321.grocerystore.dao.UserRoleRepository;
 import mcgill.ecse321.grocerystore.model.Customer;
 import mcgill.ecse321.grocerystore.model.Customer.TierClass;
 import mcgill.ecse321.grocerystore.model.Employee;
+import mcgill.ecse321.grocerystore.model.Manager;
 import mcgill.ecse321.grocerystore.model.Receipt;
 import mcgill.ecse321.grocerystore.model.UserRole;
 
@@ -26,6 +28,9 @@ public class UserRoleService {
 	private CustomerRepository customerRepository;
 	@Autowired
 	private EmployeeRepository employeeRepository;
+	
+	@Autowired
+	ManagerRepository managerRepository;
 	
 	// User Role Part
 	
@@ -161,6 +166,57 @@ public class UserRoleService {
 	public List<Employee> getAllEmployees() {
 		return toList(employeeRepository.findAll());
 	}
+	//manager part
+	
+	@Transactional 
+	public Manager createManager() {
+		Manager manager = new Manager();
+		return manager;
+	}
+	@Transactional
+	public List<Manager> getAllManagers() {
+		return toList(managerRepository.findAll());
+	}
+	
+	@Transactional
+	public Manager getManager(int id) {
+		if(id < 0) {
+			throw new IllegalArgumentException ("The id cannot be a negative number");
+		}
+		Manager manager = managerRepository.findManagerById(id);
+		if(manager == null) {
+			throw new IllegalArgumentException("No manager with id " + id + " exists");
+		}
+		return manager;
+	}
+	
+	@Transactional
+	public boolean deleteManager(Manager manager) {
+		if (manager == null) {
+			return false;
+		}else {
+			managerRepository.delete(manager);
+			return true;
+		}
+	}
+	
+	@Transactional
+	public boolean deleteManagerById(int id) {
+		if (id < 0) {
+			return false;
+		}
+		else {
+			Manager manager = managerRepository.findManagerById(id);
+			if(manager == null) {
+				return false;
+			}
+			managerRepository.delete(manager);
+			return true;
+		}
+	}
+	
+	
+	
 
 	
 }
