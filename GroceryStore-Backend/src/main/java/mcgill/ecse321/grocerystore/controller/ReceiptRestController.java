@@ -47,7 +47,7 @@ public class ReceiptRestController {
 	@PostMapping(value = {baseURL, baseURL+"/"})
 	public ReceiptDto createReceipt(
 		@RequestParam(name = "cartId") int cartid,
-		@RequestParam(name = "receiptNum") int receiptNum,
+		
 		@RequestParam(name = "receiptStatus") ReceiptStatus receiptStatus,
 		@RequestParam(name = "receiptType") ReceiptType receiptType
 		
