@@ -1,5 +1,7 @@
 package mcgill.ecse321.grocerystore.dto;
 
+import mcgill.ecse321.grocerystore.model.Account;
+
 public class AccountDto {
 
 	private String username;
@@ -9,7 +11,6 @@ public class AccountDto {
 	private PersonDto person;
 	
 	public AccountDto() {
-		
 	}
 
 	public AccountDto(String username, String password, boolean inTown, int totalPoints,PersonDto person) {
@@ -38,5 +39,14 @@ public class AccountDto {
 
 	public PersonDto getPerson() {
 		return person;
+	}
+	
+	public static AccountDto convertToDto(Account a) {
+		if (a == null) {
+			throw new IllegalArgumentException("There is no such Account!");
+		}
+		AccountDto accountDto = new AccountDto(a.getUsername(),a.getPassword(),a.getInTown(),a.getTotalPoints(),
+				PersonDto.convertToDto(a.getPerson()));
+		return accountDto;
 	}
 }

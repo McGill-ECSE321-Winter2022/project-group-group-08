@@ -306,7 +306,7 @@ public class TestPersonService {
 	public void testDeletePersonByEmail() {
 		Person person = null;
 		try {
-		person = personService.deletePersonByEmail(EMAIL);
+			person = personService.deletePersonByEmail(EMAIL);
 		}catch(IllegalArgumentException e){
 			fail();
 		}

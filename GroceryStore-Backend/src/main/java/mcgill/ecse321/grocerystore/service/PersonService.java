@@ -46,10 +46,9 @@ public class PersonService {
 		if (address == null || address.trim().length() == 0) {
 		    error = error + "Person address name cannot be empty! ";
 		}
-		
 		error = error.trim();
 		if (error.length() > 0) {
-		    throw new IllegalArgumentException(error);
+		    throw new InvalidInputException(error);
 		}
 		Person person = new Person();
 		person.setEmail(email);
@@ -83,11 +82,11 @@ public class PersonService {
 		}
 		Person person = personRepository.findPersonByEmail(email);
 		if(person == null) {
-			throw new IllegalArgumentException("Person with email " + email + " does not exists");
+			throw new InvalidInputException("Person with email " + email + " does not exists");
 		}
 		error = error.trim();
 		if (error.length() > 0) {
-		    throw new IllegalArgumentException(error);
+		    throw new InvalidInputException(error);
 		}
 		person.setFirstName(firstName);
 		person.setLastName(lastName);
@@ -100,7 +99,7 @@ public class PersonService {
 	@Transactional 
 	public Person findPersonByEmail(String email){
 		if (email == null || email.trim().length() == 0) {
-		    throw new IllegalArgumentException("Person email cannot be empty! ");
+		    throw new InvalidInputException("Person email cannot be empty! ");
 		}else {
 			Person person = personRepository.findPersonByEmail(email);
 			return person;
@@ -137,7 +136,7 @@ public class PersonService {
 	@Transactional
 	public Person deletePerson(Person person) {
 		if (person == null) {
-			throw new IllegalArgumentException("Person does not exist.");
+			throw new InvalidInputException("Person does not exist.");
 		}else {
 			Account account = accountRepository.findAccountByPerson(person);
 			if(account != null) {
@@ -156,7 +155,7 @@ public class PersonService {
 	@Transactional
 	public Person deletePersonByEmail(String email) {
 		if (email == null || email.trim().length() == 0 || !personRepository.existsById(email)) {
-			throw new IllegalArgumentException("Person with provided email does not exist.");
+			throw new InvalidInputException("Person with provided email does not exist.");
 		}else {
 			Person person = personRepository.findPersonByEmail(email);		
 			

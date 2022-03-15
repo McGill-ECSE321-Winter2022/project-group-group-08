@@ -30,7 +30,7 @@ public class AccountService {
 	@Transactional 
 	public Person getPersonByAccount(Account account) {
 		if(account == null) {
-			throw new IllegalArgumentException("Account does not exists");
+			throw new InvalidInputException("Account does not exists");
 		}else {
 			return accountRepository.findAccountByUsername(account.getUsername()).getPerson();
 		}
@@ -56,7 +56,7 @@ public class AccountService {
 	    }
 	    error = error.trim();
 	    if (error.length() > 0) {
-	        throw new IllegalArgumentException(error);
+	        throw new InvalidInputException(error);
 	    }
 		Account account = new Account();
 		account.setUsername(username);
@@ -88,11 +88,11 @@ public class AccountService {
 	    }
 	    Account account = accountRepository.findAccountByUsername(username);
 	    if(account == null) {
-			throw new IllegalArgumentException("Account with username " + account + " does not exists");
+			throw new InvalidInputException("Account with username " + account + " does not exists");
 		}
 	    error = error.trim();
 	    if (error.length() > 0) {
-	        throw new IllegalArgumentException(error);
+	        throw new InvalidInputException(error);
 	    }
 		account.setPassword(password);
 		account.setInTown(inTown);
@@ -105,7 +105,7 @@ public class AccountService {
 	@Transactional
 	public Account deleteAccount(Account account) {
 	    if(account == null) {
-			throw new IllegalArgumentException("Account with username " + account + " does not exists");
+			throw new InvalidInputException("Account with username " + account + " does not exists");
 		}else {
 //			Cart cart = cartRepository.findCartByAccount(account);
 //			if(cart != null) {
@@ -119,7 +119,7 @@ public class AccountService {
 	@Transactional
 	public Account deleteAccountByUsername(String username) {
 	    if(!accountRepository.existsById(username)) {
-			throw new IllegalArgumentException("Account with username " + username + " does not exists");
+			throw new InvalidInputException("Account with username " + username + " does not exists");
 		}else {
 			Account account = accountRepository.findAccountByUsername(username);
 			
@@ -130,6 +130,18 @@ public class AccountService {
 			accountRepository.delete(account);
 			return account;
 		}
+	}
+	
+	@Transactional
+	public Account loginAccount(String username, String password) {
+		Account account = accountRepository.findAccountByUsername(username);
+		if(account == null){
+		     throw new InvalidInputException("no account exists with this username "+ username);
+		}
+		if(!account.getPassword().equals(password)){
+		      throw new InvalidInputException("incorrect password : " + password + " ,  db password : " + account.getPassword());
+		}
+		return account;
 	}
 	
 	@Transactional 
@@ -162,7 +174,7 @@ public class AccountService {
 	@Transactional
 	public Account findAccountByUsername(String username){
 		if (username == null || username.trim().length() == 0) {
-			throw new IllegalArgumentException("Username cannot be empty!");
+			throw new InvalidInputException("Username cannot be empty!");
 		}else {
 			return accountRepository.findAccountByUsername(username);
 		}
