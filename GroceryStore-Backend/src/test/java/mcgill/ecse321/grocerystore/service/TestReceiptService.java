@@ -170,8 +170,11 @@ import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
         account.setInTown(INTOWN);
         account.setTotalPoints(TOTALPOINTS);
         account.setPerson(personService.createPerson(EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS));
-
-        Receipt curr = service.updateReceipt(ReceiptStatus.Processed, ReceiptType.Pickup);
+        
+        Cart cart = new Cart();
+        cart.setDate(date);
+        
+        Receipt curr = service.updateReceipt(0, ReceiptStatus.Processed, ReceiptType.Pickup, cart);
 
         assertEquals(curr.getReceiptStatus(), ReceiptStatus.Processed);
         assertEquals(curr.getReceiptType(), ReceiptType.Pickup);
