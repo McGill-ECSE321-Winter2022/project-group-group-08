@@ -10,4 +10,6 @@ public interface UserRoleRepository extends CrudRepository<UserRole, Integer>{
 	UserRole findUserRoleById(int id);
 	
 	UserRole findUserRoleByPerson(Person person);
+	
+	UserRole deleteUserRoleById(int id);
 }
