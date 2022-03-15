@@ -10,14 +10,21 @@ import org.springframework.stereotype.Service;
 import mcgill.ecse321.grocerystore.dao.BusinessHourRepository;
 import mcgill.ecse321.grocerystore.dao.EmployeeRepository;
 import mcgill.ecse321.grocerystore.dao.UserRoleRepository;
+import mcgill.ecse321.grocerystore.model.BusinessHour;
 import mcgill.ecse321.grocerystore.model.Employee;
+import mcgill.ecse321.grocerystore.model.Item;
 import mcgill.ecse321.grocerystore.model.Person;
+import mcgill.ecse321.grocerystore.model.Quantity;
 
 @Service
 public class EmployeeService {
 
 	@Autowired
 	EmployeeRepository employeeRepository;
+	@Autowired
+	BusinessHourRepository businessHourRepository;
+	@Autowired
+	BusinessHourService businessHourService;
 
 	/**
 	 * Method to create a employee role
@@ -64,6 +71,13 @@ public class EmployeeService {
 	@Transactional
 	public Employee deleteEmployee(int id) {
 		Employee employee = employeeRepository.findEmployeeById(id);
+		if(employee == null) {
+			return null;
+		}
+		List<BusinessHour> businessHours = businessHourRepository.findBusinessHoursByEmployee(employee);
+		for(int i=0; i<businessHours.size(); i++) {
+			businessHourService.deleteBusinessHour(businessHours.get(i));
+		}
 		employeeRepository.delete(employee);
 	    return employee;
 	}

@@ -1,22 +1,13 @@
 package mcgill.ecse321.grocerystore.dto;
 
-import mcgill.ecse321.grocerystore.model.UserRole;
 
-public class ManagerDto {
-	
-	private UserRoleDto userRole;
+public class ManagerDto extends UserRoleDto{
 	
 	public ManagerDto() {
 		
 	}
 	
-	public ManagerDto(UserRoleDto userRole) {
-		this.userRole = userRole;
+	public ManagerDto(int userRoleId, PersonDto person) {
+		super(userRoleId, person);
 	}
-	
-	public UserRoleDto getManager() {
-		return userRole;
-	}
-
-
 }

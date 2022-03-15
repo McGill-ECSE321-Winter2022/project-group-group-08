@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import mcgill.ecse321.grocerystore.dao.ManagerRepository;
 import mcgill.ecse321.grocerystore.dao.UserRoleRepository;
 import mcgill.ecse321.grocerystore.model.Manager;
+import mcgill.ecse321.grocerystore.model.Person;
 import mcgill.ecse321.grocerystore.model.UserRole;
 
 @Service
@@ -24,8 +25,10 @@ public class ManagerService {
 	
 	
 	@Transactional 
-	public Manager createManager() {
+	public Manager createManager(Person person) {
 		Manager manager = new Manager();
+		manager.setPerson(person);
+		managerRepository.save(manager);
 		return manager;
 	}
 	@Transactional
@@ -42,6 +45,23 @@ public class ManagerService {
 		if(manager == null) {
 			throw new IllegalArgumentException("No manager with id " + id + " exists");
 		}
+		return manager;
+	}
+	
+	@Transactional
+	public Manager updateManager(int id, Person person) {
+		if(id < 0) {
+			throw new IllegalArgumentException ("The id cannot be a negative number");
+		}
+		if(person == null) {
+			throw new IllegalArgumentException ("The person cannot be null");
+		}
+		Manager manager = managerRepository.findManagerById(id);
+		if(manager == null) {
+			throw new IllegalArgumentException("No manager with id " + id + " exists");
+		}
+		manager.setPerson(person);
+		managerRepository.save(manager);
 		return manager;
 	}
 	
