@@ -78,7 +78,7 @@ public class ManagerService {
 	@Transactional
 	public Manager deleteManagerById(int id) {
 		if (id < 0) {
-			throw new IllegalArgumentException("Nagative Id");
+			throw new IllegalArgumentException("Negative Id");
 		}
 		else {
 			Manager manager = managerRepository.findManagerById(id);

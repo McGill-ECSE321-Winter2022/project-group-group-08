@@ -141,35 +141,37 @@ public class TestManagerService {
 	
 	@Test
     public void testDeleteManagerById() {
-		boolean managerDeleted = false;
+		Manager managerDeleted = null;
         try {
         	managerDeleted = service.deleteManagerById(0);
         } catch (IllegalArgumentException e) {
         	fail();
         }
-        assertTrue(managerDeleted);
+        assertNotNull(managerDeleted);
     }
 	
 	@Test
     public void testDeleteManagerByIdNegative() {
-		boolean managerDeleted = true;
+		Manager managerDeleted = null;
+		String error = null;
         try {
         	managerDeleted = service.deleteManagerById(-1);
         } catch (IllegalArgumentException e) {
-        	fail();
+        	error = e.getMessage();
         }
-        assertFalse(managerDeleted);
+        assertEquals(error, "Negative Id");
     }
 	
 	@Test
     public void testDeleteManagerByIdNotExists() {
-		boolean managerDeleted = true;
+		Manager managerDeleted = null;
+		String error = null;
         try {
         	managerDeleted = service.deleteManagerById(4);
         } catch (IllegalArgumentException e) {
-        	fail();
+        	error = e.getMessage();
         }
-        assertFalse(managerDeleted);
+        assertEquals(error, "No manager with that id");
     }
 	
 	@Test
