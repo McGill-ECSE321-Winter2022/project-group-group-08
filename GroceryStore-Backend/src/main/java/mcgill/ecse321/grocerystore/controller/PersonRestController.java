@@ -31,12 +31,11 @@ public class PersonRestController {
 	 * @param phoneNumber phone number of person
 	 * @param address address of person
 	 * @return PersonDto
-	 * @throws IllegalArgumentException
 	 */
 	@PostMapping(value = { "/createPerson/{email}", "/createPerson/{email}/" })
 	public PersonDto createPerson(@PathVariable("email") String email, @RequestParam String firstName,
 			@RequestParam String lastName,@RequestParam String phoneNumber,
-			@RequestParam String address) throws IllegalArgumentException {
+			@RequestParam String address) {
 		
 		Person person = personService.createPerson(email, firstName, lastName, phoneNumber, address);
 		return PersonDto.convertToDto(person);
@@ -50,12 +49,11 @@ public class PersonRestController {
 	 * @param phoneNumber new phone number of person
 	 * @param address new address of person
 	 * @return PersonDto
-	 * @throws IllegalArgumentException
 	 */
 	@PutMapping(value = { "/updatePerson/{email}", "/updatePerson/{email}/" })
 	public PersonDto updatePerson(@PathVariable("email") String email,
 			@RequestParam String firstName, @RequestParam String lastName,
-			@RequestParam String phoneNumber, @RequestParam String address) throws IllegalArgumentException {
+			@RequestParam String phoneNumber, @RequestParam String address) {
 		
 		Person person = personService.updatePerson(email, firstName, lastName, phoneNumber, address);
 		return PersonDto.convertToDto(person);
@@ -63,7 +61,7 @@ public class PersonRestController {
 	
 	/**
 	 * Gets the list of PersonDtos
-	 * @return List<PErsonDto>
+	 * @return List<PersonDto>
 	 */
 	@GetMapping(value = { "/getAllPersons", "/getAllPersons/" })
 	public List<PersonDto> getAllPersons(){

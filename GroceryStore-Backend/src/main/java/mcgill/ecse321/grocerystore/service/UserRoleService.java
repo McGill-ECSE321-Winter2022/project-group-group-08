@@ -50,10 +50,8 @@ public class UserRoleService {
 	}
 	
 	@Transactional
-	public List<UserRole>  getAllUserRoles() {
-		
+	public List<UserRole> getAllUserRoles() {
 		return toList(userRoleRepository.findAll());
-		
 	};
 	
 	private <T> List<T> toList(Iterable<T> iterable){

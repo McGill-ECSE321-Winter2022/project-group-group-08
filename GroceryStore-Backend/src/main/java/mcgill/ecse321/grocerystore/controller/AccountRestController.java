@@ -162,10 +162,9 @@ public class AccountRestController {
 	/**
 	 * Deletes all existing AccountDtos
 	 * @return List<AccountDto> 
-	 * @throws IllegalArgumentException
 	 */
 	@DeleteMapping(value = { "/deleteAllAccounts", "/deleteAllAccounts/" })
-	public List<AccountDto> deleteAllPersons() throws IllegalArgumentException {
+	public List<AccountDto> deleteAllPersons() {
 		List <Account> accountList = accountService.getAllAccounts();
 		List <AccountDto> accountDtos = new ArrayList<AccountDto>();
 		

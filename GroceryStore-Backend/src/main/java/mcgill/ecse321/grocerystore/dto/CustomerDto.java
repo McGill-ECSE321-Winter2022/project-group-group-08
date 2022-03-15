@@ -2,8 +2,6 @@ package mcgill.ecse321.grocerystore.dto;
 import mcgill.ecse321.grocerystore.model.Customer.TierClass;
 
 public class CustomerDto extends UserRoleDto {
-
-//	private enum TierClass { Gold, Silver, Bronze }
 	
 	private TierClass tierclass;
 	private boolean ban;

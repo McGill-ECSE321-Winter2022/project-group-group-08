@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import mcgill.ecse321.grocerystore.dao.CustomerRepository;
 import mcgill.ecse321.grocerystore.dao.PersonRepository;
+import mcgill.ecse321.grocerystore.dao.UserRoleRepository;
 import mcgill.ecse321.grocerystore.model.Customer;
 import mcgill.ecse321.grocerystore.model.Person;
 import mcgill.ecse321.grocerystore.model.Customer.TierClass;
@@ -21,6 +22,8 @@ public class CustomerService {
 	PersonRepository personRepository;
 	@Autowired
 	CustomerRepository customerRepository;
+	@Autowired
+	UserRoleRepository userRoleRepository;
 	
 	/**
 	 * Method to create a customer role
@@ -32,6 +35,9 @@ public class CustomerService {
 	public Customer createCustomer(Person person, TierClass tierClass, boolean ban) {
 		if(person == null || !personRepository.existsById(person.getEmail())) {
 			throw new InvalidInputException("Invalid person");
+		}
+		if(userRoleRepository.findUserRoleByPerson(person) != null){
+			throw new InvalidInputException("Person has already been assigned a role");
 		}
 		if(tierClass == null || !(tierClass instanceof TierClass)) {
 			throw new InvalidInputException("Invalid tier Class");

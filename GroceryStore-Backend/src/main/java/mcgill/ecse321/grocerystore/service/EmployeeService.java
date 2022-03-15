@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import mcgill.ecse321.grocerystore.dao.BusinessHourRepository;
 import mcgill.ecse321.grocerystore.dao.EmployeeRepository;
 import mcgill.ecse321.grocerystore.dao.PersonRepository;
+import mcgill.ecse321.grocerystore.dao.UserRoleRepository;
 import mcgill.ecse321.grocerystore.model.BusinessHour;
 import mcgill.ecse321.grocerystore.model.Employee;
 import mcgill.ecse321.grocerystore.model.Person;
@@ -24,6 +25,8 @@ public class EmployeeService {
 	@Autowired
 	PersonRepository personRepository;
 	@Autowired
+	UserRoleRepository userRoleRepository;
+	@Autowired
 	BusinessHourService businessHourService;
 
 	/**
@@ -35,6 +38,9 @@ public class EmployeeService {
 	public Employee createEmployee(Person person) {
 		if(person == null || !personRepository.existsById(person.getEmail())) {
 			throw new InvalidInputException("Invalid person");
+		}
+		if(userRoleRepository.findUserRoleByPerson(person) != null){
+			throw new InvalidInputException("Person has already been assigned a role");
 		}
 		Employee employee = new Employee();
 		employee.setPerson(person);

@@ -37,7 +37,7 @@ public class CartRestController {
 	}
 
 	@GetMapping(value = { "/cart/all", "/cart/all/" })
-    public List<CartDto> getAllBusinessHours(){
+    public List<CartDto> getAllCarts(){
 		return cartService.getAllCarts().stream().map(b -> convertToDto(b)).collect(Collectors.toList());
     }
 	

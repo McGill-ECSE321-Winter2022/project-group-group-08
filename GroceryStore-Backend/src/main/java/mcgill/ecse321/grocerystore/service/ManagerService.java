@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import mcgill.ecse321.grocerystore.dao.ManagerRepository;
 import mcgill.ecse321.grocerystore.dao.PersonRepository;
+import mcgill.ecse321.grocerystore.dao.UserRoleRepository;
 import mcgill.ecse321.grocerystore.model.Manager;
 import mcgill.ecse321.grocerystore.model.Person;
 
@@ -19,12 +20,17 @@ public class ManagerService {
 	ManagerRepository managerRepository;
 	@Autowired 
 	PersonRepository personRepository;
+	@Autowired
+	UserRoleRepository userRoleRepository;
 	
 	
 	@Transactional 
 	public Manager createManager(Person person) {
 		if(person == null || !personRepository.existsById(person.getEmail())) {
 			throw new IllegalArgumentException("Invalid person");
+		}
+		if(userRoleRepository.findUserRoleByPerson(person) != null){
+			throw new InvalidInputException("Person has already been assigned a role");
 		}
 		Manager manager = new Manager();
 		manager.setPerson(person);
