@@ -114,17 +114,17 @@ public class TestBusinessHourService {
         return list;
   });
 
-  lenient().when(businessDao.findBusinessHourByTimeBetween(startTime,endTime)).thenAnswer( (InvocationOnMock invocation) -> {
-    BusinessHour businessHour = new BusinessHour();
-        businessHour.setId(ID);
-        businessHour.setDay(day);
-        businessHour.setWorking(working);
-        businessHour.setStartTime(startTime);
-        businessHour.setEndTime(endTime);
-        ArrayList<BusinessHour> list = new ArrayList<BusinessHour>();
-        list.add(businessHour);
-        return list;
-  });
+//  lenient().when(businessDao.findBusinessHourByTimeBetween(startTime,endTime)).thenAnswer( (InvocationOnMock invocation) -> {
+//    BusinessHour businessHour = new BusinessHour();
+//        businessHour.setId(ID);
+//        businessHour.setDay(day);
+//        businessHour.setWorking(working);
+//        businessHour.setStartTime(startTime);
+//        businessHour.setEndTime(endTime);
+//        ArrayList<BusinessHour> list = new ArrayList<BusinessHour>();
+//        list.add(businessHour);
+//        return list;
+//  });
 
  }
 

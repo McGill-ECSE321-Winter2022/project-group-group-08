@@ -38,7 +38,7 @@ public class QuantityDto {
 		return item;
 	}
 	
-	public CartDto getCaart() {
+	public CartDto getCart() {
 		return cart;
 	}
 }
