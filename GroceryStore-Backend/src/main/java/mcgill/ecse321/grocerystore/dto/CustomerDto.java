@@ -1,12 +1,12 @@
 package mcgill.ecse321.grocerystore.dto;
+import mcgill.ecse321.grocerystore.model.Customer.TierClass;
 
-public class CustomerDto {
+public class CustomerDto extends UserRoleDto {
 
-	private enum TierClass { Gold, Silver, Bronze }
+//	private enum TierClass { Gold, Silver, Bronze }
 	
 	private TierClass tierclass;
 	private boolean ban;
-	private UserRoleDto userRoleDto; 
 	
 	/**
 	 * Constructor to create a customer DTO
@@ -14,13 +14,6 @@ public class CustomerDto {
 	public CustomerDto() {
 	}
 	
-	/**
-	 * Constructor to create a customer DTO with only tier
-	 * @param tierClass of customer
-	 */
-	public CustomerDto(TierClass tierClass){
-		this.tierclass = tierClass;
-	}
 	
 	/**
 	 * Constructor to create a customer DTO
@@ -28,10 +21,11 @@ public class CustomerDto {
 	 * @param ban status of customer
 	 * @param userRole DTO
 	 */
-	public CustomerDto(TierClass tierClass, boolean ban, UserRoleDto userRoleDto){
+	public CustomerDto(int userRoleId, PersonDto person, TierClass tierClass, boolean ban){
+		super(userRoleId, person);
 		this.tierclass = tierClass;
 		this.ban = ban;
-		this.userRoleDto = userRoleDto;
+		
 	}
 
 	/**
@@ -49,13 +43,4 @@ public class CustomerDto {
 	public boolean isBan() {
 		return ban;
 	}
-
-	/**
-	 * Getter for UserRole DTO
-	 * @return UserRole DTO
-	 */
-	public UserRoleDto getUserRoleDto() {
-		return userRoleDto;
-	}
- 
 }

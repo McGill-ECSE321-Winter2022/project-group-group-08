@@ -12,6 +12,7 @@ import mcgill.ecse321.grocerystore.dao.CustomerRepository;
 import mcgill.ecse321.grocerystore.dao.UserRoleRepository;
 import mcgill.ecse321.grocerystore.model.Customer;
 import mcgill.ecse321.grocerystore.model.Employee;
+import mcgill.ecse321.grocerystore.model.Person;
 import mcgill.ecse321.grocerystore.model.Customer.TierClass;
 
 @Service
@@ -29,10 +30,12 @@ public class CustomerService {
 	 * @return Customer object
 	 */
 	@Transactional
-	public Customer createCustomer(TierClass tierClass, boolean ban) {
+	public Customer createCustomer(Person person, TierClass tierClass, boolean ban) {
 		Customer customer = new Customer();
+		customer.setPerson(person);
 		customer.setTierclass(tierClass);
 		customer.setBan(ban);
+		customerRepository.save(customer);
 		return customer;
 	}
 	
@@ -42,12 +45,24 @@ public class CustomerService {
 	 * @return Customer object
 	 */
 	@Transactional
-	public Customer createCustomer() {
+	public Customer createCustomer(Person person) {
 		TierClass defaultTier = TierClass.Bronze;
 		boolean defaultBan = false;
 		Customer customer = new Customer();
+		customer.setPerson(person);
 		customer.setTierclass(defaultTier);
 		customer.setBan(defaultBan);
+		customerRepository.save(customer);
+		return customer;
+	}
+	
+	@Transactional
+	public Customer updateCustomer(int id, Person person, TierClass tierClass, boolean ban) {
+		Customer customer = customerRepository.findCustomerById(id);
+		customer.setPerson(person);
+		customer.setTierclass(tierClass);
+		customer.setBan(ban);
+		customerRepository.save(customer);
 		return customer;
 	}
 
