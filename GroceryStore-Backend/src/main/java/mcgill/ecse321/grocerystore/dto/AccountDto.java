@@ -11,7 +11,6 @@ public class AccountDto {
 	private PersonDto person;
 	
 	public AccountDto() {
-		
 	}
 
 	public AccountDto(String username, String password, boolean inTown, int totalPoints,PersonDto person) {
@@ -42,8 +41,12 @@ public class AccountDto {
 		return person;
 	}
 	
-	public static AccountDto convertToDto(Account account) {
-		AccountDto accountDto = new AccountDto(account.getUsername(), account.getPassword(), account.getInTown(), account.getTotalPoints(), PersonDto.convertToDto(account.getPerson()));
+	public static AccountDto convertToDto(Account a) {
+		if (a == null) {
+			throw new IllegalArgumentException("There is no such Account!");
+		}
+		AccountDto accountDto = new AccountDto(a.getUsername(),a.getPassword(),a.getInTown(),a.getTotalPoints(),
+				PersonDto.convertToDto(a.getPerson()));
 		return accountDto;
 	}
 }
