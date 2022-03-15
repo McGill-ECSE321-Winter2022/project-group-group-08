@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import mcgill.ecse321.grocerystore.dao.CustomerRepository;
 import mcgill.ecse321.grocerystore.dao.UserRoleRepository;
 import mcgill.ecse321.grocerystore.model.Customer;
+import mcgill.ecse321.grocerystore.model.Employee;
 import mcgill.ecse321.grocerystore.model.Customer.TierClass;
 
 @Service
@@ -88,6 +89,18 @@ public class CustomerService {
 	@Transactional
 	public List<Customer> getAllCustomerByBan(boolean ban) {
 		return toList(customerRepository.findCustomerByBan(ban));
+	}
+	
+	/**
+	 * Method to delete a customer by their role id
+	 * @param role id
+	 * @return employee with that id
+	 */
+	@Transactional
+	public Customer deleteCustomer(int id) {
+		Customer customer = customerRepository.findCustomerById(id);
+		customerRepository.delete(customer);
+	    return customer;
 	}
 	
 	private <T> List<T> toList(Iterable<T> iterable){

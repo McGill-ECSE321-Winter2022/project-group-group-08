@@ -62,6 +62,7 @@ public class CustomerRestController {
 		return personDto;
 	}
 
+	@SuppressWarnings("unused")
 	private AccountDto convertToDto(Account a) {
 		if (a == null) {
 			throw new IllegalArgumentException("There is no such Account!");

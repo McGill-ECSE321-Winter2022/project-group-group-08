@@ -23,6 +23,7 @@ import org.mockito.stubbing.Answer;
 
 import mcgill.ecse321.grocerystore.dao.CustomerRepository;
 import mcgill.ecse321.grocerystore.model.Customer;
+import mcgill.ecse321.grocerystore.model.Employee;
 import mcgill.ecse321.grocerystore.model.Customer.TierClass;
 
 @ExtendWith(MockitoExtension.class)
@@ -137,6 +138,19 @@ public class TestCustomerService {
 		List<Customer> customers = new ArrayList<Customer>();
 		customers = service.getAllCustomerByBan(BAN_KEY);
 		Customer customer = customers.get(0);
+		assertNotNull(customer);
+	}
+	
+	@Test
+	public void testDeleteCustomer() {
+		assertEquals(0, service.getAllCustomers().size());
+		Customer customer = null;
+		try {
+			customer = service.deleteCustomer(ID_KEY);
+		} catch (IllegalArgumentException e) {
+			// Check that no error occurred
+			fail();
+		}
 		assertNotNull(customer);
 	}
 }

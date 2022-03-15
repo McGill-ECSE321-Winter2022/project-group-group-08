@@ -1,6 +1,7 @@
 package mcgill.ecse321.grocerystore.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -65,4 +66,18 @@ public class TestEmployeeService {
 	public void testGetNonExistingCustomer() {
 		assertNull(service.getEmployee(FAKE_ID_KEY));
 	}
+	
+	@Test
+	public void testDeleteEmployee() {
+		assertEquals(0, service.getAllEmployees().size());
+		Employee employee = null;
+		try {
+			employee = service.deleteEmployee(ID_KEY);
+		} catch (IllegalArgumentException e) {
+			// Check that no error occurred
+			fail();
+		}
+		assertNotNull(employee);
+	}
+	
 }

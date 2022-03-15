@@ -45,6 +45,18 @@ public class EmployeeService {
 	}
 
 	/**
+	 * Method to delete a employee by their role id
+	 * @param role id
+	 * @return employee with that id
+	 */
+	@Transactional
+	public Employee deleteEmployee(int id) {
+		Employee employee = employeeRepository.findEmployeeById(id);
+		employeeRepository.delete(employee);
+	    return employee;
+	}
+
+	/**
 	 * Method to get all employee
 	 * 
 	 * @return list of all employee
