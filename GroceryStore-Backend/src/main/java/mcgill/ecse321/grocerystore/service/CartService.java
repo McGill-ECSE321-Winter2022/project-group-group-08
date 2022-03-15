@@ -42,6 +42,11 @@ public class CartService {
 		return cart;
 	}
 
+	@Transactional
+	public List<Cart> getAllCarts() {
+		return toList(cartRepository.findAll());
+	}
+
 	// @Transactional
 	// public Cart getCartbyAccount(Account account) {
 	// 	return account.getCart();

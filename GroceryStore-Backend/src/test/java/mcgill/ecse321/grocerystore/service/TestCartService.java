@@ -47,15 +47,13 @@ public class TestCartService {
 
    private static final int ID = 12345;
    private static final Date date = java.sql.Date.valueOf(LocalDate.of(2022, Month.DECEMBER, 31));;
-   Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
-   Account account = accountService.createAccount("username123", "password123", false, 123, person);
 
    @BeforeEach
    public void setMockOutput() {
        lenient().when(cartDao.findCartById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
            if (invocation.getArgument(0).equals(ID)) {
-           	Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
-				Account account = accountService.createAccount("username123", "password123", false, 123, person);
+               Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
+			   Account account = accountService.createAccount("username123", "password123", false, 123, person);
                Cart cart = new Cart();
                cart.setAccount(account);
                cart.setDate(date);
