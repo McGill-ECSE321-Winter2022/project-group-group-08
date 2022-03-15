@@ -27,13 +27,13 @@ public class UserRoleRestController {
 	
 	private UserRoleService userRoleService;
 	private static final String baseURL="userRole";
-	@GetMapping(value = { "/getAllItems", "/getAllItems/" })
+	@GetMapping(value = { "/getAllRoles", "/getAllRoles/" })
     
 	public List<UserRoleDto> getAllUserRoles() {
         return userRoleService.getAllUserRoles().stream().map(u -> convertToDto(u)).collect(Collectors.toList());
     }
 	
-	@GetMapping(value = { "/getItemById/{id}", "/getItemById/{id}/" })
+	@GetMapping(value = { "/getRoleById/{id}", "/getRoleById/{id}/" })
     public UserRoleDto getUserRoleById(@PathVariable("id") int id) {
 		UserRole userRole = userRoleService.findUserRoleById(id);
 		return convertToDto(userRole);
@@ -41,7 +41,7 @@ public class UserRoleRestController {
 	
 	private UserRoleDto convertToDto(UserRole user) {
 		if(user == null) {
-			throw new IllegalArgumentException("There is no such receipt!");
+			throw new IllegalArgumentException("There is no such role!");
 			
 		}
 		UserRoleDto userRoleDto = new UserRoleDto(user.getId(), PersonDto.convertToDto(user.getPerson())); //fix person
