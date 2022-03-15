@@ -35,7 +35,7 @@ public class BusinessHourRestController {
 	
     @GetMapping(value = { "/businesshour/all", "/businesshour/all/" })
     public List<BusinessHourDto> getAllBusinessHours(){
-        return businesshourService.getAllBusinessHours().stream().map(b->convertToDto(b).collect(Collectors.toList()));
+        return businesshourService.getAllBusinessHours().stream().map(b -> convertToDto(b)).collect(Collectors.toList());
     }
 
 	@GetMapping(value = { "/businesshour/{id}", "/businesshour/{id}/" })

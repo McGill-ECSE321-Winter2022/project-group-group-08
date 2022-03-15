@@ -3,8 +3,6 @@ package mcgill.ecse321.grocerystore.service;
 import static org.mockito.Mockito.lenient;
 import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -16,26 +14,44 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import mcgill.ecse321.grocerystore.dao.BusinessHourRepository;
+import mcgill.ecse321.grocerystore.dao.EmployeeRepository;
+import mcgill.ecse321.grocerystore.dao.GroceryStoreSystemRepository;
+import mcgill.ecse321.grocerystore.dao.UserRoleRepository;
 import mcgill.ecse321.grocerystore.model.BusinessHour;
 import mcgill.ecse321.grocerystore.model.Employee;
 import mcgill.ecse321.grocerystore.model.GroceryStoreSystem;
+import mcgill.ecse321.grocerystore.model.Person;
 import mcgill.ecse321.grocerystore.model.BusinessHour.WeekDay;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.invocation.InvocationOnMock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
 public class TestBusinessHourService {
 
  @Mock
  private BusinessHourRepository businessDao;
+ @Mock
+ private GroceryStoreSystemRepository groceryStoreSystemDao;
+ @Mock
+ private EmployeeRepository employeeDao;
+ @Mock
+ private UserRoleRepository userRoleDao;
+ @Mock
+ private Person personDao;
 
  @InjectMocks
  private BusinessHourService service;
  @InjectMocks
  private GroceryStoreSystemService groceryService;
-//  @InjectMocks
-//  private EmployeeService employeeService;
-
+ @InjectMocks
+ private EmployeeService employeeSerive;
+ @InjectMocks
+ private UserRoleService userRoleService;
+ @InjectMocks
+ private PersonService personService;
  
  private static final int ID=0;
  private static final WeekDay day=WeekDay.Tuesday;
