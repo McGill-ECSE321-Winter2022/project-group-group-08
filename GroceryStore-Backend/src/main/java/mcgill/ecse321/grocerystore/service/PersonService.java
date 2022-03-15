@@ -22,8 +22,10 @@ public class PersonService {
 	PersonRepository personRepository;
 	@Autowired
 	AccountRepository accountRepository;
-	@Autowired 
-	UserRoleRepository userRoleRepository;
+	@Autowired
+	AccountService accountService;
+//	@Autowired 
+//	UserRoleService userRoleService;
 	
 	@Transactional
 	public Person createPerson(String email, String firstName, String lastName, String phoneNumber,
@@ -38,19 +40,15 @@ public class PersonService {
 		if (lastName == null || lastName.trim().length() == 0) {
 		    error = error + "Person last name cannot be empty! ";
 		}
-		if (phoneNumber == null || phoneNumber.trim().length() == 0) {
-		    error = error + "Person phone number cannot be empty! ";
-		}
-		if(phoneNumber.length() < 10) {
-			error = error + "Person phone number cannot be less than 10 digits";
+		if (phoneNumber == null || phoneNumber.trim().length() == 0 || phoneNumber.length() < 10) {
+		    error = error + "Person phone number is invalid! ";
 		}
 		if (address == null || address.trim().length() == 0) {
 		    error = error + "Person address name cannot be empty! ";
 		}
-		
 		error = error.trim();
 		if (error.length() > 0) {
-		    throw new IllegalArgumentException(error);
+		    throw new InvalidInputException(error);
 		}
 		Person person = new Person();
 		person.setEmail(email);
@@ -84,11 +82,11 @@ public class PersonService {
 		}
 		Person person = personRepository.findPersonByEmail(email);
 		if(person == null) {
-			throw new IllegalArgumentException("Person with email " + email + " does not exists");
+			throw new InvalidInputException("Person with email " + email + " does not exists");
 		}
 		error = error.trim();
 		if (error.length() > 0) {
-		    throw new IllegalArgumentException(error);
+		    throw new InvalidInputException(error);
 		}
 		person.setFirstName(firstName);
 		person.setLastName(lastName);
@@ -101,7 +99,7 @@ public class PersonService {
 	@Transactional 
 	public Person findPersonByEmail(String email){
 		if (email == null || email.trim().length() == 0) {
-		    throw new IllegalArgumentException("Person email cannot be empty! ");
+		    throw new InvalidInputException("Person email cannot be empty! ");
 		}else {
 			Person person = personRepository.findPersonByEmail(email);
 			return person;
@@ -138,18 +136,17 @@ public class PersonService {
 	@Transactional
 	public Person deletePerson(Person person) {
 		if (person == null) {
-			throw new IllegalArgumentException("Person does not exist.");
+			throw new InvalidInputException("Person does not exist.");
 		}else {
 			Account account = accountRepository.findAccountByPerson(person);
 			if(account != null) {
-				accountRepository.delete(account);
-//				accountService.deleteAccount(account);
-			}
-			
-			
-			UserRole userRole = userRoleRepository.findUserRoleByPerson(person);
-//			userRoleService.deleteUserRole(userRole);
-			
+//				accountRepository.delete(account);
+				accountService.deleteAccount(account);
+			}			
+//			UserRole userRole = userRoleRepository.findUserRoleByPerson(person);
+//			if(userRole != null) {
+//				userRoleService.deleteUserRole(userRole);
+//			}
 			personRepository.delete(person);
 			return person;
 		}
@@ -158,15 +155,19 @@ public class PersonService {
 	@Transactional
 	public Person deletePersonByEmail(String email) {
 		if (email == null || email.trim().length() == 0 || !personRepository.existsById(email)) {
-			throw new IllegalArgumentException("Person with provided email does not exist.");
+			throw new InvalidInputException("Person with provided email does not exist.");
 		}else {
 			Person person = personRepository.findPersonByEmail(email);		
 			
 			Account account = accountRepository.findAccountByPerson(person);
-			accountRepository.delete(account);
-			
-			UserRole userRole = userRoleRepository.findUserRoleByPerson(person);
-			userRoleRepository.delete(userRole);
+			if(account != null) {
+//				accountRepository.delete(account);
+				accountService.deleteAccount(account);
+			}
+//			UserRole userRole = userRoleRepository.findUserRoleByPerson(person);
+//			if(userRole != null) {
+//				userRoleService.deleteUserRole(userRole);
+//			}
 					
 			personRepository.delete(person);
 			return person;

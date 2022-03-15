@@ -40,10 +40,14 @@ public class PersonDto {
 	
 	public String getAddress() {
 		return address;
-	}
+	}		
 	
-	public static PersonDto convertToDto(Person person) {
-		PersonDto personDto = new PersonDto(person.getEmail(), person.getFirstName(), person.getLastName(), person.getPhoneNumber(), person.getAddress());
+	public static PersonDto convertToDto(Person p) {
+		if (p == null) {
+			throw new IllegalArgumentException("There is no such Person!");
+		}
+		PersonDto personDto = new PersonDto(p.getEmail(),p.getFirstName(),p.getLastName(),p.getPhoneNumber(),
+				p.getAddress());
 		return personDto;
 	}
 }
