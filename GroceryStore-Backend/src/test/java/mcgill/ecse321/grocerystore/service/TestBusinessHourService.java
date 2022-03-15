@@ -47,7 +47,7 @@ public class TestBusinessHourService {
  @InjectMocks
  private GroceryStoreSystemService groceryService;
  @InjectMocks
- private EmployeeService employeeSerive;
+ private EmployeeService employeeService;
  @InjectMocks
  private UserRoleService userRoleService;
  @InjectMocks

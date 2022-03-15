@@ -25,8 +25,8 @@ public class TestEmployeeService {
 	@Mock
 	private EmployeeRepository employeeDao;
 
-	@InjectMocks
-	private EmployeeService service;
+	 @InjectMocks
+	 private EmployeeService service;
 	
 	private static final int ID_KEY = 1234567;
 	private static final int FAKE_ID_KEY = 6666666;
