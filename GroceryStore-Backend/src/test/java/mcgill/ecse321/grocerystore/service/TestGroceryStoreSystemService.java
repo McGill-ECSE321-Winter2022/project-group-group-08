@@ -215,6 +215,7 @@ public class TestGroceryStoreSystemService {
 		
 		assertTrue(groceryService.deleteGroceryStoreSystem(currSystem));
 	}
+	
 	@Test
 	public void testDeleteGroceryWithNull() {
 		

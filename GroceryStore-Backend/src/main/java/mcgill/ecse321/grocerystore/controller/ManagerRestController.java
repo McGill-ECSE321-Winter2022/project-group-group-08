@@ -29,8 +29,8 @@ public class ManagerRestController {
 	}
 	
 	@PostMapping(value = {baseURL, baseURL+"/"})
-	public ManagerDto createManager(@PathVariable("id") int id) {
-		Manager manager = managerService.createManager(id);
+	public ManagerDto createManager() {
+		Manager manager = managerService.createManager();
 		return convertToDto(manager);
 	}
 	

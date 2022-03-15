@@ -22,11 +22,9 @@ public class ManagerService {
 	@Autowired
 	ManagerRepository managerRepository;
 	
+	
 	@Transactional 
-	public Manager createManager(int id) {
-		if(id < 0) {
-			throw new IllegalArgumentException("The manager's id cannot be negative");
-		}
+	public Manager createManager() {
 		Manager manager = new Manager();
 		return manager;
 	}
@@ -37,8 +35,14 @@ public class ManagerService {
 	
 	@Transactional
 	public Manager getManager(int id) {
-		Manager managerID = managerRepository.findManagerById(id);
-		return managerID;
+		if(id < 0) {
+			throw new IllegalArgumentException ("The id cannot be a negative number");
+		}
+		Manager manager = managerRepository.findManagerById(id);
+		if(manager == null) {
+			throw new IllegalArgumentException("No manager with id " + id + " exists");
+		}
+		return manager;
 	}
 	
 	@Transactional
@@ -46,6 +50,21 @@ public class ManagerService {
 		if (manager == null) {
 			return false;
 		}else {
+			managerRepository.delete(manager);
+			return true;
+		}
+	}
+	
+	@Transactional
+	public boolean deleteManagerById(int id) {
+		if (id < 0) {
+			return false;
+		}
+		else {
+			Manager manager = managerRepository.findManagerById(id);
+			if(manager == null) {
+				return false;
+			}
 			managerRepository.delete(manager);
 			return true;
 		}
