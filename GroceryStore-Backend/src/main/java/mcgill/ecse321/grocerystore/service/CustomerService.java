@@ -20,8 +20,6 @@ public class CustomerService {
 	
 	@Autowired
 	CustomerRepository customerRepository;
-	@Autowired
-	UserRoleRepository userRoleRepository;
 	
 	/**
 	 * Method to create a customer role

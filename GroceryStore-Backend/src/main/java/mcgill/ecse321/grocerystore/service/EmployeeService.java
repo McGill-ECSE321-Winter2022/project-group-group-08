@@ -11,16 +11,13 @@ import mcgill.ecse321.grocerystore.dao.BusinessHourRepository;
 import mcgill.ecse321.grocerystore.dao.EmployeeRepository;
 import mcgill.ecse321.grocerystore.dao.UserRoleRepository;
 import mcgill.ecse321.grocerystore.model.Employee;
+import mcgill.ecse321.grocerystore.model.Person;
 
 @Service
 public class EmployeeService {
 
 	@Autowired
 	EmployeeRepository employeeRepository;
-	@Autowired
-	UserRoleRepository userRoleRepository;
-	@Autowired
-	BusinessHourRepository businessHourRepository;
 
 	/**
 	 * Method to create a employee role
@@ -28,8 +25,23 @@ public class EmployeeService {
 	 * @return Employee object
 	 */
 	@Transactional
-	public Employee createEmployee() {
+	public Employee createEmployee(Person person) {
 		Employee employee = new Employee();
+		employee.setPerson(person);
+		employeeRepository.save(employee);
+		return employee;
+	}
+	
+	/**
+	 * Method to update an employee role
+	 * 
+	 * @return Employee object
+	 */
+	@Transactional
+	public Employee updateEmployee(int id, Person person) {
+		Employee employee = employeeRepository.findEmployeeById(id);
+		employee.setPerson(person);
+		employeeRepository.save(employee);
 		return employee;
 	}
 	

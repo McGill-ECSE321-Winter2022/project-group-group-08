@@ -1,9 +1,6 @@
 package mcgill.ecse321.grocerystore.dto;
 
-public class EmployeeDto {
-	
-	private UserRoleDto userRoleDto;
-	
+public class EmployeeDto extends UserRoleDto{
 	/**
 	 * Constructor to create an employee DTO
 	 */
@@ -15,16 +12,7 @@ public class EmployeeDto {
 	 * @param userRoleDto
 	 * @param businessHourDto
 	 */
-	public EmployeeDto(UserRoleDto userRoleDto) {
-		this.userRoleDto = userRoleDto;
+	public EmployeeDto(int userRoleId, PersonDto person) {
+		super(userRoleId, person);
 	}
-	
-	/**
-	 * Getter for userRole DTO
-	 * @return userRole DTO
-	 */
-	public UserRoleDto getUserRoleDto() {
-		return userRoleDto;
-	}
-
 }
