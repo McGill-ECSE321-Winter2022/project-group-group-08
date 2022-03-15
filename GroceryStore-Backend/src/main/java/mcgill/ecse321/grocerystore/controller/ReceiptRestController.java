@@ -37,7 +37,7 @@ public class ReceiptRestController {
 		return receiptService.getAllReceipts().stream().map(i -> convertToDto(i)).collect(Collectors.toList());
 	}
 	
-	@GetMapping(value = {baseURL+"/{id}", baseURL+"/{id}/"})
+	@GetMapping(value = {baseURL+"/{receiptNum}", baseURL+"/{receiptNum}/"})
 	public ReceiptDto getReceipt(@PathVariable("receiptNum") int receiptnum) {
 		
 		Receipt receipt = receiptService.getReceiptByReceiptNum(receiptnum);
@@ -47,10 +47,8 @@ public class ReceiptRestController {
 	@PostMapping(value = {baseURL, baseURL+"/"})
 	public ReceiptDto createReceipt(
 		@RequestParam(name = "cartId") int cartid,
-		
 		@RequestParam(name = "receiptStatus") ReceiptStatus receiptStatus,
 		@RequestParam(name = "receiptType") ReceiptType receiptType
-		
 		) {
 		
 		Cart attCart = cartService.getCart(cartid);
@@ -58,16 +56,15 @@ public class ReceiptRestController {
 		return convertToDto(receipt);
 	}
 	
-	@PatchMapping(value = {baseURL + "/update/{id}", baseURL+"/update/{id}/"})
+	@PatchMapping(value = {baseURL + "/update/{receiptNum}", baseURL+"/update/{receiptNum}/"})
 	public ReceiptDto updateReceipt(
-			@PathVariable("id") int id,
+			@PathVariable("receiptNum") int receiptNum,
 			@RequestParam(name = "cartId") int cartid,
-			@RequestParam(name = "receiptNum") int receiptNum,
 			@RequestParam(name = "receiptStatus") ReceiptStatus receiptStatus,
 			@RequestParam(name = "receiptType") ReceiptType receiptType
 			) {
 		Cart attCart = cartService.getCart(cartid);
-		Receipt receipt = receiptService.updateReceipt(receiptStatus, receiptType);
+		Receipt receipt = receiptService.updateReceipt(receiptNum, receiptStatus, receiptType, attCart);
 		return convertToDto(receipt);
 	}
 	
