@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,6 +24,11 @@ public class EmployeeRestController {
 	@GetMapping(value = { "/employees", "/employees/" })
 	public List<EmployeeDto> getAllEmployees() {
 		return service.getAllEmployees().stream().map(p -> convertToDto(p)).collect(Collectors.toList());
+	}
+	
+	@GetMapping(value = { "/employee/{id}", "/employee/{id}/" })
+	public EmployeeDto getEmployee(@PathVariable("id") int id) throws IllegalArgumentException {
+		return convertToDto(service.getEmployee(id));
 	}
 	
 	@PostMapping(value = { "/employee", "/employee/" })
