@@ -16,6 +16,7 @@ import mcgill.ecse321.grocerystore.model.Customer;
 import mcgill.ecse321.grocerystore.model.Customer.TierClass;
 import mcgill.ecse321.grocerystore.model.Employee;
 import mcgill.ecse321.grocerystore.model.Manager;
+import mcgill.ecse321.grocerystore.model.Person;
 import mcgill.ecse321.grocerystore.model.Receipt;
 import mcgill.ecse321.grocerystore.model.UserRole;
 
@@ -50,7 +51,16 @@ public class UserRoleService {
 	}
 	
 	@Transactional
-	public List<UserRole>  getAllUserRoles() {
+	public UserRole findUserRoleByPerson (Person input) {
+		UserRole curr = userRoleRepository.findUserRoleByPerson(input);
+		if (curr == null) {
+			throw new IllegalArgumentException("No role to that person");
+		}
+		return curr;
+	}
+	 
+	@Transactional
+	public List<UserRole> getAllUserRoles() {
 		
 		return toList(userRoleRepository.findAll());
 		
@@ -64,26 +74,6 @@ public class UserRoleService {
 		return resultList;
 	}
 	
-	@Transactional
- 	public UserRole deleteUserRoleById (int id) {
- 		UserRole curr = userRoleRepository.findUserRoleById(id);
-
- 		if (curr == null) { throw new IllegalArgumentException("No user with that id");}
-
- 		if (curr instanceof Manager) {
- 			Manager temp = managerService.deleteManagerById(id);
- 			return temp;
- 		}
- 		if (curr instanceof Employee) {
- 			Employee temp = employeeService.deleteEmployee(id);
- 			return temp;
- 		}
- 		if (curr instanceof Customer) {
- 			Customer temp = customerService.deleteCustomer(id);
- 			return temp;
- 		}
- 		return null;
- 	}
 
 	
 }

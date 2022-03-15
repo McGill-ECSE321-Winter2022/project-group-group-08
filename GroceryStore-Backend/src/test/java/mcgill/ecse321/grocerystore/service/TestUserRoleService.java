@@ -71,7 +71,7 @@ import mcgill.ecse321.grocerystore.model.UserRole;
 	@BeforeEach
 	public void setMockOutput() {
 		lenient().when(roleDao.findUserRoleById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
-			if (invocation.getArgument(0).equals(1)) {
+			if (invocation.getArgument(0).equals(0)) {
 				Person person = personService.createPerson(EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS);
 				UserRole customer = customerService.createCustomer(person, TierClass.Gold, false);
 				return customer;
@@ -79,24 +79,31 @@ import mcgill.ecse321.grocerystore.model.UserRole;
 				return null;
 			}
 		});
-		lenient().when(roleDao.deleteUserRoleById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
-			if (invocation.getArgument(0).equals(1)) {
-				Person person = personService.createPerson(EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS);
-				Customer customer = customerService.createCustomer(person, TierClass.Gold, false);
-				return customer;
-			} else {
-				return null;
-			}
+		
+		
+		lenient().when(roleDao.findAll()).thenAnswer((InvocationOnMock invocation) -> {
+			
+			Person person = personService.createPerson(EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS);
+			UserRole customer = customerService.createCustomer(person, TierClass.Gold, false);
+			ArrayList<UserRole> temp = new ArrayList<UserRole>();
+			temp.add(customer);
+			return temp;
+	
+		});
+		
+		lenient().when(roleDao.findUserRoleByPerson(any())).thenAnswer((InvocationOnMock invocation) -> {
+			
+			Person person = personService.createPerson(EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS);
+			UserRole customer = customerService.createCustomer(person, TierClass.Gold, false);
+			return customer;
+	
 		});
 
 		Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> {
 			return invocation.getArgument(0);
 		};
 		lenient().when(roleDao.save(any(UserRole.class))).thenAnswer(returnParameterAsAnswer);
-		//lenient().when(personDao.save(any(Person.class))).thenAnswer(returnParameterAsAnswer);
-		//lenient().when(customerDao.save(any(Customer.class))).thenAnswer(returnParameterAsAnswer);
 	
-		
 	}
 
 	private TierClass anyTier() {
@@ -110,8 +117,15 @@ import mcgill.ecse321.grocerystore.model.UserRole;
 	
 	@Test
 	public void testFindUserRoleById() {
-		UserRole temp = service.findUserRoleById(1);
-		assertEquals(temp.getId(),1);
+		UserRole temp = service.findUserRoleById(0);
+		assertEquals(temp.getId(),0);
+	}
+	
+	@Test
+	public void testGetAllUserRoles() {
+		List<UserRole> temp = service.getAllUserRoles();
+		UserRole curr = temp.get(0);
+		assertNotNull(curr);
 	}
 	@Test
 	public void testFindUserRoleByBadId() {
@@ -127,31 +141,12 @@ import mcgill.ecse321.grocerystore.model.UserRole;
 		assertEquals(error, "No user with that id");
 	}
 	@Test
-	public void testDeleteUserRoleByBadId() {
-		String error = "";
-		UserRole temp;
-		try {
-			temp = service.deleteUserRoleById(-1);
-		}
-		catch(IllegalArgumentException e) {
-			error = e.getMessage();
-		}
-		
-		assertEquals(error, "No user with that id");
+	public void testFindUserRoleByPerson() {
+		Person person = personService.createPerson(EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS);
+		UserRole temp = service.findUserRoleByPerson(person);
+		assertNotNull(temp);
 	}
-	@Test
-	public void testDeleteUserRoleByIdCustomer() {
-		String error = "";
-		UserRole temp = null;
-		try {
-			temp = service.deleteUserRoleById(1);
-		}
-		catch(IllegalArgumentException e) {
-			error = e.getMessage();
-		}
-		
-		assertEquals(temp instanceof Customer, true);
-	}
+	
 	
 	
 	
