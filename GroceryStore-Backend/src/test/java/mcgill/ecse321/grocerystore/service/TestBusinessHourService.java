@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.InjectMocks;
@@ -16,6 +18,7 @@ import org.mockito.Mock;
 import mcgill.ecse321.grocerystore.dao.BusinessHourRepository;
 import mcgill.ecse321.grocerystore.dao.EmployeeRepository;
 import mcgill.ecse321.grocerystore.dao.GroceryStoreSystemRepository;
+import mcgill.ecse321.grocerystore.dao.PersonRepository;
 import mcgill.ecse321.grocerystore.dao.UserRoleRepository;
 import mcgill.ecse321.grocerystore.model.BusinessHour;
 import mcgill.ecse321.grocerystore.model.Employee;
@@ -27,6 +30,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.stubbing.Answer;
 
 @ExtendWith(MockitoExtension.class)
 public class TestBusinessHourService {
@@ -38,18 +42,14 @@ public class TestBusinessHourService {
  @Mock
  private EmployeeRepository employeeDao;
  @Mock
- private UserRoleRepository userRoleDao;
- @Mock
- private Person personDao;
+ private PersonRepository personDao;
 
  @InjectMocks
  private BusinessHourService service;
  @InjectMocks
  private GroceryStoreSystemService groceryService;
  @InjectMocks
- private EmployeeService employeeService;
- @InjectMocks
- private UserRoleService userRoleService;
+ private EmployeeService employeeSerive;
  @InjectMocks
  private PersonService personService;
  
@@ -58,19 +58,20 @@ public class TestBusinessHourService {
  private static final Time startTime = Time.valueOf("8:30:00");
  private static final Time endTime = Time.valueOf("18:30:00");
  private static final boolean working = true;
- //Employee employee=employeeSerive.createEmployee(1);
+ Employee employee=employeeSerive.createEmployee();
  GroceryStoreSystem groceryStoreSystem= groceryService.createGroceryStoreSystem("a","a", 1);
  
  @BeforeEach
  public void setMockOutput() {
   lenient().when(businessDao.findBusinessHourById(anyInt())).thenAnswer( (InvocationOnMock invocation) -> {
     if(invocation.getArgument(0).equals(ID)) {
+        GroceryStoreSystem groceryStoreSystem= groceryService.createGroceryStoreSystem("a","a", 1);
         BusinessHour businessHour = new BusinessHour();
-        businessHour.setId(ID);
         businessHour.setDay(day);
         businessHour.setWorking(working);
         businessHour.setStartTime(startTime);
         businessHour.setEndTime(endTime);
+        businessHour.setGroceryStoreSystem(groceryStoreSystem);
         return businessHour;
     } 
     else {
@@ -79,7 +80,27 @@ public class TestBusinessHourService {
   });
 
   lenient().when(businessDao.findAll()).thenAnswer( (InvocationOnMock invocation) -> {
-        BusinessHour businessHour = new BusinessHour();
+      Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
+      BusinessHour businessHour = new BusinessHour();
+      Employee employee=new Employee();
+        employee.setPerson(person);
+        businessHour.setEmployee(employee);
+        businessHour.setDay(day);
+        businessHour.setWorking(working);
+        businessHour.setStartTime(startTime);
+        businessHour.setEndTime(endTime);
+        businessHour.setGroceryStoreSystem(groceryStoreSystem);
+        ArrayList<BusinessHour> list = new ArrayList<BusinessHour>();
+        list.add(businessHour);
+        return list;
+  });
+
+  lenient().when(businessDao.findBusinessHoursByGroceryStoreSystem(groceryStoreSystem)).thenAnswer( (InvocationOnMock invocation) -> {
+    Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
+      BusinessHour businessHour = new BusinessHour();
+      Employee employee=new Employee();
+        employee.setPerson(person);
+        businessHour.setEmployee(employee);
         businessHour.setId(ID);
         businessHour.setDay(day);
         businessHour.setWorking(working);
@@ -90,8 +111,12 @@ public class TestBusinessHourService {
         return list;
   });
 
-  lenient().when(businessDao.findBusinessHourByDay(day)).thenAnswer( (InvocationOnMock invocation) -> {
-    BusinessHour businessHour = new BusinessHour();
+  lenient().when(businessDao.findBusinessHoursByEmployee(employee)).thenAnswer( (InvocationOnMock invocation) -> {
+    Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
+      BusinessHour businessHour = new BusinessHour();
+      Employee employee=new Employee();
+        employee.setPerson(person);
+        businessHour.setEmployee(employee);
         businessHour.setId(ID);
         businessHour.setDay(day);
         businessHour.setWorking(working);
@@ -102,30 +127,18 @@ public class TestBusinessHourService {
         return list;
   });
 
-  lenient().when(businessDao.findBusinessHourByWorking(working)).thenAnswer( (InvocationOnMock invocation) -> {
-    BusinessHour businessHour = new BusinessHour();
-        businessHour.setId(ID);
-        businessHour.setDay(day);
-        businessHour.setWorking(working);
-        businessHour.setStartTime(startTime);
-        businessHour.setEndTime(endTime);
-        ArrayList<BusinessHour> list = new ArrayList<BusinessHour>();
-        list.add(businessHour);
-        return list;
-  });
 
-  lenient().when(businessDao.findBusinessHourByTimeBetween(startTime,endTime)).thenAnswer( (InvocationOnMock invocation) -> {
-    BusinessHour businessHour = new BusinessHour();
-        businessHour.setId(ID);
-        businessHour.setDay(day);
-        businessHour.setWorking(working);
-        businessHour.setStartTime(startTime);
-        businessHour.setEndTime(endTime);
-        ArrayList<BusinessHour> list = new ArrayList<BusinessHour>();
-        list.add(businessHour);
-        return list;
-  });
-
+  lenient().when(businessDao.existsById(anyInt())).thenReturn(true);
+  lenient().when(groceryStoreSystemDao.existsById(any())).thenReturn(true);
+  lenient().when(employeeDao.existsById(anyInt())).thenReturn(true);
+  lenient().when(personDao.existsById(anyString())).thenReturn(true);
+  Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> {
+    return invocation.getArgument(0);
+  };
+  lenient().when(businessDao.save(any(BusinessHour.class))).thenAnswer(returnParameterAsAnswer);
+  lenient().when(groceryStoreSystemDao.save(any(GroceryStoreSystem.class))).thenAnswer(returnParameterAsAnswer);
+  lenient().when(employeeDao.save(any(Employee.class))).thenAnswer(returnParameterAsAnswer);
+  lenient().when(personDao.save(any(Person.class))).thenAnswer(returnParameterAsAnswer);
  }
 
     @Test
