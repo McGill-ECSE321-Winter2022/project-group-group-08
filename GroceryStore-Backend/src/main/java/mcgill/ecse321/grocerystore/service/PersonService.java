@@ -23,9 +23,11 @@ public class PersonService {
 	@Autowired
 	AccountRepository accountRepository;
 	@Autowired
+	UserRoleRepository userRoleRepository;
+	@Autowired
 	AccountService accountService;
-//	@Autowired 
-//	UserRoleService userRoleService;
+	@Autowired 
+	UserRoleService userRoleService;
 	
 	@Transactional
 	public Person createPerson(String email, String firstName, String lastName, String phoneNumber,
@@ -140,13 +142,12 @@ public class PersonService {
 		}else {
 			Account account = accountRepository.findAccountByPerson(person);
 			if(account != null) {
-//				accountRepository.delete(account);
 				accountService.deleteAccount(account);
 			}			
-//			UserRole userRole = userRoleRepository.findUserRoleByPerson(person);
-//			if(userRole != null) {
-//				userRoleService.deleteUserRole(userRole);
-//			}
+			UserRole userRole = userRoleRepository.findUserRoleByPerson(person);
+			if(userRole != null) {
+				userRoleService.deleteUserRoleById(userRole.getId());
+			}
 			personRepository.delete(person);
 			return person;
 		}
@@ -161,14 +162,12 @@ public class PersonService {
 			
 			Account account = accountRepository.findAccountByPerson(person);
 			if(account != null) {
-//				accountRepository.delete(account);
 				accountService.deleteAccount(account);
 			}
-//			UserRole userRole = userRoleRepository.findUserRoleByPerson(person);
-//			if(userRole != null) {
-//				userRoleService.deleteUserRole(userRole);
-//			}
-					
+			UserRole userRole = userRoleRepository.findUserRoleByPerson(person);
+			if(userRole != null) {
+				userRoleService.deleteUserRoleById(userRole.getId());
+			}
 			personRepository.delete(person);
 			return person;
 		}

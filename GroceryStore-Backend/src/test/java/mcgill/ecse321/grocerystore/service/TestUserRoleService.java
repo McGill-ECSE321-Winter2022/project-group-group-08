@@ -91,6 +91,7 @@ import mcgill.ecse321.grocerystore.model.UserRole;
 		UserRole temp = service.findUserRoleById(ID_KEY);
 		assertEquals(temp.getId(),ID_KEY);
 	}
+	
 	@Test
 	public void testFindUserRoleByBadId() {
 		String error = "";

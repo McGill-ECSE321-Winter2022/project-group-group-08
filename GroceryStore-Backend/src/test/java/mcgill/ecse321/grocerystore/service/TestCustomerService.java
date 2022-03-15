@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.lenient;
 
 import java.util.ArrayList;
@@ -24,7 +24,6 @@ import org.mockito.stubbing.Answer;
 import mcgill.ecse321.grocerystore.dao.CustomerRepository;
 import mcgill.ecse321.grocerystore.dao.PersonRepository;
 import mcgill.ecse321.grocerystore.model.Customer;
-import mcgill.ecse321.grocerystore.model.Employee;
 import mcgill.ecse321.grocerystore.model.Person;
 import mcgill.ecse321.grocerystore.model.Customer.TierClass;
 
@@ -52,39 +51,35 @@ public class TestCustomerService {
 			if (invocation.getArgument(0).equals(ID_KEY)) {
 				Customer customer = new Customer();
 				customer.setId(ID_KEY);
+				customer.setTierclass(TIER_KEY);
+				customer.setBan(BAN_KEY);
 				return customer;
 			} else {
 				return null;
 			}
 		});
-
-		lenient().when(customerDao.findCustomerByTierclass(anyTier())).thenAnswer((InvocationOnMock invocation) -> {
+		lenient().when(customerDao.findCustomerByTierclass(TIER_KEY)).thenAnswer((InvocationOnMock invocation) -> {
 			List<Customer> customerByTierList = new ArrayList<Customer>();
 			Customer customer = new Customer();
 			customer.setTierclass(TIER_KEY);
+			customer.setBan(BAN_KEY);
 			customerByTierList.add(customer);
 			return customerByTierList;
 		});
-
-		lenient().when(customerDao.findCustomerByBan(anyBoolean())).thenAnswer((InvocationOnMock invocation) -> {
+		lenient().when(customerDao.findCustomerByBan(BAN_KEY)).thenAnswer((InvocationOnMock invocation) -> {
 			List<Customer> customerByBanList = new ArrayList<Customer>();
 			Customer customer = new Customer();
 			customer.setBan(BAN_KEY);
+			customer.setTierclass(TIER_KEY);
 			customerByBanList.add(customer);
 			return customerByBanList;
 		});
+		lenient().when(customerDao.existsById(ID_KEY)).thenReturn(true);
+		lenient().when(personDao.existsById(anyString())).thenReturn(true);
 		Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> {
 			return invocation.getArgument(0);
 		};
 		lenient().when(customerDao.save(any(Customer.class))).thenAnswer(returnParameterAsAnswer);
-	}
-
-	private TierClass anyTier() {
-		return getRandomTier();
-	}
-
-	public static TierClass getRandomTier() {
-		return TierClass.values()[(int) (Math.random() * TierClass.values().length)];
 	}
 
 	@Test
@@ -109,60 +104,81 @@ public class TestCustomerService {
 
 	@Test
 	public void testCreateCustomer() {
-		assertEquals(0, service.getAllCustomers().size());
-		TierClass tier = TierClass.Silver;
-		boolean ban = true;
 		Customer customer = null;
 		Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333",
 				"123 street");
 
 		try {
-			customer = service.createCustomer(person, tier, ban);
+			customer = service.createCustomer(person, TIER_KEY, BAN_KEY);
 		} catch (IllegalArgumentException e) {
-			// Check that no error occurred
 			fail();
 		}
 		assertNotNull(customer);
-		assertEquals(tier, customer.getTierclass());
-		assertEquals(ban, customer.getBan());
+		assertEquals(TIER_KEY, customer.getTierclass());
+		assertEquals(BAN_KEY, customer.getBan());
 	}
 
 	@Test
 	public void testGetExistingCustomer() {
-		assertEquals(ID_KEY, service.getCustomer(ID_KEY).getId());
+		Customer customer  = null;
+		try {
+			customer = service.getCustomer(ID_KEY);
+		}catch(InvalidInputException e) {
+			fail();
+		}
+		assertNotNull(customer);
+		assertEquals(TIER_KEY, customer.getTierclass());
+		assertEquals(BAN_KEY, customer.getBan());
 	}
 
 	@Test
 	public void testGetNonExistingCustomer() {
-		assertNull(service.getCustomer(FAKE_ID_KEY));
+		Customer customer  = null;
+		String error = "";
+		try {
+			customer = service.getCustomer(FAKE_ID_KEY);
+		}catch(InvalidInputException e) {
+			error = e.getMessage();
+		}
+		assertNull(customer);
+		assertEquals("Customer does not exist",error);
 	}
 
 	@Test
 	public void testGetAllCustomerByTier() {
 		List<Customer> customers = new ArrayList<Customer>();
-		customers = service.getAllCustomerByTier(TIER_KEY);
-		if (customers.size() != 0) {
-			Customer customer = customers.get(0);
-			assertNotNull(customer);
+		try {
+			customers = service.getAllCustomerByTier(TIER_KEY);
+		}catch(InvalidInputException e){
+			fail();
 		}
+		Customer customer = customers.get(0);
+		assertNotNull(customer);
+		assertEquals(TIER_KEY, customer.getTierclass());
+		assertEquals(BAN_KEY, customer.getBan());
 	}
 
 	@Test
 	public void testGetAllCustomerByBan() {
 		List<Customer> customers = new ArrayList<Customer>();
-		customers = service.getAllCustomerByBan(BAN_KEY);
+		try {
+			customers = service.getAllCustomerByBan(BAN_KEY);
+		}catch(InvalidInputException e){
+			fail();
+		}
 		Customer customer = customers.get(0);
+		System.out.println(customer.getTierclass());
 		assertNotNull(customer);
+		assertEquals(TIER_KEY, customer.getTierclass());
+		assertEquals(BAN_KEY, customer.getBan());
 	}
 
 	@Test
 	public void testDeleteCustomer() {
-		assertEquals(0, service.getAllCustomers().size());
 		Customer customer = null;
 		try {
 			customer = service.deleteCustomer(ID_KEY);
 		} catch (IllegalArgumentException e) {
-			// Check that no error occurred
 			fail();
 		}
 		assertNotNull(customer);

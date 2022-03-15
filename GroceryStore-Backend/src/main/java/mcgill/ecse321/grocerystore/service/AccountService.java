@@ -24,8 +24,8 @@ public class AccountService {
 	PersonRepository personRepository;
 	@Autowired 
 	CartRepository cartRepository;
-//	@Autowired
-//	CartService cartService;
+	@Autowired
+	CartService cartService;
 	
 	@Transactional 
 	public Person getPersonByAccount(Account account) {
@@ -107,10 +107,10 @@ public class AccountService {
 	    if(account == null) {
 			throw new InvalidInputException("Account with username " + account + " does not exists");
 		}else {
-//			Cart cart = cartRepository.findCartByAccount(account);
-//			if(cart != null) {
-//				cartService.deleteCart(cart);
-//			}
+			Cart cart = cartRepository.findCartByAccount(account);
+			if(cart != null) {
+				cartService.deleteCart(cart);
+			}
 			accountRepository.delete(account);
 			return account;
 		}
@@ -122,11 +122,10 @@ public class AccountService {
 			throw new InvalidInputException("Account with username " + username + " does not exists");
 		}else {
 			Account account = accountRepository.findAccountByUsername(username);
-			
-//			Cart cart = cartRepository.findCartByAccount(account);
-//			if(cart != null) {
-//				cartService.deleteCart(cart);
-//			}
+			Cart cart = cartRepository.findCartByAccount(account);
+			if(cart != null) {
+				cartService.deleteCart(cart);
+			}
 			accountRepository.delete(account);
 			return account;
 		}

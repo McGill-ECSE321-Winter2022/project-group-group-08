@@ -23,8 +23,10 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 import mcgill.ecse321.grocerystore.dao.AccountRepository;
+import mcgill.ecse321.grocerystore.dao.CartRepository;
 import mcgill.ecse321.grocerystore.dao.PersonRepository;
 import mcgill.ecse321.grocerystore.model.Account;
+import mcgill.ecse321.grocerystore.model.Cart;
 import mcgill.ecse321.grocerystore.model.Person;
 
 
@@ -36,6 +38,9 @@ public class TestAccountService {
 	
 	@Mock
 	private PersonRepository personDao;
+	
+	@Mock
+	private CartRepository cartDao;
 	
 	@InjectMocks
 	private AccountService accountService;
@@ -127,11 +132,14 @@ public class TestAccountService {
 	      });
 	    lenient().when(accountDao.existsById(anyString())).thenReturn(true);
 	    lenient().when(personDao.existsById(anyString())).thenReturn(true);
+	    lenient().when(cartDao.existsById(anyInt())).thenReturn(true);
 	    Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> {
 			return invocation.getArgument(0);
 		};
 		lenient().when(accountDao.save(any(Account.class))).thenAnswer(returnParameterAsAnswer);
 		lenient().when(personDao.save(any(Person.class))).thenAnswer(returnParameterAsAnswer);
+		lenient().when(cartDao.save(any(Cart.class))).thenAnswer(returnParameterAsAnswer);
+		
 	}
 	
 	@Test
