@@ -76,17 +76,17 @@ public class ManagerService {
 	}
 	
 	@Transactional
-	public boolean deleteManagerById(int id) {
+	public Manager deleteManagerById(int id) {
 		if (id < 0) {
-			return false;
+			throw new IllegalArgumentException("Nagative Id");
 		}
 		else {
 			Manager manager = managerRepository.findManagerById(id);
 			if(manager == null) {
-				return false;
+				throw new IllegalArgumentException("No manager with that id");
 			}
 			managerRepository.delete(manager);
-			return true;
+			return manager;
 		}
 	}
 	

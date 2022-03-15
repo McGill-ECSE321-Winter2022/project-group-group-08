@@ -29,6 +29,7 @@ import mcgill.ecse321.grocerystore.dao.UserRoleRepository;
 import mcgill.ecse321.grocerystore.model.Customer;
 import mcgill.ecse321.grocerystore.model.Customer.TierClass;
 import mcgill.ecse321.grocerystore.model.Employee;
+import mcgill.ecse321.grocerystore.model.Person;
 import mcgill.ecse321.grocerystore.model.Receipt;
 import mcgill.ecse321.grocerystore.model.UserRole;
 
@@ -46,6 +47,12 @@ import mcgill.ecse321.grocerystore.model.UserRole;
 	@InjectMocks
 	private UserRoleService service;
 
+	@InjectMocks
+	private CustomerService customerService;
+	
+	@InjectMocks
+	private PersonService personService;
+	
 	private static final int ID_KEY = 1234567;
 	private static final int FAKE_ID_KEY = 6666666;
 	private static final TierClass TIER_KEY = TierClass.Gold;
@@ -55,69 +62,19 @@ import mcgill.ecse321.grocerystore.model.UserRole;
 	public void setMockOutput() {
 		lenient().when(roleDao.findUserRoleById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
 			if (invocation.getArgument(0).equals(ID_KEY)) {
-				UserRole customer = service.createCustomer(TierClass.Gold, false);
+				Person person = personService.createPerson("m","m","m","m","m");
+				UserRole customer = customerService.createCustomer(person, TierClass.Gold, false);
 				customer.setId(ID_KEY);
-				return customer;
-			} else {
-				return null;
-			}
-		});
-		
-		lenient().when(customerDao.findCustomerById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
-			if (invocation.getArgument(0).equals(ID_KEY)) {
-				Customer customer = new Customer();
-				customer.setId(ID_KEY);
-				return customer;
-			} else {
-				return null;
-			}
-		});
-		
-		lenient().when(customerDao.findCustomerByBan(anyBoolean())).thenAnswer((InvocationOnMock invocation) -> {
-			if (invocation.getArgument(0).equals(ID_KEY)) {
-				Customer customer = new Customer();
-				customer.setId(ID_KEY);
-				customer.setBan(true);
 				return customer;
 			} else {
 				return null;
 			}
 		});
 
-		lenient().when(customerDao.findCustomerByTierclass(anyTier())).thenAnswer((InvocationOnMock invocation) -> {
-			if (invocation.getArgument(0).equals(TIER_KEY)) {
-				Customer customer = new Customer();
-				customer.setTierclass(TIER_KEY);
-				return customer;
-			} else {
-				return null;
-			}
-		});
-
-		lenient().when(customerDao.findCustomerByBan(anyBoolean())).thenAnswer((InvocationOnMock invocation) -> {
-			if (invocation.getArgument(0).equals(BAN_KEY)) {
-				Customer customer = new Customer();
-				customer.setBan(BAN_KEY);
-				return customer;
-			} else {
-				return null;
-			}
-		});
-		
-		lenient().when(employeeDao.findEmployeeById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
-			if (invocation.getArgument(0).equals(ID_KEY)) {
-				Employee employee = new Employee();
-				employee.setId(ID_KEY);
-				return employee;
-			} else {
-				return null;
-			}
-		});
-		
 		Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> {
 			return invocation.getArgument(0);
 		};
-		lenient().when(customerDao.save(any(Customer.class))).thenAnswer(returnParameterAsAnswer);
+		
 	}
 
 	private TierClass anyTier() {
@@ -148,90 +105,6 @@ import mcgill.ecse321.grocerystore.model.UserRole;
 		assertEquals(error, "No user with that id");
 	}
 	
-	public void testGetAllCustomerByBan() {
-		String error = "";
-		List<Customer> customers = service.getAllCustomerByBan(true);
-		Customer curr = customers.get(0);
-		assertNotNull(curr);
-	}
-	@Test
-	public void testGetAllCustomerBanWithNoBans() {
-		String error = "";
-		List<Customer> customers = new ArrayList<Customer>();
-		
-		try {
-			customers  = service.getAllCustomerByBan(false);
-		}
-		
-		catch(IllegalArgumentException e) {
-			error = e.getMessage();
-		}
-		
-		assertEquals(error, "No customers with ban");
-	}
-	
-	@Test
-	public void testCreateCustomerSimple() {
-		assertEquals(0, service.getAllCustomers().size());
-		TierClass defaultTier = TierClass.Bronze;
-		boolean defaultBan = false;
-		Customer customer = null;
-		try {
-			customer = service.createCustomer();
-		} catch (IllegalArgumentException e) {
-			// Check that no error occurred
-			fail();
-		}
-		assertNotNull(customer);
-		assertEquals(defaultTier, customer.getTierclass());
-		assertEquals(defaultBan, customer.getBan());
-	}
-
-	@Test
-	public void testCreateCustomer() {
-		assertEquals(0, service.getAllCustomers().size());
-		TierClass tier = TierClass.Silver;
-		boolean ban = true;
-		Customer customer = null;
-		try {
-			customer = service.createCustomer(tier, ban);
-		} catch (IllegalArgumentException e) {
-			// Check that no error occurred
-			fail();
-		}
-		assertNotNull(customer);
-		assertEquals(tier, customer.getTierclass());
-		assertEquals(ban, customer.getBan());
-	}
-	
-	
-	@Test
-	public void testCreateEmployee() {
-		assertEquals(0, service.getAllEmployees().size());
-		Employee employee = null;
-		try {
-			employee = service.createEmployee();
-		} catch (IllegalArgumentException e) {
-			// Check that no error occurred
-			fail();
-		}
-		assertNotNull(employee);
-	}
-	
-	@Test
-	public void testGetExistingCustomer() {
-		assertEquals(ID_KEY, service.getEmployee(ID_KEY).getId());
-	}
-	
-	@Test
-	public void testGetNonExistingCustomer() {
-		assertNull(service.getEmployee(FAKE_ID_KEY));
-	}
-	
-	@Test
-	public void testGetCustomer() {
-		assertNotNull(service.getCustomer(ID_KEY));
-	}
 	
 	
 }
