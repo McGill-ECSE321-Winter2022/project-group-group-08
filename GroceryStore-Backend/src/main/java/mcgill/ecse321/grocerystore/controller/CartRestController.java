@@ -71,7 +71,7 @@ public class CartRestController {
 		if (c == null) {
 			throw new IllegalArgumentException("There is no such Cart!");
 		}
-		CartDto cartDto = new CartDto();
+		CartDto cartDto = new CartDto(c.getId(),c.getDate(),AccountDto.convertToDto(c.getAccount()));
 		return cartDto;
 	}
 }

@@ -37,7 +37,28 @@ public class ReceiptRestController {
 		return receiptService.getAllReceipts().stream().map(i -> convertToDto(i)).collect(Collectors.toList());
 	}
 	
-	@GetMapping(value = {baseURL+"/{id}", baseURL+"/{id}/"})
+	@GetMapping(value = {baseURL+"/getWithStatus", baseURL+"/getWithStatus/"})
+	public List<ReceiptDto> getAllReceiptsWithStatus(
+			@RequestParam(name = "status") ReceiptStatus receiptStatus
+			) {
+		return receiptService.getReceiptByReceiptStatus(receiptStatus).stream().map(i -> convertToDto(i)).collect(Collectors.toList());
+	}
+	
+	@GetMapping(value = {baseURL+"/getWithType", baseURL+"/getWithType/"})
+	public List<ReceiptDto> getAllReceiptsWithType(
+			@RequestParam(name = "type") ReceiptType receiptType
+			) {
+		return receiptService.getReceiptByReceiptType(receiptType).stream().map(i -> convertToDto(i)).collect(Collectors.toList());
+	}
+	@GetMapping(value = {baseURL+"/getWithTypeAndStatus", baseURL+"/getWithTypeAndStatus/"})
+	public List<ReceiptDto> getAllReceiptsWithTypeAndStatus(
+			@RequestParam(name = "status") ReceiptStatus receiptStatus,
+			@RequestParam(name = "type") ReceiptType receiptType
+			) {
+		return receiptService.getReceiptByReceiptStatusAndReceiptType(receiptStatus,receiptType).stream().map(i -> convertToDto(i)).collect(Collectors.toList());
+	}
+	
+	@GetMapping(value = {baseURL+"/{receiptNum}", baseURL+"/{receiptNum}/"})
 	public ReceiptDto getReceipt(@PathVariable("receiptNum") int receiptnum) {
 		
 		Receipt receipt = receiptService.getReceiptByReceiptNum(receiptnum);
@@ -47,10 +68,8 @@ public class ReceiptRestController {
 	@PostMapping(value = {baseURL, baseURL+"/"})
 	public ReceiptDto createReceipt(
 		@RequestParam(name = "cartId") int cartid,
-		@RequestParam(name = "receiptNum") int receiptNum,
 		@RequestParam(name = "receiptStatus") ReceiptStatus receiptStatus,
 		@RequestParam(name = "receiptType") ReceiptType receiptType
-		
 		) {
 		
 		Cart attCart = cartService.getCart(cartid);
@@ -58,24 +77,22 @@ public class ReceiptRestController {
 		return convertToDto(receipt);
 	}
 	
-	@PatchMapping(value = {baseURL + "/update/{id}", baseURL+"/update/{id}/"})
+	@PatchMapping(value = {baseURL + "/update/{receiptNum}", baseURL+"/update/{receiptNum}/"})
 	public ReceiptDto updateReceipt(
-			@PathVariable("id") int id,
+			@PathVariable("receiptNum") int receiptNum,
 			@RequestParam(name = "cartId") int cartid,
-			@RequestParam(name = "receiptNum") int receiptNum,
 			@RequestParam(name = "receiptStatus") ReceiptStatus receiptStatus,
 			@RequestParam(name = "receiptType") ReceiptType receiptType
 			) {
 		Cart attCart = cartService.getCart(cartid);
-		Receipt receipt = receiptService.updateReceipt(receiptStatus, receiptType);
+		Receipt receipt = receiptService.updateReceipt(receiptNum, receiptStatus, receiptType, attCart);
 		return convertToDto(receipt);
 	}
 	
 	@DeleteMapping(value = {baseURL + "/delete/{id}", baseURL+"/delete/{id}/"})
-	public ReceiptDto deleteReceipt(@PathVariable("id") int id) { 
-		Receipt receipt = receiptService.getReceiptByReceiptNum(id);
-		//receiptService.deleteReceipt(receipt); 
-		return convertToDto(receipt);
+	public Boolean  deleteReceipt(@PathVariable("id") int id) { 
+		 
+		return receiptService.deleteReceipt(id);
 	}
 	
 	private ReceiptDto convertToDto(Receipt receipt) {
@@ -83,8 +100,7 @@ public class ReceiptRestController {
 			throw new IllegalArgumentException("There is no such receipt!");
 			//int receiptNum, ReceiptStatus receiptStatus, ReceiptType receiptType, CartDto cart
 		}
-		CartDto cartDto = CartDto.convertToDto(receipt.getCart());
-		ReceiptDto receiptDto = new ReceiptDto(receipt.getReceiptNum(), receipt.getReceiptStatus(), receipt.getReceiptType(), cartDto);
+		ReceiptDto receiptDto = new ReceiptDto(receipt.getReceiptNum(), receipt.getReceiptStatus(), receipt.getReceiptType(), CartDto.convertToDto(receipt.getCart()));
 		return receiptDto;
 	}
 

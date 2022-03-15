@@ -33,12 +33,13 @@ public class ReceiptService {
 	}
 	
 	@Transactional
-	public Receipt updateReceipt(ReceiptStatus status, ReceiptType type) {
+	public Receipt updateReceipt(int id, ReceiptStatus status, ReceiptType type, Cart cart) {
 		
-		Receipt currReceipt = new Receipt();
-
+		Receipt currReceipt = receiptRepository.findReceiptByReceiptNum(id);
+		
 		currReceipt.setReceiptStatus(status);
 		currReceipt.setReceiptType(type);
+		currReceipt.setCart(cart);
 		receiptRepository.save(currReceipt);
 		
 		return currReceipt;
@@ -46,7 +47,7 @@ public class ReceiptService {
 	
 	
 	@Transactional
-	public boolean deleteItemById(int id) {
+	public boolean deleteReceipt(int id) {
 		if (id < 0) {
 			return false;
 		}else {
