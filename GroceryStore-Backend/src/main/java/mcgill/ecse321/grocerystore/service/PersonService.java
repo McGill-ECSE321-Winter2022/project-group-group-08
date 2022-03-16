@@ -12,6 +12,9 @@ import mcgill.ecse321.grocerystore.dao.AccountRepository;
 import mcgill.ecse321.grocerystore.dao.PersonRepository;
 import mcgill.ecse321.grocerystore.dao.UserRoleRepository;
 import mcgill.ecse321.grocerystore.model.Account;
+import mcgill.ecse321.grocerystore.model.Customer;
+import mcgill.ecse321.grocerystore.model.Employee;
+import mcgill.ecse321.grocerystore.model.Manager;
 import mcgill.ecse321.grocerystore.model.Person;
 import mcgill.ecse321.grocerystore.model.UserRole;
 
@@ -27,7 +30,11 @@ public class PersonService {
 	@Autowired
 	AccountService accountService;
 	@Autowired 
-	UserRoleService userRoleService;
+	ManagerService managerService;
+	@Autowired 
+	EmployeeService employeeService;
+	@Autowired 
+	CustomerService customerService;
 	
 	@Transactional
 	public Person createPerson(String email, String firstName, String lastName, String phoneNumber,
@@ -146,7 +153,15 @@ public class PersonService {
 			}			
 			UserRole userRole = userRoleRepository.findUserRoleByPerson(person);
 			if(userRole != null) {
-				userRoleService.deleteUserRoleById(userRole.getId());
+				if (userRole instanceof Manager) {
+		 			managerService.deleteManagerById(userRole.getId());
+		 		}
+		 		if (userRole instanceof Employee) {
+		 			employeeService.deleteEmployee(userRole.getId());
+		 		}
+		 		if (userRole instanceof Customer) {
+		 			customerService.deleteCustomer(userRole.getId());
+		 		}
 			}
 			personRepository.delete(person);
 			return person;
@@ -166,7 +181,17 @@ public class PersonService {
 			}
 			UserRole userRole = userRoleRepository.findUserRoleByPerson(person);
 			if(userRole != null) {
-				userRoleService.deleteUserRoleById(userRole.getId());
+				if(userRole != null) {
+					if (userRole instanceof Manager) {
+			 			managerService.deleteManagerById(userRole.getId());
+			 		}
+			 		if (userRole instanceof Employee) {
+			 			employeeService.deleteEmployee(userRole.getId());
+			 		}
+			 		if (userRole instanceof Customer) {
+			 			customerService.deleteCustomer(userRole.getId());
+			 		}
+				}
 			}
 			personRepository.delete(person);
 			return person;

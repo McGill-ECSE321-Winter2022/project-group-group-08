@@ -11,6 +11,7 @@ import mcgill.ecse321.grocerystore.dao.UserRoleRepository;
 import mcgill.ecse321.grocerystore.model.Customer;
 import mcgill.ecse321.grocerystore.model.Employee;
 import mcgill.ecse321.grocerystore.model.Manager;
+import mcgill.ecse321.grocerystore.model.Person;
 import mcgill.ecse321.grocerystore.model.UserRole;
 
 @Service

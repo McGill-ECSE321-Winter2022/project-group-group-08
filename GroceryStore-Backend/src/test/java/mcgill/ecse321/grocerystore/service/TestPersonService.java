@@ -38,8 +38,8 @@ public class TestPersonService {
 	private PersonService personService;
 	@InjectMocks
 	private AccountService accountService;
-//	@InjectMocks
-//	private UserRoleService userRoleService;
+	@InjectMocks
+	private UserRoleService userRoleService;
 	
 
 	private static final String EMAIL = "abc@gmail.com";
