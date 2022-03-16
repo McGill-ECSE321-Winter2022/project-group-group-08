@@ -1,11 +1,5 @@
 package mcgill.ecse321.grocerystore.service;
 
-import java.sql.Date;
-import java.sql.Time;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,9 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 import mcgill.ecse321.grocerystore.dao.BusinessHourRepository;
 import mcgill.ecse321.grocerystore.dao.ItemRepository;
 import mcgill.ecse321.grocerystore.dao.GroceryStoreSystemRepository;
-import mcgill.ecse321.grocerystore.model.BusinessHour;
-import mcgill.ecse321.grocerystore.model.BusinessHour.WeekDay;
-import mcgill.ecse321.grocerystore.model.Item;
 import mcgill.ecse321.grocerystore.model.GroceryStoreSystem;
 
 

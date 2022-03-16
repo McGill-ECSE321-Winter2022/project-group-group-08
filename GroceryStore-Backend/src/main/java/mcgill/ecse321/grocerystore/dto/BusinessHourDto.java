@@ -1,6 +1,5 @@
 package mcgill.ecse321.grocerystore.dto;
 
-import mcgill.ecse321.grocerystore.model.Account;
 import mcgill.ecse321.grocerystore.model.BusinessHour;
 import mcgill.ecse321.grocerystore.model.BusinessHour.WeekDay;
 import java.sql.Time;

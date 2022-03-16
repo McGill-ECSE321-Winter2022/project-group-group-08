@@ -1,16 +1,11 @@
 package mcgill.ecse321.grocerystore.service;
-import java.sql.Time;
-import java.time.LocalTime;
 import static org.mockito.Mockito.lenient;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -21,12 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import mcgill.ecse321.grocerystore.dao.GroceryStoreSystemRepository;
-import mcgill.ecse321.grocerystore.dao.ItemRepository;
-import mcgill.ecse321.grocerystore.dto.GroceryStoreSystemDto;
-import mcgill.ecse321.grocerystore.model.BusinessHour;
-import mcgill.ecse321.grocerystore.model.BusinessHour.WeekDay;
 import mcgill.ecse321.grocerystore.model.GroceryStoreSystem;
-import mcgill.ecse321.grocerystore.model.Item;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.invocation.InvocationOnMock;
@@ -268,7 +258,6 @@ public class TestGroceryStoreSystemService {
 	
 	@Test
 	public void testUpdateGroceryStoreSystemStoreWithEmptyName() {		
-		String storeName = "";
 		String address = "173 Wellington St";
 		int employeeDiscount = 20;
 		GroceryStoreSystem groceryStoreSystem = null;
@@ -336,11 +325,10 @@ public class TestGroceryStoreSystemService {
 		String address = "173 Wellington St";
 		int employeeDiscount = 20;
 		GroceryStoreSystem groceryStoreSystem = null;
-		String error = null;
 		try {
 			groceryStoreSystem = service.updateGroceryStoreSystem(storeName, address, employeeDiscount);
 		} catch (IllegalArgumentException e) {
-			error = e.getMessage();
+			fail();
 		}
 		
 		assertEquals(groceryStoreSystem.getStoreName(), storeName);

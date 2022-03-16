@@ -1,7 +1,6 @@
 package mcgill.ecse321.grocerystore.dto;
 
 import mcgill.ecse321.grocerystore.model.Employee;
-import mcgill.ecse321.grocerystore.model.GroceryStoreSystem;
 
 public class EmployeeDto extends UserRoleDto{
 	/**

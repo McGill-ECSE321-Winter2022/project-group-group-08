@@ -24,23 +24,27 @@ public class ItemRestController {
 	private ItemService itemService;
 	private static final String baseURL = "/item";
 	
+	//getting all items
 	@GetMapping(value = {baseURL+"/all", baseURL+"/all/"})
 	public List<ItemDto> getAllItems() {
 		return itemService.getAllItems().stream().map(i -> convertToDto(i)).collect(Collectors.toList());
 	}
 	
+	//getting a particular item with it's id
 	@GetMapping(value = {baseURL+"/{id}", baseURL+"/{id}/"})
 	public ItemDto getItem(@PathVariable("id") int id) {
 		Item item = itemService.getItemById(id);
 		return convertToDto(item);
 	}
 	
+	//getting a list of items with the name containing a given string
 	@GetMapping(value = {baseURL+"/name/{name}", baseURL+"/name/{name}/"})
 	public List<ItemDto> getItemByNameContaining(@PathVariable("name") String name) {
 		List<ItemDto> items = itemService.getItemByNameContaining(name).stream().map(i -> convertToDto(i)).collect(Collectors.toList());
 		return items;
 	}
 	
+	//getting a list of items with prices between a given range
 	@GetMapping(value = {baseURL+"/price/{minPrice}/{maxPrice}", baseURL+"/price/{minPrice}/{maxPrice}/"})
 	public List<ItemDto> getItemByPriceBetween(
 			@PathVariable("minPrice") int minPrice, 
@@ -50,6 +54,7 @@ public class ItemRestController {
 		return items;
 	}
 	
+	//getting a list of items with points between a given range
 	@GetMapping(value = {baseURL+"/point/{minPoint}/{maxPoint}", baseURL+"/point/{minPoint}/{maxPoint}/"})
 	public List<ItemDto> getItemByPointBetween(
 			@PathVariable("minPoint") int minPoint, 
@@ -59,6 +64,7 @@ public class ItemRestController {
 		return items;
 	}
 	
+	//getting a list of items with return policy between a given range
 	@GetMapping(value = {baseURL+"/returnPolicy/{minReturnPolicy}/{maxReturnPolicy}", baseURL+"/returnPolicy/{minReturnPolicy}/{maxReturnPolicy}/"})
 	public List<ItemDto> getItemByReturnPolicyBetween(
 			@PathVariable("minReturnPolicy") int minReturnPolicy, 
@@ -68,12 +74,14 @@ public class ItemRestController {
 		return items;
 	}
 	
+	//getting a list of item categorized by whether the item is available for pickup or not
 	@GetMapping(value = {baseURL+"/pickup/{pickup}", baseURL+"/pickup/{pickup}/"})
 	public List<ItemDto> getItemByPickup(@PathVariable("pickup") boolean pickup) {
 		List<ItemDto> items = itemService.getItemByPickup(pickup).stream().map(i -> convertToDto(i)).collect(Collectors.toList());
 		return items;
 	}
 	
+	//getting a lists of items with in store quantity given a range
 	@GetMapping(value = {baseURL+"/inStoreQuantity/{minInStoreQuantity}/{maxInStoreQuantity}", baseURL+"/inStoreQuantity/{minInStoreQuantity}/{maxInStoreQuantity}/"})
 	public List<ItemDto> getItemByInStoreQuantityBetween(
 			@PathVariable("minInStoreQuantity") int minInStoreQuantity, 
@@ -83,6 +91,7 @@ public class ItemRestController {
 		return items;
 	}
 	
+	//creating an item
 	@PostMapping(value = {baseURL, baseURL+"/"})
 	public ItemDto createItem(
 			@RequestParam(name = "name") String name,
@@ -96,6 +105,7 @@ public class ItemRestController {
 		return convertToDto(item);
 	}
 	
+	//updating an item
 	@PatchMapping(value = {baseURL + "/update/{id}", baseURL+"/update/{id}/"})
 	public ItemDto updateItem(
 			@PathVariable("id") int id,
@@ -110,12 +120,14 @@ public class ItemRestController {
 		return convertToDto(item);
 	}
 	
+	//deleting an ite,
 	@DeleteMapping(value = {baseURL + "/delete/{id}", baseURL+"/delete/{id}/"})
-	public boolean deleteItem(@PathVariable("id") int id) {
-		boolean deleted = itemService.deleteItemById(id);
-		return deleted;
+	public ItemDto deleteItem(@PathVariable("id") int id) {
+		Item item = itemService.deleteItemById(id);
+		return convertToDto(item);
 	}
 	
+	//converting item to its DTO because of the MVC model
 	private ItemDto convertToDto(Item item) {
 		if(item == null) {
 			throw new IllegalArgumentException("There is no such item!");

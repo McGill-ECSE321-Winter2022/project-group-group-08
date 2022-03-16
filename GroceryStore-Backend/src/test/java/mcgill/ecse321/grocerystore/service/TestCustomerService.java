@@ -47,10 +47,8 @@ public class TestCustomerService {
 	private static final int ID_KEY = 1234567;
 	private static final int FAKE_ID_KEY = 6666666;
 	private static final TierClass TIER_KEY = TierClass.Bronze;
-	private static final TierClass NEW_TIER_KEY = TierClass.Silver;
 	private static final TierClass INVALID_TIER_KEY = null;
 	private static final boolean BAN_KEY = false;
-	private static final boolean NEW_BAN_KEY = true;
 	private static final String EMAIL_KEY = "email@gmail.com";
 	private static final String FIRSTNAME_KEY = "Bob";
 	private static final String LASTNAME_KEY = "The Builder";

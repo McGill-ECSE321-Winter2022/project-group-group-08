@@ -774,35 +774,35 @@ public class TestItemService {
 	
 	@Test
     public void testDeleteItemById() {
-		boolean itemDeleted = false;
+		Item item = null;
         try {
-        	itemDeleted = service.deleteItemById(ID);
+        	item = service.deleteItemById(ID);
         } catch (IllegalArgumentException e) {
         	fail();
         }
-        assertTrue(itemDeleted);
+        assertNotNull(item);
     }
 	
 	@Test
     public void testDeleteItemByIdNegative() {
-		boolean itemDeleted = true;
+		Item item = null;
         try {
-        	itemDeleted = service.deleteItemById(-1);
+        	item = service.deleteItemById(-1);
         } catch (IllegalArgumentException e) {
         	fail();
         }
-        assertFalse(itemDeleted);
+        assertNull(item);
     }
 	
 	@Test
     public void testDeleteItemByIdNotExists() {
-		boolean itemDeleted = true;
+		Item item = null;
         try {
-        	itemDeleted = service.deleteItemById(4);
+        	item = service.deleteItemById(4);
         } catch (IllegalArgumentException e) {
         	fail();
         }
-        assertFalse(itemDeleted);
+        assertNull(item);
     }
 
 }

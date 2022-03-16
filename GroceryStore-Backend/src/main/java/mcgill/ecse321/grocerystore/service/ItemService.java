@@ -25,6 +25,7 @@ public class ItemService {
 	
 	@Transactional
 	public Item createItem(String name, int price, int point, int returnPolicy, boolean pickup, int inStoreQuantity) {
+		//checking for input validation
 		if(name == null || name.strip() == ""|| name.equals("undefined")) {
 			throw new IllegalArgumentException("Item name cannot be null or empty");
 		}
@@ -53,17 +54,19 @@ public class ItemService {
 	
 	@Transactional
 	public List<Item> getAllItems() {
+		//getting all items
 		return toList(itemRepository.findAll());
 	}
 	
 	@Transactional
 	public Item getItemById(int id) {
-		
+		//giving the user a specific error description when able to find one
 		if (id < 0) {
 			throw new IllegalArgumentException("The id cannot be a negative number");
 		}
 		Item item = itemRepository.findItemById(id);
 		if(item == null) {
+			//telling the user that the item does not exist
 			throw new IllegalArgumentException("No item with id " + id + " exists");
 		}
 		return item;
@@ -71,11 +74,12 @@ public class ItemService {
 	
 	@Transactional
 	public List<Item> getItemByNameContaining(String name) {
-		
+		//giving the user a specific error description when able to find one
 		if (name == null || name == "") {
 			throw new IllegalArgumentException("The name cannot be null or empty");
 		}
 		List<Item> items = itemRepository.findItemByNameContainingIgnoreCase(name);
+		//telling the user that no items exist
 		if(items == null || items.isEmpty()) {
 			throw new IllegalArgumentException("No items with name containing '" + name + "' exists");
 		}
@@ -84,11 +88,12 @@ public class ItemService {
 	
 	@Transactional
 	public List<Item> getItemByPriceBetween(int minPrice, int maxPrice) {
-		
+		//giving the user a specific error description when able to find one
 		if (maxPrice < minPrice) {
 			throw new IllegalArgumentException("The max price cannot be lower than min price");
 		}
 		List<Item> items = itemRepository.findItemByPriceBetween(minPrice, maxPrice);
+		//telling the user that no items exist
 		if(items == null || items.isEmpty()) {
 			throw new IllegalArgumentException("No items with price between $" + minPrice + " & $" + maxPrice + " exists");
 		}
@@ -97,11 +102,12 @@ public class ItemService {
 	
 	@Transactional
 	public List<Item> getItemByPointBetween(int minPoint, int maxPoint) {
-		
+		//giving the user a specific error description when able to find one
 		if (maxPoint < minPoint) {
 			throw new IllegalArgumentException("The max amount of points cannot be lower than min amount of points");
 		}
 		List<Item> items = itemRepository.findItemByPointBetween(minPoint, maxPoint);
+		//telling the user that no items exist
 		if(items == null || items.isEmpty()) {
 			throw new IllegalArgumentException("No items with point between " + minPoint + " & " + maxPoint + " exists");
 		}
@@ -110,11 +116,12 @@ public class ItemService {
 	
 	@Transactional
 	public List<Item> getItemByReturnPolicyBetween(int minDays, int maxDays) {
-		
+		//giving the user a specific error description when able to find one
 		if (maxDays < minDays) {
 			throw new IllegalArgumentException("The max return policy days cannot be lower than min return policy days");
 		}
 		List<Item> items = itemRepository.findItemByReturnPolicyBetween(minDays, maxDays);
+		//telling the user that no items exist
 		if(items == null || items.isEmpty()) {
 			throw new IllegalArgumentException("No items with return policy between " + minDays + " & " + maxDays + " exists");
 		}
@@ -123,8 +130,8 @@ public class ItemService {
 	
 	@Transactional
 	public List<Item> getItemByPickup(boolean pickup) {
-		
 		List<Item> items = itemRepository.findItemByPickup(pickup);
+		//telling the user that no items exist
 		if(items == null || items.isEmpty()) {
 			throw new IllegalArgumentException("No items with pickup being " + pickup + " exists");
 		}
@@ -133,11 +140,12 @@ public class ItemService {
 	
 	@Transactional
 	public List<Item> getItemByInStoreQuantityBetween(int minQuantity, int maxQuantity) {
-		
+		//giving the user a specific error description when able to find one
 		if (maxQuantity < minQuantity) {
 			throw new IllegalArgumentException("The max quantity cannot be lower than min quantity");
 		}
 		List<Item> items = itemRepository.findItemByInStoreQuantityBetween(minQuantity, maxQuantity);
+		//telling the user that no items exist
 		if(items == null || items.isEmpty()) {
 			throw new IllegalArgumentException("No items with in store quantity between " + minQuantity + " & " + maxQuantity + " exists");
 		}
@@ -146,6 +154,7 @@ public class ItemService {
 	
 	@Transactional
 	public Item updateItem(int id, String name, int price, int point, int returnPolicy, boolean pickup, int inStoreQuantity) {
+		//checking for input validation
 		if(id < 0) {
 			throw new IllegalArgumentException("Id cannot be a negative number");
 		}
@@ -165,9 +174,11 @@ public class ItemService {
 			throw new IllegalArgumentException("In store quantity cannot be a negative number");
 		}
 		Item item = itemRepository.findItemById(id);
+		//telling the user that no items exist
 		if(item == null) {
 			throw new IllegalArgumentException("Item with id " + id + " does not exists");
 		}
+		//when found an item, the information will be updated
 		item.setName(name);
 		item.setPrice(price);
 		item.setPoint(point);
@@ -179,20 +190,23 @@ public class ItemService {
 	}
 	
 	@Transactional
-	public boolean deleteItemById(int id) {
+	public Item deleteItemById(int id) {
+		//id can't be negative in the first place
 		if (id < 0) {
-			return false;
+			return null;
 		}else {
 			Item item = itemRepository.findItemById(id);
+			//if am item does not exit, we can return null
 			if(item == null) {
-				return false;
+				return null;
 			}
+			//when you delete an item, all the quantities should be deleted, because the item no longer exists
 			List<Quantity> quantities = quantityRepository.findQuantityByItem(item);
 			for(int i=0; i<quantities.size(); i++) {
 				quantityService.deleteQuantityById(quantities.get(i).getId());
 			}
 			itemRepository.delete(item);
-			return true;
+			return item;
 		}
 	}
 	
