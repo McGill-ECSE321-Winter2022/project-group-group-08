@@ -7,8 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import mcgill.ecse321.grocerystore.dao.UserRoleRepository;
+import mcgill.ecse321.grocerystore.dto.CartDto;
+import mcgill.ecse321.grocerystore.dto.ItemDto;
 import mcgill.ecse321.grocerystore.dto.PersonDto;
 import mcgill.ecse321.grocerystore.dto.UserRoleDto;
 import mcgill.ecse321.grocerystore.model.UserRole;
@@ -23,10 +27,10 @@ public class UserRoleRestController {
 	
 	@GetMapping(value = { "/getAllUserRoles", "/getAllUserRoles/" })
 	public List<UserRoleDto> getAllUserRoles() {
-        return userRoleService.getAllUserRoles().stream().map(u -> convertToDto(u)).collect(Collectors.toList());
+		return userRoleService.getAllUserRoles().stream().map(i -> convertToDto(i)).collect(Collectors.toList());
     }
 	
-	@GetMapping(value = { "/getUserRoleById/{id}", "/getUserRoleById/{id}/" })
+	@GetMapping(value = {"/getRoleById/{id}","/getRoleById/{id}/" })
     public UserRoleDto getUserRoleById(@PathVariable("id") int id) {
 		UserRole userRole = userRoleService.findUserRoleById(id);
 		return convertToDto(userRole);
@@ -34,7 +38,7 @@ public class UserRoleRestController {
 	
 	private UserRoleDto convertToDto(UserRole user) {
 		if(user == null) {
-			throw new IllegalArgumentException("There is no such receipt!");
+			throw new IllegalArgumentException("There is no such user role!");
 			
 		}
 		UserRoleDto userRoleDto = new UserRoleDto(user.getId(), PersonDto.convertToDto(user.getPerson())); //fix person

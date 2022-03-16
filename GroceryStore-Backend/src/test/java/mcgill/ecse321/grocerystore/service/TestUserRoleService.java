@@ -16,6 +16,7 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import mcgill.ecse321.grocerystore.dao.CustomerRepository;
+import mcgill.ecse321.grocerystore.dao.EmployeeRepository;
 import mcgill.ecse321.grocerystore.dao.PersonRepository;
 import mcgill.ecse321.grocerystore.dao.UserRoleRepository;
 import mcgill.ecse321.grocerystore.model.Customer.TierClass;
@@ -26,12 +27,18 @@ import mcgill.ecse321.grocerystore.model.UserRole;
  public class TestUserRoleService {
 	
 
+
+	
+	@Mock
+	private EmployeeRepository employeeDao;
 	@Mock
 	private UserRoleRepository roleDao;
-	@Mock 
-	private PersonRepository personDao;
+
 	@Mock 
 	private CustomerRepository customerDao;
+	
+	@Mock
+	private PersonRepository personDao;
 	
 	@InjectMocks
 	private UserRoleService service;
@@ -40,32 +47,65 @@ import mcgill.ecse321.grocerystore.model.UserRole;
 	@InjectMocks
 	private PersonService personService;
 	
-	private static final int ID_KEY = 1234567;
+	private static final int FAKE_ID_KEY = 6666666;
+	private static final TierClass TIER_KEY = TierClass.Gold;
+	private static final boolean BAN_KEY = true;
 
+	private static final String EMAIL = "abc@gmail.com";
+	private static final String FIRSTNAME = "Bob";
+	private static final String LASTNAME = "Smith";
+	private static final String PHONENUMBER = "1112223333";
+	private static final String ADDRESS = "845 Sherbrooke St W, Montreal, Quebec H3A 0G4";
+	
 	@BeforeEach
 	public void setMockOutput() {
 		lenient().when(roleDao.findUserRoleById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
-			if (invocation.getArgument(0).equals(ID_KEY)) {
-				Person person = personService.createPerson("m","m","m","5555555555","m");
+			if (invocation.getArgument(0).equals(0)) {
+				Person person = personService.createPerson(EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS);
 				UserRole customer = customerService.createCustomer(person, TierClass.Gold, false);
-				customer.setId(ID_KEY);
 				return customer;
 			} else {
 				return null;
 			}
 		});
-		lenient().when(personDao.existsById(anyString())).thenReturn(true);
+		
+		
+		lenient().when(roleDao.findAll()).thenAnswer((InvocationOnMock invocation) -> {
+			
+			Person person = personService.createPerson(EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS);
+			UserRole customer = customerService.createCustomer(person, TierClass.Gold, false);
+			ArrayList<UserRole> temp = new ArrayList<UserRole>();
+			temp.add(customer);
+			return temp;
+	
+		});
+		
+		lenient().when(roleDao.findUserRoleByPerson(any())).thenAnswer((InvocationOnMock invocation) -> {
+			
+			Person person = personService.createPerson(EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS);
+			UserRole customer = customerService.createCustomer(person, TierClass.Gold, false);
+			return customer;
+	
+		});
+
+		Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> {
+			return invocation.getArgument(0);
+		};
+		lenient().when(roleDao.save(any(UserRole.class))).thenAnswer(returnParameterAsAnswer);
+	
 	}
 	
 	@Test
 	public void testFindUserRoleById() {
-		UserRole temp = null;
-		try {
-			temp = service.findUserRoleById(ID_KEY);
-		}catch(IllegalArgumentException e) {
-			fail();
-		}
-		assertEquals(temp.getId(),ID_KEY);
+		UserRole temp = service.findUserRoleById(0);
+		assertEquals(temp.getId(),0);
+	}
+	
+	@Test
+	public void testGetAllUserRoles() {
+		List<UserRole> temp = service.getAllUserRoles();
+		UserRole curr = temp.get(0);
+		assertNotNull(curr);
 	}
 	
 	@Test
