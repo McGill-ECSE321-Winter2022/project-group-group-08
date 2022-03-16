@@ -1,18 +1,11 @@
 package mcgill.ecse321.grocerystore.service;
-import java.sql.Time;
-import java.time.LocalTime;
 import static org.mockito.Mockito.lenient;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -22,12 +15,7 @@ import org.mockito.Mock;
 
 import mcgill.ecse321.grocerystore.dao.BusinessHourRepository;
 import mcgill.ecse321.grocerystore.dao.GroceryStoreSystemRepository;
-import mcgill.ecse321.grocerystore.dao.ItemRepository;
-import mcgill.ecse321.grocerystore.dto.GroceryStoreSystemDto;
-import mcgill.ecse321.grocerystore.model.BusinessHour;
-import mcgill.ecse321.grocerystore.model.BusinessHour.WeekDay;
 import mcgill.ecse321.grocerystore.model.GroceryStoreSystem;
-import mcgill.ecse321.grocerystore.model.Item;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.invocation.InvocationOnMock;
@@ -212,50 +200,47 @@ public class TestGroceryStoreSystemService {
 	
 	@Test
 	public void testDeleteGrocery() {
+		boolean deleted = false;
 		GroceryStoreSystem currSystem = service.createGroceryStoreSystem("a", "a", 0);
 		        try {
-		         currSystem = service.deleteGroceryStoreSystem(currSystem);
+		         deleted = service.deleteGroceryStoreSystem(currSystem);
 		        } catch (IllegalArgumentException e) {
 		         fail();
 		        }
-		        assertNotNull(currSystem);
+		        assertTrue(deleted);
 	}
 	
 	@Test
 	public void testDeleteGroceryWithNull() {
-		GroceryStoreSystem currSystem = null;
-		String error = "";
+		boolean deleted = true;
         try {
-         currSystem = service.deleteGroceryStoreSystem(currSystem);
+         deleted = service.deleteGroceryStoreSystem(null);
         } catch (InvalidInputException e) {
-           error = e.getMessage();
+        	fail();
         }
-        assertNull(currSystem);
-        assertEquals("Grocery store system cannot be empty", error);
+        assertFalse(deleted);
 	}
 	
 	@Test
 	public void testDeleteGroceryByStoreName() {
-		GroceryStoreSystem currSystem = null;
+		boolean deleted = false;
         try {
-         currSystem = service.deleteGroceryStoreSystemByStoreName(storeName);
+         deleted = service.deleteGroceryStoreSystemByStoreName(storeName);
         } catch (IllegalArgumentException e) {
          fail();
         }
-        assertNotNull(currSystem);
+        assertTrue(deleted);
 	}
 	
 	@Test
 	public void testDeleteGroceryByStoreNameWithNull() {
-		GroceryStoreSystem currSystem = null;
-		String error = null;
-        try {
-         currSystem = service.deleteGroceryStoreSystemByStoreName(null);
+		boolean deleted = true;
+		try {
+        	deleted = service.deleteGroceryStoreSystemByStoreName(null);
         } catch (IllegalArgumentException e) {
-        	error = e.getMessage();
+        	fail();
         }
-        assertNull(currSystem);
-        assertEquals("The store name cannot be empty.", error);
+        assertFalse(deleted);
 	}
 	
 	@Test
@@ -292,7 +277,6 @@ public class TestGroceryStoreSystemService {
 	
 	@Test
 	public void testUpdateGroceryStoreSystemStoreWithEmptyName() {		
-		String storeName = "";
 		String address = "173 Wellington St";
 		int employeeDiscount = 20;
 		GroceryStoreSystem groceryStoreSystem = null;
@@ -360,11 +344,10 @@ public class TestGroceryStoreSystemService {
 		String address = "173 Wellington St";
 		int employeeDiscount = 20;
 		GroceryStoreSystem groceryStoreSystem = null;
-		String error = null;
 		try {
 			groceryStoreSystem = service.updateGroceryStoreSystem(storeName, address, employeeDiscount);
 		} catch (IllegalArgumentException e) {
-			error = e.getMessage();
+			fail();
 		}
 		
 		assertEquals(groceryStoreSystem.getStoreName(), storeName);

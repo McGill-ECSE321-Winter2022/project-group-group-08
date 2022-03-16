@@ -110,24 +110,41 @@ import mcgill.ecse321.grocerystore.model.UserRole;
 		String error = "";
 		UserRole temp = null;
 		try {
+			temp = service.findUserRoleById(3);
+		}
+		catch(IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertNull(temp);
+		assertEquals("No user with that id",error);
+	}
+	
+	@Test
+	public void testFindUserRoleByIdNegative() {
+		String error = "";
+		UserRole temp = null;
+		try {
 			temp = service.findUserRoleById(-1);
 		}
 		catch(IllegalArgumentException e) {
 			error = e.getMessage();
 		}
 		assertNull(temp);
-		assertEquals(error, "No user with that id");
+		assertEquals("Id can't be negative",error);
 	}
+	
+	
 	
 	@Test
 	public void testFindUserRoleByPerson() {
 		UserRole temp = null;
-		Person person = personService.createPerson(EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS);		
+		String error = "";
 		try {
-			temp = service.findUserRoleByPerson(person);
-		}catch(InvalidInputException e) {
-			fail();
+			temp = service.findUserRoleByPerson(null);
+		}catch(IllegalArgumentException e) {
+			error = e.getMessage();
 		}
-		assertNotNull(temp);
+		assertNull(temp);
+		assertEquals("Person cannot be null",error);
 	}
 }

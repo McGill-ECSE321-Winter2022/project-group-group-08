@@ -26,7 +26,6 @@ import mcgill.ecse321.grocerystore.dao.PersonRepository;
 import mcgill.ecse321.grocerystore.dao.UserRoleRepository;
 import mcgill.ecse321.grocerystore.model.Customer;
 import mcgill.ecse321.grocerystore.model.Person;
-import mcgill.ecse321.grocerystore.model.UserRole;
 import mcgill.ecse321.grocerystore.model.Customer.TierClass;
 
 @ExtendWith(MockitoExtension.class)
@@ -183,7 +182,6 @@ public class TestCustomerService {
 
 	@Test
 	public void testUpdateTier() {
-		String error = null;
 		Customer customer = null;
 		Person person = personService.createPerson(EMAIL_KEY, FIRSTNAME_KEY, LASTNAME_KEY, PHONE_KEY, ADDR_KEY);
 		try {
