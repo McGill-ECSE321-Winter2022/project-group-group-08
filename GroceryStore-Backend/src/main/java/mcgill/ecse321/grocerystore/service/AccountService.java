@@ -109,7 +109,7 @@ public class AccountService {
 		}else {
 			Cart cart = cartRepository.findCartByAccount(account);
 			if(cart != null) {
-				cartService.deleteCart(cart);
+				cartService.deleteCartbyID(cart.getId());
 			}
 			accountRepository.delete(account);
 			return account;
@@ -124,7 +124,7 @@ public class AccountService {
 			Account account = accountRepository.findAccountByUsername(username);
 			Cart cart = cartRepository.findCartByAccount(account);
 			if(cart != null) {
-				cartService.deleteCart(cart);
+				cartService.deleteCartbyID(cart.getId());
 			}
 			accountRepository.delete(account);
 			return account;

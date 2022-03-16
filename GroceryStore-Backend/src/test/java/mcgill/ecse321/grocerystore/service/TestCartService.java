@@ -29,9 +29,12 @@ import org.mockito.stubbing.Answer;
 import mcgill.ecse321.grocerystore.dao.AccountRepository;
 import mcgill.ecse321.grocerystore.dao.CartRepository;
 import mcgill.ecse321.grocerystore.dao.PersonRepository;
+import mcgill.ecse321.grocerystore.dao.QuantityRepository;
+import mcgill.ecse321.grocerystore.dao.ReceiptRepository;
 import mcgill.ecse321.grocerystore.model.Account;
 import mcgill.ecse321.grocerystore.model.Cart;
 import mcgill.ecse321.grocerystore.model.Person;
+import mcgill.ecse321.grocerystore.model.Quantity;
 
 @ExtendWith(MockitoExtension.class)
 public class TestCartService {
@@ -42,6 +45,10 @@ public class TestCartService {
    private PersonRepository personDao;
    @Mock
    private AccountRepository accountDao;
+   @Mock
+   private QuantityRepository quantityDao;
+   @Mock
+   private ReceiptRepository receiptDao;
    
    @InjectMocks
    private CartService service;
@@ -49,6 +56,10 @@ public class TestCartService {
    private PersonService personService;
    @InjectMocks
    private AccountService accountService;
+   @InjectMocks
+   private QuantityService quantityService;
+   @InjectMocks
+   private ReceiptService receiptService;
 
    private static final Date date = java.sql.Date.valueOf(LocalDate.of(2022,
 		   Month.DECEMBER, 31));;
@@ -69,6 +80,17 @@ public class TestCartService {
                return null;
            }
    });
+   lenient().when(cartDao.findAll()).thenAnswer((InvocationOnMock invocation) -> {
+	   	Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
+	   	Account account = accountService.createAccount("username123", "password123", false, 123, person);
+	   	account.setPerson(person);
+	   	Cart cart = new Cart();
+       	cart.setAccount(account);
+       	cart.setDate(date);
+		ArrayList<Cart> list = new ArrayList<Cart>();
+		list.add(cart);
+		return list;
+	});
    lenient().when(personDao.existsById(anyString())).thenReturn(true);
    lenient().when(accountDao.existsById(anyString())).thenReturn(true);
    Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> {
@@ -279,5 +301,13 @@ public class TestCartService {
            fail();
        }
        assertFalse(cartdeleted);
+   }
+   
+   @Test
+   public void testGetAllCart() {
+	   List<Cart> carts = new ArrayList<Cart>();
+	   carts = service.getAllCarts();
+	   Cart cart = carts.get(0);
+	   assertNotNull(cart);
    }
 }
