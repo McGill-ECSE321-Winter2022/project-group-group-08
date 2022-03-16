@@ -31,10 +31,7 @@ import mcgill.ecse321.grocerystore.model.UserRole;
 
 @ExtendWith(MockitoExtension.class)
  public class TestUserRoleService {
-	
-
-
-	
+		
 	@Mock
 	private EmployeeRepository employeeDao;
 	@Mock

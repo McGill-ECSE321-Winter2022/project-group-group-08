@@ -24,6 +24,7 @@ public class ManagerService {
 	UserRoleRepository userRoleRepository;
 	
 	
+	
 	@Transactional 
 	public Manager createManager(Person person) {
 		if(person == null || !personRepository.existsById(person.getEmail())) {
