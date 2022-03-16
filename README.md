@@ -14,12 +14,12 @@ We are a team of 6 McGill Engineering students creating a grocery store website 
 ## Project Timesheet (Hours)
 | Team Member | Deliverable 1 | Deliverable 2 | Deliverable 3 | Deliverable 4 |
 |:-----------:|:-------------:|:-------------:|:-------------:|:-------------:|
-| Aigiarn Cheuk | 13 | - | - | - |
-| Mihail Calitoiu | 12 | - | - | - |
-| Selina Gao | 10 | - | - | - |
-| Joey Koay | 15 | - | - | - |
-| Joey Liu | 20 | - | - | - |
-| Kevin Liu | 12 | - | - | - |
+| Aigiarn Cheuk | 13 | 17 | - | - |
+| Mihail Calitoiu | 12 | 20 | - | - |
+| Selina Gao | 10 | 17 | - | - |
+| Joey Koay | 15 | 33 | - | - |
+| Joey Liu | 20 | 37 | - | - |
+| Kevin Liu | 12 | 20 | - | - |
 
 
 ## Deliverable 1
@@ -37,9 +37,9 @@ The project report for this deliverable can be found here.
 The project report for this deliverable can be found here.
 | Team Member | Tasks | Hours Spent |
 |:-----------:|:-------------:|:----:|
-| Aigiarn Cheuk | Customer, Employee : DTO, Controllers, Services, Tests |  |
-| Mihail Calitoiu | Receipt, UserRole : DTO, Controllers, Services, Tests |  |
-| Selina Gao | GroceryStoreSystem, Manager : DTO, Controllers, Services, Tests |  |
-| Joey Koay | Item, Quantity : DTO, Controllers, Services, Tests |  |
-| Joey Liu | Person, Account : DTO, Controllers, Services, Tests |  |
-| Kevin Liu | Cart, BusinessHours : DTO, Controllers, Services, Tests |  |
+| Aigiarn Cheuk | Customer, Employee : DTO, Controllers, Services, Tests | 17 |
+| Mihail Calitoiu | Receipt, UserRole : DTO, Controllers, Services, Tests | 20 |
+| Selina Gao | GroceryStoreSystem, Manager : DTO, Controllers, Services, Tests | 17 |
+| Joey Koay | Item, Quantity : DTO, Controllers, Services, Tests | 33 |
+| Joey Liu | Person, Account : DTO, Controllers, Services, Tests | 37 |
+| Kevin Liu | Cart, BusinessHours : DTO, Controllers, Services, Tests | 20 |
