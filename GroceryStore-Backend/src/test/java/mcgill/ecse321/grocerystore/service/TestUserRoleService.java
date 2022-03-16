@@ -3,13 +3,15 @@ package mcgill.ecse321.grocerystore.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.lenient;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -25,28 +27,34 @@ import mcgill.ecse321.grocerystore.dao.CustomerRepository;
 import mcgill.ecse321.grocerystore.dao.EmployeeRepository;
 import mcgill.ecse321.grocerystore.dao.PersonRepository;
 import mcgill.ecse321.grocerystore.dao.UserRoleRepository;
+import mcgill.ecse321.grocerystore.model.Customer;
 import mcgill.ecse321.grocerystore.model.Customer.TierClass;
+import mcgill.ecse321.grocerystore.model.Employee;
 import mcgill.ecse321.grocerystore.model.Person;
+import mcgill.ecse321.grocerystore.model.Receipt;
 import mcgill.ecse321.grocerystore.model.UserRole;
 
 @ExtendWith(MockitoExtension.class)
  public class TestUserRoleService {
-		
+	
+	@Mock
+	private CustomerRepository customerDao;
+
+	
 	@Mock
 	private EmployeeRepository employeeDao;
 	@Mock
 	private UserRoleRepository roleDao;
-
-	@Mock 
-	private CustomerRepository customerDao;
 	
 	@Mock
 	private PersonRepository personDao;
 	
 	@InjectMocks
 	private UserRoleService service;
+
 	@InjectMocks
 	private CustomerService customerService;
+	
 	@InjectMocks
 	private PersonService personService;
 	
@@ -97,6 +105,15 @@ import mcgill.ecse321.grocerystore.model.UserRole;
 		lenient().when(roleDao.save(any(UserRole.class))).thenAnswer(returnParameterAsAnswer);
 	
 	}
+
+	private TierClass anyTier() {
+		return getRandomTier();
+	}
+
+	public static TierClass getRandomTier() {
+		return TierClass.values()[(int) (Math.random() * TierClass.values().length)];
+	}
+
 	
 	@Test
 	public void testFindUserRoleById() {
@@ -110,18 +127,27 @@ import mcgill.ecse321.grocerystore.model.UserRole;
 		UserRole curr = temp.get(0);
 		assertNotNull(curr);
 	}
-	
 	@Test
 	public void testFindUserRoleByBadId() {
 		String error = "";
-		UserRole temp = null;
+		UserRole temp;
 		try {
 			temp = service.findUserRoleById(-1);
 		}
 		catch(IllegalArgumentException e) {
 			error = e.getMessage();
 		}
-		assertNull(temp);
-		assertEquals("No user with that id",error);
+		
+		assertEquals(error, "No user with that id");
 	}
+	@Test
+	public void testFindUserRoleByPerson() {
+		Person person = personService.createPerson(EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS);
+		UserRole temp = service.findUserRoleByPerson(person);
+		assertNotNull(temp);
+	}
+	
+	
+	
+	
 }
