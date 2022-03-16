@@ -16,9 +16,9 @@ public class GroceryStoreSystemService {
 	@Autowired
 	BusinessHourRepository businessHourRepository;
 	@Autowired
-	ItemRepository itemRepository;
-	@Autowired
 	GroceryStoreSystemRepository groceryStoreSystemRepository;
+	@Autowired
+	BusinessHourService businessHourService;
 	
 	@Transactional
 	public GroceryStoreSystem createGroceryStoreSystem(String storeName, String address, int employeeDiscount) {
@@ -55,6 +55,12 @@ public class GroceryStoreSystemService {
 		if (groceryStoreSystem == null) {
 			return false;
 		}else {
+			List<BusinessHour> businessHours = businessHourRepository.findBusinessHoursByGroceryStoreSystem(groceryStoreSystem);
+			if(!businessHours.isEmpty()) {
+			for(int i=0; i<businessHours.size(); i++) {
+				businessHourService.deleteBusinessHourbyID(businessHours.get(i).getId());
+			}
+			}
 			groceryStoreSystemRepository.delete(groceryStoreSystem);
 			return true;
 		}
@@ -66,6 +72,12 @@ public class GroceryStoreSystemService {
 			return false;
 		}else {
 			GroceryStoreSystem groceryStoreSystem = groceryStoreSystemRepository.findGroceryStoreSystemByStoreName(storeName);
+			List<BusinessHour> businessHours = businessHourRepository.findBusinessHoursByGroceryStoreSystem(groceryStoreSystem);
+			if(!businessHours.isEmpty()) {
+			for(int i=0; i<businessHours.size(); i++) {
+				businessHourService.deleteBusinessHourbyID(businessHours.get(i).getId());
+			}
+			}
 			groceryStoreSystemRepository.delete(groceryStoreSystem);
 			return true;
 		}
