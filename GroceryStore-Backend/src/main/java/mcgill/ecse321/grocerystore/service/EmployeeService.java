@@ -97,7 +97,7 @@ public class EmployeeService {
 		}
 		List<BusinessHour> businessHours = businessHourRepository.findBusinessHoursByEmployee(employee);
 		for(int i=0; i<businessHours.size(); i++) {
-			businessHourService.deleteBusinessHour(businessHours.get(i));
+			businessHourService.deleteBusinessHourbyID(businessHours.get(i).getId());
 		}
 		employeeRepository.delete(employee);
 	    return employee;
