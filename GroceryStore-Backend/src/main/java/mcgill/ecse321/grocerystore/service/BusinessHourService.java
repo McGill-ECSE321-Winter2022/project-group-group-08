@@ -129,7 +129,7 @@ public class BusinessHourService {
         	throw new IllegalArgumentException("End time is Empty");
         }
     	List<BusinessHour> businessHours = businessHourRepository.findBusinessHourByStartTimeBetween(startTime,endTime);
-        if (endTime.toLocalTime().isAfter(startTime.toLocalTime())){
+        if (startTime.toLocalTime().isAfter(endTime.toLocalTime())){
             throw new IllegalArgumentException("Start time is later than end time");
         }
         if (endTime.toLocalTime().equals(startTime.toLocalTime())){
@@ -140,12 +140,18 @@ public class BusinessHourService {
 
     @Transactional
 	public List<BusinessHour> getBusinessHoursbyEmployee(Employee employee){
+    	if (employee==null) {
+    		throw new IllegalArgumentException("Employee cannot be empty");
+    	}
 		return businessHourRepository.findBusinessHoursByEmployee(employee);
 	}
 
     @Transactional
 	public List<BusinessHour> getOpeningHours(GroceryStoreSystem system){
-		return businessHourRepository.findBusinessHoursByGroceryStoreSystem(system);
+    	if (system==null) {
+    		throw new IllegalArgumentException("Grocery Store System cannot be empty");
+    	}
+    	return businessHourRepository.findBusinessHoursByGroceryStoreSystem(system);
 	}
 
     @Transactional
