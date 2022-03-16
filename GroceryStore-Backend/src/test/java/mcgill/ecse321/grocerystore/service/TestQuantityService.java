@@ -203,7 +203,7 @@ public class TestQuantityService {
 		}
 		assertNull(quantity);
 		assertEquals(error, "Cart cannot be null or empty");
-	}
+	} 
 	
 	@Test
 	public void testGetAllQuantities() {

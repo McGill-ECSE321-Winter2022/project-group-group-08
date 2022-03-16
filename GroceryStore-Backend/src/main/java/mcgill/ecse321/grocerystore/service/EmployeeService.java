@@ -37,10 +37,10 @@ public class EmployeeService {
 	@Transactional
 	public Employee createEmployee(Person person) {
 		if(person == null || !personRepository.existsById(person.getEmail())) {
-			throw new InvalidInputException("Invalid person");
+			throw new IllegalArgumentException("Invalid person");
 		}
 		if(userRoleRepository.findUserRoleByPerson(person) != null){
-			throw new InvalidInputException("Person has already been assigned a role");
+			throw new IllegalArgumentException("Person has already been assigned a role");
 		}
 		Employee employee = new Employee();
 		employee.setPerson(person);
@@ -56,10 +56,10 @@ public class EmployeeService {
 	@Transactional
 	public Employee updateEmployee(int id, Person person) {
 		if(id <= 0) {
-			throw new InvalidInputException("Invalid id");
+			throw new IllegalArgumentException("Invalid id");
 		}
 		if(person == null || !personRepository.existsById(person.getEmail())) {
-			throw new InvalidInputException("Invalid person");
+			throw new IllegalArgumentException("Invalid person");
 		}
 		Employee employee = employeeRepository.findEmployeeById(id);
 		employee.setPerson(person);
@@ -75,9 +75,12 @@ public class EmployeeService {
 	@Transactional
 	public Employee getEmployee(int id) {
 		if(id <= 0) {
-			throw new InvalidInputException("Invalid id");
+			throw new IllegalArgumentException("Invalid id");
 		}
 		Employee employee = employeeRepository.findEmployeeById(id);
+		if(employee == null) {
+			throw new IllegalArgumentException("No employee found");
+		}
 	    return employee;
 	}
 
@@ -89,11 +92,11 @@ public class EmployeeService {
 	@Transactional
 	public Employee deleteEmployee(int id) {
 		if(id <= 0) {
-			throw new InvalidInputException("Invalid id");
+			throw new IllegalArgumentException("Invalid id");
 		}
 		Employee employee = employeeRepository.findEmployeeById(id);
 		if(employee == null) {
-			return null;
+			throw new IllegalArgumentException("Employee with id " + id + " does not exists.");
 		}
 		List<BusinessHour> businessHours = businessHourRepository.findBusinessHoursByEmployee(employee);
 		for(int i=0; i<businessHours.size(); i++) {

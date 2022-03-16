@@ -22,6 +22,7 @@ import mcgill.ecse321.grocerystore.dao.BusinessHourRepository;
 import mcgill.ecse321.grocerystore.dao.EmployeeRepository;
 import mcgill.ecse321.grocerystore.dao.PersonRepository;
 import mcgill.ecse321.grocerystore.dao.UserRoleRepository;
+import mcgill.ecse321.grocerystore.model.Customer;
 import mcgill.ecse321.grocerystore.model.Employee;
 import mcgill.ecse321.grocerystore.model.Person;
 
@@ -42,8 +43,8 @@ public class TestEmployeeService {
 	@InjectMocks
 	private PersonService personService;
 
-	private static final int ID_KEY = 1234567;
-	private static final int FAKE_ID_KEY = 6666666;
+	private static final int ID_KEY = 1;
+	private static final int FAKE_ID_KEY = 2;
 
 	@BeforeEach
 	public void setMockOutput() {
@@ -76,15 +77,68 @@ public class TestEmployeeService {
 		}
 		assertNotNull(employee);
 	}
+	
+	@Test
+	public void testUpdateEmployee() {
+		Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
+		Employee employee = null;
+		try {
+			employee = service.updateEmployee(ID_KEY, person);
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+		assertNotNull(employee); 
+		assertEquals(employee.getPerson(), person);
+	}
+	
+	@Test
+	public void testUpdateEmployeeIdNegative() {
+		Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
+		Employee employee = null;
+		String error = "";
+		try {
+			employee = service.updateEmployee(-1, person);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertNull(employee);
+		assertEquals("Invalid id", error);
+	}
 
 	@Test
 	public void testGetExistingCustomer() {
 		assertEquals(ID_KEY, service.getEmployee(ID_KEY).getId());
 	}
+	
+	@Test
+	public void testGetExistingEmployeeIdNegative() {
+		int tempId = -1;
+		Employee employee = null;
+		String error = "";
+		try {
+			employee = service.getEmployee(tempId);
+		} catch (IllegalArgumentException e) {
+			// Check that no error occurred
+//			fail();
+			error = e.getMessage();
+		}
+		assertNull(employee);
+		assertEquals("Invalid id", error);
+	}
 
 	@Test
 	public void testGetNonExistingCustomer() {
-		assertNull(service.getEmployee(FAKE_ID_KEY));
+		Employee employee = null;
+		String error = "";
+		try {
+			employee = service.getEmployee(FAKE_ID_KEY);
+		} catch (IllegalArgumentException e) {
+			// Check that no error occurred
+//			fail();
+			error = e.getMessage();
+		}
+		assertEquals("No employee found", error);
+		assertNull(employee);
 	}
 
 	@Test
@@ -98,6 +152,36 @@ public class TestEmployeeService {
 			fail();
 		}
 		assertNotNull(employee);
+	}
+	
+	@Test
+	public void testDeleteEmployeeIdNegative() {
+		assertEquals(0, service.getAllEmployees().size());
+		Employee employee = null;
+		String error = "";
+		try {
+			employee = service.deleteEmployee(-1);
+		} catch (IllegalArgumentException e) {
+			// Check that no error occurred
+			error = e.getMessage();
+		}
+		assertEquals("Invalid id", error);
+		assertNull(employee);
+	}
+	
+	@Test
+	public void testDeleteEmployeeEmployeeNotExists() {
+		assertEquals(0, service.getAllEmployees().size());
+		Employee employee = null;
+		String error = "";
+		try {
+			employee = service.deleteEmployee(10);
+		} catch (IllegalArgumentException e) {
+			// Check that no error occurred
+			error = e.getMessage();
+		}
+		assertEquals("Employee with id 10 does not exists.", error);
+		assertNull(employee);
 	}
 
 }

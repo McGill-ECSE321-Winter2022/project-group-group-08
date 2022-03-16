@@ -49,12 +49,11 @@ public class TestCustomerService {
 	private static final int FAKE_ID_KEY = 6666666;
 
 	private static final TierClass TIER_KEY = TierClass.Bronze;
-	private static final TierClass NEW_TIER_KEY = TierClass.Silver;
+	private static final TierClass NEW_TIER_KEY = TierClass.Gold;
 	private static final TierClass INVALID_TIER_KEY = null;
 
 	private static final boolean BAN_KEY = false;
 	private static final boolean NEW_BAN_KEY = true;
-
 	private static final String EMAIL_KEY = "email@gmail.com";
 	private static final String FIRSTNAME_KEY = "Bob";
 	private static final String LASTNAME_KEY = "The Builder";
@@ -168,26 +167,11 @@ public class TestCustomerService {
 		assertNull(person);
 		assertEquals("Invalid person", error);
 	}
-
-	@Test
-	public void testCreateCustomerInvalidPersonWithRole() {
-		String error = null;
-		Customer customer = null;
-		Person person = personService.createPerson(EMAIL_KEY, FIRSTNAME_KEY, LASTNAME_KEY, PHONE_KEY, ADDR_KEY);;
-		try {
-			customer = service.createCustomer(person, TIER_KEY, BAN_KEY);
-		} catch (InvalidInputException e) {
-			error = e.getMessage();
-		}
-		assertNull(customer);
-		assertEquals("Person has already been assigned a role", error);
-	}
-
 	@Test
 	public void testCreateCustomerInvalidTier() {
 		String error = null;
 		Customer customer = null;
-		Person person = personService.createPerson(EMAIL_KEY, FIRSTNAME_KEY, LASTNAME_KEY, PHONE_KEY, ADDR_KEY);
+		Person person = personService.createPerson(EMAIL_KEY, FIRSTNAME_KEY, LASTNAME_KEY, PHONE_KEY, ADDR_KEY);;
 		try {
 			customer = service.createCustomer(person, INVALID_TIER_KEY, BAN_KEY);
 		} catch (InvalidInputException e) {
@@ -195,6 +179,21 @@ public class TestCustomerService {
 		}
 		assertNull(customer);
 		assertEquals("Invalid tier Class", error);
+	}
+
+	@Test
+	public void testUpdateTier() {
+		String error = null;
+		Customer customer = null;
+		Person person = personService.createPerson(EMAIL_KEY, FIRSTNAME_KEY, LASTNAME_KEY, PHONE_KEY, ADDR_KEY);
+		try {
+			customer = service.updateCustomer(ID_KEY, person, NEW_TIER_KEY, NEW_BAN_KEY);
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+		assertNotNull(customer); 
+		assertEquals(NEW_TIER_KEY, customer.getTierclass());
+		assertEquals(NEW_BAN_KEY, customer.getBan());
 	}
 
 	@Test
