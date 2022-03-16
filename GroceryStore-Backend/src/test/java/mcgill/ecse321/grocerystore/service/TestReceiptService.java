@@ -58,7 +58,6 @@ import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
 	private static final String PASSWORD = "101";
 	private static final boolean INTOWN = true;
 	private static final int TOTALPOINTS = 0;
-	private static final int NEWTOTALPOINTS = 10;
 	private static final String EMAIL = "abc@gmail.com";
 	private static final String PHONENUMBER = "1112223333";
 	private static final String ADDRESS = "845 Sherbrooke St W, Montreal, Quebec H3A 0G4";
