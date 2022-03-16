@@ -53,7 +53,7 @@ public class PersonService {
 		    error = error + "Person phone number is invalid! ";
 		}
 		if (address == null || address.trim().length() == 0) {
-		    error = error + "Person address name cannot be empty! ";
+		    error = error + "Person address cannot be empty! ";
 		}
 		error = error.trim();
 		if (error.length() > 0) {
@@ -75,7 +75,7 @@ public class PersonService {
 			String address) {
 		String error = "";
 		if (email == null || email.trim().length() == 0) {
-		    error = error + "Person email cannot be empty! ";
+			throw new InvalidInputException("Person email cannot be empty!");
 		}
 		if (firstName == null || firstName.trim().length() == 0) {
 		    error = error + "Person first name cannot be empty! ";
@@ -108,7 +108,7 @@ public class PersonService {
 	@Transactional 
 	public Person findPersonByEmail(String email){
 		if (email == null || email.trim().length() == 0) {
-		    throw new InvalidInputException("Person email cannot be empty! ");
+		    throw new InvalidInputException("Person email cannot be empty!");
 		}else {
 			Person person = personRepository.findPersonByEmail(email);
 			return person;

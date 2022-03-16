@@ -149,16 +149,16 @@ public class TestPersonService {
 	}
 	
 	@Test
-	public void testCreatePersonWithInvalidPhoneNumber() {
+	public void testCreatePersonWithInvalidFirstName() {
 		Person person = null;
 		String error = "";
 		try {
-			person = personService.createPerson(EMAIL, FIRSTNAME, LASTNAME, "0987", ADDRESS);
+			person = personService.createPerson(EMAIL, null, LASTNAME, PHONENUMBER, ADDRESS);
 		} catch (Exception e) {
 			error = e.getMessage();
 		}
 		assertNull(person);
-		assertEquals("Person phone number is invalid!", error);
+		assertEquals("Person first name cannot be empty!", error);
 	}
 	
 	@Test
@@ -175,6 +175,32 @@ public class TestPersonService {
 	}
 	
 	@Test
+	public void testCreatePersonWithInvalidPhoneNumber() {
+		Person person = null;
+		String error = "";
+		try {
+			person = personService.createPerson(EMAIL, FIRSTNAME, LASTNAME, "0987", ADDRESS);
+		} catch (Exception e) {
+			error = e.getMessage();
+		}
+		assertNull(person);
+		assertEquals("Person phone number is invalid!", error);
+	}	
+	
+	@Test
+	public void testCreatePersonWithInvalidAddress() {
+		Person person = null;
+		String error = "";
+		try {
+			person = personService.createPerson(EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, "");
+		} catch (Exception e) {
+			error = e.getMessage();
+		}
+		assertNull(person);
+		assertEquals("Person address cannot be empty!", error);
+	}
+	
+	@Test
 	public void testUpdatePerson() {
 		Person person = null;
 		try {
@@ -188,6 +214,20 @@ public class TestPersonService {
 		assertEquals(LASTNAME, person.getLastName());
 		assertEquals(PHONENUMBER, person.getPhoneNumber());
 		assertEquals(ADDRESS, person.getAddress());	
+	}
+	
+	@Test
+	public void testUpdatePersonWithInvalidEmail() {
+		
+		Person person = null;
+		String error = "";
+		try {
+			person = personService.updatePerson(null,FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS);
+		} catch (Exception e) {
+			error = e.getMessage();
+		}
+		assertNull(person);
+		assertEquals("Person email cannot be empty!", error);
 	}
 	
 	@Test
@@ -238,6 +278,19 @@ public class TestPersonService {
 			fail();
 		}
 		assertNotNull(person);
+	}
+	
+	@Test
+	public void testFindPersonByEmptyEmail() {
+		String error = "";
+		Person person = null;
+		try {
+			person = personService.findPersonByEmail("");
+		}catch(InvalidInputException e){
+			error = e.getMessage();
+		}
+		assertNull(person);
+		assertEquals("Person email cannot be empty!",error);
 	}
 	
 	@Test
@@ -300,6 +353,20 @@ public class TestPersonService {
 			fail();
 		}
 		assertNotNull(person);
+	}
+	
+	@Test
+	public void testDeleteNullPerson() {
+		String error = "";
+		Person person = null;
+		try {
+			 person = personService.deletePerson(null);
+		}catch(InvalidInputException e){
+			error = e.getMessage();
+		}
+		assertNull(person);
+		assertEquals("Person does not exist.",error);
+		
 	}
 	
 	@Test
