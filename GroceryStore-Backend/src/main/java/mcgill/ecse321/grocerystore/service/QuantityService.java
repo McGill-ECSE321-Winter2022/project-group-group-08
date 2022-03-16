@@ -116,16 +116,16 @@ public class QuantityService {
 	}
 	
 	@Transactional
-	public boolean deleteQuantityById(int id) {
+	public Quantity deleteQuantityById(int id) {
 		if (id < 0) {
-			return false;
+			throw new IllegalArgumentException("The id cannot be a negative number");
 		}else {
 			Quantity quantity = quantityRepository.findQuantityById(id);
 			if(quantity == null) {
-				return false;
+				throw new IllegalArgumentException("Quantity with id " + id + " does not exists");
 			}
 			quantityRepository.delete(quantity);
-			return true;
+			return quantity;
 		}
 	}
 	

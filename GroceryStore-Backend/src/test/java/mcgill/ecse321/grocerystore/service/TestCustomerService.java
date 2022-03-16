@@ -26,7 +26,6 @@ import mcgill.ecse321.grocerystore.dao.PersonRepository;
 import mcgill.ecse321.grocerystore.dao.UserRoleRepository;
 import mcgill.ecse321.grocerystore.model.Customer;
 import mcgill.ecse321.grocerystore.model.Person;
-import mcgill.ecse321.grocerystore.model.UserRole;
 import mcgill.ecse321.grocerystore.model.Customer.TierClass;
 
 @ExtendWith(MockitoExtension.class)
@@ -54,12 +53,6 @@ public class TestCustomerService {
 
 	private static final boolean BAN_KEY = false;
 	private static final boolean NEW_BAN_KEY = true;
-	private static final String EMAIL_KEY = "email@gmail.com";
-	private static final String FIRSTNAME_KEY = "Bob";
-	private static final String LASTNAME_KEY = "The Builder";
-	private static final String PHONE_KEY = "111-222-3333";
-	private static final String ADDR_KEY = "123 street";
-	
 
 	@BeforeEach
 	public void setMockOutput() {
@@ -92,7 +85,7 @@ public class TestCustomerService {
 			customerByBanList.add(customer);
 			return customerByBanList;
 		});
-		Person test_person = personService.createPerson(EMAIL_KEY, FIRSTNAME_KEY, LASTNAME_KEY, PHONE_KEY, ADDR_KEY);
+		Person test_person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
 		lenient().when(userRoleDao.findUserRoleByPerson(test_person)).thenAnswer((InvocationOnMock invocation) -> {
 			Customer customer = new Customer();
 			customer.setPerson(test_person);
@@ -112,7 +105,7 @@ public class TestCustomerService {
 		TierClass defaultTier = TierClass.Bronze;
 		boolean defaultBan = false;
 		Customer customer = null;
-		Person person = personService.createPerson(EMAIL_KEY, FIRSTNAME_KEY, LASTNAME_KEY, PHONE_KEY, ADDR_KEY);
+		Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
 		try {
 			customer = service.createCustomer(person);
 		} catch (IllegalArgumentException e) {
@@ -142,7 +135,7 @@ public class TestCustomerService {
 	@Test
 	public void testCreateCustomer() {
 		Customer customer = null;
-		Person person = personService.createPerson(EMAIL_KEY, FIRSTNAME_KEY, LASTNAME_KEY, PHONE_KEY, ADDR_KEY);
+		Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
 		try {
 			customer = service.createCustomer(person, TIER_KEY, BAN_KEY);
 		} catch (IllegalArgumentException e) {
@@ -171,7 +164,7 @@ public class TestCustomerService {
 	public void testCreateCustomerInvalidTier() {
 		String error = null;
 		Customer customer = null;
-		Person person = personService.createPerson(EMAIL_KEY, FIRSTNAME_KEY, LASTNAME_KEY, PHONE_KEY, ADDR_KEY);;
+		Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
 		try {
 			customer = service.createCustomer(person, INVALID_TIER_KEY, BAN_KEY);
 		} catch (InvalidInputException e) {
@@ -183,9 +176,8 @@ public class TestCustomerService {
 
 	@Test
 	public void testUpdateTier() {
-		String error = null;
 		Customer customer = null;
-		Person person = personService.createPerson(EMAIL_KEY, FIRSTNAME_KEY, LASTNAME_KEY, PHONE_KEY, ADDR_KEY);
+		Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
 		try {
 			customer = service.updateCustomer(ID_KEY, person, NEW_TIER_KEY, NEW_BAN_KEY);
 		} catch (IllegalArgumentException e) {
@@ -199,7 +191,7 @@ public class TestCustomerService {
 	@Test
 	public void testUpdateCustomer() {
 		Customer customer = null;
-		Person person = personService.createPerson(EMAIL_KEY, FIRSTNAME_KEY, LASTNAME_KEY, PHONE_KEY, ADDR_KEY);;
+		Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");;
 		try {
 			customer = service.updateCustomer(ID_KEY, person, NEW_TIER_KEY, NEW_BAN_KEY);
 		} catch (IllegalArgumentException e) {
