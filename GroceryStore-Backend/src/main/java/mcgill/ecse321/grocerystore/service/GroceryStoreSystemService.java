@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import mcgill.ecse321.grocerystore.dao.BusinessHourRepository;
-import mcgill.ecse321.grocerystore.dao.ItemRepository;
 import mcgill.ecse321.grocerystore.dao.GroceryStoreSystemRepository;
 import mcgill.ecse321.grocerystore.model.BusinessHour;
 import mcgill.ecse321.grocerystore.model.GroceryStoreSystem;
