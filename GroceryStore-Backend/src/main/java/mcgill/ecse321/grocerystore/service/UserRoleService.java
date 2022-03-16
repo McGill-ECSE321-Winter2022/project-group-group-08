@@ -33,7 +33,6 @@ public class UserRoleService {
 	@Autowired
 	private ManagerRepository managerRepository;
 	
-	
 	@Autowired
 	private ManagerService managerService;
 	@Autowired
@@ -41,6 +40,7 @@ public class UserRoleService {
 	@Autowired
 	private CustomerService customerService;
 	
+	// finds an existing UserRole via id
 	@Transactional
 	public UserRole findUserRoleById (int id) {
 		UserRole curr = userRoleRepository.findUserRoleById(id);
@@ -49,7 +49,7 @@ public class UserRoleService {
 		}
 		return curr;
 	}
-	
+	//find an existing UserRole via a Person
 	@Transactional
 	public UserRole findUserRoleByPerson (Person input) {
 		UserRole curr = userRoleRepository.findUserRoleByPerson(input);
@@ -59,13 +59,13 @@ public class UserRoleService {
 		return curr;
 	}
 	 
+	//returns all the exisiting UserRoles
 	@Transactional
-	public List<UserRole> getAllUserRoles() {
-		
+	public List<UserRole> getAllUserRoles() {	
 		return toList(userRoleRepository.findAll());
 		
 	};
-	
+	//iterates over iterable data and returns a list
 	private <T> List<T> toList(Iterable<T> iterable){
 		List<T> resultList = new ArrayList<T>();
 		for (T t : iterable) {

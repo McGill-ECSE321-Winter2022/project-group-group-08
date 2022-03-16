@@ -15,14 +15,14 @@ public class ReceiptDto {
 	private CartDto cart;
 	
 	public ReceiptDto() { }
-	
+	//returns a transfer object of the specific Receipt transfer object
 	public ReceiptDto (int receiptNum, ReceiptStatus receiptStatus, ReceiptType receiptType, CartDto cart) {
 		this.receiptNum = receiptNum;
 		this.receiptStatus = receiptStatus;
 		this.receiptType = receiptType;
 		this.cart = cart;
 	}
-	
+	//code below is straight forward
 	public int getReceiptNum(){
 		return this.receiptNum;
 	}
