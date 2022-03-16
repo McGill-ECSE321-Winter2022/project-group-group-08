@@ -11,6 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
+import mcgill.ecse321.grocerystore.dao.BusinessHourRepository;
 import mcgill.ecse321.grocerystore.dao.GroceryStoreSystemRepository;
 import mcgill.ecse321.grocerystore.model.GroceryStoreSystem;
 
@@ -24,13 +25,13 @@ public class TestGroceryStoreSystemService {
 
 	@Mock
 	private GroceryStoreSystemRepository groceryStoreSystemDao;
-
+	@Mock
+	private BusinessHourRepository businessHourRepository;
 
 	@InjectMocks
 	private GroceryStoreSystemService service;
 	
-	@InjectMocks
-	private GroceryStoreSystemService groceryService;
+	
 
 	
 	private static final String storeName = "GStore";
@@ -39,7 +40,7 @@ public class TestGroceryStoreSystemService {
 	
 	@BeforeEach
 	public void setMockOutput() {
-		lenient().when(groceryStoreSystemDao.findGroceryStoreSystemByStoreName(anyString())).thenAnswer( (InvocationOnMock invocation) -> {
+		lenient().when(groceryStoreSystemDao.findGroceryStoreSystemByStoreName((storeName))).thenAnswer( (InvocationOnMock invocation) -> {
 			if(invocation.getArgument(0).equals(storeName)) {
 				GroceryStoreSystem g  = new GroceryStoreSystem();
 				g.setStoreName(storeName);
@@ -197,7 +198,7 @@ public class TestGroceryStoreSystemService {
 	
 	@Test
 	public void testDeleteGrocery() {
-		GroceryStoreSystem currSystem = groceryService.createGroceryStoreSystem("a", "a", 0);
+		GroceryStoreSystem currSystem = service.createGroceryStoreSystem("a", "a", 0);
 		        try {
 		         currSystem = service.deleteGroceryStoreSystem(currSystem);
 		        } catch (IllegalArgumentException e) {
@@ -209,18 +210,19 @@ public class TestGroceryStoreSystemService {
 	@Test
 	public void testDeleteGroceryWithNull() {
 		GroceryStoreSystem currSystem = null;
+		String error = "";
         try {
          currSystem = service.deleteGroceryStoreSystem(currSystem);
-        } catch (IllegalArgumentException e) {
-         fail();
+        } catch (InvalidInputException e) {
+           error = e.getMessage();
         }
-        assertNotNull(currSystem);
+        assertNull(currSystem);
+        assertEquals("Grocery store system cannot be empty", error);
 	}
 	
 	@Test
 	public void testDeleteGroceryByStoreName() {
-		GroceryStoreSystem currSystem = groceryService.createGroceryStoreSystem("a", "a", 0);
-		String storeName = "a";
+		GroceryStoreSystem currSystem = null;
         try {
          currSystem = service.deleteGroceryStoreSystemByStoreName(storeName);
         } catch (IllegalArgumentException e) {
@@ -231,19 +233,16 @@ public class TestGroceryStoreSystemService {
 	
 	@Test
 	public void testDeleteGroceryByStoreNameWithNull() {
-		GroceryStoreSystem currSystem = groceryService.createGroceryStoreSystem("a", "a", 0);
-		String storeName = null;
+		GroceryStoreSystem currSystem = null;
 		String error = null;
         try {
-         currSystem = service.deleteGroceryStoreSystemByStoreName(storeName);
+         currSystem = service.deleteGroceryStoreSystemByStoreName(null);
         } catch (IllegalArgumentException e) {
         	error = e.getMessage();
         }
         assertNull(currSystem);
         assertEquals("The store name cannot be empty.", error);
 	}
-	
-	//updategrocery
 	
 	@Test
 	public void testUpdateGroceryStoreSystemStoreWithEmptyNull() {		
