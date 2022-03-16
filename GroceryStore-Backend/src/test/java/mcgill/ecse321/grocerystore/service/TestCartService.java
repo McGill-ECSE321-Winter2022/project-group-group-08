@@ -49,6 +49,7 @@ public class TestCartService {
    @InjectMocks
    private AccountService accountService;
 
+   private static final int ID=1;
    private static final Date date = java.sql.Date.valueOf(LocalDate.of(2022,
 		   Month.DECEMBER, 31));;
    
@@ -154,19 +155,6 @@ public class TestCartService {
        assertEquals(error,"The id cannot be negative");
    }
 
-//   @Test
-//   public void testGetCartByIdNull() {
-//       Cart cart = null;
-//       String error = "";
-//       try {
-//           cart = service.getCart(0);
-//       } catch (IllegalArgumentException e) {
-//           error = e.getMessage();
-//       }
-//       assertNull(cart);
-//       assertEquals(error,"No cart with id " + 0 + " exists");
-//   }
-
    @Test
    public void testGetCartByEmptyDate() {
        List<Cart> cart = new ArrayList<Cart>();
@@ -216,24 +204,6 @@ public class TestCartService {
        assertNull(cart);
    }
 
-//   @Test
-//   public void testupdateCartWithEmptyID() {
-//       Cart cart=null;
-//       int id=0;
-//       String error="";
-//       Person person = personService.createPerson("email@gmail.com", 
-//			   "Bob", "The Builder", "111-222-3333", "123 street");
-//       Account account = accountService.createAccount("username123",
-//			   "password123", false, 123, person);
-//       try {
-//           cart = service.updateCart(id,date,account);
-//       } catch (IllegalArgumentException e) {
-//           fail();
-//       }
-//       assertNull(cart);
-//       assertEquals(error,"Id cannot be empty");
-//   }
-
    @Test
    public void testupdateCartWithEmptyDate() {
        Cart cart=null;
@@ -268,31 +238,22 @@ public class TestCartService {
 
    @Test
    public void testdeleteCartbyId() {
-       boolean cartdeleted=false;
+	   assertEquals(0,service.getAllCarts().size());
+       Cart cart=null;
        try{
-           cartdeleted=service.deleteCartbyID(0);
+           cart=service.deleteCartbyID(ID);
        }catch(IllegalArgumentException e){
            fail();
        }
-       assertTrue(cartdeleted);
-   }
-
-   @Test
-   public void testdeleteCartbyNegativeId() {
-       boolean cartdeleted=false;
-       try{
-           cartdeleted=service.deleteCartbyID(-1);
-       }catch(IllegalArgumentException e){
-           fail();
-       }
-       //assertTrue(cartdeleted);
+       assertNotNull(cart);
    }
 
 //   @Test
-//   public void testdeleteCartbyEmptyId() {
-//       boolean cartdeleted=false;
-//       try{
-//           cartdeleted=service.deleteCartbyID(0);
+//   public void testdeleteCartbyNegativeId() {
+//       assertEquals(0,service.getAllCarts().size());
+//       Cart cart=null;
+//       try {
+//           cart=service.deleteCartbyID(-1);
 //       }catch(IllegalArgumentException e){
 //           fail();
 //       }

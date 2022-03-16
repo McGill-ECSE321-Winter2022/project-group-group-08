@@ -130,23 +130,24 @@ public class CartService {
    	 * @return a boolean indicating whether the cart is deleted
    	 */
 	@Transactional
-	public boolean deleteCart(Cart cart) {
+	public Cart deleteCart(Cart cart) {
 		if(cart==null){
-			return false;
+			throw new InvalidInputException("Invalid cart");
 		}
-		else{
-			List<Quantity> quantity=quantityRepository.findQuantityByCart(cart);
-			for(int i=0; i<quantity.size(); i++) {
-				quantityService.deleteQuantityById(quantity.get(i).getId());
-			}
+		if(cart==null) {
+			return null;
+		}
+		List<Quantity> quantity=quantityRepository.findQuantityByCart(cart);
+		for(int i=0; i<quantity.size(); i++) {
+			quantityService.deleteQuantityById(quantity.get(i).getId());
+		}
 
-			List<Receipt> receipt=receiptRepository.findReceiptsByCart(cart);
-			for(int i=0; i<receipt.size(); i++) {
-				receiptService.deleteReceipt(receipt.get(i).getReceiptNum());
-			}	
-			cartRepository.delete(cart);
-			return true;
-		}
+		List<Receipt> receipt=receiptRepository.findReceiptsByCart(cart);
+		for(int i=0; i<receipt.size(); i++) {
+			receiptService.deleteReceipt(receipt.get(i).getReceiptNum());
+		}	
+		cartRepository.delete(cart);
+		return cart;
 	}
 
 	/**
@@ -155,24 +156,22 @@ public class CartService {
    	 * @return a boolean indicating whether the cart is deleted
    	 */
 	@Transactional
-	public boolean deleteCartbyID(int id) {
+	public Cart deleteCartbyID(int id) {
 		if(id<0){
-			return false;
+			throw new InvalidInputException("Invalid id");
 		}
-		else{
-			Cart cart=cartRepository.findCartById(id);
-			List<Quantity> quantity=quantityRepository.findQuantityByCart(cart);
-			for(int i=0; i<quantity.size(); i++) {
-				quantityService.deleteQuantityById(quantity.get(i).getId());
-			}
+		Cart cart=cartRepository.findCartById(id);
+		List<Quantity> quantity=quantityRepository.findQuantityByCart(cart);
+		for(int i=0; i<quantity.size(); i++) {
+			quantityService.deleteQuantityById(quantity.get(i).getId());
+		}
 
-			List<Receipt> receipt=receiptRepository.findReceiptsByCart(cart);
-			for(int i=0; i<receipt.size(); i++) {
-				receiptService.deleteReceipt(receipt.get(i).getReceiptNum());
-			}	
-			cartRepository.delete(cart);
-			return true;
-		}
+		List<Receipt> receipt=receiptRepository.findReceiptsByCart(cart);
+		for(int i=0; i<receipt.size(); i++) {
+			receiptService.deleteReceipt(receipt.get(i).getReceiptNum());
+		}	
+		cartRepository.delete(cart);
+		return cart;
 	}
 
 	/**

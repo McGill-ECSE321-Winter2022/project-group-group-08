@@ -63,9 +63,9 @@ public class CartRestController {
 	}
 	
 	@DeleteMapping(value = {"/cart/delete/{id}", "/cart/delete/{id}/"})
-	public boolean deleteCart(@PathVariable("car") int id) {
-		boolean deleted = cartService.deleteCartbyID(id);
-		return deleted;
+	public Cart deleteCart(@PathVariable("car") int id) {
+		Cart cart = cartService.deleteCartbyID(id);
+		return cart;
 	}
 
 	private CartDto convertToDto(Cart c) {

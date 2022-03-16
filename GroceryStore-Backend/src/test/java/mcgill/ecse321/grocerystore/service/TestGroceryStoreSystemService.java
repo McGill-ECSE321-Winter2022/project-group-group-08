@@ -1,9 +1,5 @@
 package mcgill.ecse321.grocerystore.service;
 import static org.mockito.Mockito.lenient;
-
-import static org.junit.jupiter.api.Assertions.fail;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -202,24 +198,49 @@ public class TestGroceryStoreSystemService {
 	@Test
 	public void testDeleteGrocery() {
 		GroceryStoreSystem currSystem = groceryService.createGroceryStoreSystem("a", "a", 0);
-		
-		assertTrue(groceryService.deleteGroceryStoreSystem(currSystem));
+		        try {
+		         currSystem = service.deleteGroceryStoreSystem(currSystem);
+		        } catch (IllegalArgumentException e) {
+		         fail();
+		        }
+		        assertNotNull(currSystem);
 	}
 	
 	@Test
 	public void testDeleteGroceryWithNull() {
-		
-		assertFalse(groceryService.deleteGroceryStoreSystem(null));
+		GroceryStoreSystem currSystem = null;
+        try {
+         currSystem = service.deleteGroceryStoreSystem(currSystem);
+        } catch (IllegalArgumentException e) {
+         fail();
+        }
+        assertNotNull(currSystem);
 	}
 	
 	@Test
 	public void testDeleteGroceryByStoreName() {
-		assertTrue(groceryService.deleteGroceryStoreSystemByStoreName("GStore"));
+		GroceryStoreSystem currSystem = groceryService.createGroceryStoreSystem("a", "a", 0);
+		String storeName = "a";
+        try {
+         currSystem = service.deleteGroceryStoreSystemByStoreName(storeName);
+        } catch (IllegalArgumentException e) {
+         fail();
+        }
+        assertNotNull(currSystem);
 	}
 	
 	@Test
 	public void testDeleteGroceryByStoreNameWithNull() {
-		assertFalse(groceryService.deleteGroceryStoreSystemByStoreName(null));
+		GroceryStoreSystem currSystem = groceryService.createGroceryStoreSystem("a", "a", 0);
+		String storeName = null;
+		String error = null;
+        try {
+         currSystem = service.deleteGroceryStoreSystemByStoreName(storeName);
+        } catch (IllegalArgumentException e) {
+        	error = e.getMessage();
+        }
+        assertNull(currSystem);
+        assertEquals("The store name cannot be empty.", error);
 	}
 	
 	//updategrocery
