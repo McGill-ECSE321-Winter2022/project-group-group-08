@@ -24,9 +24,6 @@ public class BusinessHourService {
     //BusinessHour
     @Transactional
     public BusinessHour createBusinessHourforEmployee(int id, WeekDay day, Time startTime, Time endTime, boolean working, Employee employee){
-        if (id == 0){
-            throw new IllegalArgumentException("Business Hour id cannot be empty");
-        }
         if (day == null){
             throw new IllegalArgumentException("Week day cannot be empty");
         }
@@ -38,6 +35,12 @@ public class BusinessHourService {
         }
         if (startTime.toLocalTime().isAfter(endTime.toLocalTime())){
             throw new IllegalArgumentException("End time cannot be earlier than Start time");
+        }
+        if (startTime.toLocalTime().equals(endTime.toLocalTime())){
+            throw new IllegalArgumentException("End time cannot be the same as Start time");
+        }
+        if(employee==null) {
+        	throw new IllegalArgumentException("Employee cannot be empty");
         }
         BusinessHour businessHour = new BusinessHour();
         businessHour.setId(id);
@@ -51,9 +54,6 @@ public class BusinessHourService {
 
     @Transactional
     public BusinessHour createBusinessHourforGroceryStoreSystem(int id, WeekDay day, Time startTime, Time endTime, boolean working, GroceryStoreSystem groceryStoreSystem){
-        if (id == 0){
-            throw new IllegalArgumentException("Business Hour id cannot be empty");
-        }
         if (day == null){
             throw new IllegalArgumentException("Week day cannot be empty");
         }
@@ -65,6 +65,12 @@ public class BusinessHourService {
         }
         if (startTime.toLocalTime().isAfter(endTime.toLocalTime())){
             throw new IllegalArgumentException("End time cannot be earlier than Start time");
+        }
+        if (startTime.toLocalTime().equals(endTime.toLocalTime())){
+            throw new IllegalArgumentException("End time cannot be the same as Start time");
+        }
+        if (groceryStoreSystem==null) {
+        	throw new IllegalArgumentException("Grocery Store System cannot be empty");
         }
         BusinessHour businessHour = new BusinessHour();
         businessHour.setId(id);
@@ -83,6 +89,9 @@ public class BusinessHourService {
 	
     @Transactional
 	public BusinessHour getBusinessHoursbyID(int id){
+    	if(id<0) {
+    		throw new IllegalArgumentException("Id cannot be negative");
+    	}
         BusinessHour businesshour = businessHourRepository.findBusinessHourById(id);
         if (businesshour==null){
             throw new IllegalArgumentException("No such id " + id + " exists");
@@ -92,6 +101,9 @@ public class BusinessHourService {
 
     @Transactional
 	public List<BusinessHour> getBusinessHoursbyDay(WeekDay day){
+//    	if(day==null) {
+//    		throw new IllegalArgumentException("Day is empty");
+//    	}
         List<BusinessHour> businessHours = businessHourRepository.findBusinessHourByDay(day);
         if (businessHours == null || businessHours.isEmpty()){
             throw new IllegalArgumentException("No such business hour with weekday " + day + " exists");
@@ -109,10 +121,19 @@ public class BusinessHourService {
 	}
 
     @Transactional
-	public List<BusinessHour> getBusinessHoursbyTime(Time startTime, Time endTime){
-        List<BusinessHour> businessHours = businessHourRepository.findBusinessHourByStartTimeBetween(startTime,endTime);
+	public List<BusinessHour> getBusinessHoursbyStartTimebetween(Time startTime, Time endTime){
+        if(startTime==null) {
+        	throw new IllegalArgumentException("Start time is Empty");
+        }
+        if(endTime==null) {
+        	throw new IllegalArgumentException("End time is Empty");
+        }
+    	List<BusinessHour> businessHours = businessHourRepository.findBusinessHourByStartTimeBetween(startTime,endTime);
         if (endTime.toLocalTime().isAfter(startTime.toLocalTime())){
             throw new IllegalArgumentException("Start time is later than end time");
+        }
+        if (endTime.toLocalTime().equals(startTime.toLocalTime())){
+            throw new IllegalArgumentException("Start time cannot be the same as end time");
         }
 		return businessHours;
 	}
@@ -140,6 +161,12 @@ public class BusinessHourService {
         }
         if (startTime.toLocalTime().isAfter(endTime.toLocalTime())){
             throw new IllegalArgumentException("End time cannot be earlier than Start time");
+        }
+        if (startTime.toLocalTime().equals(endTime.toLocalTime())){
+            throw new IllegalArgumentException("End time cannot be the same as Start time");
+        }
+        if (groceryStoreSystem==null) {
+        	throw new IllegalArgumentException("Grocery store is null");
         }
         List<BusinessHour> businessHours = businessHourRepository.findBusinessHoursByGroceryStoreSystem(groceryStoreSystem);
         BusinessHour businessHour1=null;
