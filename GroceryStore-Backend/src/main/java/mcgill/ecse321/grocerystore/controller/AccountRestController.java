@@ -70,8 +70,8 @@ public class AccountRestController {
 	 * @param password new account password
 	 * @return AccountDto
 	 */
-	@PutMapping(value = { "/loginAccount/{username}", "/loginAccount/{username}/" })
-	public AccountDto loginAccount(@PathVariable("username") String username,
+	@GetMapping(value = { "/loginAccount", "/loginAccount/" })
+	public AccountDto loginAccount(@RequestParam String username,
 			@RequestParam String password) {
 		return AccountDto.convertToDto(accountService.loginAccount(username, password));
 	}
