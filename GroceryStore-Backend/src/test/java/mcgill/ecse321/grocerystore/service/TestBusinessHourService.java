@@ -373,6 +373,20 @@ public class TestBusinessHourService {
      }
     
      @Test
+     public void testCreatBusinessHourforEmployeeemployeeNull() {  
+    	 Employee employee= null;
+    	 BusinessHour businessHour = null;
+         String error = "";
+         try {
+             businessHour = service.createBusinessHourforEmployee(ID, day, startTime, endTime, working, employee);
+         } catch (IllegalArgumentException e) {
+             error = e.getMessage();
+         }
+         assertNull(businessHour);
+         assertEquals(error,"Employee cannot be empty");
+     }
+     
+     @Test
      public void testCreateBusinessHourforEmployeestartTimeNull() {  
     	 BusinessHour businessHour = null;
          Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
