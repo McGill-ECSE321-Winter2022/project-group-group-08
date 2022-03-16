@@ -22,6 +22,7 @@ import mcgill.ecse321.grocerystore.dao.BusinessHourRepository;
 import mcgill.ecse321.grocerystore.dao.EmployeeRepository;
 import mcgill.ecse321.grocerystore.dao.PersonRepository;
 import mcgill.ecse321.grocerystore.dao.UserRoleRepository;
+import mcgill.ecse321.grocerystore.model.Customer;
 import mcgill.ecse321.grocerystore.model.Employee;
 import mcgill.ecse321.grocerystore.model.Person;
 
@@ -43,6 +44,7 @@ public class TestEmployeeService {
 	private PersonService personService;
 
 	private static final int ID_KEY = 1234567;
+	private static final int INVALID_ID_KEY = -2;
 	private static final int FAKE_ID_KEY = 6666666;
 
 	@BeforeEach
@@ -76,10 +78,92 @@ public class TestEmployeeService {
 		}
 		assertNotNull(employee);
 	}
+	
+	@Test
+	public void testCreateEmployeeInvalidPerson() {
+		String error = null;
+		Employee employee = null;
+		Person person = null;
+		try {
+			employee = service.createEmployee(person);
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
+		}
+		assertNull(employee);
+		assertNull(person);
+		assertEquals("Invalid person", error);
+	}
+	
+	@Test
+	public void testCreateEmployeeInvalidPersonWithRole() {
+		String error = null;
+		Employee employee = null;
+		Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
+		try {
+			employee = service.createEmployee(person);
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
+		}
+		assertNull(employee);
+		assertEquals("Person has already been assigned a role", error);
+	}
+	
+	@Test
+	public void testUpdateEmployee() {
+		Employee employee = null;
+		Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");;
+		try {
+			employee = service.updateEmployee(ID_KEY, person);
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+		assertNotNull(employee);
+	}
+	
+	@Test
+	public void testUpdateEmployeeInvalidID() {
+		String error = null;
+		Employee employee = null;
+		Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");;
+		try {
+			employee = service.updateEmployee(INVALID_ID_KEY, person);
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
+		}
+		assertNull(employee);
+		assertEquals("Invalid id", error);
+	}
+	
+	@Test
+	public void testUpdateEmployeeInvalidPerson() {
+		String error = null;
+		Employee employee = null;
+		Person person = null;
+		try {
+			employee = service.updateEmployee(ID_KEY, person);
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
+		}
+		assertNull(employee);
+		assertEquals("Invalid person", error);
+	}
 
 	@Test
 	public void testGetExistingCustomer() {
 		assertEquals(ID_KEY, service.getEmployee(ID_KEY).getId());
+	}
+	
+	@Test
+	public void testGetExistingCustomerInvalidID() {
+		String error = null;
+		Employee employee = null;
+		try {
+			employee = service.getEmployee(INVALID_ID_KEY);
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
+		}
+		assertNull(employee);
+		assertEquals("Invalid id", error);
 	}
 
 	@Test
@@ -99,5 +183,33 @@ public class TestEmployeeService {
 		}
 		assertNotNull(employee);
 	}
+	
+	@Test
+	public void testDeleteEmployeeInvalidID() {
+		assertEquals(0, service.getAllEmployees().size());
+		String error = null;
+		Employee employee = null;
+		try {
+			employee = service.deleteEmployee(INVALID_ID_KEY);
+		} catch (InvalidInputException e) {
+			error = e.getMessage();
+		}
+		assertNull(employee);
+		assertEquals("Invalid id", error);
+	}
+	
+	@Test
+	public void testDeleteEmployeeFakeID() {
+		assertEquals(0, service.getAllEmployees().size());
+		Employee employee = null;
+		try {
+			employee = service.deleteEmployee(FAKE_ID_KEY);
+		} catch (IllegalArgumentException e) {
+			// Check that no error occurred
+			fail();
+		}
+		assertNull(employee);
+	}
+
 
 }
