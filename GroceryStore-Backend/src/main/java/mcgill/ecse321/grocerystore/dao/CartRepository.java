@@ -13,7 +13,9 @@ public interface CartRepository extends CrudRepository<Cart, Integer>{
 	Cart findCartById(int id);
 	
 	Cart findCartByAccount(Account account);
-	
+
+	List<Cart> findCartByDate(Date date);
+
 	List<Cart> findCartByDateAfter(Date date);
 	
 	List<Cart> findCartByDateBefore(Date date);

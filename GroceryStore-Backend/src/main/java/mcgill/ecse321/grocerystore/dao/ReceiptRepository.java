@@ -13,11 +13,11 @@ public interface ReceiptRepository extends CrudRepository<Receipt, Integer>{
 	
 	Receipt findReceiptByReceiptNum(int receiptNum);
 	
+	List<Receipt> findReceiptByReceiptStatus(ReceiptStatus receiptStatus);
+	
 	List<Receipt> findReceiptsByCart(Cart cart);
 	
-	Receipt findReceiptByReceiptStatus(ReceiptStatus receiptStatus);
+	List<Receipt> findReceiptByReceiptType(ReceiptType receiptType);
 	
-	Receipt findReceiptByReceiptType(ReceiptType receiptType);
-	
-	Receipt findReceiptByReceiptStatusAndReceiptType(ReceiptStatus receiptStatus, ReceiptType receiptType);
+	List<Receipt> findReceiptByReceiptStatusAndReceiptType(ReceiptStatus receiptStatus, ReceiptType receiptType);
 }

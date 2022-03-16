@@ -23,8 +23,10 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 import mcgill.ecse321.grocerystore.dao.AccountRepository;
+import mcgill.ecse321.grocerystore.dao.CartRepository;
 import mcgill.ecse321.grocerystore.dao.PersonRepository;
 import mcgill.ecse321.grocerystore.model.Account;
+import mcgill.ecse321.grocerystore.model.Cart;
 import mcgill.ecse321.grocerystore.model.Person;
 
 
@@ -36,6 +38,9 @@ public class TestAccountService {
 	
 	@Mock
 	private PersonRepository personDao;
+	
+	@Mock
+	private CartRepository cartDao;
 	
 	@InjectMocks
 	private AccountService accountService;
@@ -60,7 +65,7 @@ public class TestAccountService {
 
 	@BeforeEach
 	public void setMockOutput() {
-	    lenient().when(accountDao.findAccountByUsername(anyString())).thenAnswer( (InvocationOnMock invocation) -> {
+	    lenient().when(accountDao.findAccountByUsername(USERNAME)).thenAnswer( (InvocationOnMock invocation) -> {
 	        if(invocation.getArgument(0).equals(USERNAME)) {
 	            Account account = new Account();
 	            account.setUsername(USERNAME);
@@ -127,11 +132,14 @@ public class TestAccountService {
 	      });
 	    lenient().when(accountDao.existsById(anyString())).thenReturn(true);
 	    lenient().when(personDao.existsById(anyString())).thenReturn(true);
+	    lenient().when(cartDao.existsById(anyInt())).thenReturn(true);
 	    Answer<?> returnParameterAsAnswer = (InvocationOnMock invocation) -> {
 			return invocation.getArgument(0);
 		};
 		lenient().when(accountDao.save(any(Account.class))).thenAnswer(returnParameterAsAnswer);
 		lenient().when(personDao.save(any(Person.class))).thenAnswer(returnParameterAsAnswer);
+		lenient().when(cartDao.save(any(Cart.class))).thenAnswer(returnParameterAsAnswer);
+		
 	}
 	
 	@Test
@@ -142,7 +150,7 @@ public class TestAccountService {
 		
 		try {
 			account = accountService.createAccount(USERNAME, PASSWORD, INTOWN, TOTALPOINTS, person);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			// Check that no error occurred
 			fail();
 		}
@@ -162,7 +170,7 @@ public class TestAccountService {
 		
 		try {
 			account = accountService.createAccount("", PASSWORD, INTOWN, TOTALPOINTS, person);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(account);
@@ -178,7 +186,7 @@ public class TestAccountService {
 		
 		try {
 			account = accountService.createAccount(USERNAME, PASSWORD, INTOWN, -1, person);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(account);
@@ -194,7 +202,7 @@ public class TestAccountService {
 		
 		try {
 			account = accountService.createAccount(USERNAME, null, INTOWN, TOTALPOINTS, person);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(account);
@@ -209,7 +217,7 @@ public class TestAccountService {
 		
 		try {
 			account = accountService.updateAccount(USERNAME, NEWPASSWORD, NEWINTOWN, NEWTOTALPOINTS, person);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			// Check that no error occurred
 			fail();
 		}
@@ -229,7 +237,7 @@ public class TestAccountService {
 		
 		try {
 			account = accountService.updateAccount(USERNAME, "", NEWINTOWN, NEWTOTALPOINTS, person);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(account);
@@ -246,7 +254,7 @@ public class TestAccountService {
 		
 		try {
 			account = accountService.updateAccount(USERNAME, NEWPASSWORD, NEWINTOWN, -1, person);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(account);
@@ -260,13 +268,13 @@ public class TestAccountService {
 
 		try {
 			account = accountService.updateAccount(USERNAME, NEWPASSWORD, NEWINTOWN, NEWTOTALPOINTS, null);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(account);
 		assertEquals("Person needs to be selected for account!",error);
 	}
-	
+
 	@Test
 	public void testUpdateAccountWithInvalidUsername() {
 		Account account = null;
@@ -274,7 +282,7 @@ public class TestAccountService {
 
 		try {
 			account = accountService.updateAccount("jo", NEWPASSWORD, NEWINTOWN, NEWTOTALPOINTS, null);
-		} catch (IllegalArgumentException e) {
+		} catch (InvalidInputException e) {
 			error = e.getMessage();
 		}
 		assertNull(account);
@@ -282,16 +290,45 @@ public class TestAccountService {
 	}
 	
 	@Test
-	public void testDeleteAccount() {
-		Account account = accountService.findAccountByUsername(USERNAME);
-		
+	public void testLoginAccount() {
+		Account account = null;
 		try {
-			account = accountService.deleteAccount(account);
-		} catch (IllegalArgumentException e) {
-			// Check that no error occurred
+			account = accountService.loginAccount(USERNAME, PASSWORD);
+		}catch(InvalidInputException e) {
 			fail();
 		}
 		assertNotNull(account);
+		assertEquals(USERNAME,account.getUsername());
+		assertEquals(PASSWORD,account.getPassword());
+		assertEquals(INTOWN,account.getInTown());
+		assertEquals(TOTALPOINTS,account.getTotalPoints());
+	}
+	
+	@Test
+	public void testLoginAccountInvalidPassword() {
+		Account account = null;
+		String error = "";
+		try {
+			account = accountService.loginAccount(USERNAME, NEWPASSWORD);
+		}catch(InvalidInputException e) {
+			error = e.getMessage();
+		}
+		assertNull(account);
+		assertEquals("incorrect password : " + NEWPASSWORD,error);
+		
+	}
+	
+	@Test
+	public void testLoginAccountInvalidUsername() {
+		Account account = null;
+		String error = "";
+		try {
+			account = accountService.loginAccount("bob", PASSWORD);
+		}catch(InvalidInputException e) {
+			error = e.getMessage();
+		}
+		assertNull(account);
+		assertEquals("no account exists with this username bob",error);
 	}
 	
 	@Test
@@ -300,7 +337,7 @@ public class TestAccountService {
 		Account account = accountDao.findAccountByUsername(USERNAME);
 		try {
 			person = accountService.getPersonByAccount(account);
-		}catch(IllegalArgumentException e) {
+		}catch(InvalidInputException e) {
 			fail();
 		}
 		assertNotNull(person);
@@ -317,7 +354,7 @@ public class TestAccountService {
 		
 		try {
 			accountInTown = accountService.findAccountByInTown(true);
-		}catch(IllegalArgumentException e) {
+		}catch(InvalidInputException e) {
 			fail();
 		}
 		Account account = accountInTown.get(0);
@@ -334,7 +371,7 @@ public class TestAccountService {
 		
 		try {
 			accountInTown = accountService.findAccountByUsernameContainingIgnoreCase("bo");
-		}catch(IllegalArgumentException e) {
+		}catch(InvalidInputException e) {
 			fail();
 		}
 		Account account = accountInTown.get(0);
@@ -351,7 +388,7 @@ public class TestAccountService {
 		
 		try {
 			accountInTown = accountService.findAccountByTotalPointsBetween(0, 100);
-		}catch(IllegalArgumentException e) {
+		}catch(InvalidInputException e) {
 			fail();
 		}
 		Account account = accountInTown.get(0);
@@ -363,11 +400,24 @@ public class TestAccountService {
 	}
 	
 	@Test
+	public void testDeleteAccount() {
+		Account account = accountService.findAccountByUsername(USERNAME);
+		
+		try {
+			account = accountService.deleteAccount(account);
+		} catch (InvalidInputException e) {
+			// Check that no error occurred
+			fail();
+		}
+		assertNotNull(account);
+	}
+	
+	@Test
 	public void testDeleteAccountByUsername() {
 		Account account = null;
 		try {
 			account = accountService.deleteAccountByUsername(USERNAME);
-		}catch(IllegalArgumentException e) {
+		}catch(InvalidInputException e) {
 			fail();
 		}
 		assertNotNull(account);
@@ -378,7 +428,7 @@ public class TestAccountService {
 		Account account = null;
 		try {
 			account = accountService.deleteAccountByUsername("on");
-		}catch(IllegalArgumentException e) {
+		}catch(InvalidInputException e) {
 			fail();
 		}
 		assertNull(account);

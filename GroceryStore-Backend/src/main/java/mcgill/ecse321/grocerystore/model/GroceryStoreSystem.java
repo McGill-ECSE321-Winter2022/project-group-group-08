@@ -1,4 +1,5 @@
 package mcgill.ecse321.grocerystore.model;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -8,7 +9,6 @@ public class GroceryStoreSystem{
 	private String storeName;
 	private String address;
 	private int employeeDiscount;
-	
 	//attributes getters and setters
 	public void setStoreName(String value) {
 		this.storeName = value;

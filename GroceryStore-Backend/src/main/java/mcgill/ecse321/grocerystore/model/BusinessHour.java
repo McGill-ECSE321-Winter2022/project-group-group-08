@@ -66,4 +66,20 @@ public class BusinessHour{
 	public boolean getWorking(){
 		return working;
 	}
+
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
+	}
+
+	public Employee getEmployee() {
+		return this.employee;
+	}
+
+	public void setGroceryStoreSystem(GroceryStoreSystem groceryStoreSystem) {
+		this.groceryStoreSystem = groceryStoreSystem;
+	}
+
+	public GroceryStoreSystem getGroceryStoreSystem() {
+		return this.groceryStoreSystem;
+	}
 }

@@ -12,6 +12,9 @@ import mcgill.ecse321.grocerystore.dao.AccountRepository;
 import mcgill.ecse321.grocerystore.dao.PersonRepository;
 import mcgill.ecse321.grocerystore.dao.UserRoleRepository;
 import mcgill.ecse321.grocerystore.model.Account;
+import mcgill.ecse321.grocerystore.model.Customer;
+import mcgill.ecse321.grocerystore.model.Employee;
+import mcgill.ecse321.grocerystore.model.Manager;
 import mcgill.ecse321.grocerystore.model.Person;
 import mcgill.ecse321.grocerystore.model.UserRole;
 
@@ -22,8 +25,16 @@ public class PersonService {
 	PersonRepository personRepository;
 	@Autowired
 	AccountRepository accountRepository;
-	@Autowired 
+	@Autowired
 	UserRoleRepository userRoleRepository;
+	@Autowired
+	AccountService accountService;
+	@Autowired 
+	ManagerService managerService;
+	@Autowired 
+	EmployeeService employeeService;
+	@Autowired 
+	CustomerService customerService;
 	
 	@Transactional
 	public Person createPerson(String email, String firstName, String lastName, String phoneNumber,
@@ -38,19 +49,15 @@ public class PersonService {
 		if (lastName == null || lastName.trim().length() == 0) {
 		    error = error + "Person last name cannot be empty! ";
 		}
-		if (phoneNumber == null || phoneNumber.trim().length() == 0) {
-		    error = error + "Person phone number cannot be empty! ";
-		}
-		if(phoneNumber.length() < 10) {
-			error = error + "Person phone number cannot be less than 10 digits";
+		if (phoneNumber == null || phoneNumber.trim().length() == 0 || phoneNumber.length() < 10) {
+		    error = error + "Person phone number is invalid! ";
 		}
 		if (address == null || address.trim().length() == 0) {
-		    error = error + "Person address name cannot be empty! ";
+		    error = error + "Person address cannot be empty! ";
 		}
-		
 		error = error.trim();
 		if (error.length() > 0) {
-		    throw new IllegalArgumentException(error);
+		    throw new InvalidInputException(error);
 		}
 		Person person = new Person();
 		person.setEmail(email);
@@ -68,7 +75,7 @@ public class PersonService {
 			String address) {
 		String error = "";
 		if (email == null || email.trim().length() == 0) {
-		    error = error + "Person email cannot be empty! ";
+			throw new InvalidInputException("Person email cannot be empty!");
 		}
 		if (firstName == null || firstName.trim().length() == 0) {
 		    error = error + "Person first name cannot be empty! ";
@@ -84,11 +91,11 @@ public class PersonService {
 		}
 		Person person = personRepository.findPersonByEmail(email);
 		if(person == null) {
-			throw new IllegalArgumentException("Person with email " + email + " does not exists");
+			throw new InvalidInputException("Person with email " + email + " does not exists");
 		}
 		error = error.trim();
 		if (error.length() > 0) {
-		    throw new IllegalArgumentException(error);
+		    throw new InvalidInputException(error);
 		}
 		person.setFirstName(firstName);
 		person.setLastName(lastName);
@@ -101,7 +108,7 @@ public class PersonService {
 	@Transactional 
 	public Person findPersonByEmail(String email){
 		if (email == null || email.trim().length() == 0) {
-		    throw new IllegalArgumentException("Person email cannot be empty! ");
+		    throw new InvalidInputException("Person email cannot be empty!");
 		}else {
 			Person person = personRepository.findPersonByEmail(email);
 			return person;
@@ -138,18 +145,24 @@ public class PersonService {
 	@Transactional
 	public Person deletePerson(Person person) {
 		if (person == null) {
-			throw new IllegalArgumentException("Person does not exist.");
+			throw new InvalidInputException("Person does not exist.");
 		}else {
 			Account account = accountRepository.findAccountByPerson(person);
 			if(account != null) {
-				accountRepository.delete(account);
-//				accountService.deleteAccount(account);
-			}
-			
-			
+				accountService.deleteAccount(account);
+			}			
 			UserRole userRole = userRoleRepository.findUserRoleByPerson(person);
-//			userRoleService.deleteUserRole(userRole);
-			
+			if(userRole != null) {
+				if (userRole instanceof Manager) {
+		 			managerService.deleteManagerById(userRole.getId());
+		 		}
+		 		if (userRole instanceof Employee) {
+		 			employeeService.deleteEmployee(userRole.getId());
+		 		}
+		 		if (userRole instanceof Customer) {
+		 			customerService.deleteCustomer(userRole.getId());
+		 		}
+			}
 			personRepository.delete(person);
 			return person;
 		}
@@ -158,16 +171,28 @@ public class PersonService {
 	@Transactional
 	public Person deletePersonByEmail(String email) {
 		if (email == null || email.trim().length() == 0 || !personRepository.existsById(email)) {
-			throw new IllegalArgumentException("Person with provided email does not exist.");
+			throw new InvalidInputException("Person with provided email does not exist.");
 		}else {
 			Person person = personRepository.findPersonByEmail(email);		
 			
 			Account account = accountRepository.findAccountByPerson(person);
-			accountRepository.delete(account);
-			
+			if(account != null) {
+				accountService.deleteAccount(account);
+			}
 			UserRole userRole = userRoleRepository.findUserRoleByPerson(person);
-			userRoleRepository.delete(userRole);
-					
+			if(userRole != null) {
+				if(userRole != null) {
+					if (userRole instanceof Manager) {
+			 			managerService.deleteManagerById(userRole.getId());
+			 		}
+			 		if (userRole instanceof Employee) {
+			 			employeeService.deleteEmployee(userRole.getId());
+			 		}
+			 		if (userRole instanceof Customer) {
+			 			customerService.deleteCustomer(userRole.getId());
+			 		}
+				}
+			}
 			personRepository.delete(person);
 			return person;
 		}
