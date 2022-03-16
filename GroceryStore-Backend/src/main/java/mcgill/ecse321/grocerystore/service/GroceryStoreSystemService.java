@@ -1,5 +1,7 @@
 package mcgill.ecse321.grocerystore.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -7,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import mcgill.ecse321.grocerystore.dao.BusinessHourRepository;
 import mcgill.ecse321.grocerystore.dao.ItemRepository;
 import mcgill.ecse321.grocerystore.dao.GroceryStoreSystemRepository;
+import mcgill.ecse321.grocerystore.model.BusinessHour;
 import mcgill.ecse321.grocerystore.model.GroceryStoreSystem;
 
 
@@ -51,9 +54,9 @@ public class GroceryStoreSystemService {
 	
 	
 	@Transactional
-	public boolean deleteGroceryStoreSystem(GroceryStoreSystem groceryStoreSystem) {
+	public GroceryStoreSystem deleteGroceryStoreSystem(GroceryStoreSystem groceryStoreSystem) {
 		if (groceryStoreSystem == null) {
-			return false;
+			throw new InvalidInputException("Grocery store system cannot be empty");
 		}else {
 			List<BusinessHour> businessHours = businessHourRepository.findBusinessHoursByGroceryStoreSystem(groceryStoreSystem);
 			if(!businessHours.isEmpty()) {
@@ -62,14 +65,14 @@ public class GroceryStoreSystemService {
 			}
 			}
 			groceryStoreSystemRepository.delete(groceryStoreSystem);
-			return true;
+			return groceryStoreSystem;
 		}
 	}
 	
 	@Transactional
-	public boolean deleteGroceryStoreSystemByStoreName(String storeName) {
+	public GroceryStoreSystem deleteGroceryStoreSystemByStoreName(String storeName) {
 		if (storeName == null || storeName.trim().length() == 0 ) {
-			return false;
+			throw new IllegalArgumentException("The store name cannot be empty.");
 		}else {
 			GroceryStoreSystem groceryStoreSystem = groceryStoreSystemRepository.findGroceryStoreSystemByStoreName(storeName);
 			List<BusinessHour> businessHours = businessHourRepository.findBusinessHoursByGroceryStoreSystem(groceryStoreSystem);
@@ -79,7 +82,7 @@ public class GroceryStoreSystemService {
 			}
 			}
 			groceryStoreSystemRepository.delete(groceryStoreSystem);
-			return true;
+			return groceryStoreSystem;
 		}
 	}
 	
