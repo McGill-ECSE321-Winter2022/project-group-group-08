@@ -326,20 +326,6 @@ public class TestPersonService {
 		assertEquals(PHONENUMBER, person.getPhoneNumber());
 		assertEquals(ADDRESS, person.getAddress());				
 	}
-
-	@Test
-	public void testfindPersonByEmptyLastName() {
-		List<Person> persons = new ArrayList<Person>();
-		String error = "";
-		try {
-			persons = personService.findPersonByLastNameContainingIgnoreCase("");
-		}catch(InvalidInputException e){
-			error = e.getMessage();
-		}
-		assertEquals(0, persons.size());
-		assertEquals("Cannot search for empty lastname!",error);
-					
-	}
 	
 	@Test
 	public void testfindPersonByAddress() {

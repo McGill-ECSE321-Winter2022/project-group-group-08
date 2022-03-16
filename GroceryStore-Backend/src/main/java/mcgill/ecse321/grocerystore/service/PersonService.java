@@ -36,15 +36,6 @@ public class PersonService {
 	@Autowired 
 	CustomerService customerService;
 	
-	/**
-	 * Creates a person object
-	 * @param email primary key of person
-	 * @param firstName first name of the person
-	 * @param lastName last name of the person
-	 * @param phoneNumber phone number fo person
-	 * @param address address of person
-	 * @return created person
-	 */
 	@Transactional
 	public Person createPerson(String email, String firstName, String lastName, String phoneNumber,
 			String address) {
@@ -79,15 +70,6 @@ public class PersonService {
 	}
 	
 	@Transactional
-	/**
-	 * Updates person
-	 * @param email primary key of person
-	 * @param firstName new first name of person
-	 * @param lastName new last name of person
-	 * @param phoneNumber new phone number
-	 * @param address new address
-	 * @return updated person
-	 */
 	public Person updatePerson(String email,
 			String firstName, String lastName, String phoneNumber,
 			String address) {
@@ -123,11 +105,6 @@ public class PersonService {
 		return person;
 	}
 	
-	/**
-	 * Finds a person using email as primary key identifier
-	 * @param email primary key of person
-	 * @return person with this email
-	 */
 	@Transactional 
 	public Person findPersonByEmail(String email){
 		if (email == null || email.trim().length() == 0) {
@@ -137,66 +114,34 @@ public class PersonService {
 			return person;
 		}
 	}
-	
-	/**
-	 * Returns a list of person with their firstName containing a specific string
-	 * @param firstName the string that we are searching for
-	 * @return a list of person with their first name containing the string
-	 */
-	@Transactional 
-	public List<Person> findPersonByFirstNameContainingIgnoreCase(String firstName){
-		if(firstName == null || firstName.trim().length() == 0){
-			throw new InvalidInputException("Cannot search for empty firstname!");
-		}else{
-			List<Person> personList = new ArrayList<Person>();
-			for(Person p: personRepository.findPersonByFirstNameContainingIgnoreCase(firstName)) {
-				personList.add(p);
-			}
-			return personList;
-		}
-	}
 
-	/**
-	 * Returns a list of person with their lastName containing a specific string
-	 * @param lastName the string that we are searching for
-	 * @return a list of person with their last name containing the string
-	 */
-	@Transactional 
-	public List<Person> findPersonByLastNameContainingIgnoreCase(String lastName){
-		if(lastName== null || lastName.trim().length() == 0){
-			throw new InvalidInputException("Cannot search for empty lastname!");
-		}else{
-			List<Person> personList = new ArrayList<Person>();
-			for(Person p: personRepository.findPersonByLastNameContainingIgnoreCase(lastName)) {
-				personList.add(p);
-			}
-			return personList;
-		}
-	}
-
-	/**
-	 * Returns a list of person with their address containing a specific string
-	 * @param address the string that we are searching for
-	 * @return a list of person with their address containing the string
-	 */
 	@Transactional 
 	public List<Person> findPersonByAddressContainingIgnoreCase(String address){
-		if(address == null || address.trim().length() == 0){
-			throw new InvalidInputException("Cannot search for empty address!");
-		}else{
-			List<Person> personList = new ArrayList<Person>();
-			for(Person p: personRepository.findPersonByAddressContainingIgnoreCase(address)) {
-				personList.add(p);
-			}
-			return personList;
+		List<Person> personList = new ArrayList<Person>();
+		for(Person p: personRepository.findPersonByAddressContainingIgnoreCase(address)) {
+			personList.add(p);
 		}
+		return personList;
 	}
 	
-	/**
-	 * Deletes a person and all the classes which depends on this person
-	 * @param person the person we want to delete
-	 * @return deleted person
-	 */
+	@Transactional 
+	public List<Person> findPersonByLastNameContainingIgnoreCase(String lastName){
+		List<Person> personList = new ArrayList<Person>();
+		for(Person p: personRepository.findPersonByLastNameContainingIgnoreCase(lastName)) {
+			personList.add(p);
+		}
+		return personList;
+	}
+	
+	@Transactional 
+	public List<Person> findPersonByFirstNameContainingIgnoreCase(String firstName){
+		List<Person> personList = new ArrayList<Person>();
+		for(Person p: personRepository.findPersonByFirstNameContainingIgnoreCase(firstName)) {
+			personList.add(p);
+		}
+		return personList;
+	}
+	
 	@Transactional
 	public Person deletePerson(Person person) {
 		if (person == null) {
@@ -223,11 +168,6 @@ public class PersonService {
 		}
 	}
 	
-	/**
-	 * Deletes a person associated with this email and all the classes which depends on this person
-	 * @param email primary key of person object
-	 * @return deleted person
-	 */
 	@Transactional
 	public Person deletePersonByEmail(String email) {
 		if (email == null || email.trim().length() == 0 || !personRepository.existsById(email)) {
@@ -258,9 +198,6 @@ public class PersonService {
 		}
 	}
 	
-	/**
-	 * @return returns a list of person present in the database
-	 */
 	@Transactional
 	public List<Person> getAllPerson(){
 		return toList(personRepository.findAll());

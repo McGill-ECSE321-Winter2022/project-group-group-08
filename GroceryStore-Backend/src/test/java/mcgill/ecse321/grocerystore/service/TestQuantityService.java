@@ -443,35 +443,35 @@ public class TestQuantityService {
 	
 	@Test
     public void testDeleteQuantityById() {
-		Quantity quantity = null;
+		boolean quantityDeleted = false;
         try {
-        	quantity = service.deleteQuantityById(ID);
+        	quantityDeleted = service.deleteQuantityById(ID);
         } catch (IllegalArgumentException e) {
         	fail();
         }
-        assertNotNull(quantity);
+        assertTrue(quantityDeleted);
     }
 	
 	@Test
     public void testDeleteQuantityByIdNegative() {
-		Quantity quantity = null;
+		boolean quantityDeleted = true;
         try {
-        	quantity = service.deleteQuantityById(-1);
+        	quantityDeleted = service.deleteQuantityById(-1);
         } catch (IllegalArgumentException e) {
         	fail();
         }
-        assertNull(quantity);
+        assertFalse(quantityDeleted);
     }
 	
 	@Test
     public void testDeleteQuantityByIdNotExist() {
-		Quantity quantity = null;
+		boolean quantityDeleted = true;
         try {
-        	quantity = service.deleteQuantityById(3);
+        	quantityDeleted = service.deleteQuantityById(3);
         } catch (IllegalArgumentException e) {
         	fail();
         }
-        assertNull(quantity);
+        assertFalse(quantityDeleted);
     }
 
 }

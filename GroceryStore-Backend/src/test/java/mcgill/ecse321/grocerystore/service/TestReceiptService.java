@@ -1,31 +1,41 @@
 package mcgill.ecse321.grocerystore.service;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.when;
 import java.sql.Date;
+import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.Month;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.invocation.InvocationOnMock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
 
 import mcgill.ecse321.grocerystore.dao.AccountRepository;
+import mcgill.ecse321.grocerystore.dao.CartRepository;
 import mcgill.ecse321.grocerystore.dao.PersonRepository;
 import mcgill.ecse321.grocerystore.dao.ReceiptRepository;
 import mcgill.ecse321.grocerystore.model.Account;
 import mcgill.ecse321.grocerystore.model.Cart;
+import mcgill.ecse321.grocerystore.model.Person;
 import mcgill.ecse321.grocerystore.model.Receipt;
 import mcgill.ecse321.grocerystore.model.Receipt.ReceiptStatus;
 import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
@@ -55,9 +65,13 @@ import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
  	private static int ID = 0;
  	
  	private static final String USERNAME = "Bob";
+	private static final String NEWUSERNAME = "Bob L'Eponge";
 	private static final String PASSWORD = "101";
+	private static final String NEWPASSWORD = "111";
 	private static final boolean INTOWN = true;
+	private static final boolean NEWINTOWN = false;
 	private static final int TOTALPOINTS = 0;
+	private static final int NEWTOTALPOINTS = 10;
 	
 	private static final String EMAIL = "abc@gmail.com";
 	private static final String PHONENUMBER = "1112223333";
@@ -141,8 +155,8 @@ import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
         
         Receipt curr = service.createReceipt(cart, ReceiptStatus.Processed, ReceiptType.Pickup);
         assertEquals(curr.getCart(), cart);
-		assertEquals(ReceiptStatus.Processed,curr.getReceiptStatus());
-        assertEquals(ReceiptType.Pickup, curr.getReceiptType());
+        assertEquals(curr.getReceiptStatus(), ReceiptStatus.Processed);
+        assertEquals(curr.getReceiptType(), ReceiptType.Pickup);
         
  		
  	}
@@ -162,20 +176,23 @@ import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
         
         Receipt curr = service.updateReceipt(0, ReceiptStatus.Processed, ReceiptType.Pickup, cart);
 
-        assertEquals(ReceiptStatus.Processed,curr.getReceiptStatus());
-        assertEquals(ReceiptType.Pickup, curr.getReceiptType()); 		
+        assertEquals(curr.getReceiptStatus(), ReceiptStatus.Processed);
+        assertEquals(curr.getReceiptType(), ReceiptType.Pickup);
+        
+ 		
  	}
  	@Test
  	public void testGetReceiptNum() {
  		testCreateReceipt();
  		
  		Receipt curr = service.getReceiptByReceiptNum(ID);
- 		assertEquals(ReceiptStatus.Processed,curr.getReceiptStatus());
-        assertEquals(ReceiptType.Pickup, curr.getReceiptType());
+ 		assertEquals(curr.getReceiptStatus(), ReceiptStatus.Processed);
+ 		assertEquals(curr.getReceiptType(), ReceiptType.Pickup);
  		
  	}
  	@Test
  	public void testGetReceiptInvalidNum() {
+ 		testCreateReceipt();
  		String error = "";
  		Receipt curr = null;
  		try {
@@ -183,8 +200,8 @@ import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
  		} catch (IllegalArgumentException e) {
  			error = e.getMessage();
  		}
+ 		
  		assertNull(curr);
- 		assertEquals("No receipt with that id", error);
  	}
  	
  	
@@ -206,8 +223,8 @@ import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
  		catch (IllegalArgumentException e) {
  			error = e.getMessage();
  		}
- 		assertEquals(0, receipts.size());
- 		assertEquals("There are no receipts with that status", error);
+ 		
+ 		assertEquals(error, "There are no receipts with that status");
  	}
  	
  	@Test
@@ -227,8 +244,8 @@ import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
  		catch (IllegalArgumentException e) {
  			error = e.getMessage();
  		}
- 		assertEquals(0, receipts.size()); 		
- 		assertEquals("There are no receipts with that type",error);
+ 		
+ 		assertEquals(error, "There are no receipts with that type");
  	}
  	@Test
  	public void testGetReceiptWithReceiptStatusAndReceiptType() {
@@ -247,8 +264,8 @@ import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
  		catch (IllegalArgumentException e) {
  			error = e.getMessage();
  		}
- 		assertEquals(0, receipts.size()); 		
- 		assertEquals("There are no receipts with that status and type",error);
+ 		
+ 		assertEquals(error, "There are no receipts with that status and type");
  	}
  	@Test
  	public void testGetAllReceipts() {
@@ -257,4 +274,9 @@ import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
 		Receipt receipt = receipts.get(0);
 		assertNotNull(receipt);
  	}
+ 	
+ 	
+ 	
+
+
  } 

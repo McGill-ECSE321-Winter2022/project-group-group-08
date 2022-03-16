@@ -1,5 +1,6 @@
 package mcgill.ecse321.grocerystore.dto;
 
+import mcgill.ecse321.grocerystore.model.Cart;
 import mcgill.ecse321.grocerystore.model.Receipt.ReceiptStatus;
 import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
 

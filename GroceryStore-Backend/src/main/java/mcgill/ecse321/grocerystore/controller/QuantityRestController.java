@@ -35,32 +35,27 @@ public class QuantityRestController {
 	
 	private static final String baseURL = "/quantity";
 	
-	//getting all quantities
 	@GetMapping(value = {baseURL+"/all", baseURL+"/all/"})
 	public List<QuantityDto> getAllQuantities() {
 		return quantityService.getAllQuantities().stream().map(q -> convertToDto(q)).collect(Collectors.toList());
 	}
 	
-	//getting a specific quantity with a given id
 	@GetMapping(value = {baseURL+"/{id}", baseURL+"/{id}/"})
 	public QuantityDto getQuantity(@PathVariable("id") int id) {
 		Quantity quantity = quantityService.getQuantityById(id);
 		return convertToDto(quantity);
 	}
 	
-	//getting a specific quantity with an item id
 	@GetMapping(value = {baseURL+"/itemId/{itemId}", baseURL+"/itemId/{itemId}/"})
 	public List<QuantityDto> getQuantityByItem(@PathVariable("itemId") int itemId) {
 		return quantityService.getQuantityByItemId(itemId).stream().map(q -> convertToDto(q)).collect(Collectors.toList());
 	}
 	
-	//getting a list of quantities that are associated to a cart
 	@GetMapping(value = {baseURL+"/cartId/{cartId}", baseURL+"/cartId/{cartId}/"})
 	public List<QuantityDto> getQuantityByCart(@PathVariable("cartId") int cartId) {
 		return quantityService.getQuantityByCartId(cartId).stream().map(q -> convertToDto(q)).collect(Collectors.toList());
 	}
 	
-	//adding a new quantity
 	@PostMapping(value = {baseURL, baseURL+"/"})
 	public QuantityDto createQuantity(
 			@RequestParam(name = "count") int count,
@@ -79,7 +74,6 @@ public class QuantityRestController {
 		return convertToDto(quantity);
 	}
 	
-	//updating a quantity
 	@PatchMapping(value = {baseURL + "/update/{id}", baseURL+"/update/{id}/"})
 	public QuantityDto updateQuantity(
 			@PathVariable("id") int id,
@@ -99,7 +93,6 @@ public class QuantityRestController {
 		return convertToDto(quantity);
 	}
 	
-	//deleting a  quantity
 	@DeleteMapping(value = {baseURL + "/delete/{id}", baseURL+"/delete/{id}/"})
 	public QuantityDto deleteQuantity(@PathVariable("id") int id) {
 		Quantity quantity = quantityService.getQuantityById(id);
@@ -107,7 +100,6 @@ public class QuantityRestController {
 		return convertToDto(quantity);
 	}
 	
-	//converting item to its DTO because of the MVC model
 	private QuantityDto convertToDto(Quantity quantity) {
 		if(quantity == null) {
 			throw new IllegalArgumentException("There is no such quantity!");

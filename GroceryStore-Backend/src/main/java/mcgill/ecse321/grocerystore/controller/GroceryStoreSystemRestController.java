@@ -11,8 +11,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import mcgill.ecse321.grocerystore.dto.GroceryStoreSystemDto;
+import mcgill.ecse321.grocerystore.dto.ManagerDto;
 import mcgill.ecse321.grocerystore.model.GroceryStoreSystem;
+import mcgill.ecse321.grocerystore.model.Manager;
 import mcgill.ecse321.grocerystore.service.GroceryStoreSystemService;
+import mcgill.ecse321.grocerystore.service.ManagerService;
 
 @CrossOrigin(origins = "*")
 @RestController

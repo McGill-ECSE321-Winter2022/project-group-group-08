@@ -331,30 +331,14 @@ public class TestBusinessHourService {
         assertEquals(error,"End time is Empty");
     }
 
-    @Test
-    public void testGetBusinessHourWithSameTime() {
-        List<BusinessHour> businessHour = new ArrayList<BusinessHour>();
-        String error="";
-        Time startTime=Time.valueOf("23:45:21");
-        Time endTime=Time.valueOf("23:45:21");
-        try {
-            businessHour = service.getBusinessHoursbyStartTimebetween(startTime,endTime);
-        } catch (IllegalArgumentException e) {
-            error=e.getMessage();
-        }
-        assertEquals(businessHour.size(),0);
-        assertEquals(error,"Start time cannot be the same as end time");
-    }
-    
      @Test
      public void testCreateBusinessHourforEmployee() {
          BusinessHour businessHour = null;
-         GroceryStoreSystem groceryStoreSystem= null;
          Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
          Employee employee= new Employee();
          employee.setPerson(person);
          try {
-        	 businessHour = service.createBusinessHour(ID, day, startTime, endTime, working, employee, groceryStoreSystem);
+        	 businessHour = service.createBusinessHourforEmployee(ID, day, startTime, endTime, working, employee);
          } catch (IllegalArgumentException e) {
              fail();
          }
@@ -365,14 +349,12 @@ public class TestBusinessHourService {
          assertEquals(endTime,businessHour.getEndTime());
          assertEquals(working,businessHour.getWorking());
          assertEquals(employee,businessHour.getEmployee());
-         assertEquals(groceryStoreSystem,null);
      }
 
  
      @Test
      public void testCreatBusinessHourforEmployeeDayNull() {  
     	 BusinessHour businessHour = null;
-    	 GroceryStoreSystem groceryStoreSystem= null;
          Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
          Employee employee= new Employee();
          employee.setPerson(person);
@@ -382,18 +364,31 @@ public class TestBusinessHourService {
          boolean working = true;
          String error = "";
          try {
-             businessHour = service.createBusinessHour(ID, day, startTime, endTime, working, employee,groceryStoreSystem);
+             businessHour = service.createBusinessHourforEmployee(ID, day, startTime, endTime, working, employee);
          } catch (IllegalArgumentException e) {
              error = e.getMessage();
          }
          assertNull(businessHour);
          assertEquals(error,"Week day cannot be empty");
      }
+    
+     @Test
+     public void testCreatBusinessHourforEmployeeemployeeNull() {  
+    	 Employee employee= null;
+    	 BusinessHour businessHour = null;
+         String error = "";
+         try {
+             businessHour = service.createBusinessHourforEmployee(ID, day, startTime, endTime, working, employee);
+         } catch (IllegalArgumentException e) {
+             error = e.getMessage();
+         }
+         assertNull(businessHour);
+         assertEquals(error,"Employee cannot be empty");
+     }
      
      @Test
      public void testCreateBusinessHourforEmployeestartTimeNull() {  
     	 BusinessHour businessHour = null;
-    	 GroceryStoreSystem groceryStoreSystem= null;
          Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
          Employee employee= new Employee();
          employee.setPerson(person);
@@ -403,7 +398,7 @@ public class TestBusinessHourService {
          boolean working = true;
          String error = "";
          try {
-             businessHour = service.createBusinessHour(ID, day, startTime, endTime, working, employee,groceryStoreSystem);
+             businessHour = service.createBusinessHourforEmployee(ID, day, startTime, endTime, working, employee);
          } catch (IllegalArgumentException e) {
              error = e.getMessage();
          }
@@ -414,7 +409,6 @@ public class TestBusinessHourService {
      @Test
      public void testCreateBusinessHourforEmployeeendTimeNull() {  
     	 BusinessHour businessHour = null;
-    	 GroceryStoreSystem groceryStoreSystem= null;
          Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
          Employee employee= new Employee();
          employee.setPerson(person);
@@ -424,7 +418,7 @@ public class TestBusinessHourService {
          boolean working = true;
          String error = "";
          try {
-             businessHour = service.createBusinessHour(ID, day, startTime, endTime, working, employee,groceryStoreSystem);
+             businessHour = service.createBusinessHourforEmployee(ID, day, startTime, endTime, working, employee);
          } catch (IllegalArgumentException e) {
              error = e.getMessage();
          }
@@ -435,7 +429,6 @@ public class TestBusinessHourService {
      @Test
      public void testCreateBusinessHourForEmployeeWithBadOrderTimes() {  
     	 BusinessHour businessHour = null;
-    	 GroceryStoreSystem groceryStoreSystem= null;
          Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
          Employee employee= new Employee();
          employee.setPerson(person);
@@ -445,7 +438,7 @@ public class TestBusinessHourService {
          boolean working = true;
          String error = "";
          try {
-             businessHour = service.createBusinessHour(ID, day, startTime, endTime, working, employee,groceryStoreSystem);
+             businessHour = service.createBusinessHourforEmployee(ID, day, startTime, endTime, working, employee);
          } catch (IllegalArgumentException e) {
              error = e.getMessage();
          }
@@ -456,7 +449,6 @@ public class TestBusinessHourService {
      @Test
      public void testCreateBusinessHourforEmployeeWithSameTime() {  
     	 BusinessHour businessHour = null;
-    	 GroceryStoreSystem groceryStoreSystem= null;
          Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
          Employee employee= new Employee();
          employee.setPerson(person);
@@ -466,7 +458,7 @@ public class TestBusinessHourService {
          boolean working = true;
          String error = "";
          try {
-             businessHour = service.createBusinessHour(ID, day, startTime, endTime, working, employee,groceryStoreSystem);
+             businessHour = service.createBusinessHourforEmployee(ID, day, startTime, endTime, working, employee);
          } catch (IllegalArgumentException e) {
              error = e.getMessage();
          }
@@ -476,28 +468,25 @@ public class TestBusinessHourService {
 
      @Test
 	 public void createBusinessHourforEmployeeGood() {
-    	 GroceryStoreSystem groceryStoreSystem= null;
         Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
         Employee employee= new Employee();
         employee.setPerson(person);
-		BusinessHour curr = service.createBusinessHour(2, WeekDay.Monday, Time.valueOf("18:45:20"),Time.valueOf("18:45:21"), true, employee,groceryStoreSystem);
+		BusinessHour curr = service.createBusinessHourforEmployee(2, WeekDay.Monday, Time.valueOf("18:45:20"),Time.valueOf("18:45:21"), true, employee);
 		
 	 	assertEquals(curr.getId(),2);
 	 	assertEquals(curr.getDay(), WeekDay.Monday);
 	 	assertEquals(curr.getStartTime(),Time.valueOf("18:45:20"));
 	 	assertEquals(curr.getEndTime(),Time.valueOf("18:45:21"));
         assertEquals(curr.getEmployee(),employee);
-        assertEquals(curr.getGroceryStoreSystem(),null);
 	  }
 
      //GroceryStoreSystem
     @Test
     public void testCreateBusinessHourforGroceryStoreSystem() {
         BusinessHour businessHour = null;
-        Employee employee= null;
         GroceryStoreSystem groceryStoreSystem = groceryService.createGroceryStoreSystem("a","a", 1);
         try {
-            businessHour = service.createBusinessHour(ID, day, startTime, endTime, working,employee,groceryStoreSystem);
+            businessHour = service.createBusinessHourforGroceryStoreSystem(ID, day, startTime, endTime, working,groceryStoreSystem);
         } catch (IllegalArgumentException e) {
         	fail();
         }
@@ -508,13 +497,11 @@ public class TestBusinessHourService {
         assertEquals(endTime,businessHour.getEndTime());
         assertEquals(working,businessHour.getWorking());
         assertEquals(groceryStoreSystem,businessHour.getGroceryStoreSystem());
-        assertEquals(null,businessHour.getEmployee());
     }
  
     @Test
     public void testCreatBusinessHourforGroceryStoreSystemDayNull() {  
         int id=2;
-        Employee employee= null;
         WeekDay day = null;
         Time startTime = Time.valueOf("18:45:20");
         Time endTime = Time.valueOf("18:45:20");
@@ -523,7 +510,7 @@ public class TestBusinessHourService {
         GroceryStoreSystem groceryStoreSystem = groceryService.createGroceryStoreSystem("a","a", 1);
         String error = "";
         try {
-            businessHour = service.createBusinessHour(id, day, startTime, endTime, working, employee, groceryStoreSystem);
+            businessHour = service.createBusinessHourforGroceryStoreSystem(id, day, startTime, endTime, working, groceryStoreSystem);
         } catch (IllegalArgumentException e) {
             error = e.getMessage();
         }
@@ -535,7 +522,6 @@ public class TestBusinessHourService {
     public void testCreateBusinessHourforGroceryStoreSystemstartTimeNull() {  
         int id=2;
         WeekDay day = WeekDay.Monday;
-        Employee employee=null;
         Time startTime = null;
         Time endTime = Time.valueOf("18:45:20");
         boolean working = true;
@@ -543,7 +529,7 @@ public class TestBusinessHourService {
         GroceryStoreSystem groceryStoreSystem = groceryService.createGroceryStoreSystem("a","a", 1);
         String error = "";
         try {
-            businessHour = service.createBusinessHour(id, day, startTime, endTime, working,employee, groceryStoreSystem);
+            businessHour = service.createBusinessHourforGroceryStoreSystem(id, day, startTime, endTime, working, groceryStoreSystem);
         } catch (IllegalArgumentException e) {
             error = e.getMessage();
         }
@@ -555,7 +541,6 @@ public class TestBusinessHourService {
     public void testCreateBusinessHourforGroceryStoreSystemendTimeNull() {  
         int id=2;
         WeekDay day = WeekDay.Monday;
-        Employee employee= null;
         Time startTime = Time.valueOf("18:45:20");
         Time endTime = null;
         boolean working = true;
@@ -563,7 +548,7 @@ public class TestBusinessHourService {
         GroceryStoreSystem groceryStoreSystem = groceryService.createGroceryStoreSystem("a","a", 1);
         String error = "";
         try {
-            businessHour = service.createBusinessHour(id, day, startTime, endTime, working,employee, groceryStoreSystem);
+            businessHour = service.createBusinessHourforGroceryStoreSystem(id, day, startTime, endTime, working, groceryStoreSystem);
         } catch (IllegalArgumentException e) {
             error = e.getMessage();
         }
@@ -574,7 +559,6 @@ public class TestBusinessHourService {
     @Test
     public void testCreateBusinessHourForGroceryStoreSystemWithBadOrderTimes() {  
         int id=2;
-        Employee employee= null;
         WeekDay day = WeekDay.Monday;
         Time startTime = Time.valueOf("18:45:21");
         Time endTime = Time.valueOf("18:45:20");
@@ -583,7 +567,7 @@ public class TestBusinessHourService {
         GroceryStoreSystem groceryStoreSystem = groceryService.createGroceryStoreSystem("a","a", 1);
         String error = "";
         try {
-            businessHour = service.createBusinessHour(id, day, startTime, endTime, working,employee, groceryStoreSystem);
+            businessHour = service.createBusinessHourforGroceryStoreSystem(id, day, startTime, endTime, working, groceryStoreSystem);
         } catch (IllegalArgumentException e) {
             error = e.getMessage();
         }
@@ -594,7 +578,6 @@ public class TestBusinessHourService {
     @Test
     public void testCreateBusinessHourforGroceryStoreSystemWithSameTime() {  
         int id=2;
-        Employee employee= null;
         WeekDay day = WeekDay.Monday;
         Time startTime = Time.valueOf("18:45:20");
         Time endTime = Time.valueOf("18:45:20");
@@ -603,7 +586,7 @@ public class TestBusinessHourService {
         GroceryStoreSystem groceryStoreSystem = groceryService.createGroceryStoreSystem("a","a", 1);
         String error = "";
         try {
-            businessHour = service.createBusinessHour(id, day, startTime, endTime, working,employee, groceryStoreSystem);
+            businessHour = service.createBusinessHourforGroceryStoreSystem(id, day, startTime, endTime, working, groceryStoreSystem);
         } catch (IllegalArgumentException e) {
             error = e.getMessage();
         }
@@ -614,15 +597,13 @@ public class TestBusinessHourService {
     @Test
 	public void createBusinessHourforGroceryStoreSystemGood() {
     	GroceryStoreSystem groceryStoreSystem = groceryService.createGroceryStoreSystem("a","a", 1);
-    	Employee employee= null;
-		BusinessHour curr = service.createBusinessHour(2, WeekDay.Monday, Time.valueOf("18:45:20"),Time.valueOf("18:45:21"), true,employee, groceryStoreSystem);
+		BusinessHour curr = service.createBusinessHourforGroceryStoreSystem(2, WeekDay.Monday, Time.valueOf("18:45:20"),Time.valueOf("18:45:21"), true, groceryStoreSystem);
 		
 		assertEquals(curr.getId(),2);
 		assertEquals(curr.getDay(), WeekDay.Monday);
 		assertEquals(curr.getStartTime(),Time.valueOf("18:45:20"));
 		assertEquals(curr.getEndTime(),Time.valueOf("18:45:21"));
         assertEquals(curr.getGroceryStoreSystem(), groceryStoreSystem);
-        assertEquals(curr.getEmployee(), employee);
 	}
     //updating
 	
@@ -703,25 +684,9 @@ public class TestBusinessHourService {
 	}
 	
 	@Test
-	public void testUpdateBusinessHourWithSameTimes() {
-		
-		String error = "";
-		GroceryStoreSystem currSystem = groceryService.createGroceryStoreSystem("a", "a", 0);
-		try {
-			service.updateBusinessHour(currSystem, WeekDay.Monday, Time.valueOf("18:45:20"),Time.valueOf("18:45:20"), true);
-		}
-		catch (IllegalArgumentException e){
-			error = e.getMessage();
-		}
-
-		assertEquals("End time cannot be the same as Start time", error);
-	}
-	
-	@Test
 	public void testUpdateBusinessHourGood() {
 		GroceryStoreSystem groceryStoreSystem = groceryService.createGroceryStoreSystem("a","a", 1);
-		Employee employee=null;
-		BusinessHour curr = service.createBusinessHour(2, WeekDay.Monday, Time.valueOf("18:45:20"),Time.valueOf("18:45:21"), true,employee, groceryStoreSystem);
+		BusinessHour curr = service.createBusinessHourforGroceryStoreSystem(2, WeekDay.Monday, Time.valueOf("18:45:20"),Time.valueOf("18:45:21"), true, groceryStoreSystem);
 		GroceryStoreSystem currSystem = groceryService.createGroceryStoreSystem("a", "a", 0);
 		service.updateBusinessHour(currSystem, WeekDay.Monday, Time.valueOf("18:45:20"),Time.valueOf("18:45:21"), true);
 		
