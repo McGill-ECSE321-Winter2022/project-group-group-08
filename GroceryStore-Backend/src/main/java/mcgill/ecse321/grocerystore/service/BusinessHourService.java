@@ -20,7 +20,7 @@ public class BusinessHourService {
 
     //BusinessHour
     @Transactional
-    public BusinessHour createBusinessHourforEmployee(int id, WeekDay day, Time startTime, Time endTime, boolean working, Employee employee){
+    public BusinessHour createBusinessHour(int id, WeekDay day, Time startTime, Time endTime, boolean working, Employee employee, GroceryStoreSystem groceryStoreSystem){
         if (day == null){
             throw new IllegalArgumentException("Week day cannot be empty");
         }
@@ -35,9 +35,6 @@ public class BusinessHourService {
         }
         if (startTime.toLocalTime().equals(endTime.toLocalTime())){
             throw new IllegalArgumentException("End time cannot be the same as Start time");
-        }
-        if(employee==null) {
-        	throw new IllegalArgumentException("Employee cannot be empty");
         }
         BusinessHour businessHour = new BusinessHour();
         businessHour.setId(id);
@@ -46,35 +43,6 @@ public class BusinessHourService {
         businessHour.setEndTime(endTime);
         businessHour.setWorking(working);
         businessHour.setEmployee(employee);
-        return businessHour;
-    }
-
-    @Transactional
-    public BusinessHour createBusinessHourforGroceryStoreSystem(int id, WeekDay day, Time startTime, Time endTime, boolean working, GroceryStoreSystem groceryStoreSystem){
-        if (day == null){
-            throw new IllegalArgumentException("Week day cannot be empty");
-        }
-        if (startTime == null){
-            throw new IllegalArgumentException("Start time cannot be empty");
-        }
-        if (endTime == null){
-            throw new IllegalArgumentException("End time cannot be empty");
-        }
-        if (startTime.toLocalTime().isAfter(endTime.toLocalTime())){
-            throw new IllegalArgumentException("End time cannot be earlier than Start time");
-        }
-        if (startTime.toLocalTime().equals(endTime.toLocalTime())){
-            throw new IllegalArgumentException("End time cannot be the same as Start time");
-        }
-        if (groceryStoreSystem==null) {
-        	throw new IllegalArgumentException("Grocery Store System cannot be empty");
-        }
-        BusinessHour businessHour = new BusinessHour();
-        businessHour.setId(id);
-        businessHour.setDay(day);
-        businessHour.setStartTime(startTime);
-        businessHour.setEndTime(endTime);
-        businessHour.setWorking(working);
         businessHour.setGroceryStoreSystem(groceryStoreSystem);
         return businessHour;
     }
