@@ -64,6 +64,7 @@ import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
  	
  	private static int ID = 0;
  	
+ 	//mock data for Person and Account
  	private static final String USERNAME = "Bob";
 	private static final String NEWUSERNAME = "Bob L'Eponge";
 	private static final String PASSWORD = "101";
@@ -72,7 +73,6 @@ import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
 	private static final boolean NEWINTOWN = false;
 	private static final int TOTALPOINTS = 0;
 	private static final int NEWTOTALPOINTS = 10;
-	
 	private static final String EMAIL = "abc@gmail.com";
 	private static final String PHONENUMBER = "1112223333";
 	private static final String ADDRESS = "845 Sherbrooke St W, Montreal, Quebec H3A 0G4";
@@ -82,12 +82,15 @@ import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
 
  	@BeforeEach
  	public void setMockOutput() {
+ 		//mock data when findReceiptByReceiptNum is called
  		lenient().when(receiptDao.findReceiptByReceiptNum(anyInt())).thenAnswer( (InvocationOnMock invocation) -> {
  			if(invocation.getArgument(0).equals(ID)) {
+ 				//make new receipt
  				Receipt curr = new Receipt();
  				curr.setCart(null);
  				curr.setReceiptStatus(ReceiptStatus.Processed);
  				curr.setReceiptType(ReceiptType.Pickup);
+ 				//return the receipt
  				return curr;
  			} else {
  				return null;
@@ -97,16 +100,20 @@ import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
  			return invocation.getArgument(0);
  		};
  		lenient().when(receiptDao.save(any(Receipt.class))).thenAnswer(returnParameterAsAnswer);
- 		
+ 		//mock data when findReceiptByReceiptStatus is called
  		lenient().when(receiptDao.findReceiptByReceiptStatus(ReceiptStatus.Processed)).thenAnswer((InvocationOnMock invocation) -> {
+ 			//make a new receipt
  			Receipt curr = new Receipt();
 			curr.setCart(null);
 			curr.setReceiptStatus(ReceiptStatus.Processed);
 			curr.setReceiptType(ReceiptType.Pickup);
+			//make a new arraylist that will store the new receipt
 			ArrayList<Receipt> list = new ArrayList<Receipt>();
 			list.add(curr);
+			//return the receipt list
 			return list;
 		});
+ 		//similar to above
  		lenient().when(receiptDao.findReceiptByReceiptType(ReceiptType.Pickup)).thenAnswer((InvocationOnMock invocation) -> {
  			Receipt curr = new Receipt();
 			curr.setCart(null);
@@ -116,7 +123,7 @@ import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
 			list.add(curr);
 			return list;
 		});
- 		
+ 		//similar to above
  		lenient().when(receiptDao.findReceiptByReceiptStatusAndReceiptType(ReceiptStatus.Processed, ReceiptType.Pickup)).thenAnswer((InvocationOnMock invocation) -> {
  			Receipt curr = new Receipt();
 			curr.setCart(null);
@@ -126,7 +133,7 @@ import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
 			list.add(curr);
 			return list;
 		});
- 		
+ 		//similar to above
  		lenient().when(receiptDao.findAll()).thenAnswer((InvocationOnMock invocation) -> {
  			Receipt curr = new Receipt();
 			curr.setCart(null);
@@ -136,24 +143,26 @@ import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
 			list.add(curr);
 			return list;
 		});
- 		
- 		
+ 			
  	}
 
  	@Test
  	public void testCreateReceipt() {
- 		
+ 		//testing creating receipt
+ 		//make a new account
  		Account account = new Account();
  		account.setUsername(USERNAME);
         account.setPassword(PASSWORD);
         account.setInTown(INTOWN);
         account.setTotalPoints(TOTALPOINTS);
+        //set a person to the account
         account.setPerson(personService.createPerson(EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS));
-
+        //make a new cart
         Cart cart = new Cart();
         cart.setDate(date);
-        
+        //make a new receipt
         Receipt curr = service.createReceipt(cart, ReceiptStatus.Processed, ReceiptType.Pickup);
+        //assert that the cart is the same, and the receipt type and status are the same
         assertEquals(curr.getCart(), cart);
         assertEquals(curr.getReceiptStatus(), ReceiptStatus.Processed);
         assertEquals(curr.getReceiptType(), ReceiptType.Pickup);
@@ -163,19 +172,16 @@ import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
  	
  	@Test
  	public void testUpdateReceipt() {
- 		
+ 		//similar to above
  		Account account = new Account();
  		account.setUsername(USERNAME);
         account.setPassword(PASSWORD);
         account.setInTown(INTOWN);
         account.setTotalPoints(TOTALPOINTS);
         account.setPerson(personService.createPerson(EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS));
-        
         Cart cart = new Cart();
         cart.setDate(date);
-        
         Receipt curr = service.updateReceipt(0, ReceiptStatus.Processed, ReceiptType.Pickup, cart);
-
         assertEquals(curr.getReceiptStatus(), ReceiptStatus.Processed);
         assertEquals(curr.getReceiptType(), ReceiptType.Pickup);
         
@@ -183,8 +189,8 @@ import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
  	}
  	@Test
  	public void testGetReceiptNum() {
+ 		//create a new receipt
  		testCreateReceipt();
- 		
  		Receipt curr = service.getReceiptByReceiptNum(ID);
  		assertEquals(curr.getReceiptStatus(), ReceiptStatus.Processed);
  		assertEquals(curr.getReceiptType(), ReceiptType.Pickup);
@@ -192,6 +198,7 @@ import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
  	}
  	@Test
  	public void testGetReceiptInvalidNum() {
+ 		//create a new receipt
  		testCreateReceipt();
  		String error = "";
  		Receipt curr = null;
@@ -200,17 +207,16 @@ import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
  		} catch (IllegalArgumentException e) {
  			error = e.getMessage();
  		}
- 		
  		assertNull(curr);
  	}
- 	
- 	
  	
  	@Test
  	public void testGetReceiptWithStatus() {
  		List<Receipt> receipts = new ArrayList<Receipt>();
+ 		//set the list to all the receipts with the status
  		receipts = service.getReceiptByReceiptStatus(ReceiptStatus.Processed);
 		Receipt receipt = receipts.get(0);
+		//assert that there is a receipt
 		assertNotNull(receipt);
  	}
  	@Test
@@ -218,6 +224,7 @@ import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
  		List<Receipt> receipts = new ArrayList<Receipt>();
  		String error = "";
  		try {
+ 			//Unsuccessful since there are no receipts with that status
  			receipts = service.getReceiptByReceiptStatus(ReceiptStatus.Fullfilled);
  		}
  		catch (IllegalArgumentException e) {
@@ -229,6 +236,7 @@ import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
  	
  	@Test
  	public void testGetReceiptWithReceiptType() {
+ 		//get receipts that exist with pickup type
  		List<Receipt> receipts = new ArrayList<Receipt>();
  		receipts = service.getReceiptByReceiptType(ReceiptType.Pickup);
 		Receipt receipt = receipts.get(0);
@@ -236,6 +244,7 @@ import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
  	}
  	@Test
  	public void testGetReceiptWithBadReceiptType() {
+ 		//get all receipts that with delivery type that no receipts have
  		List<Receipt> receipts = new ArrayList<Receipt>();
  		String error = "";
  		try {
@@ -249,6 +258,7 @@ import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
  	}
  	@Test
  	public void testGetReceiptWithReceiptStatusAndReceiptType() {
+ 		//get all receipts with processed status and pickup type
  		List<Receipt> receipts = new ArrayList<Receipt>();
  		receipts = service.getReceiptByReceiptStatusAndReceiptType(ReceiptStatus.Processed, ReceiptType.Pickup);
 		Receipt receipt = receipts.get(0);
@@ -256,6 +266,7 @@ import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
  	}
  	@Test
  	public void testGetReceiptWithBadReceiptStatusAndReceiptType() {
+ 		//get all receipts with processed status and pickup type but none exist
  		List<Receipt> receipts = new ArrayList<Receipt>();
  		String error = "";
  		try {
@@ -269,6 +280,7 @@ import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
  	}
  	@Test
  	public void testGetAllReceipts() {
+ 		//get all the existing receipts
  		List<Receipt> receipts = new ArrayList<Receipt>();
  		receipts = service.getAllReceipts();
 		Receipt receipt = receipts.get(0);
