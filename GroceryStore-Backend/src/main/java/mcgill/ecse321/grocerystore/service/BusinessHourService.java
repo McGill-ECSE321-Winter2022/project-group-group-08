@@ -112,7 +112,7 @@ public class BusinessHourService {
 	}
 
     @Transactional
-	public List<BusinessHour> getBusinessHoursbyTime(Time startTime, Time endTime){
+	public List<BusinessHour> getBusinessHoursbyStartTimebetween(Time startTime, Time endTime){
         List<BusinessHour> businessHours = businessHourRepository.findBusinessHourByStartTimeBetween(startTime,endTime);
         if (endTime.toLocalTime().isAfter(startTime.toLocalTime())){
             throw new IllegalArgumentException("Start time is later than end time");

@@ -215,7 +215,7 @@ public class TestBusinessHourService {
     @Test
     public void testGetBusinessHourbyTime() {
         List<BusinessHour> businessHour = new ArrayList<BusinessHour>();
-        businessHour=service.getBusinessHoursbyTime(startTime,endTime);
+        businessHour=service.getBusinessHoursbyStartTimebetween(startTime,endTime);
         BusinessHour businesshour=businessHour.get(0);
         assertNotNull(businesshour);
     }
@@ -227,7 +227,7 @@ public class TestBusinessHourService {
         Time startTime=null;
         Time endTime=Time.valueOf("23:45:21");
         try {
-            businessHour = service.getBusinessHoursbyTime(startTime,endTime);
+            businessHour = service.getBusinessHoursbyStartTimebetween(startTime,endTime);
         } catch (IllegalArgumentException e) {
             error=e.getMessage();
         }
@@ -242,7 +242,7 @@ public class TestBusinessHourService {
         Time startTime=Time.valueOf("23:45:21");
         Time endTime=null;
         try {
-            businessHour = service.getBusinessHoursbyTime(startTime,endTime);
+            businessHour = service.getBusinessHoursbyStartTimebetween(startTime,endTime);
         } catch (IllegalArgumentException e) {
             error=e.getMessage();
         }
