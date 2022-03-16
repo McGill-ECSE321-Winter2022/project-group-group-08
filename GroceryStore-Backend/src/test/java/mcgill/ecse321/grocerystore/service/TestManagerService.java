@@ -1,6 +1,7 @@
 package mcgill.ecse321.grocerystore.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -127,6 +128,54 @@ public class TestManagerService {
 		assertNull(manager);
 		assertEquals(error,"No manager with id " + id + " exists");
 	}
+	
+	
+	@Test
+	public void testUpdateManager() {
+		Person person = personService.createPerson("email@gmail.com", "Bob", 
+				"The Builder", "111-222-3333", "123 street");
+		Manager manager = null;
+		try {
+			manager = service.updateManager(0, person);
+		} catch (IllegalArgumentException e) {
+			fail();
+		}
+		assertNotNull(manager);
+		assertEquals(0,manager.getId());
+	}
+	
+	@Test
+	public void testUpdateManagerByIdNegative() {
+		Person person = personService.createPerson("email@gmail.com", "Bob", 
+				"The Builder", "111-222-3333", "123 street");
+		Manager manager = null;
+		String error = "";
+		int id = -1;
+		try {
+			manager = service.updateManager(id, person);
+		} catch (IllegalArgumentException e) {
+			error = e.getMessage();
+		}
+		assertNull(manager);
+		assertEquals(error,"The id cannot be a negative number");
+	}
+	
+	
+	@Test
+	public void testUpdateManagerByPersonNull() {
+		Person person = null;
+		Manager manager = null;
+		String error = "";
+		int id = 0;
+		try {
+			manager = service.updateManager(id, person);
+		} catch (IllegalArgumentException e) {
+			  error=e.getMessage();
+		}
+		assertNull(manager);
+		assertEquals(error,"The person cannot be null");
+	}
+	
 	
 	@Test
 	public void testDeleteManager() {
