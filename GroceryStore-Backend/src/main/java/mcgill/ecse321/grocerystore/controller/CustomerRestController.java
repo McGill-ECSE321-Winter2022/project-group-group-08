@@ -15,10 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import mcgill.ecse321.grocerystore.dto.CustomerDto;
 import mcgill.ecse321.grocerystore.dto.PersonDto;
-import mcgill.ecse321.grocerystore.dto.QuantityDto;
 import mcgill.ecse321.grocerystore.dto.UserRoleDto;
 import mcgill.ecse321.grocerystore.model.Customer;
-import mcgill.ecse321.grocerystore.model.Quantity;
 import mcgill.ecse321.grocerystore.model.Customer.TierClass;
 import mcgill.ecse321.grocerystore.model.Person;
 import mcgill.ecse321.grocerystore.model.UserRole;

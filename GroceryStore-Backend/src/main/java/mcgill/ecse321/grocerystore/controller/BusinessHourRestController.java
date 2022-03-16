@@ -1,6 +1,5 @@
 package mcgill.ecse321.grocerystore.controller;
 
-import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import mcgill.ecse321.grocerystore.model.BusinessHour;
 import mcgill.ecse321.grocerystore.model.Employee;
 import mcgill.ecse321.grocerystore.model.GroceryStoreSystem;
-import mcgill.ecse321.grocerystore.model.UserRole;
 import mcgill.ecse321.grocerystore.model.BusinessHour.WeekDay;
 import mcgill.ecse321.grocerystore.dto.BusinessHourDto;
 import mcgill.ecse321.grocerystore.service.BusinessHourService;

@@ -7,12 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import mcgill.ecse321.grocerystore.dao.UserRoleRepository;
-import mcgill.ecse321.grocerystore.dto.CartDto;
-import mcgill.ecse321.grocerystore.dto.ItemDto;
 import mcgill.ecse321.grocerystore.dto.PersonDto;
 import mcgill.ecse321.grocerystore.dto.UserRoleDto;
 import mcgill.ecse321.grocerystore.model.UserRole;
