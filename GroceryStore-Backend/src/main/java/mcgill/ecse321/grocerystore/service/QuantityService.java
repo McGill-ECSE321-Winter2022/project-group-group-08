@@ -27,7 +27,6 @@ public class QuantityService {
 	
 	@Transactional
 	public Quantity createQuantity(int count, Item item, Cart cart) {
-		//checking for input validation
 		if(item == null) {
 			throw new IllegalArgumentException("Item cannot be null or empty");
 		}
@@ -44,19 +43,16 @@ public class QuantityService {
 	
 	@Transactional
 	public List<Quantity> getAllQuantities() {
-		//getting all items
 		return toList(quantityRepository.findAll());
 	}
 	
 	@Transactional
 	public Quantity getQuantityById(int id) {
-		//giving the user a specific error description when able to find one
 		if (id < 0) {
 			throw new IllegalArgumentException("The id cannot be a negative number");
 		}
 		Quantity quantity = quantityRepository.findQuantityById(id);
 		if(quantity == null) {
-			//telling the user that the item does not exist
 			throw new IllegalArgumentException("No quantity with  id " + id + " exists");
 		}
 		return quantity;
@@ -64,18 +60,15 @@ public class QuantityService {
 	
 	@Transactional
 	public List<Quantity> getQuantityByItemId(int itemId) {
-		//id can never be negative
 		if (itemId < 0) {
 			throw new IllegalArgumentException("The itemId cannot be a negative number");
 		}
 		Item item = itemRepository.findItemById(itemId);
 		if(item == null) {
-			//item does not exist
 			throw new IllegalArgumentException("No item found");
 		}
 		List<Quantity> quantities = quantityRepository.findQuantityByItem(item);
 		if(quantities == null) {
-			//quantity does not exist
 			throw new IllegalArgumentException("No quantity found");
 		}
 		return quantities;
@@ -83,18 +76,15 @@ public class QuantityService {
 	
 	@Transactional
 	public List<Quantity> getQuantityByCartId(int cartId) {
-		//id can never be negative
 		if (cartId < 0) {
 			throw new IllegalArgumentException("The cartId cannot be a negative number");
 		}
 		Cart cart = cartRepository.findCartById(cartId);
 		if(cart == null) {
-			//cart does not exist
 			throw new IllegalArgumentException("No cart found");
 		}
 		List<Quantity> quantities = quantityRepository.findQuantityByCart(cart);
 		if(quantities == null) {
-			//quantity does not exist
 			throw new IllegalArgumentException("No quantity found");
 		}
 		return quantities;
@@ -102,7 +92,6 @@ public class QuantityService {
 	
 	@Transactional
 	public Quantity updateQuantity(int id, int count, Item item, Cart cart) {
-		//giving the user a specific error description when able to find one
 		if (id < 0) {
 			throw new IllegalArgumentException("The id cannot be a negative number");
 		}
@@ -117,7 +106,6 @@ public class QuantityService {
 		}
 		Quantity quantity = quantityRepository.findQuantityById(id);
 		if(quantity == null) {
-			//quantity does not exist
 			throw new IllegalArgumentException("Quantity with id " + id + " does not exists");
 		}
 		quantity.setCount(count);
@@ -128,18 +116,16 @@ public class QuantityService {
 	}
 	
 	@Transactional
-	public Quantity deleteQuantityById(int id) {
-		//id can never be negative
+	public boolean deleteQuantityById(int id) {
 		if (id < 0) {
-			return null;
+			return false;
 		}else {
 			Quantity quantity = quantityRepository.findQuantityById(id);
 			if(quantity == null) {
-				//quantity does not exist
-				return null;
+				return false;
 			}
 			quantityRepository.delete(quantity);
-			return quantity;
+			return true;
 		}
 	}
 	

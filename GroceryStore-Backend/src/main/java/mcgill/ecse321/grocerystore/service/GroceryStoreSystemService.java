@@ -1,14 +1,21 @@
 package mcgill.ecse321.grocerystore.service;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import mcgill.ecse321.grocerystore.dao.BusinessHourRepository;
+import mcgill.ecse321.grocerystore.dao.ItemRepository;
 import mcgill.ecse321.grocerystore.dao.GroceryStoreSystemRepository;
 import mcgill.ecse321.grocerystore.model.BusinessHour;
+import mcgill.ecse321.grocerystore.model.BusinessHour.WeekDay;
+import mcgill.ecse321.grocerystore.model.Item;
 import mcgill.ecse321.grocerystore.model.GroceryStoreSystem;
 
 
@@ -18,9 +25,9 @@ public class GroceryStoreSystemService {
 	@Autowired
 	BusinessHourRepository businessHourRepository;
 	@Autowired
-	GroceryStoreSystemRepository groceryStoreSystemRepository;
+	ItemRepository itemRepository;
 	@Autowired
-	BusinessHourService businessHourService;
+	GroceryStoreSystemRepository groceryStoreSystemRepository;
 	
 	@Transactional
 	public GroceryStoreSystem createGroceryStoreSystem(String storeName, String address, int employeeDiscount) {
@@ -53,35 +60,23 @@ public class GroceryStoreSystemService {
 	
 	
 	@Transactional
-	public GroceryStoreSystem deleteGroceryStoreSystem(GroceryStoreSystem groceryStoreSystem) {
+	public boolean deleteGroceryStoreSystem(GroceryStoreSystem groceryStoreSystem) {
 		if (groceryStoreSystem == null) {
-			throw new InvalidInputException("Grocery store system cannot be empty");
+			return false;
 		}else {
-			List<BusinessHour> businessHours = businessHourRepository.findBusinessHoursByGroceryStoreSystem(groceryStoreSystem);
-			if(!businessHours.isEmpty()) {
-			for(int i=0; i<businessHours.size(); i++) {
-				businessHourService.deleteBusinessHourbyID(businessHours.get(i).getId());
-			}
-			}
 			groceryStoreSystemRepository.delete(groceryStoreSystem);
-			return groceryStoreSystem;
+			return true;
 		}
 	}
 	
 	@Transactional
-	public GroceryStoreSystem deleteGroceryStoreSystemByStoreName(String storeName) {
+	public boolean deleteGroceryStoreSystemByStoreName(String storeName) {
 		if (storeName == null || storeName.trim().length() == 0 ) {
-			throw new IllegalArgumentException("The store name cannot be empty.");
+			return false;
 		}else {
 			GroceryStoreSystem groceryStoreSystem = groceryStoreSystemRepository.findGroceryStoreSystemByStoreName(storeName);
-			List<BusinessHour> businessHours = businessHourRepository.findBusinessHoursByGroceryStoreSystem(groceryStoreSystem);
-			if(!businessHours.isEmpty()) {
-			for(int i=0; i<businessHours.size(); i++) {
-				businessHourService.deleteBusinessHourbyID(businessHours.get(i).getId());
-			}
-			}
 			groceryStoreSystemRepository.delete(groceryStoreSystem);
-			return groceryStoreSystem;
+			return true;
 		}
 	}
 	

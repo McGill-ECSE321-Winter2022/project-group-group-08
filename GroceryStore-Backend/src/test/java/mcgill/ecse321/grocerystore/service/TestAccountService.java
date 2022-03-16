@@ -367,14 +367,14 @@ public class TestAccountService {
 	
 	@Test
 	public void testGetAccountByUsernameContainingIgnoreCase() {
-		List<Account> accountWithUsername = new ArrayList<Account>();
+		List<Account> accountInTown = new ArrayList<Account>();
 		
 		try {
-			accountWithUsername = accountService.findAccountByUsernameContainingIgnoreCase("bo");
+			accountInTown = accountService.findAccountByUsernameContainingIgnoreCase("bo");
 		}catch(InvalidInputException e) {
 			fail();
 		}
-		Account account = accountWithUsername.get(0);
+		Account account = accountInTown.get(0);
 		assertNotNull(account);
 		assertEquals(USERNAME,account.getUsername());
 		assertEquals(PASSWORD,account.getPassword());
@@ -384,32 +384,19 @@ public class TestAccountService {
 	
 	@Test
 	public void testGetAccountByTotalPointsBetween() {
-		List<Account> accountsTotalPoints = new ArrayList<Account>();
+		List<Account> accountInTown = new ArrayList<Account>();
 		
 		try {
-			accountsTotalPoints = accountService.findAccountByTotalPointsBetween(0, 100);
+			accountInTown = accountService.findAccountByTotalPointsBetween(0, 100);
 		}catch(InvalidInputException e) {
 			fail();
 		}
-		Account account = accountsTotalPoints.get(0);
+		Account account = accountInTown.get(0);
 		assertNotNull(account);
 		assertEquals(USERNAME,account.getUsername());
 		assertEquals(PASSWORD,account.getPassword());
 		assertEquals(INTOWN,account.getInTown());
 		assertEquals(TOTALPOINTS,account.getTotalPoints());
-	}
-
-	@Test
-	public void testGetAccountByTotalPointsBetweenInvalid() {
-		List<Account> accountsTotalPoints = new ArrayList<Account>();
-		String error = "";
-		try {
-			accountsTotalPoints = accountService.findAccountByTotalPointsBetween(100, 0);
-		}catch(InvalidInputException e) {
-			error = e.getMessage();
-		}
-		assertEquals(0,accountsTotalPoints.size());
-		assertEquals("minPoint cannot be smaller than maxPoint", error);
 	}
 	
 	@Test

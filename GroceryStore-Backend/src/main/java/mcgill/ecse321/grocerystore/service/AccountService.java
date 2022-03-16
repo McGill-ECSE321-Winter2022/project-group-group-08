@@ -27,11 +27,6 @@ public class AccountService {
 	@Autowired
 	CartService cartService;
 	
-	/**
-	 * Finds person by accounts
-	 * @param account object
-	 * @return unique person linked to account
-	 */
 	@Transactional 
 	public Person getPersonByAccount(Account account) {
 		if(account == null) {
@@ -40,15 +35,7 @@ public class AccountService {
 			return accountRepository.findAccountByUsername(account.getUsername()).getPerson();
 		}
 	}
-	/**
-	 * Creates an account with its primary key username
-	 * @param username unique identifier of account
-	 * @param password password of the account
-	 * @param inTown specify whether the person is inTown or out
-	 * @param totalPoints totalPoints accummulated by account
-	 * @param person the person object which will be linked to that account
-	 * @return unique account linked to person 
-	 */
+
 	@Transactional
 	public Account createAccount(String username, String password, boolean inTown,
 			int totalPoints, Person person) {
@@ -81,15 +68,6 @@ public class AccountService {
 		return account;
 	}
 	
-	/**
-	 * Updates an account with its primary key username
-	 * @param username unique identifier of account
-	 * @param password new password of the account
-	 * @param inTown specify whether the person is inTown or out
-	 * @param totalPoints new totalPoints accummulated by account
-	 * @param person if ever it should be linked to another person but will rarely or not be used at all
-	 * @return updated account
-	 */
 	@Transactional
 	public Account updateAccount(String username, String password, boolean inTown,
 			int totalPoints, Person person) {
@@ -124,11 +102,6 @@ public class AccountService {
 		return account;
 	}
 	
-	/**
-	 * Deletes an account
-	 * @param account existing account in database
-	 * @return account
-	 */
 	@Transactional
 	public Account deleteAccount(Account account) {
 	    if(account == null) {
@@ -143,11 +116,6 @@ public class AccountService {
 		}
 	}
 	
-	/**
-	 * Deletes an account using primary key
-	 * @param username unique identifier of account
-	 * @return account
-	 */
 	@Transactional
 	public Account deleteAccountByUsername(String username) {
 	    if(!accountRepository.existsById(username)) {
@@ -163,12 +131,6 @@ public class AccountService {
 		}
 	}
 	
-	/**
-	 * Log into an account
-	 * @param username primary key of account
-	 * @param password password associated with that account
-	 * @return account
-	 */
 	@Transactional
 	public Account loginAccount(String username, String password) {
 		Account account = accountRepository.findAccountByUsername(username);
@@ -181,49 +143,24 @@ public class AccountService {
 		return account;
 	}
 	
-	/**
-	 * Returns a list of accounts with points between min and max points
-	 * @param minPoint lower bound of search
-	 * @param maxPoint upper bound of search
-	 * @return list of account
-	 */
 	@Transactional 
 	public List<Account> findAccountByTotalPointsBetween(int minPoint, int maxPoint){
-		if(minPoint > maxPoint){
-			throw new InvalidInputException("minPoint cannot be smaller than maxPoint");
-		}else{
-			List<Account> accountList = new ArrayList<Account>();
-			for(Account a: accountRepository.findAccountByTotalPointsBetween(minPoint,maxPoint)) {
-				accountList.add(a);
-			}
-			return accountList;
+		List<Account> accountList = new ArrayList<Account>();
+		for(Account a: accountRepository.findAccountByTotalPointsBetween(minPoint,maxPoint)) {
+			accountList.add(a);
 		}
-		
+		return accountList;
 	}
 	
-	/**
-	 * Returns a list of account with the username containing a word
-	 * @param word string which is being searched
-	 * @return list of account
-	 */
 	@Transactional 
-	public List<Account> findAccountByUsernameContainingIgnoreCase(String word){
-		if (word == null || word.trim().length() == 0) {
-			throw new InvalidInputException("Search word cannot be empty!");
-		}else {
-			List<Account> accountList = new ArrayList<Account>();
-			for(Account a: accountRepository.findAccountByUsernameContainingIgnoreCase(word)) {
-				accountList.add(a);
-			}
-			return accountList;
-		}	
+	public List<Account> findAccountByUsernameContainingIgnoreCase(String username){
+		List<Account> accountList = new ArrayList<Account>();
+		for(Account a: accountRepository.findAccountByUsernameContainingIgnoreCase(username)) {
+			accountList.add(a);
+		}
+		return accountList;
 	}
 	
-	/**
-	 * Returns a list of account which have their inTown variable set to the boolean passed in function
-	 * @param inTown variable to know if account is inTown or not
-	 * @return list of account
-	 */
 	@Transactional 
 	public List<Account> findAccountByInTown(boolean inTown){
 		List<Account> accountList = new ArrayList<Account>();
@@ -233,11 +170,6 @@ public class AccountService {
 		return accountList;
 	}
 	
-	/**
-	 * Returns account with this primary key username
-	 * @param username primary identifier of account
-	 * @return an account with this username
-	 */
 	@Transactional
 	public Account findAccountByUsername(String username){
 		if (username == null || username.trim().length() == 0) {
@@ -247,9 +179,6 @@ public class AccountService {
 		}
 	}
 	
-	/**
-	 * @return Returns a list of accounts in the database
-	 */
 	@Transactional
 	public List<Account> getAllAccounts(){
 		return toList(accountRepository.findAll());
