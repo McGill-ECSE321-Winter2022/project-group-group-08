@@ -1,7 +1,6 @@
 package mcgill.ecse321.grocerystore.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -22,8 +21,8 @@ import org.mockito.stubbing.Answer;
 import mcgill.ecse321.grocerystore.dao.BusinessHourRepository;
 import mcgill.ecse321.grocerystore.dao.EmployeeRepository;
 import mcgill.ecse321.grocerystore.dao.PersonRepository;
+import mcgill.ecse321.grocerystore.dao.UserRoleRepository;
 import mcgill.ecse321.grocerystore.model.Employee;
-import mcgill.ecse321.grocerystore.model.Item;
 import mcgill.ecse321.grocerystore.model.Person;
 
 @ExtendWith(MockitoExtension.class)
@@ -33,6 +32,8 @@ public class TestEmployeeService {
 	private EmployeeRepository employeeDao;
 	@Mock
 	private PersonRepository personDao;
+	@Mock
+	private UserRoleRepository userRoleDao;
 	@Mock
 	private BusinessHourRepository businessHourDao;
 

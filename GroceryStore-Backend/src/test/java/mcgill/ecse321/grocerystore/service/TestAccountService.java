@@ -65,7 +65,7 @@ public class TestAccountService {
 
 	@BeforeEach
 	public void setMockOutput() {
-	    lenient().when(accountDao.findAccountByUsername(anyString())).thenAnswer( (InvocationOnMock invocation) -> {
+	    lenient().when(accountDao.findAccountByUsername(USERNAME)).thenAnswer( (InvocationOnMock invocation) -> {
 	        if(invocation.getArgument(0).equals(USERNAME)) {
 	            Account account = new Account();
 	            account.setUsername(USERNAME);
@@ -274,7 +274,7 @@ public class TestAccountService {
 		assertNull(account);
 		assertEquals("Person needs to be selected for account!",error);
 	}
-	
+
 	@Test
 	public void testUpdateAccountWithInvalidUsername() {
 		Account account = null;
@@ -290,16 +290,45 @@ public class TestAccountService {
 	}
 	
 	@Test
-	public void testDeleteAccount() {
-		Account account = accountService.findAccountByUsername(USERNAME);
-		
+	public void testLoginAccount() {
+		Account account = null;
 		try {
-			account = accountService.deleteAccount(account);
-		} catch (InvalidInputException e) {
-			// Check that no error occurred
+			account = accountService.loginAccount(USERNAME, PASSWORD);
+		}catch(InvalidInputException e) {
 			fail();
 		}
 		assertNotNull(account);
+		assertEquals(USERNAME,account.getUsername());
+		assertEquals(PASSWORD,account.getPassword());
+		assertEquals(INTOWN,account.getInTown());
+		assertEquals(TOTALPOINTS,account.getTotalPoints());
+	}
+	
+	@Test
+	public void testLoginAccountInvalidPassword() {
+		Account account = null;
+		String error = "";
+		try {
+			account = accountService.loginAccount(USERNAME, NEWPASSWORD);
+		}catch(InvalidInputException e) {
+			error = e.getMessage();
+		}
+		assertNull(account);
+		assertEquals("incorrect password : " + NEWPASSWORD,error);
+		
+	}
+	
+	@Test
+	public void testLoginAccountInvalidUsername() {
+		Account account = null;
+		String error = "";
+		try {
+			account = accountService.loginAccount("bob", PASSWORD);
+		}catch(InvalidInputException e) {
+			error = e.getMessage();
+		}
+		assertNull(account);
+		assertEquals("no account exists with this username bob",error);
 	}
 	
 	@Test
@@ -368,6 +397,19 @@ public class TestAccountService {
 		assertEquals(PASSWORD,account.getPassword());
 		assertEquals(INTOWN,account.getInTown());
 		assertEquals(TOTALPOINTS,account.getTotalPoints());
+	}
+	
+	@Test
+	public void testDeleteAccount() {
+		Account account = accountService.findAccountByUsername(USERNAME);
+		
+		try {
+			account = accountService.deleteAccount(account);
+		} catch (InvalidInputException e) {
+			// Check that no error occurred
+			fail();
+		}
+		assertNotNull(account);
 	}
 	
 	@Test

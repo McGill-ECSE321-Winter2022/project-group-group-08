@@ -138,7 +138,7 @@ public class AccountService {
 		     throw new InvalidInputException("no account exists with this username "+ username);
 		}
 		if(!account.getPassword().equals(password)){
-		      throw new InvalidInputException("incorrect password : " + password + " ,  db password : " + account.getPassword());
+		      throw new InvalidInputException("incorrect password : " + password);
 		}
 		return account;
 	}

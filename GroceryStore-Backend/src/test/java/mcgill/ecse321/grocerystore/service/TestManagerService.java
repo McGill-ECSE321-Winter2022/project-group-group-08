@@ -1,7 +1,6 @@
 package mcgill.ecse321.grocerystore.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -25,6 +24,7 @@ import org.mockito.stubbing.Answer;
 
 import mcgill.ecse321.grocerystore.dao.ManagerRepository;
 import mcgill.ecse321.grocerystore.dao.PersonRepository;
+import mcgill.ecse321.grocerystore.dao.UserRoleRepository;
 import mcgill.ecse321.grocerystore.model.Manager;
 import mcgill.ecse321.grocerystore.model.Person;
 
@@ -33,9 +33,10 @@ public class TestManagerService {
 	
 	@Mock
 	private ManagerRepository managerDao;
-	
 	@Mock
 	private PersonRepository personDao;
+	@Mock
+	private UserRoleRepository userRoleDao;
 
 	@InjectMocks
 	private ManagerService service;
@@ -127,7 +128,6 @@ public class TestManagerService {
 		assertEquals(error,"No manager with id " + id + " exists");
 	}
 	
-	
 	@Test
 	public void testDeleteManager() {
 		Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
@@ -161,6 +161,7 @@ public class TestManagerService {
         } catch (IllegalArgumentException e) {
         	error = e.getMessage();
         }
+        assertNull(managerDeleted);
         assertEquals(error, "Negative Id");
     }
 	
@@ -174,8 +175,8 @@ public class TestManagerService {
         } catch (IllegalArgumentException e) {
         	error = e.getMessage();
         }
+        assertNull(managerDeleted);
         assertEquals(error, "No manager with that id");
-
     }
 	
 	@Test

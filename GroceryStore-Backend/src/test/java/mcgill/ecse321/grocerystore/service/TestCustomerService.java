@@ -23,6 +23,7 @@ import org.mockito.stubbing.Answer;
 
 import mcgill.ecse321.grocerystore.dao.CustomerRepository;
 import mcgill.ecse321.grocerystore.dao.PersonRepository;
+import mcgill.ecse321.grocerystore.dao.UserRoleRepository;
 import mcgill.ecse321.grocerystore.model.Customer;
 import mcgill.ecse321.grocerystore.model.Person;
 import mcgill.ecse321.grocerystore.model.Customer.TierClass;
@@ -34,6 +35,8 @@ public class TestCustomerService {
 	private CustomerRepository customerDao;
 	@Mock
 	private PersonRepository personDao;
+	@Mock
+	private UserRoleRepository userRoleDao;
 
 	@InjectMocks
 	private CustomerService service;
@@ -107,7 +110,6 @@ public class TestCustomerService {
 		Customer customer = null;
 		Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333",
 				"123 street");
-
 		try {
 			customer = service.createCustomer(person, TIER_KEY, BAN_KEY);
 		} catch (IllegalArgumentException e) {
