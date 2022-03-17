@@ -28,34 +28,62 @@ public class EmployeeRestController {
 	private EmployeeService service;
 	@Autowired
 	private PersonService personService;
-	
-	@GetMapping(value = { "/employees", "/employees/" })
-	public List<EmployeeDto> getAllEmployees() {
-		return service.getAllEmployees().stream().map(p -> convertToDto(p)).collect(Collectors.toList());
-	}
-	
-	@GetMapping(value = { "/employee/{id}", "/employee/{id}/" })
-	public EmployeeDto getEmployee(@PathVariable("id") int id) throws IllegalArgumentException {
-		return convertToDto(service.getEmployee(id));
-	}
-	
+
+	/**
+	 * Creates employee
+	 * 
+	 * @param String personEmail
+	 * @return EmployeeDto
+	 */
 	@PostMapping(value = { "/employee", "/employee/" })
 	public EmployeeDto createCustomer(@RequestParam(name = "personEmail") String personEmail) {
 		Person person = personService.findPersonByEmail(personEmail);
 		Employee employee = service.createEmployee(person);
 		return convertToDto(employee);
 	}
-	
-	@PatchMapping(value = {"/employee/update/{id}", "/employee/update/{id}/"})
-	public EmployeeDto updateEmployee(
-			@PathVariable(name = "id") int id,
-			@RequestParam(name = "personEmail") String personEmail
-			){
+
+	/**
+	 * Updates employee info
+	 * 
+	 * @param int    id
+	 * @param String personEmail
+	 * @return EmployeeDto
+	 */
+	@PatchMapping(value = { "/employee/update/{id}", "/employee/update/{id}/" })
+	public EmployeeDto updateEmployee(@PathVariable(name = "id") int id,
+			@RequestParam(name = "personEmail") String personEmail) {
 		Employee employee = service.updateEmployee(id, personService.findPersonByEmail(personEmail));
 		return convertToDto(employee);
 	}
-	
-	@DeleteMapping(value = {"/employee/delete/{id}", "/employee/delete/{id}/"})
+
+	/**
+	 * Gets employee from given id
+	 * 
+	 * @param id
+	 * @return List<EmployeeDto>
+	 */
+	@GetMapping(value = { "/employee/{id}", "/employee/{id}/" })
+	public EmployeeDto getEmployee(@PathVariable("id") int id) throws IllegalArgumentException {
+		return convertToDto(service.getEmployee(id));
+	}
+
+	/**
+	 * Gets the list of EmployeeDtos
+	 * 
+	 * @return List<EmployeeDto>
+	 */
+	@GetMapping(value = { "/allEmployees", "/allEmployees/" })
+	public List<EmployeeDto> getAllEmployees() {
+		return service.getAllEmployees().stream().map(p -> convertToDto(p)).collect(Collectors.toList());
+	}
+
+	/**
+	 * Delete employee from given id
+	 * 
+	 * @param id
+	 * @return EmployeeDto
+	 */
+	@DeleteMapping(value = { "/employee/delete/{id}", "/employee/delete/{id}/" })
 	public EmployeeDto deleteEmployee(@PathVariable("id") int id) {
 		Employee employee = service.getEmployee(id);
 		service.deleteEmployee(id);
