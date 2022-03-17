@@ -1,5 +1,7 @@
 package mcgill.ecse321.grocerystore.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -7,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import mcgill.ecse321.grocerystore.dao.BusinessHourRepository;
 import mcgill.ecse321.grocerystore.dao.ItemRepository;
 import mcgill.ecse321.grocerystore.dao.GroceryStoreSystemRepository;
+import mcgill.ecse321.grocerystore.model.BusinessHour;
 import mcgill.ecse321.grocerystore.model.GroceryStoreSystem;
 
 
@@ -16,9 +19,9 @@ public class GroceryStoreSystemService {
 	@Autowired
 	BusinessHourRepository businessHourRepository;
 	@Autowired
-	ItemRepository itemRepository;
-	@Autowired
 	GroceryStoreSystemRepository groceryStoreSystemRepository;
+	@Autowired
+	BusinessHourService businessHourService;
 	
 	@Transactional
 	public GroceryStoreSystem createGroceryStoreSystem(String storeName, String address, int employeeDiscount) {
@@ -48,14 +51,15 @@ public class GroceryStoreSystemService {
 		return groceryStoreSystem;
 	}
 	
-	
-	
-	
 	@Transactional
 	public boolean deleteGroceryStoreSystem(GroceryStoreSystem groceryStoreSystem) {
 		if (groceryStoreSystem == null) {
 			return false;
 		}else {
+			List<BusinessHour> businessHours = businessHourRepository.findBusinessHoursByGroceryStoreSystem(groceryStoreSystem);
+			for(int i=0; i<businessHours.size(); i++) {
+				businessHourService.deleteBusinessHourbyID(businessHours.get(i).getId());
+			}
 			groceryStoreSystemRepository.delete(groceryStoreSystem);
 			return true;
 		}
@@ -67,6 +71,10 @@ public class GroceryStoreSystemService {
 			return false;
 		}else {
 			GroceryStoreSystem groceryStoreSystem = groceryStoreSystemRepository.findGroceryStoreSystemByStoreName(storeName);
+			List<BusinessHour> businessHours = businessHourRepository.findBusinessHoursByGroceryStoreSystem(groceryStoreSystem);
+			for(int i=0; i<businessHours.size(); i++) {
+				businessHourService.deleteBusinessHourbyID(businessHours.get(i).getId());
+			}
 			groceryStoreSystemRepository.delete(groceryStoreSystem);
 			return true;	
 		}
