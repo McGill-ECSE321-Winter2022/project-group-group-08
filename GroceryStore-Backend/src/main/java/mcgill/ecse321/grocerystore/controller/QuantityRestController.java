@@ -35,27 +35,52 @@ public class QuantityRestController {
 	
 	private static final String baseURL = "/quantity";
 	
+	/**
+	 * @return list of all quantities
+	 */
 	@GetMapping(value = {baseURL+"/all", baseURL+"/all/"})
 	public List<QuantityDto> getAllQuantities() {
 		return quantityService.getAllQuantities().stream().map(q -> convertToDto(q)).collect(Collectors.toList());
 	}
 	
+	/**
+	 * Gets quantity
+	 * @param id primary key
+	 * @return quantity
+	 */
 	@GetMapping(value = {baseURL+"/{id}", baseURL+"/{id}/"})
 	public QuantityDto getQuantity(@PathVariable("id") int id) {
 		Quantity quantity = quantityService.getQuantityById(id);
 		return convertToDto(quantity);
 	}
 	
+	/**
+	 * Return list of quantities associated with that item
+	 * @param itemId primary key 
+	 * @return List<Quantity>
+	 */
 	@GetMapping(value = {baseURL+"/itemId/{itemId}", baseURL+"/itemId/{itemId}/"})
 	public List<QuantityDto> getQuantityByItem(@PathVariable("itemId") int itemId) {
 		return quantityService.getQuantityByItemId(itemId).stream().map(q -> convertToDto(q)).collect(Collectors.toList());
 	}
 	
+	/**
+	 * Return list of quantities associated with cart
+	 * @param cartId cart associated with quantities
+	 * @return List<Quantity>
+	 */
 	@GetMapping(value = {baseURL+"/cartId/{cartId}", baseURL+"/cartId/{cartId}/"})
 	public List<QuantityDto> getQuantityByCart(@PathVariable("cartId") int cartId) {
 		return quantityService.getQuantityByCartId(cartId).stream().map(q -> convertToDto(q)).collect(Collectors.toList());
 	}
 	
+	/**
+	 * Creates quantity 
+	 * @param count count 
+	 * @param itemId item associated with quantity 
+	 * @param cartId cart associated with quatity
+	 * @return quantity
+	 */
 	@PostMapping(value = {baseURL, baseURL+"/"})
 	public QuantityDto createQuantity(
 			@RequestParam(name = "count") int count,
@@ -74,6 +99,14 @@ public class QuantityRestController {
 		return convertToDto(quantity);
 	}
 	
+	/**
+	 * Updates quantity
+	 * @param id primary key of quantity
+	 * @param count new count 
+	 * @param itemId item associated with quantity
+	 * @param cartId cart associated with quantity
+	 * @return quantity
+	 */
 	@PatchMapping(value = {baseURL + "/update/{id}", baseURL+"/update/{id}/"})
 	public QuantityDto updateQuantity(
 			@PathVariable("id") int id,
@@ -93,6 +126,11 @@ public class QuantityRestController {
 		return convertToDto(quantity);
 	}
 	
+	/**
+	 * Deletes quantity
+	 * @param id primary key of quantity
+	 * @return quantity
+	 */
 	@DeleteMapping(value = {baseURL + "/delete/{id}", baseURL+"/delete/{id}/"})
 	public QuantityDto deleteQuantity(@PathVariable("id") int id) {
 		Quantity quantity = quantityService.getQuantityById(id);

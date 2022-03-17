@@ -21,11 +21,19 @@ public class UserRoleRestController {
 	@Autowired
 	private UserRoleService userRoleService;
 	
+	/**
+	 * @return List of user roles
+	 */
 	@GetMapping(value = { "/getAllUserRoles", "/getAllUserRoles/" })
 	public List<UserRoleDto> getAllUserRoles() {
 		return userRoleService.getAllUserRoles().stream().map(i -> convertToDto(i)).collect(Collectors.toList());
     }
 	
+	/**
+	 * get user role by id
+	 * @param id primary key 
+	 * @return userrole
+	 */
 	@GetMapping(value = {"/getRoleById/{id}","/getRoleById/{id}/" })
     public UserRoleDto getUserRoleById(@PathVariable("id") int id) {
 		UserRole userRole = userRoleService.findUserRoleById(id);
@@ -40,8 +48,4 @@ public class UserRoleRestController {
 		UserRoleDto userRoleDto = new UserRoleDto(user.getId(), PersonDto.convertToDto(user.getPerson())); //fix person
 		return userRoleDto;
 	}
-	
-	
-	
- 	
  }

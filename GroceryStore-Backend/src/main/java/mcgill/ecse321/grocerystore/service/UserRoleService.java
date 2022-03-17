@@ -16,6 +16,11 @@ public class UserRoleService {
 	@Autowired
 	private UserRoleRepository userRoleRepository;	
 	
+	/**
+	 * Returns user role
+	 * @param id primary key
+	 * @return user role
+	 */
 	@Transactional
 	public UserRole findUserRoleById (int id) {
 		if(id<0) {

@@ -36,11 +36,20 @@ public class CartRestController {
 		return convertToDto(cart);
 	}
 
+	/**
+	 * @return returns a list of cart
+	 */
 	@GetMapping(value = { "/cart/all", "/cart/all/" })
     public List<CartDto> getAllCarts(){
 		return cartService.getAllCarts().stream().map(b -> convertToDto(b)).collect(Collectors.toList());
     }
 	
+	/**
+	 * creates a cart with a date and a account linked to it
+	 * @param date date 
+	 * @param username primary key of account
+	 * @return cart
+	 */
 	@PostMapping(value = {"/cart", "/cart/"})
 	public CartDto createCart(
 			@RequestParam(name = "date") Date date,
@@ -51,6 +60,13 @@ public class CartRestController {
 		return convertToDto(cart);
 	}
 	
+	/**
+	 * update cart 
+	 * @param id primary key of cart 
+	 * @param date date of cart
+	 * @param username account linked to cart
+	 * @return cart
+	 */
 	@PatchMapping(value = {"/cart/update/{id}", "/cart/update/{id}/"})
 	public CartDto updateCart(
 			@PathVariable("id") int id,
@@ -62,6 +78,11 @@ public class CartRestController {
 		return convertToDto(cart);
 	}
 	
+	/**
+	 * Deletes a cart 
+	 * @param id primary key of cart
+	 * @return boolean 
+	 */
 	@DeleteMapping(value = {"/cart/delete/{id}", "/cart/delete/{id}/"})
 	public boolean deleteCart(@PathVariable("car") int id) {
 		boolean deleted = cartService.deleteCartbyID(id);

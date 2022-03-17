@@ -32,16 +32,32 @@ public class CustomerRestController {
 	@Autowired
 	private PersonService personService;
 	
+	/**
+	 * 
+	 * @return list of all customers
+	 */
 	@GetMapping(value = { "/customers", "/customers/" })
 	public List<CustomerDto> getAllCustomers() {
 		return service.getAllCustomers().stream().map(p -> convertToDto(p)).collect(Collectors.toList());
 	}
 	
+	/**
+	 * Returns a customer
+	 * @param id primary key of customer
+	 * @return customer
+	 */
 	@GetMapping(value = { "/customer/{id}", "/customer/{id}/" })
 	public CustomerDto getCustomer(@PathVariable("id") int id){
 		return convertToDto(service.getCustomer(id));
 	}
 	
+	/**
+	 * Create customer 
+	 * @param tierClass tier class of customer
+	 * @param ban ban status of customer
+	 * @param personEmail person object linked to customer
+	 * @return customer
+	 */
 	@PostMapping(value = { "/customer", "/customer/" })
 	public CustomerDto createCustomer(
 			@RequestParam(name = "tierClass") TierClass tierClass,
@@ -53,6 +69,14 @@ public class CustomerRestController {
 		return convertToDto(customer);
 	}
 	
+	/**
+	 * Updates a customer
+	 * @param id primary key of customer
+	 * @param tierClass new tier class of customer
+	 * @param ban new ban status
+	 * @param personEmail updates person object linked to customer
+	 * @return customer
+	 */
 	@PatchMapping(value = {"/customer/update/{id}", "/customer/update/{id}/"})
 	public CustomerDto updateCustomer(
 			@PathVariable(name = "id") int id,
@@ -64,6 +88,11 @@ public class CustomerRestController {
 		return convertToDto(customer);
 	}
 	
+	/**
+	 * Deletes customer
+	 * @param id primary key of customer
+	 * @return deleted customer
+	 */
 	@DeleteMapping(value = {"/customer/delete/{id}", "/customer/delete/{id}/"})
 	public CustomerDto deleteCustomer(@PathVariable("id") int id) {
 		Customer customer = service.getCustomer(id);

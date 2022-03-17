@@ -36,6 +36,15 @@ public class PersonService {
 	@Autowired 
 	CustomerService customerService;
 	
+	/**
+	 * Creates Person
+	 * @param email primary key of person
+	 * @param firstName first name of person
+	 * @param lastName last name of person 
+	 * @param phoneNumber phone number of person
+	 * @param address address of person
+	 * @return person
+	 */
 	@Transactional
 	public Person createPerson(String email, String firstName, String lastName, String phoneNumber,
 			String address) {
@@ -69,6 +78,15 @@ public class PersonService {
 		return person;
 	}
 	
+	/**
+	 * Updates Person
+	 * @param email primary key of person
+	 * @param firstName new first name of person
+	 * @param lastName new last name of person 
+	 * @param phoneNumber new phone number of person
+	 * @param address new address of person
+	 * @return person
+	 */
 	@Transactional
 	public Person updatePerson(String email,
 			String firstName, String lastName, String phoneNumber,
@@ -105,6 +123,11 @@ public class PersonService {
 		return person;
 	}
 	
+	/**
+	 * Gets Person by email
+	 * @param email primary identifier of person
+	 * @return person
+	 */
 	@Transactional 
 	public Person findPersonByEmail(String email){
 		if (email == null || email.trim().length() == 0) {
@@ -115,6 +138,39 @@ public class PersonService {
 		}
 	}
 
+	/**
+	 * Return list of person with first name containing string first name
+	 * @param firstName searching for this string in first name of person
+	 * @return list of person
+	 */
+	@Transactional 
+	public List<Person> findPersonByFirstNameContainingIgnoreCase(String firstName){
+		List<Person> personList = new ArrayList<Person>();
+		for(Person p: personRepository.findPersonByFirstNameContainingIgnoreCase(firstName)) {
+			personList.add(p);
+		}
+		return personList;
+	}
+
+	/**
+	 * Returns list of person with last name containing string lastName
+	 * @param lastName searching for this string in last name of person
+	 * @return list of person
+	 */
+	@Transactional 
+	public List<Person> findPersonByLastNameContainingIgnoreCase(String lastName){
+		List<Person> personList = new ArrayList<Person>();
+		for(Person p: personRepository.findPersonByLastNameContainingIgnoreCase(lastName)) {
+			personList.add(p);
+		}
+		return personList;
+	}
+
+	/**
+	 * Returns list of person with address containing string address
+	 * @param address searching for this string in address of person
+	 * @return list of person
+	 */
 	@Transactional 
 	public List<Person> findPersonByAddressContainingIgnoreCase(String address){
 		List<Person> personList = new ArrayList<Person>();
@@ -124,29 +180,17 @@ public class PersonService {
 		return personList;
 	}
 	
-	@Transactional 
-	public List<Person> findPersonByLastNameContainingIgnoreCase(String lastName){
-		List<Person> personList = new ArrayList<Person>();
-		for(Person p: personRepository.findPersonByLastNameContainingIgnoreCase(lastName)) {
-			personList.add(p);
-		}
-		return personList;
-	}
-	
-	@Transactional 
-	public List<Person> findPersonByFirstNameContainingIgnoreCase(String firstName){
-		List<Person> personList = new ArrayList<Person>();
-		for(Person p: personRepository.findPersonByFirstNameContainingIgnoreCase(firstName)) {
-			personList.add(p);
-		}
-		return personList;
-	}
-	
+	/**
+	 * Delete person
+	 * @param person person object 
+	 * @return person
+	 */
 	@Transactional
 	public Person deletePerson(Person person) {
 		if (person == null) {
 			throw new InvalidInputException("Person does not exist.");
 		}else {
+			//deletes objects associated with person
 			Account account = accountRepository.findAccountByPerson(person);
 			if(account != null) {
 				accountService.deleteAccount(account);
@@ -168,6 +212,11 @@ public class PersonService {
 		}
 	}
 	
+	/**
+	 * Deletes person by email
+	 * @param email primary key 
+	 * @return person
+	 */
 	@Transactional
 	public Person deletePersonByEmail(String email) {
 		if (email == null || email.trim().length() == 0 || !personRepository.existsById(email)) {
@@ -175,6 +224,7 @@ public class PersonService {
 		}else {
 			Person person = personRepository.findPersonByEmail(email);		
 			
+			//deletes object associated to person
 			Account account = accountRepository.findAccountByPerson(person);
 			if(account != null) {
 				accountService.deleteAccount(account);
@@ -198,6 +248,9 @@ public class PersonService {
 		}
 	}
 	
+	/**
+	 * @return list of person
+	 */
 	@Transactional
 	public List<Person> getAllPerson(){
 		return toList(personRepository.findAll());

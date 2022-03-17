@@ -29,16 +29,29 @@ public class EmployeeRestController {
 	@Autowired
 	private PersonService personService;
 	
+	/**
+	 * @return list of employees
+	 */
 	@GetMapping(value = { "/employees", "/employees/" })
 	public List<EmployeeDto> getAllEmployees() {
 		return service.getAllEmployees().stream().map(p -> convertToDto(p)).collect(Collectors.toList());
 	}
 	
+	/**
+	 * Get employee with this id
+	 * @param id primary identifier
+	 * @return employee
+	 */
 	@GetMapping(value = { "/employee/{id}", "/employee/{id}/" })
-	public EmployeeDto getEmployee(@PathVariable("id") int id) throws IllegalArgumentException {
+	public EmployeeDto getEmployee(@PathVariable("id") int id)  {
 		return convertToDto(service.getEmployee(id));
 	}
 	
+	/**
+	 * creates a employee
+	 * @param personEmail person object associated with employee
+	 * @return employee
+	 */
 	@PostMapping(value = { "/employee", "/employee/" })
 	public EmployeeDto createCustomer(@RequestParam(name = "personEmail") String personEmail) {
 		Person person = personService.findPersonByEmail(personEmail);
@@ -46,6 +59,12 @@ public class EmployeeRestController {
 		return convertToDto(employee);
 	}
 	
+	/**
+	 * updates employee
+	 * @param id primary key 
+	 * @param personEmail person associatedwith employee
+	 * @return employee
+	 */
 	@PatchMapping(value = {"/employee/update/{id}", "/employee/update/{id}/"})
 	public EmployeeDto updateEmployee(
 			@PathVariable(name = "id") int id,
@@ -55,6 +74,11 @@ public class EmployeeRestController {
 		return convertToDto(employee);
 	}
 	
+	/**
+	 * Deletes employee
+	 * @param id primary key 
+	 * @return employee
+	 */
 	@DeleteMapping(value = {"/employee/delete/{id}", "/employee/delete/{id}/"})
 	public EmployeeDto deleteEmployee(@PathVariable("id") int id) {
 		Employee employee = service.getEmployee(id);

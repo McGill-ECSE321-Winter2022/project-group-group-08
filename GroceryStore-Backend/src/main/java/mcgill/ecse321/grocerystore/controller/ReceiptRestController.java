@@ -33,10 +33,19 @@ public class ReceiptRestController {
 	private static final String baseURL = "/receipt";
 	
 	@GetMapping(value = {baseURL+"/all", baseURL+"/all/"})
+	/**
+	 * 
+	 * @return
+	 */
 	public List<ReceiptDto> getAllReceipts() {
 		return receiptService.getAllReceipts().stream().map(i -> convertToDto(i)).collect(Collectors.toList());
 	}
 	
+	/**
+	 * 
+	 * @param receiptStatus
+	 * @return
+	 */
 	@GetMapping(value = {baseURL+"/getWithStatus", baseURL+"/getWithStatus/"})
 	public List<ReceiptDto> getAllReceiptsWithStatus(
 			@RequestParam(name = "status") ReceiptStatus receiptStatus
@@ -44,12 +53,24 @@ public class ReceiptRestController {
 		return receiptService.getReceiptByReceiptStatus(receiptStatus).stream().map(i -> convertToDto(i)).collect(Collectors.toList());
 	}
 	
+	/**
+	 * 
+	 * @param receiptType
+	 * @return
+	 */
 	@GetMapping(value = {baseURL+"/getWithType", baseURL+"/getWithType/"})
 	public List<ReceiptDto> getAllReceiptsWithType(
 			@RequestParam(name = "type") ReceiptType receiptType
 			) {
 		return receiptService.getReceiptByReceiptType(receiptType).stream().map(i -> convertToDto(i)).collect(Collectors.toList());
 	}
+
+	/**
+	 * 
+	 * @param receiptStatus
+	 * @param receiptType
+	 * @return
+	 */
 	@GetMapping(value = {baseURL+"/getWithTypeAndStatus", baseURL+"/getWithTypeAndStatus/"})
 	public List<ReceiptDto> getAllReceiptsWithTypeAndStatus(
 			@RequestParam(name = "status") ReceiptStatus receiptStatus,
@@ -58,6 +79,11 @@ public class ReceiptRestController {
 		return receiptService.getReceiptByReceiptStatusAndReceiptType(receiptStatus,receiptType).stream().map(i -> convertToDto(i)).collect(Collectors.toList());
 	}
 	
+	/**
+	 * 
+	 * @param receiptnum
+	 * @return
+	 */
 	@GetMapping(value = {baseURL+"/{receiptNum}", baseURL+"/{receiptNum}/"})
 	public ReceiptDto getReceipt(@PathVariable("receiptNum") int receiptnum) {
 		
@@ -65,6 +91,13 @@ public class ReceiptRestController {
 		return convertToDto(receipt);
 	}
 	
+	/**
+	 * 
+	 * @param cartid
+	 * @param receiptStatus
+	 * @param receiptType
+	 * @return
+	 */
 	@PostMapping(value = {baseURL, baseURL+"/"})
 	public ReceiptDto createReceipt(
 		@RequestParam(name = "cartId") int cartid,
@@ -77,6 +110,14 @@ public class ReceiptRestController {
 		return convertToDto(receipt);
 	}
 	
+	/**
+	 * 
+	 * @param receiptNum
+	 * @param cartid
+	 * @param receiptStatus
+	 * @param receiptType
+	 * @return
+	 */
 	@PatchMapping(value = {baseURL + "/update/{receiptNum}", baseURL+"/update/{receiptNum}/"})
 	public ReceiptDto updateReceipt(
 			@PathVariable("receiptNum") int receiptNum,
@@ -89,6 +130,11 @@ public class ReceiptRestController {
 		return convertToDto(receipt);
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@DeleteMapping(value = {baseURL + "/delete/{id}", baseURL+"/delete/{id}/"})
 	public Boolean  deleteReceipt(@PathVariable("id") int id) { 
 		 
