@@ -22,6 +22,13 @@ public class GroceryStoreSystemService {
 	@Autowired
 	BusinessHourService businessHourService;
 	
+	/**
+	 * creating the grocery store system
+	 * @param storeName the name of the store
+	 * @param address the address of the store
+	 * @param employeeDiscount the discount all employees can have
+	 * @return
+	 */
 	@Transactional
 	public GroceryStoreSystem createGroceryStoreSystem(String storeName, String address, int employeeDiscount) {
 		if (storeName == null || storeName.trim().length() == 0) {
@@ -41,6 +48,11 @@ public class GroceryStoreSystemService {
 		return groceryStoreSystem;
 	}
 	
+	/**
+	 * getting grocery store by name
+	 * @param storeName the name of the grocery store
+	 * @return GroceryStoreSystem
+	 */
 	@Transactional
 	public GroceryStoreSystem getGroceryStoreSystem(String storeName) {
 		if (storeName == null || storeName.trim().length() == 0) {
@@ -50,6 +62,11 @@ public class GroceryStoreSystemService {
 		return groceryStoreSystem;
 	}
 	
+	/**
+	 * deleting a grocerystore system
+	 * @param groceryStoreSystem the system we want to delete
+	 * @return boolean - whether the deletion was successfull or not
+	 */
 	@Transactional
 	public boolean deleteGroceryStoreSystem(GroceryStoreSystem groceryStoreSystem) {
 		if (groceryStoreSystem == null) {
@@ -64,6 +81,11 @@ public class GroceryStoreSystemService {
 		}
 	}
 	
+	/**
+	 * deleting a grocerystore system using its name
+	 * @param storeName the name of the grocery store 
+	 * @return boolean - whether the deletion was successfull or not
+	 */
 	@Transactional
 	public boolean deleteGroceryStoreSystemByStoreName(String storeName) {
 		if (storeName == null || storeName.trim().length() == 0) {
@@ -79,6 +101,13 @@ public class GroceryStoreSystemService {
 		}
 	}
 	
+	/**
+	 * updating a grocery store system
+	 * @param storeName the store name
+	 * @param address the new address
+	 * @param employeeDiscount the new employee discount
+	 * @return GroceryStoreSystem
+	 */
 	@Transactional
 	public GroceryStoreSystem updateGroceryStoreSystem(String storeName, String address, int employeeDiscount) {
 		if(storeName == null || storeName.trim().length() == 0) {

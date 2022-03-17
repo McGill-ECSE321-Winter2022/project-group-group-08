@@ -29,7 +29,12 @@ public class CartService {
 	@Autowired
     ReceiptService receiptService;
 	
-	//Cart
+	/**
+	 * creating cart
+	 * @param date the date for the cart
+	 * @param account the account associated by cart
+	 * @return Cart
+	 */
 	@Transactional
 	public Cart createCart(Date date, Account account) {
 		if (date == null) {
@@ -45,6 +50,11 @@ public class CartService {
 		return cart;
 	}
 
+	/**
+	 * getting a specific cart with id
+	 * @param id the id associated with the cart
+	 * @return Cart
+	 */
 	@Transactional
 	public Cart getCart(int id) {
 		if(id<0) {
@@ -54,11 +64,20 @@ public class CartService {
 		return cart;
 	}
 
+	/**
+	 * getting all the carts
+	 * @return List<Cart>
+	 */
 	@Transactional
 	public List<Cart> getAllCarts() {
 		return toList(cartRepository.findAll());
 	}
 	
+	/**
+	 * getting all the cart with the same date
+	 * @param date the desired date
+	 * @return List<Cart>
+	 */
 	@Transactional
 	public List<Cart> getCartbyDate(Date date) {
 		if(date==null) {
@@ -68,6 +87,13 @@ public class CartService {
 		return cart;
 	}
 	
+	/**
+	 * updating cart
+	 * @param id the cart's id
+	 * @param date the new date
+	 * @param account the new account
+	 * @return Cart
+	 */
 	@Transactional
 	public Cart updateCart(int id, Date date, Account account) {
 		if (id < 0) {
@@ -85,6 +111,11 @@ public class CartService {
 		return cart;
 	}
 
+	/**
+	 * deleting cart with a given ID
+	 * @param id the id associated by cart
+	 * @return boolean - whether it is deleted successfully or not
+	 */
 	@Transactional
 	public boolean deleteCartbyID(int id) {
 		if(id<0){
@@ -105,6 +136,11 @@ public class CartService {
 		}
 	}
 
+	/**
+	 * deleting all the carts with the same date
+	 * @param date the desired date
+	 * @return boolean - whether it is deleted succesfully or not
+	 */
 	@Transactional
 	public boolean deleteCartbyDate(Date date) {
 		if(date==null){

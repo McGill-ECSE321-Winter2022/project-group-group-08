@@ -23,8 +23,11 @@ public class ManagerService {
 	@Autowired
 	UserRoleRepository userRoleRepository;
 	
-	
-	
+	/**
+	 * creating the manager
+	 * @param person the person associated the manager
+	 * @return Manager
+	 */
 	@Transactional 
 	public Manager createManager(Person person) {
 		if(person == null || !personRepository.existsById(person.getEmail())) {
@@ -38,11 +41,21 @@ public class ManagerService {
 		managerRepository.save(manager);
 		return manager;
 	}
+
+	/**
+	 * getting all managers
+	 * @return List<Manager>
+	 */
 	@Transactional
 	public List<Manager> getAllManagers() {
 		return toList(managerRepository.findAll());
 	}
 	
+	/**
+	 * getting manager by id
+	 * @param id the id of that manager's account
+	 * @return Manager
+	 */
 	@Transactional
 	public Manager getManager(int id) {
 		if(id < 0) {
@@ -55,6 +68,12 @@ public class ManagerService {
 		return manager;
 	}
 	
+	/**
+	 * updating the manager
+	 * @param id the manager's id
+	 * @param person the new person
+	 * @return Manager
+	 */
 	@Transactional
 	public Manager updateManager(int id, Person person) {
 		if(id < 0) {
@@ -72,6 +91,11 @@ public class ManagerService {
 		return manager;
 	}
 	
+	/**
+	 * deleting a manager
+	 * @param manager the manager we want to delete
+	 * @return boolean - whether it is deleted successfully or not
+	 */
 	@Transactional
 	public boolean deleteManager(Manager manager) {
 		if (manager == null || !managerRepository.existsById(manager.getId())) {
@@ -82,6 +106,11 @@ public class ManagerService {
 		}
 	}
 	
+	/**
+	 * deleting a manager by id
+	 * @param id the manager's id
+	 * @return Manager
+	 */
 	@Transactional
 	public Manager deleteManagerById(int id) {
 		if (id < 0) {
@@ -104,7 +133,4 @@ public class ManagerService {
 		}
 		return resultList;
 	}
-	
-	 	
-
 }
