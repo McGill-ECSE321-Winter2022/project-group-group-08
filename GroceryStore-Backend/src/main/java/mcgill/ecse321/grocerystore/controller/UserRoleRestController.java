@@ -41,8 +41,4 @@ public class UserRoleRestController {
 		UserRoleDto userRoleDto = new UserRoleDto(user.getId(), PersonDto.convertToDto(user.getPerson())); //fix person
 		return userRoleDto;
 	}
-	
-	
-	
- 	
  }

@@ -22,6 +22,13 @@ public class GroceryStoreSystemRestController {
 	private GroceryStoreSystemService groceryStoreSystemService;
 	private static final String baseURL = "/grocerystoresystem";
 	
+	/**
+	 * Creates grocery store system
+	 * @param storename primary key 
+	 * @param address address of store
+	 * @param employeeDiscount discount of store
+	 * @return grocery store system
+	 */
 	@PostMapping(value = {baseURL, baseURL+"/"})
 	public GroceryStoreSystemDto createGroceryStoreSystem(
 			@RequestParam(name = "storename") String storename,
@@ -32,12 +39,24 @@ public class GroceryStoreSystemRestController {
 		return convertToDto(groceryStoreSystem);
 	}
 	
+	/**
+	 * Gets grocery store system
+	 * @param storename primary key
+	 * @return grocery store system
+	 */
 	@GetMapping(value = {baseURL+"/{storename}", baseURL+"/{storename}/"})
 	public GroceryStoreSystemDto getGroceryStoreSystem(@PathVariable("storename")String storename) {
 		GroceryStoreSystem groceryStoreSystem = groceryStoreSystemService.getGroceryStoreSystem(storename);
 		return convertToDto(groceryStoreSystem);
 	}
 	
+	/**
+	 * Updates grocery store system
+	 * @param storename primary key 
+	 * @param address new address
+	 * @param employeeDiscount new Employee discount
+	 * @return grocery store system
+	 */
 	@PatchMapping(value = {baseURL + "/update/{storename}", baseURL+"/update/{storename}/"})
 	public GroceryStoreSystemDto updateGroceryStoreSystem(
 			@PathVariable("storename") String storename,
@@ -48,6 +67,11 @@ public class GroceryStoreSystemRestController {
 		return convertToDto(groceryStoreSystem);
 	}
 	
+	/**
+	 * Delete grocery store system
+	 * @param storename primary key of store
+	 * @return grocery store system
+	 */
 	@DeleteMapping(value = {baseURL + "/delete/{storename}", baseURL+"/delete/{storename}/"})
 	public GroceryStoreSystemDto deleteGroceryStoreSystem(@PathVariable("storename") String storename) {
 		GroceryStoreSystem groceryStoreSystem = groceryStoreSystemService.getGroceryStoreSystem(storename);

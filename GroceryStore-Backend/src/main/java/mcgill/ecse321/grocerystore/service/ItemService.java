@@ -23,6 +23,16 @@ public class ItemService {
 	@Autowired
 	private QuantityService quantityService;
 	
+	/**
+	 * creating an item
+	 * @param name the name of an item
+	 * @param price the price of an item
+	 * @param point the point the item has
+	 * @param returnPolicy the num of days the item can be returned
+	 * @param pickup whether the item can be picked up or not
+	 * @param inStoreQuantity the num of items available (inventory)
+	 * @return
+	 */
 	@Transactional
 	public Item createItem(String name, int price, int point, int returnPolicy, boolean pickup, int inStoreQuantity) {
 		if(name == null || name.strip() == ""|| name.equals("undefined")) {
@@ -51,11 +61,20 @@ public class ItemService {
 		return item;
 	}
 	
+	/**
+	 * getting all the items
+	 * @return List<Item>
+	 */
 	@Transactional
 	public List<Item> getAllItems() {
 		return toList(itemRepository.findAll());
 	}
 	
+	/**
+	 * getting the item by id
+	 * @param id the id of the item
+	 * @return Item
+	 */
 	@Transactional
 	public Item getItemById(int id) {
 		
@@ -69,6 +88,11 @@ public class ItemService {
 		return item;
 	}
 	
+	/**
+	 * getting all items containing ____
+	 * @param name the string the item name should contain
+	 * @return List<Item>
+	 */
 	@Transactional
 	public List<Item> getItemByNameContaining(String name) {
 		
@@ -82,6 +106,12 @@ public class ItemService {
 		return items;
 	}
 	
+	/**
+	 * getting all items with the prices between a given range
+	 * @param minPrice the minimum price
+	 * @param maxPrice the maximum price
+	 * @return List<Item>
+	 */
 	@Transactional
 	public List<Item> getItemByPriceBetween(int minPrice, int maxPrice) {
 		
@@ -95,6 +125,12 @@ public class ItemService {
 		return items;
 	}
 	
+	/**
+	 * getting all items with the prices between a given range
+	 * @param minPoint the minimum point
+	 * @param maxPoint the maximum point
+	 * @return List<Item>
+	 */
 	@Transactional
 	public List<Item> getItemByPointBetween(int minPoint, int maxPoint) {
 		
@@ -108,6 +144,12 @@ public class ItemService {
 		return items;
 	}
 	
+	/**
+	 * getting all items with the return policy between a given range
+	 * @param minDays the minimum return policy
+	 * @param maxDays the maximum return policy
+	 * @return
+	 */
 	@Transactional
 	public List<Item> getItemByReturnPolicyBetween(int minDays, int maxDays) {
 		
@@ -121,6 +163,11 @@ public class ItemService {
 		return items;
 	}
 	
+	/**
+	 * getting all items that is either available to be picked up, or not available to be picked up
+	 * @param pickup determining the category we want to get
+	 * @return List<Item>
+	 */
 	@Transactional
 	public List<Item> getItemByPickup(boolean pickup) {
 		
@@ -131,6 +178,12 @@ public class ItemService {
 		return items;
 	}
 	
+	/**
+	 * getting all items with the in store quantity between a given range
+	 * @param minQuantity the minimum quantity
+	 * @param maxQuantity the maximum quantity
+	 * @return List<Item>
+	 */
 	@Transactional
 	public List<Item> getItemByInStoreQuantityBetween(int minQuantity, int maxQuantity) {
 		
@@ -144,6 +197,17 @@ public class ItemService {
 		return items;
 	}
 	
+	/**
+	 * updating the item. Update could apply to either one or all attirbutes
+	 * @param id the item's id
+	 * @param name the new name of the tem
+	 * @param price the new price
+	 * @param point the new point
+	 * @param returnPolicy the new return policy
+	 * @param pickup the new pickup
+	 * @param inStoreQuantity the new in store quantity
+	 * @return
+	 */
 	@Transactional
 	public Item updateItem(int id, String name, int price, int point, int returnPolicy, boolean pickup, int inStoreQuantity) {
 		if(id < 0) {
@@ -178,6 +242,11 @@ public class ItemService {
 		return item;
 	}
 	
+	/**
+	 * deleting the item by id
+	 * @param id the id of that item
+	 * @return boolean- whether it is deleted succcessfully or not
+	 */
 	@Transactional
 	public boolean deleteItemById(int id) {
 		if (id < 0) {

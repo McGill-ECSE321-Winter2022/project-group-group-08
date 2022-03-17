@@ -25,6 +25,13 @@ public class QuantityService {
 	@Autowired
 	private CartRepository cartRepository;
 	
+	/**
+	 * Creates quantity object 
+	 * @param count count of quantity
+	 * @param item item associated to quantity
+	 * @param cart cart associated to quantity
+	 * @return quantity
+	 */
 	@Transactional
 	public Quantity createQuantity(int count, Item item, Cart cart) {
 		if(item == null) {
@@ -41,11 +48,19 @@ public class QuantityService {
 		return quantity;
 	}
 	
+	/**
+	 * @return list of quantity
+	 */
 	@Transactional
 	public List<Quantity> getAllQuantities() {
 		return toList(quantityRepository.findAll());
 	}
 	
+	/**
+	 * Gets quantity 
+	 * @param id primary key
+	 * @return quantity
+	 */
 	@Transactional
 	public Quantity getQuantityById(int id) {
 		if (id < 0) {
@@ -58,6 +73,11 @@ public class QuantityService {
 		return quantity;
 	}
 	
+	/**
+	 * Gets list of quantity associated to item
+	 * @param itemId primary key of item 
+	 * @return list of quantity
+	 */
 	@Transactional
 	public List<Quantity> getQuantityByItemId(int itemId) {
 		if (itemId < 0) {
@@ -74,6 +94,11 @@ public class QuantityService {
 		return quantities;
 	}
 	
+	/**
+	 * Get list of quantity associated to cart
+	 * @param cartId primary key of cart
+	 * @return list of quantity 
+	 */
 	@Transactional
 	public List<Quantity> getQuantityByCartId(int cartId) {
 		if (cartId < 0) {
@@ -90,6 +115,14 @@ public class QuantityService {
 		return quantities;
 	}
 	
+	/**
+	 * Updates quantity
+	 * @param id primary key of quantity
+	 * @param count new count 
+	 * @param item item associated to quantity
+	 * @param cart cart associated to quantity
+	 * @return quantity 
+	 */
 	@Transactional
 	public Quantity updateQuantity(int id, int count, Item item, Cart cart) {
 		if (id < 0) {
@@ -115,6 +148,11 @@ public class QuantityService {
 		return quantity;
 	}
 	
+	/**
+	 * Delete quantity
+	 * @param id primary key of quantity
+	 * @return quantity
+	 */
 	@Transactional
 	public Quantity deleteQuantityById(int id) {
 		if (id < 0) {

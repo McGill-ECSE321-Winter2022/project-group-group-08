@@ -34,6 +34,10 @@ public class ReceiptRestController {
 	
 	//if link/receipt/all is visited, return all the receipt transfer objects
 	@GetMapping(value = {baseURL+"/all", baseURL+"/all/"})
+	/**
+	 * 
+	 * @return
+	 */
 	public List<ReceiptDto> getAllReceipts() {
 		return receiptService.getAllReceipts().stream().map(i -> convertToDto(i)).collect(Collectors.toList());
 	}

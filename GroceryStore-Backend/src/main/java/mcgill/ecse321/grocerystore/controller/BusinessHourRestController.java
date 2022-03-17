@@ -38,17 +38,34 @@ public class BusinessHourRestController {
     @Autowired
    	private EmployeeService employeeService;
 	
+	/**
+	* @return list of business hours
+	*/  
     @GetMapping(value = { "/businesshour/all", "/businesshour/all/" })
     public List<BusinessHourDto> getAllBusinessHours(){
         return businesshourService.getAllBusinessHours().stream().map(b -> convertToDto(b)).collect(Collectors.toList());
     }
 
+	/**
+	 * Gets business hour 
+	 * @param id primary key 
+	 * @return business hour 
+	 */
 	@GetMapping(value = { "/businesshour/{id}", "/businesshour/{id}/" })
     public BusinessHourDto getBusinessHour(@PathVariable("id") int id){
         BusinessHour businessHour = businesshourService.getBusinessHoursbyID(id);
         return convertToDto(businessHour);
     }
 
+	/**
+	 * Creates a business hour for an employee
+	 * @param day day of business hour
+	 * @param working working on that day
+	 * @param employeeId primary key of employee
+	 * @param startTime start time of shift 
+	 * @param endTime end time of shift
+	 * @return business hour
+	 */
     @PostMapping(value = { "/businesshour/employee", "/businesshour/employee/" })
 	public BusinessHourDto creatBusinessHourforEmployee(
 			@RequestParam (name = "day") WeekDay day,
@@ -62,6 +79,15 @@ public class BusinessHourRestController {
 		return convertToDto(b);
 	}
 	
+	/**
+	 * Creates business hour for a grocery store 
+	 * @param day day of business hour
+	 * @param working working on that day
+	 * @param employeeId primary key of employee
+	 * @param startTime start time of shift 
+	 * @param endTime end time of shift
+	 * @return business hour
+	 */
     @PostMapping(value = { "/businesshour/groceryStoreSystem", "/businesshour/groceryStoreSystem/" })
 	public BusinessHourDto creatBusinessHourforGroceryStoreSystem( 
 			@RequestParam (name = "day") WeekDay day,
@@ -74,6 +100,17 @@ public class BusinessHourRestController {
 		return convertToDto(b);
 	}
 
+	/**
+	 * Update business hours
+	 * @param id primary ey of business hour
+	 * @param day day of business hour
+	 * @param working working on that day
+	 * @param employeeId primary key of employee
+	 * @param storeName primary key of store name 
+	 * @param startTime start time of shift 
+	 * @param endTime end time of shift
+	 * @return business hour
+	 */
     @PatchMapping(value = {"/businesshour/update/{id}", "/businesshour/update/{id}/"})
     public BusinessHourDto updateBusinessHour(
     		@PathVariable (name = "id") int id, 
@@ -95,6 +132,11 @@ public class BusinessHourRestController {
 		return convertToDto(b);
     }
 
+	/**
+	 * Deletes business hour
+	 * @param id primary key of business hour 
+	 * @return business hour
+	 */
     @DeleteMapping(value = {"/businesshour/delete/{id}", "/busineshour/delete/{id}/"})
 	public boolean deleteBusinessHour(@PathVariable("id") int id) {
 		boolean deleted = businesshourService.deleteBusinessHourbyID(id);

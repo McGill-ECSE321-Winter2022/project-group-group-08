@@ -28,12 +28,22 @@ public class ManagerRestController {
 	private PersonService personService;
 	private static final String baseURL = "/manager";
 
+	/**
+	 * gets manager
+	 * @param id primary key of manager
+	 * @return manager
+	 */
 	@GetMapping(value = {baseURL+"/{id}", baseURL+"/{id}/"})
 	public ManagerDto getManager(@PathVariable("id") int id) {
 		Manager manager = managerService.getManager(id);
 		return convertToDto(manager);
 	}
 	
+	/**
+	 * creates manager 
+	 * @param personEmail person associated to manager
+	 * @return manager
+	 */
 	@PostMapping(value = {baseURL, baseURL+"/"})
 	public ManagerDto createManager(
 			@RequestParam(name = "personEmail") String personEmail
@@ -43,6 +53,12 @@ public class ManagerRestController {
 		return convertToDto(manager);
 	}
 	
+	/**
+	 * updates manager 
+	 * @param id primary key of manager
+	 * @param personEmail person object associated with manager
+	 * @return manager
+	 */
 	@PatchMapping(value = {baseURL+"/update/{id}", baseURL+"/update/{id}/"})
 	public ManagerDto updateManager(
 			@PathVariable(name = "id") int id,
@@ -52,6 +68,11 @@ public class ManagerRestController {
 		return convertToDto(manager);
 	}
 	
+	/**
+	 * Deletes manager
+	 * @param id primary key of manager
+	 * @return manager
+	 */
 	@DeleteMapping(value = {baseURL + "/delete/{id}", baseURL+"/delete/{id}/"})
 	public ManagerDto deleteManager(@PathVariable("id") int id) {
 		Manager manager = managerService.getManager(id);
