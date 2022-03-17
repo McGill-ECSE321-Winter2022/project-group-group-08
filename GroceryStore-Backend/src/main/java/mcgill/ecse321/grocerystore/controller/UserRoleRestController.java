@@ -21,17 +21,18 @@ public class UserRoleRestController {
 	@Autowired
 	private UserRoleService userRoleService;
 	
+	//specific url gets all the existing UserRole transfer objects
 	@GetMapping(value = { "/getAllUserRoles", "/getAllUserRoles/" })
 	public List<UserRoleDto> getAllUserRoles() {
 		return userRoleService.getAllUserRoles().stream().map(i -> convertToDto(i)).collect(Collectors.toList());
     }
-	
+	//specific url returns a transfer object UserRole that matches the given id
 	@GetMapping(value = {"/getRoleById/{id}","/getRoleById/{id}/" })
     public UserRoleDto getUserRoleById(@PathVariable("id") int id) {
 		UserRole userRole = userRoleService.findUserRoleById(id);
 		return convertToDto(userRole);
     }
-	
+	//converts a UserRole instance to a transfer object UserRole
 	private UserRoleDto convertToDto(UserRole user) {
 		if(user == null) {
 			throw new IllegalArgumentException("There is no such user role!");
