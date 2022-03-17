@@ -15,18 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import mcgill.ecse321.grocerystore.dto.CustomerDto;
 import mcgill.ecse321.grocerystore.dto.PersonDto;
-import mcgill.ecse321.grocerystore.dto.UserRoleDto;
 import mcgill.ecse321.grocerystore.model.Customer;
 import mcgill.ecse321.grocerystore.model.Customer.TierClass;
 import mcgill.ecse321.grocerystore.model.Person;
-import mcgill.ecse321.grocerystore.model.UserRole;
 import mcgill.ecse321.grocerystore.service.CustomerService;
 import mcgill.ecse321.grocerystore.service.PersonService;
 
 @CrossOrigin(origins = "*")
 @RestController
 public class CustomerRestController {
-	
+
 	@Autowired
 	private CustomerService service;
 	@Autowired
@@ -59,11 +57,8 @@ public class CustomerRestController {
 	 * @return customer
 	 */
 	@PostMapping(value = { "/customer", "/customer/" })
-	public CustomerDto createCustomer(
-			@RequestParam(name = "tierClass") TierClass tierClass,
-			@RequestParam(name = "ban") boolean ban,
-			@RequestParam(name = "personEmail") String personEmail
-			){
+	public CustomerDto createCustomer(@RequestParam(name = "tierClass") TierClass tierClass,
+			@RequestParam(name = "ban") boolean ban, @RequestParam(name = "personEmail") String personEmail) {
 		Person person = personService.findPersonByEmail(personEmail);
 		Customer customer = service.createCustomer(person, tierClass, ban);
 		return convertToDto(customer);
@@ -104,17 +99,9 @@ public class CustomerRestController {
 		if (customer == null) {
 			throw new IllegalArgumentException("There is no such customer!");
 		}
-		CustomerDto customerDto = new CustomerDto(customer.getId(), PersonDto.convertToDto(customer.getPerson()),customer.getTierclass(), customer.getBan());
+		CustomerDto customerDto = new CustomerDto(customer.getId(), PersonDto.convertToDto(customer.getPerson()),
+				customer.getTierclass(), customer.getBan());
 		return customerDto;
 	}
 
-	@SuppressWarnings("unused")
-	private UserRoleDto convertToDto(UserRole role) {
-		if (role == null) {
-			throw new IllegalArgumentException("There is no such UserRole!");
-		}
-		UserRoleDto userRoleDto = new UserRoleDto();
-		return userRoleDto;
-	}
-	
 }
