@@ -35,6 +35,7 @@ public class GroceryStoreSystemService {
 		groceryStoreSystem.setStoreName(storeName);
 		groceryStoreSystem.setAddress(address);
 		groceryStoreSystem.setEmployeeDiscount(employeeDiscount);
+		groceryStoreSystemRepository.save(groceryStoreSystem);
 		return groceryStoreSystem;
 	}
 	
@@ -89,7 +90,7 @@ public class GroceryStoreSystemService {
 		groceryStoreSystem.setStoreName(storeName);
 		groceryStoreSystem.setAddress(address);;
 		groceryStoreSystem.setEmployeeDiscount(employeeDiscount);
-		//groceryStoreSystem.setOpeningHours(businessHours);
+		groceryStoreSystemRepository.save(groceryStoreSystem);
 		return groceryStoreSystem;
 	}	
 }

@@ -57,9 +57,6 @@ public class GroceryStoreSystemRestController {
 	
 
 	private GroceryStoreSystemDto convertToDto(GroceryStoreSystem groceryStoreSystem) {
-		if (groceryStoreSystem == null) {
-			throw new IllegalArgumentException("The grocery store system does not exist");
-		}
 		GroceryStoreSystemDto groceryStoreSystemDto = new GroceryStoreSystemDto(groceryStoreSystem.getStoreName(), groceryStoreSystem.getAddress(), groceryStoreSystem.getEmployeeDiscount());
 		return groceryStoreSystemDto;
 	}
