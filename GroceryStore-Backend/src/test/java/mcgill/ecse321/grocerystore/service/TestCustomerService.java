@@ -279,7 +279,6 @@ public class TestCustomerService {
 			fail();
 		}
 		Customer customer = customers.get(0);
-		System.out.println(customer.getTierclass());
 		assertNotNull(customer);
 		assertEquals(TIER_KEY, customer.getTierclass());
 		assertEquals(BAN_KEY, customer.getBan());

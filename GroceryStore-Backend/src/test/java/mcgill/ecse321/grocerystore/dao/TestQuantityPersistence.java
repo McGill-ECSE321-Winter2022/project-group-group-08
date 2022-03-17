@@ -34,6 +34,7 @@ public class TestQuantityPersistence {
 		// First, we clear the repositories to avoid exceptions due to inconsistencies
 		quantityRepository.deleteAll();
 		itemRepository.deleteAll();
+		cartRepository.deleteAll();
 	}
 
 	//creates a quantity

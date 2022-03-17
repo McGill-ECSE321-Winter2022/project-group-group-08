@@ -217,7 +217,6 @@ public class BusinessHourService {
      */
     @Transactional
     public BusinessHour updateBusinessHour(int id, GroceryStoreSystem groceryStoreSystem, Employee employee, WeekDay day, Time startTime, Time endTime, boolean working) {
-        System.out.println("employee is " + employee);
     	if(day == null) {
             throw new IllegalArgumentException("Week day cannot be empty");
         }
