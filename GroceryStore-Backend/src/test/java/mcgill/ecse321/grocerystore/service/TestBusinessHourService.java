@@ -503,7 +503,6 @@ public class TestBusinessHourService {
  
     @Test
     public void testCreatBusinessHourforGroceryStoreSystemDayNull() {  
-        int id=2;
         WeekDay day = null;
         Time startTime = Time.valueOf("18:45:20");
         Time endTime = Time.valueOf("18:45:20");
@@ -522,7 +521,6 @@ public class TestBusinessHourService {
     
     @Test
     public void testCreateBusinessHourforGroceryStoreSystemstartTimeNull() {  
-        int id=2;
         WeekDay day = WeekDay.Monday;
         Time startTime = null;
         Time endTime = Time.valueOf("18:45:20");
@@ -541,7 +539,6 @@ public class TestBusinessHourService {
  
     @Test
     public void testCreateBusinessHourforGroceryStoreSystemendTimeNull() {  
-        int id=2;
         WeekDay day = WeekDay.Monday;
         Time startTime = Time.valueOf("18:45:20");
         Time endTime = null;
@@ -560,7 +557,6 @@ public class TestBusinessHourService {
 
     @Test
     public void testCreateBusinessHourForGroceryStoreSystemWithBadOrderTimes() {  
-        int id=2;
         WeekDay day = WeekDay.Monday;
         Time startTime = Time.valueOf("18:45:21");
         Time endTime = Time.valueOf("18:45:20");
@@ -579,7 +575,6 @@ public class TestBusinessHourService {
 
     @Test
     public void testCreateBusinessHourforGroceryStoreSystemWithSameTime() {  
-        int id=2;
         WeekDay day = WeekDay.Monday;
         Time startTime = Time.valueOf("18:45:20");
         Time endTime = Time.valueOf("18:45:20");

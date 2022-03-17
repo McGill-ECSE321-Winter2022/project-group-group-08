@@ -34,7 +34,6 @@ import mcgill.ecse321.grocerystore.dao.ReceiptRepository;
 import mcgill.ecse321.grocerystore.model.Account;
 import mcgill.ecse321.grocerystore.model.Cart;
 import mcgill.ecse321.grocerystore.model.Person;
-import mcgill.ecse321.grocerystore.model.Quantity;
 
 @ExtendWith(MockitoExtension.class)
 public class TestCartService {
