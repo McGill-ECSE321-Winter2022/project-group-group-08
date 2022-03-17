@@ -16,11 +16,8 @@ public class UserRoleService {
 	@Autowired
 	private UserRoleRepository userRoleRepository;	
 	
-	/**
-	 * Returns user role
-	 * @param id primary key
-	 * @return user role
-	 */
+	//find an existing UserRole via the id
+	//if id is negative OR no UserRole exists with that id, throw errors
 	@Transactional
 	public UserRole findUserRoleById (int id) {
 		if(id<0) {
@@ -45,7 +42,7 @@ public class UserRoleService {
 		return curr;
 	}
 	 
-	//returns all the exisiting UserRoles
+	//returns all the existing UserRoles
 	@Transactional
 	public List<UserRole> getAllUserRoles() {	
 		return toList(userRoleRepository.findAll());
