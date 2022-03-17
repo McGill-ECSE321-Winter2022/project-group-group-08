@@ -1,5 +1,7 @@
 package mcgill.ecse321.grocerystore.dto;
 
+import mcgill.ecse321.grocerystore.model.GroceryStoreSystem;
+
 public class GroceryStoreSystemDto {
 	
 	private String storeName;
@@ -26,5 +28,13 @@ public class GroceryStoreSystemDto {
 	
 	public int getEmployeeDiscount() {
 		return employeeDiscount;
+	}
+	
+	public static GroceryStoreSystemDto convertToDto(GroceryStoreSystem groceryStoreSystem) {
+		if (groceryStoreSystem == null) {
+			throw new IllegalArgumentException("The grocery store system does not exist");
+		}
+		GroceryStoreSystemDto groceryStoreSystemDto = new GroceryStoreSystemDto(groceryStoreSystem.getStoreName(), groceryStoreSystem.getAddress(), groceryStoreSystem.getEmployeeDiscount());
+		return groceryStoreSystemDto;
 	}
 }

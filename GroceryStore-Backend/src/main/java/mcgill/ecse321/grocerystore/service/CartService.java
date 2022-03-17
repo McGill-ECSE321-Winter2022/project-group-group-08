@@ -6,6 +6,8 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import mcgill.ecse321.grocerystore.model.Cart;
+import mcgill.ecse321.grocerystore.model.Quantity;
+import mcgill.ecse321.grocerystore.model.Receipt;
 import mcgill.ecse321.grocerystore.model.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +24,11 @@ public class CartService {
     QuantityRepository quantityRepository;
 	@Autowired
     ReceiptRepository receiptRepository;
-
+	@Autowired
+    QuantityService quantityService;
+	@Autowired
+    ReceiptService receiptService;
+	
 	//Cart
 	@Transactional
 	public Cart createCart(Date date, Account account) {
@@ -52,11 +58,6 @@ public class CartService {
 	public List<Cart> getAllCarts() {
 		return toList(cartRepository.findAll());
 	}
-
-	// @Transactional
-	// public Cart getCartbyAccount(Account account) {
-	// 	return account.getCart();
-	// }
 	
 	@Transactional
 	public List<Cart> getCartbyDate(Date date) {
@@ -85,34 +86,20 @@ public class CartService {
 	}
 
 	@Transactional
-	public boolean deleteCart(Cart cart) {
-		if(cart==null){
-			return false;
-		}
-		else{
-			//Quantity quantity=quantityRepository.findQuantityByCart(cart);
-			//quantityService.delete(quantity);
-
-			//Receipt receipt=receiptRepository.findReceiptByCart(cart);
-			//receiptService.delete(receipt);
-
-			cartRepository.delete(cart);
-			return true;
-		}
-	}
-
-	@Transactional
 	public boolean deleteCartbyID(int id) {
 		if(id<0){
 			return false;
 		}
 		else{
 			Cart cart=cartRepository.findCartById(id);
-			//Quantity quantity=quantityRepository.findQuantityByCart(cart);
-			//quantityService.delete(quantity);
-
-			//Receipt receipt=receiptRepository.findReceiptByCart(cart);
-			//receiptService.delete(receipt);
+			List<Quantity> quantities = quantityRepository.findQuantityByCart(cart);
+			for(int i=0; i<quantities.size(); i++) {
+				quantityService.deleteQuantityById(quantities.get(i).getId());
+			}
+			List<Receipt> receipts = receiptRepository.findReceiptsByCart(cart);
+			for(int i=0; i<receipts.size(); i++) {
+				receiptService.deleteReceipt(receipts.get(i).getReceiptNum());
+			}
 			cartRepository.delete(cart);
 			return true;
 		}

@@ -17,10 +17,11 @@ import java.util.List;
 public class BusinessHourService {
     @Autowired
     BusinessHourRepository businessHourRepository;
+    
 
     //BusinessHour
     @Transactional
-    public BusinessHour createBusinessHourforEmployee(int id, WeekDay day, Time startTime, Time endTime, boolean working, Employee employee){
+    public BusinessHour createBusinessHourforEmployee(WeekDay day, Time startTime, Time endTime, boolean working, Employee employee){
         if (day == null){
             throw new IllegalArgumentException("Week day cannot be empty");
         }
@@ -40,17 +41,17 @@ public class BusinessHourService {
         	throw new IllegalArgumentException("Employee cannot be empty");
         }
         BusinessHour businessHour = new BusinessHour();
-        businessHour.setId(id);
         businessHour.setDay(day);
         businessHour.setStartTime(startTime);
         businessHour.setEndTime(endTime);
         businessHour.setWorking(working);
         businessHour.setEmployee(employee);
+        businessHourRepository.save(businessHour);
         return businessHour;
     }
 
     @Transactional
-    public BusinessHour createBusinessHourforGroceryStoreSystem(int id, WeekDay day, Time startTime, Time endTime, boolean working, GroceryStoreSystem groceryStoreSystem){
+    public BusinessHour createBusinessHourforGroceryStoreSystem(WeekDay day, Time startTime, Time endTime, boolean working, GroceryStoreSystem groceryStoreSystem){
         if (day == null){
             throw new IllegalArgumentException("Week day cannot be empty");
         }
@@ -70,12 +71,12 @@ public class BusinessHourService {
         	throw new IllegalArgumentException("Grocery Store System cannot be empty");
         }
         BusinessHour businessHour = new BusinessHour();
-        businessHour.setId(id);
         businessHour.setDay(day);
         businessHour.setStartTime(startTime);
         businessHour.setEndTime(endTime);
         businessHour.setWorking(working);
         businessHour.setGroceryStoreSystem(groceryStoreSystem);
+        businessHourRepository.save(businessHour);
         return businessHour;
     }
 
@@ -98,9 +99,9 @@ public class BusinessHourService {
 
     @Transactional
 	public List<BusinessHour> getBusinessHoursbyDay(WeekDay day){
-//    	if(day==null) {
-//    		throw new IllegalArgumentException("Day is empty");
-//    	}
+    	if(day==null) {
+    		throw new IllegalArgumentException("Day is empty");
+    	}
         List<BusinessHour> businessHours = businessHourRepository.findBusinessHourByDay(day);
         if (businessHours == null || businessHours.isEmpty()){
             throw new IllegalArgumentException("No such business hour with weekday " + day + " exists");
@@ -152,8 +153,9 @@ public class BusinessHourService {
 	}
 
     @Transactional
-    public BusinessHour updateBusinessHour(GroceryStoreSystem groceryStoreSystem, WeekDay day, Time startTime, Time endTime, boolean working) {
-        if(day == null) {
+    public BusinessHour updateBusinessHour(int id, GroceryStoreSystem groceryStoreSystem, Employee employee, WeekDay day, Time startTime, Time endTime, boolean working) {
+        System.out.println("employee is " + employee);
+    	if(day == null) {
             throw new IllegalArgumentException("Week day cannot be empty");
         }
         if (startTime == null){
@@ -168,21 +170,14 @@ public class BusinessHourService {
         if (startTime.toLocalTime().equals(endTime.toLocalTime())){
             throw new IllegalArgumentException("End time cannot be the same as Start time");
         }
-        if (groceryStoreSystem==null) {
-        	throw new IllegalArgumentException("Grocery store is null");
-        }
-        List<BusinessHour> businessHours = businessHourRepository.findBusinessHoursByGroceryStoreSystem(groceryStoreSystem);
-        BusinessHour businessHour1=null;
-        for(BusinessHour businessHour : businessHours) {
-            WeekDay shift = businessHour.getDay();
-            if(day.equals(shift)) {
-                businessHour.setStartTime(startTime);
-                businessHour.setEndTime(endTime);
-                businessHour.setWorking(working);
-                businessHour1=businessHour;
-            } 
-        }
-        return businessHour1;
+        BusinessHour businessHour = businessHourRepository.findBusinessHourById(id);
+        businessHour.setStartTime(startTime);
+        businessHour.setEndTime(endTime);
+        businessHour.setWorking(working);
+    	businessHour.setGroceryStoreSystem(groceryStoreSystem);
+    	businessHour.setEmployee(employee);
+        businessHourRepository.save(businessHour);
+        return businessHour;
     }
 
     @Transactional
