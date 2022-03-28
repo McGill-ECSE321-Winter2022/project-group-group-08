@@ -97,9 +97,9 @@ export default {
                     this.username = "";
                     this.password = "";
                     this.inTown = "";
-                    var newAccount = this.accounts[this.accounts.length - 1];
+                    this.account = this.accounts[this.accounts.length - 1];
                     this.$router.push({
-                        path: "/MainPage"
+                        path: `/Profile/${this.account.username}`
                     });
                 })
                 .catch(e => {
