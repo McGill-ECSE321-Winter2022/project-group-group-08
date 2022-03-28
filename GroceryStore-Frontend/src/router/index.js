@@ -3,6 +3,7 @@ import Router from "vue-router";
 import Hello from "@/components/Hello";
 import Login from "@/components/Login.vue";
 import SignUp from "@/components/SignUp.vue";
+import Profile from "@/components/Profile.vue";
 
 Vue.use(Router);
 
@@ -21,6 +22,12 @@ export default new Router({
             path: "/SignUp",
             name: "SignUp",
             component: SignUp
+        },
+        {
+            path: "/Profile/:usernameP",
+            name: "Profile",
+            component: Profile,
+            props: true
         }
     ]
 });

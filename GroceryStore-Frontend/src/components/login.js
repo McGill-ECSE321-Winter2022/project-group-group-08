@@ -27,8 +27,8 @@ export default {
         return {
             account: {},
             accounts: [],
-            accountUsername: "",
-            accountPassword: "",
+            username: "",
+            password: "",
             errorLogin: "",
             response: []
         };
@@ -37,13 +37,21 @@ export default {
         signUp: function() {
             this.$router.push({ path: `/SignUp` });
         },
-        login: function(accountUsername, accountPassword) {
-            AXIOS.get("/loginAccount/")
+
+        login: function(username, password) {
+            AXIOS.get("/loginAccount/", {
+                    params: {
+                        username: username,
+                        password: password
+                    }
+                })
                 .then(response => {
                     this.accounts.push(response.data);
+                    this.username = "";
+                    this.password = "";
                     this.errorLogin = "";
                     this.account = this.accounts[this.accounts.length - 1];
-                    this.$router.push({ path: `/MainPage` });
+                    this.$router.push({ path: `/Profile/${this.account.username}` });
                 })
                 .catch(e => {
                     var errorMsg = "Invalid username or password";

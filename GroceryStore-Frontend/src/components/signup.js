@@ -33,21 +33,14 @@ export default {
             phoneNumber: "",
             username: "",
             password: "",
+            inTown: "",
             errorSignup: "",
             response: []
         };
     },
 
     methods: {
-        signUp: function(
-            email,
-            firstName,
-            lastName,
-            phoneNumber,
-            address,
-            username,
-            password
-        ) {
+        createPerson: function(email, firstName, lastName, phoneNumber, address) {
             AXIOS.post(
                     "/createPerson/" + email, {}, {
                         params: {
@@ -60,13 +53,11 @@ export default {
                 )
                 .then(response => {
                     this.persons.push(response.data);
-                    this.email = "";
                     this.firstName = "";
                     this.lastName = "";
                     this.phoneNumber = "";
                     this.address = "";
                     var newPerson = this.persons[this.persons.length - 1];
-                    this.$router.push({ path: `/MainPage/` });
                 })
                 .catch(e => {
                     var errorMsg =
@@ -80,21 +71,42 @@ export default {
                     this.errorSignupCustomer2 = errorMsg2;
                     this.errorSignupCustomer3 = errorMsg3;
                 });
-            //   AXIOS.post("/createAccount/" + username)
-            //     .then(response => {
-            //       this.accounts.push(response.data);
-            //       this.username = "";
-            //       this.password = "";
-            //       var newAccount = this.accounts[this.accounts.length - 1];
-            //       this.$router.push({
-            //         path: "/MainPage"
-            //       });
-            //     })
-            //     .catch(e => {
-            //       var errorMsg = "Invalid username or password";
-            //       console.log(e);
-            //       this.errorLogin = errorMsg;
-            //     });
+        },
+
+        signUp: function(email, username, password, inTown) {
+            var yes = document.getElementById("inTown");
+            var no = document.getElementById("notInTown");
+            if (yes.checked == true) {
+                inTown = true;
+            } else if (no.checked == true) {
+                inTown = false;
+            }
+            AXIOS.post(
+                    "/createAccount/" + username, {}, {
+                        params: {
+                            password: password,
+                            inTown: inTown,
+                            totalPoints: 0,
+                            personEmail: email
+                        }
+                    }
+                )
+                .then(response => {
+                    this.accounts.push(response.data);
+                    this.email = "";
+                    this.username = "";
+                    this.password = "";
+                    this.inTown = "";
+                    var newAccount = this.accounts[this.accounts.length - 1];
+                    this.$router.push({
+                        path: "/MainPage"
+                    });
+                })
+                .catch(e => {
+                    var errorMsg = "Invalid username or password";
+                    console.log(e);
+                    this.errorSignup = errorMsg;
+                });
         }
     }
 };

@@ -5,7 +5,7 @@
     id="Signup"
   >
     <table>
-      <h2>Sign Up</h2>
+      <h2>Some Personal Information</h2>
       <tr>
         <td>
           <input
@@ -15,28 +15,6 @@
             placeholder="Email"
           />
         </td>
-      </tr>
-      <tr>
-        <td>
-          <input
-            style="margin-top: 6px;"
-            type="text"
-            v-model="firstName"
-            placeholder="First name"
-          />
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <input
-            style="margin-top: 6px;"
-            type="text"
-            v-model="lastName"
-            placeholder="Last name"
-          />
-        </td>
-      </tr>
-      <tr>
         <td>
           <input
             style="margin-top: 6px;"
@@ -51,11 +29,42 @@
           <input
             style="margin-top: 6px;"
             type="text"
+            v-model="firstName"
+            placeholder="First name"
+          />
+        </td>
+        <td>
+          <input
+            style="margin-top: 6px;"
+            type="text"
+            v-model="lastName"
+            placeholder="Last name"
+          />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <input
+            style="margin-top: 6px;"
+            type="text"
             v-model="address"
             placeholder="Address"
           />
         </td>
+        <td>
+          <button
+            style="margin-top: 15px;"
+            class="btn btn-light"
+            @click="
+              createPerson(email, firstName, lastName, phoneNumber, address)
+            "
+          >
+            Create Profile
+          </button>
+        </td>
       </tr>
+      <br />
+      <h2>Sign Up</h2>
       <tr>
         <td>
           <input
@@ -65,8 +74,6 @@
             placeholder="Username"
           />
         </td>
-      </tr>
-      <tr>
         <td>
           <input
             style="margin-top: 6px;"
@@ -78,20 +85,18 @@
       </tr>
       <tr>
         <td>
+          <br />
+          <label for="inTown"> Do you live in town?</label>
+          <label>Yes</label>
+          <input type="checkbox" id="inTown" value="true" />
+          <label>No</label>
+          <input type="checkbox" id="notInTown" value="false" />
+        </td>
+        <td>
           <button
             style="margin-top: 15px;"
             class="btn btn-light"
-            @click="
-              signUp(
-                email,
-                firstName,
-                lastName,
-                phoneNumber,
-                address,
-                username,
-                password
-              )
-            "
+            @click="signUp(email, username, password, inTown)"
           >
             Sign Up
           </button>

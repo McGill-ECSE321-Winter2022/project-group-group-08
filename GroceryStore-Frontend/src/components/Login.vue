@@ -12,7 +12,7 @@
             <input
               style="margin-top: 6px;"
               type="text"
-              v-model="accountUsername"
+              v-model="username"
               placeholder="Username"
             />
           </td>
@@ -22,7 +22,7 @@
             <input
               style="margin-top: 6px;"
               type="password"
-              v-model="accountPassword"
+              v-model="password"
               placeholder="Password"
             />
           </td>
@@ -32,8 +32,8 @@
             <button
               style="margin-top: 8px;"
               class="btn btn-light"
-              v-bind:disabled="!accountUsername || !accountPassword"
-              @click="login(Username, Password)"
+              v-bind:disabled="!username || !password"
+              @click="login(username, password)"
             >
               Login
             </button>
