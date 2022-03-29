@@ -14,7 +14,8 @@ export default {
     props: ["usernameP"],
     data() {
         return {
-            account: {},
+            person: {},
+            userRole: "",
             firstName: "",
             lastName: "",
             username: this.usernameP,
@@ -38,7 +39,6 @@ export default {
     created: function() {
         AXIOS.get("/getAccountByUsername/" + this.usernameP)
             .then(response => {
-                this.account = response.data;
                 this.firstName = response.data.person.firstName;
                 this.lastName = response.data.person.lastName;
                 this.email = response.data.person.email;

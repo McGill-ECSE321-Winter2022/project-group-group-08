@@ -1,7 +1,7 @@
 <template>
   <div id="profile">
     <div id="header">
-      <h3>User Profile - {{ accountType }}</h3>
+      <h3>User Profile - {{ userRole }}</h3>
       <h3>{{ firstName + " " + lastName }}</h3>
       <hr />
     </div>

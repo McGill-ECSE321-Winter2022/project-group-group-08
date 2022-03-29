@@ -5,7 +5,7 @@
     id="Signup"
   >
     <table>
-      <h2>Some Personal Information</h2>
+      <h2>Profile Information</h2>
       <tr>
         <td>
           <input
@@ -87,16 +87,30 @@
         <td>
           <br />
           <label for="inTown"> Do you live in town?</label>
+          <br />
           <label>Yes</label>
           <input type="checkbox" id="inTown" value="true" />
           <label>No</label>
           <input type="checkbox" id="notInTown" value="false" />
         </td>
         <td>
+          <br />
+          <label for="Roles"> Choose your account Role </label>
+          <br />
+          <select name="userRole" id="userRole">
+            <option value="blank"></option>
+            <option value="Manager">Manager</option>
+            <option value="Employee">Employee</option>
+            <option value="Customer">Customer</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
           <button
             style="margin-top: 15px;"
             class="btn btn-light"
-            @click="signUp(email, username, password, inTown)"
+            @click="signUp(email, username, password, inTown, userRole)"
           >
             Sign Up
           </button>

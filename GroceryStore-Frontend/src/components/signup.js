@@ -24,6 +24,7 @@ export default {
     },
     data() {
         return {
+            userRoles: [],
             persons: [],
             accounts: [],
             email: "",
@@ -93,20 +94,44 @@ export default {
                 )
                 .then(response => {
                     this.accounts.push(response.data);
-                    this.email = "";
                     this.username = "";
                     this.password = "";
                     this.inTown = "";
                     this.account = this.accounts[this.accounts.length - 1];
-                    this.$router.push({
-                        path: `/Profile/${this.account.username}`
-                    });
                 })
                 .catch(e => {
                     var errorMsg = "Invalid username or password";
                     console.log(e);
                     this.errorSignup = errorMsg;
                 });
+            var userRole = document.getElementById("userRole").selectedOptions[0]
+                .value;
+            if (userRole === "Manager") {
+                AXIOS.post(
+                        "/manager", {}, {
+                            params: {
+                                personEmail: email
+                            }
+                        }
+                    )
+                    .then(response => {
+                        this.accounts.push(response.data);
+                        this.email = "";
+                        this.userRole = "";
+                        this.$router.push({
+                            path: `/Profile/${this.account.username}`
+                        });
+                    })
+                    .catch(e => {
+                        var errorMsg = "Invalid username or password";
+                        console.log(e);
+                        this.errorSignup = errorMsg;
+                    });
+            } else if (userRole === "Employee") {
+                console.log("Employee");
+            } else if (userRole === "Customer") {
+                console.log("Customer");
+            }
         }
     }
 };
