@@ -1,10 +1,14 @@
 package mcgill.ecse321.grocerystore.service;
 
+import java.sql.Time;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
 import mcgill.ecse321.grocerystore.dao.BusinessHourRepository;
@@ -14,6 +18,7 @@ import mcgill.ecse321.grocerystore.dao.UserRoleRepository;
 import mcgill.ecse321.grocerystore.model.BusinessHour;
 import mcgill.ecse321.grocerystore.model.Employee;
 import mcgill.ecse321.grocerystore.model.Person;
+import mcgill.ecse321.grocerystore.model.BusinessHour.WeekDay;
 
 @Service
 public class EmployeeService {
@@ -37,6 +42,7 @@ public class EmployeeService {
 	 */
 	@Transactional
 	public Employee createEmployee(Person person) {
+		List<BusinessHour.WeekDay> weekdays = Arrays.asList(BusinessHour.WeekDay.Sunday, BusinessHour.WeekDay.Monday, BusinessHour.WeekDay.Tuesday, BusinessHour.WeekDay.Wednesday, BusinessHour.WeekDay.Thursday, BusinessHour.WeekDay.Friday, BusinessHour.WeekDay.Saturday);
 		if (person == null || !personRepository.existsById(person.getEmail())) {
 			throw new IllegalArgumentException("Invalid person");
 		}
@@ -46,6 +52,9 @@ public class EmployeeService {
 		Employee employee = new Employee();
 		employee.setPerson(person);
 		employeeRepository.save(employee);
+		for (int i = 0; i < weekdays.size(); i++) {
+			businessHourService.createBusinessHourforEmployee(weekdays.get(i), Time.valueOf("00:01:00"), Time.valueOf("23:59:00"), false, employee);
+		}
 		return employee;
 	}
 

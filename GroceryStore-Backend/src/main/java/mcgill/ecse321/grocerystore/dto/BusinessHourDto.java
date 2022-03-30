@@ -34,7 +34,7 @@ public class BusinessHourDto {
 		return day;
 	}
 	
-	public Time getStarTime() {
+	public Time getStartTime() {
 		return startTime;
 	}
 	

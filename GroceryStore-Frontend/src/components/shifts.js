@@ -1,0 +1,115 @@
+import axios, { Axios } from "axios";
+var config = require("../../config");
+
+var frontendUrl = "http://" + config.dev.host + ":" + config.dev.port;
+var backendUrl = "http://" + config.dev.backendHost + ":" + config.dev.backendPort;
+
+var AXIOS = axios.create({
+    baseURL: backendUrl,
+    headers: { "Access-Control-Allow-Origin": frontendUrl }
+});
+
+export default {
+    name: "shifts",
+
+    created: function() {
+        AXIOS.get("/businesshour/all")
+            .then(response => {
+                
+                this.hours = response.data;
+                for (hour in hours){
+                    startTime[hour.id] = hour.startTime;
+                    endTime[hour.id] = hour.endTime;
+                }
+            })
+            .catch(e => {
+                this.errorHours = e;
+            });
+    },
+    data() {
+        return {
+            hours: [],
+            id: "",
+            day: "",
+            startTime: {},
+            endTime: {},
+            working: "",
+            employeeId: "",
+            groceryStoreSystemName: "",
+            errorHours: "",
+            response: []
+        };
+    },
+
+    methods: {
+        createEmployeeHours: function(employeeId, day, working, startTime, endTime){
+            AXIOS.post(
+                "/businesshour/employee", {}, {
+                    params:{
+                        employeeId: employeeId,
+                        day: day,
+                        working: working,
+                        startTime, startTime,
+                        endTime: endTime
+                    }
+                }
+            ).then(response => {
+                this.hours.push(response.data);
+                this.employeeId = "";
+                this.day = "";
+                this.working = "";
+                this.startTime = "";
+                this.endTime = "";
+            }).catch(e => {
+                var error = "An error has occured in createEmployeeHours in file shifts.js line 73"
+                console.log(error);
+            });
+        },
+        updateHour: function(id, day, startTime, endTime, working, employeeId){
+            AXIOS.patch("/businesshour/update/"+id, {},{ 
+                    params: {
+                        day: day,
+                        startTime: startTime,
+                        endTime: endTime,
+                        working: working,
+                        employeeId: employeeId,
+                        groceryStoreSystemName: ""
+                    }
+                }
+            ).then(response => {
+                console.log(response.data);
+            })
+            .catch(error => {
+                var errorMsg = error
+                if ( error.response ) {
+                    errorMsg = error.response.data
+                }
+                console.log(errorMsg)
+            });
+        },
+        getEmployees: function(firstName, lastName){
+            if(firstName == undefined){
+                firstName = "";
+            }
+            if(lastName == undefined){
+                lastName = "";
+            }
+            AXIOS.get("/getPersonsByFirstNameLastNameContainingIgnoreCase/", { 
+                    params: {
+                        firstName: firstName,
+                        lastName: lastName
+                    }
+                }
+            ).then(response => {
+                console.log(response.data);
+            })
+            .catch(error => {
+                var errorMsg = error
+                if ( error.response ) {
+                    errorMsg = error.response.data
+                }
+                console.log(errorMsg)
+            });
+        }
+    }
+};
