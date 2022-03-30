@@ -5,7 +5,7 @@
     id="Signup"
   >
     <table>
-      <h2>Profile Information</h2>
+      <h2>Sign Up</h2>
       <tr>
         <td>
           <input
@@ -52,21 +52,6 @@
           />
         </td>
         <td>
-          <button
-            style="margin-top: 15px;"
-            class="btn btn-light"
-            @click="
-              createPerson(email, firstName, lastName, phoneNumber, address)
-            "
-          >
-            Create Profile
-          </button>
-        </td>
-      </tr>
-      <br />
-      <h2>Sign Up</h2>
-      <tr>
-        <td>
           <input
             style="margin-top: 6px;"
             type="text"
@@ -74,6 +59,8 @@
             placeholder="Username"
           />
         </td>
+      </tr>
+      <tr>
         <td>
           <input
             style="margin-top: 6px;"
@@ -85,8 +72,7 @@
       </tr>
       <tr>
         <td>
-          <br />
-          <label for="inTown"> Do you live in town?</label>
+          <label for="inTown"> Do you live in town? </label>
           <br />
           <label>Yes</label>
           <input type="checkbox" id="inTown" value="true" />
@@ -94,8 +80,7 @@
           <input type="checkbox" id="notInTown" value="false" />
         </td>
         <td>
-          <br />
-          <label for="Roles"> Choose your account Role </label>
+          <label for="Roles"> Choose your account role </label>
           <br />
           <select name="userRole" id="userRole">
             <option value="blank"></option>
@@ -110,13 +95,29 @@
           <button
             style="margin-top: 15px;"
             class="btn btn-light"
-            @click="signUp(email, username, password, inTown, userRole)"
+            @click="
+              signUp(
+                email,
+                phoneNumber,
+                firstName,
+                lastName,
+                address,
+                username,
+                password,
+                inTown,
+                userRole
+              )
+            "
           >
             Sign Up
           </button>
         </td>
       </tr>
     </table>
+
+    <p>
+      <span v-if="errorSignup" style="color:red">Error: {{ errorSignup }}</span>
+    </p>
   </div>
 </template>
 <script src="./signup.js"></script>

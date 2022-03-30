@@ -38,7 +38,7 @@
           v-for="openingsHour in openingsHours"
           :key="openingsHour.openingDay"
         >
-          <td>{{ openingsHour.openingDay }}</td>
+          <td>{{ openingsHour.day }}</td>
           <td>{{ openingsHour.startTime }}</td>
           <td>{{ openingsHour.endTime }}</td>
         </tr>
@@ -52,58 +52,7 @@
   </div>
 </template>
 
-<script>
-import axios from "axios";
-var config = require("../../config");
-var frontendUrl = "http://" + config.dev.host + ":" + config.dev.port;
-var backendUrl =
-  "http://" + config.dev.backendHost + ":" + config.dev.backendPort;
-var AXIOS = axios.create({
-  baseURL: backendUrl,
-  headers: { "Access-Control-Allow-Origin": frontendUrl }
-});
-export default {
-  name: "hello",
-  created: function() {
-    AXIOS.get("/getAllOpeningsHours")
-      .then(response => {
-        // JSON responses are automatically parsed.
-        this.openingsHours = response.data;
-      })
-      .catch(e => {
-        this.errorOpeningsHours = e;
-      });
-  },
-  data() {
-    return {
-      msg: "Welcome to Your Local Grocery Store",
-      email: "Email: group8@mail.mcgill.ca",
-      adress: "Address: 123 McGill Avenue",
-      number: "Call: 514-100-1313",
-      errorOpeningsHours: "",
-      openingsHours: []
-    };
-  },
-  methods: {
-    getAllOpeningsHours: function() {
-      AXIOS.get("/getAllOpeningsHours")
-        .then(response => {
-          // JSON responses are automatically parsed.
-          this.openingsHours = response.data;
-        })
-        .catch(e => {
-          this.errorOpeningsHours = e;
-        });
-    },
-    goLogin: function() {
-      this.$router.push({ path: `/Login` });
-    },
-    goSignUp: function() {
-      this.$router.push({ path: `/Signup` });
-    }
-  }
-};
-</script>
+<script src="./hello.js"></script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>

@@ -31,6 +31,7 @@ export default {
             newPassword: "",
             newAddress: "",
             newInTown: "",
+            error: "",
             isShow: false,
             isError: false,
             deleteError: false
@@ -39,6 +40,7 @@ export default {
     created: function() {
         AXIOS.get("/getAccountByUsername/" + this.usernameP)
             .then(response => {
+                this.person = response.data.person;
                 this.firstName = response.data.person.firstName;
                 this.lastName = response.data.person.lastName;
                 this.email = response.data.person.email;
@@ -47,12 +49,49 @@ export default {
                 this.phoneNumber = response.data.person.phoneNumber;
                 this.inTown = response.data.inTown;
                 this.totalPoints = response.data.totalPoints;
+                AXIOS.get("/getRoleByPerson/", {
+                        params: {
+                            personEmail: this.email
+                        }
+                    })
+                    .then(response => {
+                        var id = response.data.id;
+                        AXIOS.get("/manager/" + id, {}, {})
+                            .then(response => {
+                                this.userRole = "Manager";
+                            })
+                            .catch(e => {
+                                this.error = e;
+                                console.log(e.response.data.message);
+                            });
+                        AXIOS.get("/customer/" + id, {}, {})
+                            .then(response => {
+                                this.userRole = "Customer";
+                            })
+                            .catch(e => {
+                                this.error = e;
+                                console.log(e.response.data.message);
+                            });
+                        AXIOS.get("/employee/" + id, {}, {})
+                            .then(response => {
+                                this.userRole = "Employee";
+                            })
+                            .catch(e => {
+                                this.error = e;
+                                console.log(e.response.data.message);
+                            });
+                    })
+                    .catch(e => {
+                        this.error = e;
+                        console.log(e.response.data.message);
+                    });
             })
             .catch(e => {
-                this.errorLoan = e;
+                this.error = e;
                 console.log(e.response.data.message);
             });
     },
+
     methods: {
         deleteAccount: function() {
             AXIOS.delete("/deletePerson/" + this.email)
@@ -74,7 +113,6 @@ export default {
             if (this.newInTown === "") {
                 inTown1 = this.inTown;
             }
-            console.log(inTown1);
             AXIOS.put(
                     "/updateAccount/" + this.usernameP, {}, {
                         params: {

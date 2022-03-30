@@ -41,7 +41,16 @@ export default {
     },
 
     methods: {
-        createPerson: function(email, firstName, lastName, phoneNumber, address) {
+        signUp: function(
+            email,
+            phoneNumber,
+            firstName,
+            lastName,
+            address,
+            username,
+            password,
+            inTown
+        ) {
             AXIOS.post(
                     "/createPerson/" + email, {}, {
                         params: {
@@ -58,80 +67,100 @@ export default {
                     this.lastName = "";
                     this.phoneNumber = "";
                     this.address = "";
-                    var newPerson = this.persons[this.persons.length - 1];
-                })
-                .catch(e => {
-                    var errorMsg =
-                        "-Your first name and last name cannot contain numbers or special characters";
-                    var errorMsg2 =
-                        "-Your password must contain at least 8 characters and a capital letter";
-                    var errorMsg3 =
-                        "-Otherwise, an account with this email already exists";
-                    console.log(errorMsg);
-                    this.errorSignupCustomer = errorMsg;
-                    this.errorSignupCustomer2 = errorMsg2;
-                    this.errorSignupCustomer3 = errorMsg3;
-                });
-        },
-
-        signUp: function(email, username, password, inTown) {
-            var yes = document.getElementById("inTown");
-            var no = document.getElementById("notInTown");
-            if (yes.checked == true) {
-                inTown = true;
-            } else if (no.checked == true) {
-                inTown = false;
-            }
-            AXIOS.post(
-                    "/createAccount/" + username, {}, {
-                        params: {
-                            password: password,
-                            inTown: inTown,
-                            totalPoints: 0,
-                            personEmail: email
-                        }
+                    var yes = document.getElementById("inTown");
+                    var no = document.getElementById("notInTown");
+                    if (yes.checked == true) {
+                        inTown = true;
+                    } else if (no.checked == true) {
+                        inTown = false;
                     }
-                )
-                .then(response => {
-                    this.accounts.push(response.data);
-                    this.username = "";
-                    this.password = "";
-                    this.inTown = "";
-                    this.account = this.accounts[this.accounts.length - 1];
+                    AXIOS.post(
+                            "/createAccount/" + username, {}, {
+                                params: {
+                                    password: password,
+                                    inTown: inTown,
+                                    totalPoints: 0,
+                                    personEmail: email
+                                }
+                            }
+                        )
+                        .then(response => {
+                            this.accounts.push(response.data);
+                            this.username = "";
+                            this.password = "";
+                            this.inTown = "";
+                            this.account = this.accounts[this.accounts.length - 1];
+                        })
+                        .catch(e => {
+                            this.errorSignup = e;
+                        });
+                    var userRole = document.getElementById("userRole").selectedOptions[0]
+                        .value;
+                    if (userRole === "Manager") {
+                        AXIOS.post(
+                                "/manager", {}, {
+                                    params: {
+                                        personEmail: email
+                                    }
+                                }
+                            )
+                            .then(response => {
+                                this.accounts.push(response.data);
+                                this.email = "";
+                                this.userRole = "";
+                                this.$router.push({
+                                    path: `/Profile/${this.account.username}`
+                                });
+                            })
+                            .catch(e => {
+                                this.errorSignup = e;
+                            });
+                    } else if (userRole === "Employee") {
+                        AXIOS.post(
+                                "/employee", {}, {
+                                    params: {
+                                        personEmail: email
+                                    }
+                                }
+                            )
+                            .then(response => {
+                                this.accounts.push(response.data);
+                                this.email = "";
+                                this.userRole = "";
+                                this.$router.push({
+                                    path: `/Profile/${this.account.username}`
+                                });
+                            })
+                            .catch(e => {
+                                this.errorSignup = e;
+                            });
+                    } else if (userRole === "Customer") {
+                        AXIOS.post(
+                                "/customer", {}, {
+                                    params: {
+                                        tierClass: "Bronze",
+                                        ban: false,
+                                        personEmail: email
+                                    }
+                                }
+                            )
+                            .then(response => {
+                                this.accounts.push(response.data);
+                                this.email = "";
+                                this.userRole = "";
+                                this.$router.push({
+                                    path: `/Profile/${this.account.username}`
+                                });
+                            })
+                            .catch(e => {
+                                this.errorSignup = e;
+                            });
+                    }
                 })
                 .catch(e => {
-                    var errorMsg = "Invalid username or password";
-                    console.log(e);
-                    this.errorSignup = errorMsg;
+                    console.log(errorMsg);
+                    this.errorSignup = e.message;
                 });
-            var userRole = document.getElementById("userRole").selectedOptions[0]
-                .value;
-            if (userRole === "Manager") {
-                AXIOS.post(
-                        "/manager", {}, {
-                            params: {
-                                personEmail: email
-                            }
-                        }
-                    )
-                    .then(response => {
-                        this.accounts.push(response.data);
-                        this.email = "";
-                        this.userRole = "";
-                        this.$router.push({
-                            path: `/Profile/${this.account.username}`
-                        });
-                    })
-                    .catch(e => {
-                        var errorMsg = "Invalid username or password";
-                        console.log(e);
-                        this.errorSignup = errorMsg;
-                    });
-            } else if (userRole === "Employee") {
-                console.log("Employee");
-            } else if (userRole === "Customer") {
-                console.log("Customer");
-            }
         }
     }
 };
