@@ -57,10 +57,11 @@ public class CustomerRestController {
 	 * @return customer
 	 */
 	@PostMapping(value = { "/customer", "/customer/" })
-	public CustomerDto createCustomer(@RequestParam(name = "tierClass") TierClass tierClass,
+	public CustomerDto createCustomer(@RequestParam(name = "tierClass") String tierClass,
 			@RequestParam(name = "ban") boolean ban, @RequestParam(name = "personEmail") String personEmail) {
 		Person person = personService.findPersonByEmail(personEmail);
-		Customer customer = service.createCustomer(person, tierClass, ban);
+		TierClass tierClass1 = TierClass.valueOf(tierClass);
+		Customer customer = service.createCustomer(person, tierClass1, ban);
 		return convertToDto(customer);
 	}
 	

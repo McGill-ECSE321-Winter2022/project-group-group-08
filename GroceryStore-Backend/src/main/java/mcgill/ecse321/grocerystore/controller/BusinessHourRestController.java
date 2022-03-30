@@ -2,6 +2,7 @@ package mcgill.ecse321.grocerystore.controller;
 
 import java.sql.Time;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,6 +56,21 @@ public class BusinessHourRestController {
     public BusinessHourDto getBusinessHour(@PathVariable("id") int id){
         BusinessHour businessHour = businesshourService.getBusinessHoursbyID(id);
         return convertToDto(businessHour);
+    }
+
+	/**
+	 * Gets business hour of grocery store system 
+	 * @return list of business hours 
+	 */
+	@GetMapping(value = { "/getOpeningHours/{storename}", "/getOpeningHours/{storename}/" })
+    public List<BusinessHourDto> getBusinessHourByGroceryStoreSystem(@PathVariable("storename") String storename){
+		GroceryStoreSystem system = groceryStoreSystemService.getGroceryStoreSystem(storename);
+        List<BusinessHourDto> businessHoursDtos = new ArrayList<BusinessHourDto>();
+		
+		for (BusinessHour businessHour: businesshourService.getOpeningHours(system)) {
+			businessHoursDtos.add(convertToDto(businessHour));
+		}
+        return businessHoursDtos;
     }
 
 	/**
@@ -149,10 +165,12 @@ public class BusinessHourRestController {
 			throw new IllegalArgumentException("There is no such BusinessHour!");
 		}
 		if(businesshour.getGroceryStoreSystem() != null) {
-			businessHourDto = new BusinessHourDto(businesshour.getId(),businesshour.getDay(), businesshour.getStartTime(),businesshour.getEndTime(),businesshour.getWorking(),
+			businessHourDto = new BusinessHourDto(businesshour.getId(),businesshour.getDay(), businesshour.getStartTime(),
+			businesshour.getEndTime(),businesshour.getWorking(),
 					null,GroceryStoreSystemDto.convertToDto(businesshour.getGroceryStoreSystem()));
 		}else{
-			businessHourDto = new BusinessHourDto(businesshour.getId(),businesshour.getDay(), businesshour.getStartTime(),businesshour.getEndTime(),businesshour.getWorking(),
+			businessHourDto = new BusinessHourDto(businesshour.getId(),businesshour.getDay(), 
+			businesshour.getStartTime(),businesshour.getEndTime(),businesshour.getWorking(),
 					EmployeeDto.convertToDto(businesshour.getEmployee()),null);
 		}
 		
