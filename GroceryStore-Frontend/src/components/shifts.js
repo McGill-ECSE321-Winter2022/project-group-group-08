@@ -13,7 +13,7 @@ export default {
     name: "shifts",
 
     created: function() {
-        AXIOS.get("/businesshour/all")
+        AXIOS.get("/businesshour/allEmployee")
             .then(response => {
                 
                 this.hours = response.data;
@@ -37,7 +37,8 @@ export default {
             employeeId: "",
             groceryStoreSystemName: "",
             errorHours: "",
-            response: []
+            response: [],
+            filter: ""
         };
     },
 
@@ -84,7 +85,6 @@ export default {
                 if ( error.response ) {
                     errorMsg = error.response.data
                 }
-                console.log(errorMsg)
             });
         },
         getEmployees: function(firstName, lastName){
@@ -108,8 +108,74 @@ export default {
                 if ( error.response ) {
                     errorMsg = error.response.data
                 }
+            });
+        },
+        getEmployeeHour: function(id){
+            AXIOS.get("/businesshour/employee/"+id
+            ).then(response => {
+                this.hours = response.data;
+                for (hour in hours){
+                    startTime[hour.id] = hour.startTime;
+                    endTime[hour.id] = hour.endTime;
+                }
+            })
+            .catch(error => {
+                var errorMsg = error
+                if ( error.response ) {
+                    errorMsg = error.response.data
+                }
+            });
+        },
+        getHourByDay: function(event){
+            AXIOS.get("/businesshour/day/"+event.target.value
+            ).then(response => {
+                this.hours = response.data;
+                for (hour in hours){
+                    startTime[hour.id] = hour.startTime;
+                    endTime[hour.id] = hour.endTime;
+                }
+            })
+            .catch(error => {
+                var errorMsg = error
+                if ( error.response ) {
+                    errorMsg = error.response.data
+                }
+            });
+        },
+        getHourByWorking: function(event){
+            AXIOS.get("/businesshour/working/"+event.target.value
+            ).then(response => {
+                this.hours = response.data;
+                for (hour in hours){
+                    startTime[hour.id] = hour.startTime;
+                    endTime[hour.id] = hour.endTime;
+                }
+            })
+            .catch(error => {
+                var errorMsg = error
+                if ( error.response ) {
+                    errorMsg = error.response.data
+                }
                 console.log(errorMsg)
             });
+        },
+        filterToggle(event){
+            this.filter = event.target.value;
+            console.log(this.filter);
+            if(this.filter == "blank"){
+                AXIOS.get("/businesshour/allEmployee")
+                .then(response => {
+                    
+                    this.hours = response.data;
+                    for (hour in hours){
+                        startTime[hour.id] = hour.startTime;
+                        endTime[hour.id] = hour.endTime;
+                    }
+                })
+                .catch(e => {
+                    this.errorHours = e;
+                });
+            }
         }
     }
 };

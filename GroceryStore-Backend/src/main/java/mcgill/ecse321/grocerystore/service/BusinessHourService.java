@@ -105,6 +105,15 @@ public class BusinessHourService {
 	public List<BusinessHour> getAllBusinessHours(){
 		return toList(businessHourRepository.findAll());
 	}
+    
+    /**
+     * get all the business hours 
+     * @return List<BusinessHour>
+     */
+    @Transactional
+	public List<BusinessHour> getAllEmployeeBusinessHours(){
+		return toList(businessHourRepository.findBusinessHoursByEmployeeIsNotNull());
+	}
 	
     /**
      * get the business hour by id
@@ -139,6 +148,23 @@ public class BusinessHourService {
         }
 		return businessHours;
 	}
+    
+    /**
+     * get all the business hours that is associated with a certain day
+     * @param day the day we are searching for
+     * @return List<BusinessHour>
+     */
+    @Transactional
+	public List<BusinessHour> getBusinessHoursbyDayAndEmployeeIsNotNull(WeekDay day){
+    	if(day==null) {
+    		throw new IllegalArgumentException("Day is empty");
+    	}
+        List<BusinessHour> businessHours = businessHourRepository.findBusinessHourByDayAndEmployeeIsNotNull(day);
+        if (businessHours == null || businessHours.isEmpty()){
+            throw new IllegalArgumentException("No such business hour with weekday " + day + " exists");
+        }
+		return businessHours;
+	}
 
     /**
      * get all the hours which are either working or not working
@@ -148,6 +174,35 @@ public class BusinessHourService {
     @Transactional
 	public List<BusinessHour> getBusinessHoursbyWorking(Boolean working){
         List<BusinessHour> businessHours = businessHourRepository.findBusinessHourByWorking(working);
+        if (businessHours == null || businessHours.isEmpty()){
+            throw new IllegalArgumentException("No such business hour with working status " + working + " exists");
+        }
+		return businessHours;
+	}
+    
+    /**
+     * get all the employee hours which are either working or not working
+     * * @param day the day we are searching for
+     * @param working detemining whether we want hours that is or isnt working
+     * @return List<BusinessHour>
+     */
+    @Transactional
+	public List<BusinessHour> getBusinessHoursbyDayAndWorkingAndEmployeeIsNotNull(WeekDay day, Boolean working){
+        List<BusinessHour> businessHours = businessHourRepository.findBusinessHourByDayAndWorkingAndEmployeeIsNotNull(day, working);
+        if (businessHours == null || businessHours.isEmpty()){
+            throw new IllegalArgumentException("No such business hour with working status " + working + " and day being "+ day+" exists");
+        }
+		return businessHours;
+	}
+    
+    /**
+     * get all the employee hours which are either working or not working and the desired day
+     * @param working detemining whether we want hours that is or isnt working
+     * @return List<BusinessHour>
+     */
+    @Transactional
+	public List<BusinessHour> getBusinessHoursbyWorkingAndEmployeeIsNotNull(Boolean working){
+        List<BusinessHour> businessHours = businessHourRepository.findBusinessHourByWorkingAndEmployeeIsNotNull(working);
         if (businessHours == null || businessHours.isEmpty()){
             throw new IllegalArgumentException("No such business hour with working status " + working + " exists");
         }

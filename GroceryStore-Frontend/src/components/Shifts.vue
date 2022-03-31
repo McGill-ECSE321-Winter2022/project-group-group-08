@@ -8,41 +8,66 @@
     <table>
       <h2>Shift Management</h2>
       <tr>
-        <td>
+          <select name="filter" id="filter" @change="filterToggle($event)">
+            <option value="blank" key="blank"></option>
+            <option value="Employee" key="Employee">Employee ID</option>
+            <option value="Name" key="Name">Name</option>
+            <option value="Day" key="Day">Day</option>
+            <option value="Working" key="Working">Working</option>
+          </select>
+        <tr v-if="filter=='Employee'">
+            <input
+                style="margin-top: 6px;"
+                type="text"
+                v-model="employeeId"
+                placeholder="Employee ID"
+            />
+            <button
+                class="btn btn-light"
+                @click="getEmployeeHour(employeeId);"
+            >
+                Search
+            </button>
+        </tr>
+        <tr v-if="filter=='Name'">
           <input
             style="margin-top: 6px;"
             type="text"
             v-model="firstName"
             placeholder="First Name"
           />
-        </td>
-        <td>
           <input
             style="margin-top: 6px;"
             type="text"
             v-model="lastName"
-            placeholder="lastName"
+            placeholder="Last Name"
           />
-        </td>
-         <td>
-          <input
-            style="margin-top: 6px;"
-            type="text"
-            v-model="employeeId"
-            placeholder="employeeId"
-          />
-        </td>
-        <td>
           <button
             class="btn btn-light"
-            @click="
-              getEmployees(firstName, lastName);
-            "
+            @click="getEmployees(firstName, lastName);"
           >
             Search
           </button>
-        </td>
-      </tr>
+        </tr>
+        <tr v-if="filter=='Day'">
+            <select name="filter" id="filter" @change="getHourByDay($event)">
+                <option value="Sunday" key="Sunday">Sunday</option>
+                <option value="Monday" key="Monday">Monday</option>
+                <option value="Tuesday" key="Tuesday">Tuesday</option>
+                <option value="Wednesday" key="Wednesday">Wednesday</option>
+                <option value="Thursday" key="Thursday">Thursday</option>
+                <option value="Friday" key="Friday">Friday</option>
+                <option value="Saturday" key="Saturday">Saturday</option>
+            </select>
+
+        </tr>
+        <tr v-if="filter=='Working'">
+            <select name="filter" id="filter" @change="getHourByWorking($event)">
+                <option value="True" key="True">True</option>
+                <option value="False" key="False">False</option>
+            </select>
+        </tr>
+      
        <v-data-table  class="elevation-1" >
         <!-- <tr>
                 <td class="table-text">| Employee Name |</td>
@@ -51,7 +76,7 @@
                 <td class="table-text">| End Time |</td>
         </tr> -->
         <tr v-for="hour in hours" :key="hour.id">
-            <td class="table-text">{{hour.employee.personDto.firstName + " " + hour.employee.personDto.lastName}}</td>
+            <td class="table-text">{{hour.employee.person.firstName + " " + hour.employee.person.lastName}}</td>
             <td class="table-text">{{hour.day}}</td>
             <input
                 style=""
@@ -60,27 +85,19 @@
                 :placeholder="[[ hour.startTime.substring(0,5) ]]"
             />
             <input
-                style=""
+                style="width: 80"
                 type="text"
                 v-model="endTime[hour.id]"
                 :placeholder="[[ hour.endTime.substring(0,5) ]]"
             />
+            <input type="checkbox" id="inTown" v-model="hour.working" />
             <button
                 class="btn btn-light"
                 @click="updateHour(hour.id, hour.day, startTime[hour.id], endTime[hour.id], hour.working, hour.employee.id)"
             >
                 Update
             </button>
-            <!-- <td class="table-text">{{hour.day}}</td>  -->
-            <!-- <td class="table-text">{{hour.startTime}}</td> 
-            <td class="table-text">{{hour.endTime}} </td>  -->
         </tr>
-        <!-- <tr v-for="schedule in schedules" :key="schedule.scheduleID">
-            <td class="table-text">{{schedule.scheduleID}}</td>
-            <td class="table-text">{{schedule.openingTime}}</td> 
-            <td class="table-text">{{schedule.closingTime}}</td> 
-            <td class="table-text">{{schedule.dayofWeek}} </td> 
-        </tr> -->
         
     </v-data-table>
     </table>
@@ -88,3 +105,8 @@
   
 </template>
 <script src="./shifts.js"></script>
+<style scoped>
+.input{
+      width: 400px;
+}
+</style>
