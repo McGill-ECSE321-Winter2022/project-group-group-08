@@ -30,6 +30,9 @@ public class ManagerService {
 	 */
 	@Transactional 
 	public Manager createManager(Person person) {
+		if(managerRepository.count() == 1){
+			return managerRepository.findManagerByPerson(person);
+		}
 		if(person == null || !personRepository.existsById(person.getEmail())) {
 			throw new IllegalArgumentException("Invalid person");
 		}
