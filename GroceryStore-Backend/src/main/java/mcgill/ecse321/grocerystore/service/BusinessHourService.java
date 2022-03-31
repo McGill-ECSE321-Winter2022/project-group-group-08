@@ -112,7 +112,7 @@ public class BusinessHourService {
      */
     @Transactional
 	public List<BusinessHour> getAllEmployeeBusinessHours(){
-		return toList(businessHourRepository.findBusinessHoursByEmployeeIsNotNull());
+		return toList(businessHourRepository.findBusinessHoursByEmployeeIsNotNullOrderByIdAsc());
 	}
 	
     /**
@@ -142,7 +142,7 @@ public class BusinessHourService {
     	if(day==null) {
     		throw new IllegalArgumentException("Day is empty");
     	}
-        List<BusinessHour> businessHours = businessHourRepository.findBusinessHourByDay(day);
+        List<BusinessHour> businessHours = businessHourRepository.findBusinessHourByDayOrderByIdAsc(day);
         if (businessHours == null || businessHours.isEmpty()){
             throw new IllegalArgumentException("No such business hour with weekday " + day + " exists");
         }
@@ -188,7 +188,7 @@ public class BusinessHourService {
      */
     @Transactional
 	public List<BusinessHour> getBusinessHoursbyDayAndWorkingAndEmployeeIsNotNull(WeekDay day, Boolean working){
-        List<BusinessHour> businessHours = businessHourRepository.findBusinessHourByDayAndWorkingAndEmployeeIsNotNull(day, working);
+        List<BusinessHour> businessHours = businessHourRepository.findBusinessHourByDayAndWorkingAndEmployeeIsNotNullOrderByIdAsc(day, working);
         if (businessHours == null || businessHours.isEmpty()){
             throw new IllegalArgumentException("No such business hour with working status " + working + " and day being "+ day+" exists");
         }
@@ -202,7 +202,7 @@ public class BusinessHourService {
      */
     @Transactional
 	public List<BusinessHour> getBusinessHoursbyWorkingAndEmployeeIsNotNull(Boolean working){
-        List<BusinessHour> businessHours = businessHourRepository.findBusinessHourByWorkingAndEmployeeIsNotNull(working);
+        List<BusinessHour> businessHours = businessHourRepository.findBusinessHourByWorkingAndEmployeeIsNotNullOrderByIdAsc(working);
         if (businessHours == null || businessHours.isEmpty()){
             throw new IllegalArgumentException("No such business hour with working status " + working + " exists");
         }
@@ -243,7 +243,7 @@ public class BusinessHourService {
     	if (employee==null) {
     		throw new IllegalArgumentException("Employee cannot be empty");
     	}
-		return businessHourRepository.findBusinessHoursByEmployee(employee);
+		return businessHourRepository.findBusinessHoursByEmployeeOrderByIdAsc(employee);
 	}
 
     /**
@@ -327,7 +327,7 @@ public class BusinessHourService {
         }
         else{
             List<BusinessHour> allbusinesshour=toList(businessHourRepository.findAll());
-            List<BusinessHour> businesshour=businessHourRepository.findBusinessHourByDay(day);
+            List<BusinessHour> businesshour=businessHourRepository.findBusinessHourByDayOrderByIdAsc(day);
             allbusinesshour.removeAll(businesshour);
             return true;
         }

@@ -81,8 +81,21 @@ export default {
                 }
             ).then(response => {
                 console.log(response.data);
+                AXIOS.get("/businesshour/allEmployee")
+                .then(response2 => {
+                    
+                    this.hours = response2.data;
+                    for (hour in hours){
+                        startTime[hour.id] = hour.startTime;
+                        endTime[hour.id] = hour.endTime;
+                    }
+                })
+                .catch(e => {
+                    this.errorHours = e;
+                });
             })
             .catch(error => {
+                console.log(error.response.data);
                 var errorMsg = error
                 if ( error.response ) {
                     errorMsg = error.response.data

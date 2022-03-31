@@ -134,7 +134,7 @@ public class EmployeeService {
 		if (employee == null) {
 			throw new IllegalArgumentException("Employee with id " + id + " does not exists.");
 		}
-		List<BusinessHour> businessHours = businessHourRepository.findBusinessHoursByEmployee(employee);
+		List<BusinessHour> businessHours = businessHourRepository.findBusinessHoursByEmployeeOrderByIdAsc(employee);
 		for (int i = 0; i < businessHours.size(); i++) {
 			businessHourService.deleteBusinessHourbyID(businessHours.get(i).getId());
 		}
