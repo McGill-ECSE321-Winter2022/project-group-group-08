@@ -129,6 +129,7 @@ export default {
                     this.password = response.data.password;
                     this.newPassword = "";
                     this.newInTown = "";
+                    this.isShow = false;
                 })
                 .catch(e => {
                     var errorMsg = e.response.data.message;

@@ -2,7 +2,7 @@
 <template>
   <div
     class="d-flex align-items-center justify-content-center"
-    style="height: 500px;"
+    style="height: 800px;"
     id="Shifts"
   >
     <table>
