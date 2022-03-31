@@ -96,6 +96,28 @@ public class EmployeeService {
 		}
 		return employee;
 	}
+	
+	/**
+	 * Method to get a employee by their role id
+	 * 
+	 * @param role id
+	 * @return employee with that id
+	 */
+	@Transactional
+	public Employee getEmployeeByPerson(String email) {
+		if (email.strip().length() == 0) {
+			throw new IllegalArgumentException("Email cannot be empty");
+		}
+		Person person = personRepository.findPersonByEmail(email);
+		if (person == null) {
+			throw new IllegalArgumentException("No person found");
+		}
+		Employee employee = employeeRepository.findEmployeeByPerson(person);
+		if (employee == null) {
+			throw new IllegalArgumentException("No employee found");
+		}
+		return employee;
+	}
 
 	/**
 	 * Method to delete a employee by their role id

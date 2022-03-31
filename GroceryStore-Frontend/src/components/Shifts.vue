@@ -75,29 +75,42 @@
                 <td class="table-text">| Start Time |</td>
                 <td class="table-text">| End Time |</td>
         </tr> -->
-        <tr v-for="hour in hours" :key="hour.id">
-            <td class="table-text">{{hour.employee.person.firstName + " " + hour.employee.person.lastName}}</td>
-            <td class="table-text">{{hour.day}}</td>
-            <input
-                style=""
-                type="text"
-                v-model="startTime[hour.id]"
-                :placeholder="[[ hour.startTime.substring(0,5) ]]"
-            />
-            <input
-                style="width: 80"
-                type="text"
-                v-model="endTime[hour.id]"
-                :placeholder="[[ hour.endTime.substring(0,5) ]]"
-            />
-            <input type="checkbox" id="inTown" v-model="hour.working" />
-            <button
-                class="btn btn-light"
-                @click="updateHour(hour.id, hour.day, startTime[hour.id], endTime[hour.id], hour.working, hour.employee.id)"
-            >
-                Update
-            </button>
-        </tr>
+        <div v-if="showHours">
+            <tr v-for="hour in hours" :key="hour.id" >
+                <td class="table-text">{{hour.employee.person.firstName + " " + hour.employee.person.lastName}}</td>
+                <td class="table-text">{{hour.day}}</td>
+                <input
+                    style=""
+                    type="text"
+                    v-model="startTime[hour.id]"
+                    :placeholder="[[ hour.startTime.substring(0,5) ]]"
+                />
+                <input
+                    style="width: 80"
+                    type="text"
+                    v-model="endTime[hour.id]"
+                    :placeholder="[[ hour.endTime.substring(0,5) ]]"
+                />
+                <input type="checkbox" id="inTown" v-model="hour.working" />
+                <button
+                    class="btn btn-light"
+                    @click="updateHour(hour.id, hour.day, startTime[hour.id], endTime[hour.id], hour.working, hour.employee.id)"
+                >
+                    Update
+                </button>
+            </tr>
+        </div>
+        <div v-if="!showHours">
+            <tr v-for="e in employees" :key="e.email" >
+                <td class="table-text">{{e.firstName + " " + e.lastName}}</td>
+                <button
+                    class="btn btn-light"
+                    @click="viewEmployeeHourByEmail(e.email)"
+                >
+                    View
+                </button>
+            </tr>
+        </div>
         
     </v-data-table>
     </table>

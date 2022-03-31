@@ -29,6 +29,7 @@ export default {
     data() {
         return {
             hours: [],
+            employees:[],
             id: "",
             day: "",
             startTime: {},
@@ -38,7 +39,8 @@ export default {
             groceryStoreSystemName: "",
             errorHours: "",
             response: [],
-            filter: ""
+            filter: "",
+            showHours: true
         };
     },
 
@@ -88,6 +90,7 @@ export default {
             });
         },
         getEmployees: function(firstName, lastName){
+            this.showHours = false;
             if(firstName == undefined){
                 firstName = "";
             }
@@ -101,6 +104,7 @@ export default {
                     }
                 }
             ).then(response => {
+                this.employees = response.data;
                 console.log(response.data);
             })
             .catch(error => {
@@ -110,7 +114,41 @@ export default {
                 }
             });
         },
+        viewEmployeeHourByEmail: function(email){
+            console.log("here");
+            AXIOS.get("/employee/email/"+email, {}
+            ).then(response => {
+                console.log("here!");
+                this.employeeId = response.data.id;
+                AXIOS.get("/businesshour/employee/"+response.data.id
+                ).then(response2 => {
+                    console.log("in here!");
+                    console.log(response2.data);
+                    this.showHours = true;
+                    this.hours = response2.data;
+                    for (hour in hours){
+                        startTime[hour.id] = hour.startTime;
+                        endTime[hour.id] = hour.endTime;
+                    }
+                    
+                    console.log("showHours: " + this.showHours);
+                })
+                .catch(error => {
+                    var errorMsg = error
+                    if ( error.response ) {
+                        errorMsg = error.response.data
+                    }
+                });
+            })
+            .catch(error => {
+                var errorMsg = error
+                if ( error.response ) {
+                    errorMsg = error.response.data
+                }
+            });
+        },
         getEmployeeHour: function(id){
+            console.log("here2");
             AXIOS.get("/businesshour/employee/"+id
             ).then(response => {
                 this.hours = response.data;
@@ -175,6 +213,11 @@ export default {
                 .catch(e => {
                     this.errorHours = e;
                 });
+            }
+            if(this.filter == "Name"){
+                this.showHours = false;
+            }else{
+                this.showHours = true;
             }
         }
     }
