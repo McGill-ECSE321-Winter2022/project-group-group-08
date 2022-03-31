@@ -54,9 +54,7 @@ export default {
                     this.$router.push({ path: `/Profile/${this.account.username}` });
                 })
                 .catch(e => {
-                    var errorMsg = "Invalid username or password";
-                    console.log(e);
-                    this.errorLogin = errorMsg;
+                    this.errorLogin = e.response.data;
                 });
         }
     }
