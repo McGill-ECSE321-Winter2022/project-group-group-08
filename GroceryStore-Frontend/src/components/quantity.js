@@ -52,8 +52,10 @@ export default {
   computed: {
     sortedQuantities: function() {
       function compare(a, b) {
-        if (a.item.name < b.item.name) return -1;
-        if (a.item.name > b.item.name) return 1;
+        if (a.item.name < b.item.name) 
+          return -1;
+        if (a.item.name > b.item.name) 
+          return 1;
         return 0;
       }
       return this.quantities.sort(compare);
