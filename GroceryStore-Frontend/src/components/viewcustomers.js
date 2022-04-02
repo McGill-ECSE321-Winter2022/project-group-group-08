@@ -29,10 +29,6 @@ export default {
       firstName: "",
       lastName: "",
       email: "",
-      curCustomer: "",
-      curCustomerFirstName: "",
-      curCustomerLastName: "",
-      curCustomerEmail: "",
       errorCustomers: "",
       response: [],
       filter: ""
@@ -40,18 +36,100 @@ export default {
   },
 
   methods: {
-    banCustomer: function(customerID) {
-      AXIOS.patch("/customer/update/".concat(customerID), {
+    getCustomerByID(customerID) {
+      AXIOS.get("/customer/".concat(customerID))
+        .then(response => {
+          this.customers = response.data;
+        })
+        .catch(e => {
+          this.errorCustomers = e;
+        });
+    },
+    getCustomerByName(firstName, lastName) {
+      if (firstName == undefined) {
+        firstName = "";
+      }
+      if (lastName == undefined) {
+        lastName = "";
+      }
+      AXIOS.get("/getPersonsByFirstNameLastNameContainingIgnoreCase/", {
         params: {
-            tierClass: tierClass,
-            ban: ban,
-            personEmail: personEmail
+          firstName: firstName,
+          lastName: lastName
         }
       })
-        .catch(e => {
-          var error = e.response.data.message;
-          console.log(error);
+        .then(response => {
+          this.customers = response.data;
+          console.log(response.data);
+        })
+        .catch(error => {
+          var errorMsg = error;
+          if (error.response) {
+            errorMsg = error.response.data;
+          }
         });
+    },
+    getCustomerByEmail(email) {
+      AXIOS.get("/customer/email/".concat(email))
+        .then(response => {
+          this.customers = response.data;
+        })
+        .catch(e => {
+          this.errorCustomers = e;
+        });
+    },
+    banCustomer: function(customerID, customerTier, customerBan, email) {
+      if (customerBan) {
+        AXIOS.patch(
+          "/customer/update/".concat(customerID),
+          {},
+          {
+            params: {
+              tierClass: customerTier,
+              ban: false,
+              personEmail: email
+            }
+          }
+        )
+          .then(response => {
+            AXIOS.get("/customers/")
+              .then(response2 => {
+                this.customers = response2.data;
+              })
+              .catch(e2 => {
+                this.errorCustomers = e2;
+              });
+          })
+          .catch(e => {
+            var error = e.response.data.message;
+            console.log(error);
+          });
+      } else {
+        AXIOS.patch(
+          "/customer/update/".concat(customerID),
+          {},
+          {
+            params: {
+              tierClass: customerTier,
+              ban: true,
+              personEmail: email
+            }
+          }
+        )
+          .then(response => {
+            AXIOS.get("/customers/")
+              .then(response2 => {
+                this.customers = response2.data;
+              })
+              .catch(e2 => {
+                this.errorCustomers = e2;
+              });
+          })
+          .catch(e => {
+            var error = e.response.data.message;
+            console.log(error);
+          });
+      }
     },
 
     filterToggle(event) {
