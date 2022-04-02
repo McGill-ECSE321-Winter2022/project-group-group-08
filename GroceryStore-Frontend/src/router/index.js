@@ -1,33 +1,43 @@
-import Vue from "vue";
-import Router from "vue-router";
-import Hello from "@/components/Hello.vue";
-import Login from "@/components/Login.vue";
-import SignUp from "@/components/SignUp.vue";
-import Profile from "@/components/Profile.vue";
+import Vue from 'vue';
+import Router from 'vue-router';
+import Hello from '@/components/Hello';
+import Item from '@/components/Item.vue';
+import Browse from '@/components/Browse.vue';
+// import ViewShift from '@/components/ViewShift';
 
-Vue.use(Router);
+Vue.use(Router)
 
 export default new Router({
-    routes: [{
-            path: "/",
-            name: "Hello",
-            component: Hello
-        },
-        {
-            path: "/Login",
-            name: "Login",
-            component: Login
-        },
-        {
-            path: "/SignUp",
-            name: "SignUp",
-            component: SignUp
-        },
-        {
-            path: "/Profile/:usernameP",
-            name: "Profile",
-            component: Profile,
-            props: true
-        }
-    ]
-});
+  routes: [
+    {
+      path: '/',
+      name: 'Hello',
+      component: Hello
+    },
+    {
+      path: "/cart",
+      name: "Cart",
+      component : Cart
+    },
+    {
+      path: "/browse",
+      name: "Browse",
+      component : Browse
+    },
+    {
+      path: "/item",
+      name: "Item",
+      component : Item
+    },
+    {
+      path: "/quantity",
+      name: "Quantity",
+      component : Quantity
+    }
+    // {
+    //   path: "/ViewShifts",
+    //   name: "ViewShifts",
+    //   component : ViewShift
+    // }
+  ]
+})
