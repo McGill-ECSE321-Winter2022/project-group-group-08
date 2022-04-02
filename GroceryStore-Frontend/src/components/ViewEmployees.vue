@@ -7,13 +7,14 @@
   >
     <table>
       <h2>View Employees</h2>
+      <!-- !!! Implement if have time -->
       <tr>
-        <select name="filter" id="filter" @change="filterToggle($event)">
+        <!-- <select name="filter" id="filter" @change="filterToggle($event)">
           <option value="blank" key="blank"></option>
           <option value="EmployeeID" key="employeeID">Employee ID</option>
           <option value="Name" key="name">Name</option>
           <option value="Email" key="email">Email</option>
-        </select>
+        </select> -->
       </tr>
 
       <tr v-if="filter == 'EmployeeID'">
@@ -66,15 +67,19 @@
       </tr>
 
       <v-data-table class="elevation-1">
+        <th>Employee ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
         <tbody>
         <tr v-for="employee in employees" :key="employee.id">
           <td class="table-text">{{ employee.id }}</td>
-          <td class="table-text">{{ employee.personDto.firstName }}</td>
-          <td class="table-text">{{ employee.personDto.lastName }}</td>
-          <td class="table-text">{{ employee.personDto.email }}</td>
+          <td class="table-text">{{ employee.person.firstName }}</td>
+          <td class="table-text">{{ employee.person.lastName }}</td>
+          <td class="table-text">{{ employee.person.email }}</td>
           <td>
             <button class="fire button" @click="fireEmployee(employee.id)">
-              Fire Employee
+              Fire
             </button>
           </td>
         </tr>

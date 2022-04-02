@@ -82,6 +82,14 @@ export default {
       AXIOS.delete("/employee/delete/".concat(employeeID)).catch(e => {
         var error = e.response.data.message;
         console.log(error);
+      }).then(response => {
+        AXIOS.get("/employees/")
+        .then(response2 => {
+          this.employees = response2.data;
+        })
+        .catch(e => {
+          this.errorEmployees = e;
+        });
       });
     },
 
