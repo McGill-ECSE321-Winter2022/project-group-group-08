@@ -118,7 +118,6 @@ export default {
                 }
             ).then(response => {
                 this.employees = response.data;
-                console.log(response.data);
             })
             .catch(error => {
                 var errorMsg = error
@@ -135,16 +134,12 @@ export default {
                 this.employeeId = response.data.id;
                 AXIOS.get("/businesshour/employee/"+response.data.id
                 ).then(response2 => {
-                    console.log("in here!");
-                    console.log(response2.data);
                     this.showHours = true;
                     this.hours = response2.data;
                     for (hour in hours){
                         startTime[hour.id] = hour.startTime;
                         endTime[hour.id] = hour.endTime;
                     }
-                    
-                    console.log("showHours: " + this.showHours);
                 })
                 .catch(error => {
                     var errorMsg = error

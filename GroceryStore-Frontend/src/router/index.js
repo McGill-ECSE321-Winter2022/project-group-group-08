@@ -7,6 +7,8 @@ import Profile from "@/components/Profile.vue";
 import Shifts from "@/components/Shifts.vue";
 import Cart from '@/components/cart/Cart.vue';
 import ViewShifts from '@/components/viewShifts/ViewShifts.vue';
+import ViewCustomers from "@/components/ViewCustomers.vue";
+import ViewEmployees from "@/components/ViewEmployees.vue";
 
 Vue.use(Router);
 
@@ -46,7 +48,15 @@ export default new Router({
           path: "/viewshifts",
           name: "ViewShifts",
           component : ViewShifts
+        },{
+            path: "/viewcustomers",
+            name: "ViewCustomers",
+            component: ViewCustomers
+        },
+        {
+            path: "/viewemployees",
+            name: "ViewEmployees",
+            component: ViewEmployees
         }
-
     ]
 });
