@@ -63,6 +63,17 @@ public class CartService {
 		Cart cart  = cartRepository.findCartById(id);
 		return cart;
 	}
+	
+	@Transactional
+	public Cart findCartByAccount(Account account) {
+		Cart cart = null;
+		cart = cartRepository.findCartByAccount(account);
+		if (cart == null) {throw new IllegalArgumentException("Account has no cart");}
+		return cart;
+		
+	}
+	
+	
 
 	/**
 	 * getting all the carts

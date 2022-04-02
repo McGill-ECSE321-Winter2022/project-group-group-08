@@ -45,6 +45,18 @@ public class CartRestController {
     }
 	
 	/**
+	 * @return returns a list of cart
+	 */
+	@GetMapping(value = { "/cart/getWithUsername", "/cart/getWithUsername/" })
+    public CartDto getAllCarts(
+    	@RequestParam(name = "username") String username
+    	){
+		Account temp = accountService.findAccountByUsername(username);
+		Cart car = cartService.findCartByAccount(temp);
+		return convertToDto(car);
+    }
+	
+	/**
 	 * creates a cart with a date and a account linked to it
 	 * @param date date 
 	 * @param username primary key of account
