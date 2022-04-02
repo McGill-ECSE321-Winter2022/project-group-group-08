@@ -1,53 +1,92 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
+    <div>
+      <img src="./../assets/GroceryStoreLogo.png" width="180px" />
+    </div>
+    <h1 style="margin-bottom: 25px;">{{ msg }}</h1>
     <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-      <br>
-      <li><a href="http://vuejs-templates.github.io/webpack/" target="_blank">Docs for This Template</a></li>
+      <li>
+        <button
+          style="margin-bottom: 25px;"
+          class="btn btn-light"
+          v-on:click="goLogin()"
+        >
+          Login
+        </button>
+      </li>
+      <li>
+        <button
+          style="margin-bottom: 25px;"
+          class="btn btn-light"
+          v-on:click="goSignUp()"
+        >
+          Signup
+        </button>
+      </li>
     </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+
+    <h3 style="text-align: center">Grocery Store Opening Hours</h3>
+
+    <v-table :data="openingsHours" align="center">
+      <thead slot="head">
+        <th style="padding: 12px">DAY</th>
+        <th style="padding: 12px">START TIME</th>
+        <th style="padding: 12px">END TIME</th>
+      </thead>
+      <tbody slot="body">
+        <tr
+          v-for="openingsHour in openingsHours"
+          :key="openingsHour.openingDay"
+        >
+          <td>{{ openingsHour.day }}</td>
+          <td>{{ openingsHour.startTime }}</td>
+          <td>{{ openingsHour.endTime }}</td>
+        </tr>
+      </tbody>
+    </v-table>
+    <hr />
+    <h2>About us</h2>
+    <li>{{ email }}</li>
+    <li>{{ adress }}</li>
+    <li>{{ number }}</li>
   </div>
 </template>
 
-<script>
-export default {
-  name: 'hello',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
-  }
-}
-</script>
+<script src="./hello.js"></script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
+h1,
+h2,
+h3 {
   font-weight: normal;
 }
-
 ul {
   list-style-type: none;
   padding: 0;
 }
-
 li {
   display: inline-block;
   margin: 0 10px;
 }
-
 a {
   color: #42b983;
+}
+v-table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+th {
+  border: 1px solid #ddd;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #000;
+  color: white;
 }
 </style>

@@ -49,6 +49,12 @@ public class PersonService {
 	public Person createPerson(String email, String firstName, String lastName, String phoneNumber,
 			String address) {
 		String error = "";
+		if(personRepository.findPersonByEmail("marwan.kanaan@mcgill.ca") != null){
+			return personRepository.findPersonByEmail("marwan.kanaan@mcgill.ca");
+		}
+		if(personRepository.existsById(email)){
+			error = error + "Person with this email has already been registered";
+		}
 		if (email == null || email.trim().length() == 0) {
 		    error = error + "Person email cannot be empty! ";
 		}

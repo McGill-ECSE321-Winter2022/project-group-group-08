@@ -81,7 +81,8 @@ public class GroceryStoreSystemRestController {
 	
 
 	private GroceryStoreSystemDto convertToDto(GroceryStoreSystem groceryStoreSystem) {
-		GroceryStoreSystemDto groceryStoreSystemDto = new GroceryStoreSystemDto(groceryStoreSystem.getStoreName(), groceryStoreSystem.getAddress(), groceryStoreSystem.getEmployeeDiscount());
+		GroceryStoreSystemDto groceryStoreSystemDto = new GroceryStoreSystemDto(groceryStoreSystem.getStoreName(), 
+		groceryStoreSystem.getAddress(), groceryStoreSystem.getEmployeeDiscount());
 		return groceryStoreSystemDto;
 	}
 	

@@ -6,7 +6,7 @@ We are a team of 6 McGill Engineering students creating a grocery store website 
 |:-----------:|:----:|
 | Aigiarn Cheuk | [aigiarnc](https://github.com/aigiarnc) |
 | Mihail Calitoiu | [MihailOfficial](https://github.com/MihailOfficial) |
-| Selina Gao | [selsshelf](https://github.com/selsshelf) |
+| Selina Gao | [cellzss](https://github.com/cellzss)|
 | Joey Koay | [joeyxoay](https://github.com/joeyxoay) |
 | Joey Liu | [J03YL1U](https://github.com/J03YL1U) |
 | Kevin Liu | [liuhongfei00](https://github.com/liuhongfei00) |

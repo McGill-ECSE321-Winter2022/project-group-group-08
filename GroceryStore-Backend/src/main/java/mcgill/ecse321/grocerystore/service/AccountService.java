@@ -54,6 +54,12 @@ public class AccountService {
 	public Account createAccount(String username, String password, boolean inTown,
 			int totalPoints, Person person) {
 		String error = "";
+		if(accountRepository.findAccountByUsername("BigBoss") != null){
+			return accountRepository.findAccountByUsername("BigBoss");
+		}
+		if(accountRepository.existsById(username)){
+			error = error + "Username already taken";
+		}
 		if (username == null || username.trim().length() == 0) {
 		    error = error + "Account username cannot be empty! ";
 		}
