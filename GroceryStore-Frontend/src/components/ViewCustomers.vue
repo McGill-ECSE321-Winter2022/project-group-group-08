@@ -8,12 +8,13 @@
     <table>
       <h2>View Customers</h2>
       <tr>
-        <select name="filter" id="filter" @change="filterToggle($event)">
+        <!-- !!! Implement if have time -->
+        <!-- <select name="filter" id="filter" @change="filterToggle($event)">
           <option value="blank" key="blank"></option>
           <option value="CustomerID" key="customerID">Customer ID</option>
           <option value="Name" key="name">Name</option>
           <option value="Email" key="email">Email</option>
-        </select>
+        </select> -->
       </tr>
 
       <tr v-if="filter == 'CustomerID'">
@@ -64,7 +65,7 @@
           Search
         </button>
       </tr>
-
+      
       <v-data-table class="elevation-1">
         <th>Customer ID</th>
         <th>First Name</th>
