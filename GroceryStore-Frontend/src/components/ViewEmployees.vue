@@ -23,7 +23,8 @@
           v-model="employeeID"
           placeholder="Employee ID"
         />
-        <button size="sm"
+        <button
+          size="sm"
           class="filter button"
           @click="getEmployeeByID(employeeID)"
         >
@@ -59,29 +60,25 @@
           v-model="email"
           placeholder="Email"
         />
-        <button
-          class="filter button"
-          @click="getEmployeeByEmail(email)"
-        >
+        <button class="filter button" @click="getEmployeeByEmail(email)">
           Search
         </button>
       </tr>
 
       <v-data-table class="elevation-1">
-        <tr v-for="employee in employees" :key="employee.ID">
-          <td class="table-text">{{ employeeID }}</td>
-          <td class="table-text">{{ firstName }}</td>
-          <td class="table-text">{{ lastName }}</td>
-          <td class="table-text">{{ email }}</td>
+        <tbody>
+        <tr v-for="employee in employees" :key="employee.id">
+          <td class="table-text">{{ employee.id }}</td>
+          <td class="table-text">{{ employee.personDto.firstName }}</td>
+          <td class="table-text">{{ employee.personDto.lastName }}</td>
+          <td class="table-text">{{ employee.personDto.email }}</td>
           <td>
-            <button
-              class="fire button"
-              @click="fireEmployee(employeeID)"
-            >
+            <button class="fire button" @click="fireEmployee(employee.id)">
               Fire Employee
             </button>
           </td>
         </tr>
+        </tbody>
       </v-data-table>
     </table>
   </div>
