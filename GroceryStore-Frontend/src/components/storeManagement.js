@@ -13,7 +13,7 @@ export default {
     name: "storeManagement",
 
     created: function() {
-        AXIOS.get("/businesshour/store")
+        AXIOS.get("/getOpeningHours/My Local Shop")
             .then(response => {
                 console.log("here");
                 this.hours = response.data;
@@ -22,6 +22,17 @@ export default {
                     startTime[hour.id] = hour.startTime;
                     endTime[hour.id] = hour.endTime;
                 }
+            })
+            .catch(e => {
+                this.errorHours = e;
+            });
+        AXIOS.get("/grocerystoresystem/My Local Shop")
+            .then(response => {
+                console.log("here2");
+                console.log(response.data);
+                this.storename = response.data.storeName;
+                this.address = response.data.address;
+                this.employeeDiscount = response.data.employeeDiscount;
             })
             .catch(e => {
                 this.errorHours = e;
@@ -76,8 +87,8 @@ export default {
                         startTime: startTime,
                         endTime: endTime,
                         working: working,
-                        storename: storename,
-                        employeeId: "-1"
+                        groceryStoreSystemName: "My Local Shop",
+                        employeeId: -1
                     }
                 }
             ).then(response => {
