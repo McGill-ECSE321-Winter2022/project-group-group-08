@@ -56,6 +56,16 @@ public class BusinessHourRestController {
         BusinessHour businessHour = businesshourService.getBusinessHoursbyID(id);
         return convertToDto(businessHour);
     }
+	
+	/**
+	 * Gets business hours by store name
+	 * @param storeName
+	 * @return list of business hour s
+	 */
+	@GetMapping(value = { "/businesshour/store", "/businesshour/store/" })
+    public List<BusinessHourDto> getBusinessHourByStoreName(){
+        return businesshourService.getBusinessHoursByStore().stream().map(b -> convertToDto(b)).collect(Collectors.toList());
+    }
 
 	/**
 	 * Creates a business hour for an employee

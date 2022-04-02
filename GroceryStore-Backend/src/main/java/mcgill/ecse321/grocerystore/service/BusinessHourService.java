@@ -105,6 +105,15 @@ public class BusinessHourService {
 	public List<BusinessHour> getAllBusinessHours(){
 		return toList(businessHourRepository.findAll());
 	}
+    
+    /**
+     * get all the business hours related to store
+     * @return List<BusinessHour>
+     */
+    @Transactional
+	public List<BusinessHour> getBusinessHoursByStore(){
+		return toList(businessHourRepository.findBusinessHoursByGroceryStoreSystemIsNotNullOrderByIdAsc());
+	}
 	
     /**
      * get the business hour by id

@@ -13,9 +13,11 @@ export default {
     name: "storeManagement",
 
     created: function() {
-        AXIOS.get("/grocerystoresystem/storeManagement")
+        AXIOS.get("/businesshour/store")
             .then(response => {
+                console.log("here");
                 this.hours = response.data;
+                console.log(response.data);
                 for (hour in hours){
                     startTime[hour.id] = hour.startTime;
                     endTime[hour.id] = hour.endTime;
@@ -56,48 +58,50 @@ export default {
     // },
 
     methods: {
-        createStoreHours: function(groceryStoreSystemName, day, working, startTime, endTime){
-            AXIOS.post(
-                "/grocerystoresystem/storeHours" + groceryStoreSystemName, {}, {
-                    params:{
-                        day: day,
-                        working: working,
-                        startTime: startTime,
-                        endTime: endTime
-                    }
-                }
-            ).then(response => {
-                this.hours.push(response.data);
-                this.day = "";
-                this.working = "";
-                this.startTime = "";
-                this.endTime = "";
-            }).catch(e => {
-                console.log(e);
-            });
-        },
-        updateStoreHours: function(id, day, startTime, endTime, working){
-            AXIOS.patch("/grocerystoresystem/update/"+id, {},{ 
+        // createStoreHours: function(groceryStoreSystemName, day, working, startTime, endTime){
+        //     AXIOS.post(
+        //         "/grocerystoresystem/storeHours" + groceryStoreSystemName, {}, {
+        //             params:{
+        //                 day: day,
+        //                 working: working,
+        //                 startTime: startTime,
+        //                 endTime: endTime
+        //             }
+        //         }
+        //     ).then(response => {
+        //         this.hours.push(response.data);
+        //         this.day = "";
+        //         this.working = "";
+        //         this.startTime = "";
+        //         this.endTime = "";
+        //     }).catch(e => {
+        //         console.log(e);
+        //     });
+        // },
+        updateStoreHours: function(id, day, startTime, endTime, working, storeName){
+            AXIOS.patch("/businesshour/update/"+id, {},{ 
                     params: {
                         day: day,
                         startTime: startTime,
                         endTime: endTime,
                         working: working,
+                        groceryStoreSystemName: storeName,
+                        employeeId: ""
                     }
                 }
             ).then(response => {
                 console.log(response.data);
-                AXIOS.get("/grocerystoresystem/storeManagement")
-                .then(response2 => {
-                    this.hours = response2.data;
-                    for (hour in hours){
-                        startTime[hour.id] = hour.startTime;
-                        endTime[hour.id] = hour.endTime;
-                    }
-                })
-                .catch(e => {
-                    this.errorHours = e;
-                });
+                // AXIOS.get("/grocerystoresystem/storeManagement")
+                // .then(response2 => {
+                //     this.hours = response2.data;
+                //     for (hour in hours){
+                //         startTime[hour.id] = hour.startTime;
+                //         endTime[hour.id] = hour.endTime;
+                //     }
+                // })
+                // .catch(e => {
+                //     this.errorHours = e;
+                // });
             })
             .catch(error => {
                 console.log(error.response.data);
@@ -107,17 +111,17 @@ export default {
                 }
             });
         },
-        updateEmployeeDiscount: function(employeeDiscount){
-            AXIOS.patch("/grocerystoresystem/employeeDiscount/", {},{ 
-                params: {
-                    day: day,
-                    startTime: startTime,
-                    endTime: endTime,
-                    working: working,
-                }
-            }
-        )
-        }
+        // updateEmployeeDiscount: function(employeeDiscount){
+        //     AXIOS.patch("/grocerystoresystem/employeeDiscount/", {},{ 
+        //         params: {
+        //             day: day,
+        //             startTime: startTime,
+        //             endTime: endTime,
+        //             working: working,
+        //         }
+        //     }
+        // )
+        // }
         
     }
 };
