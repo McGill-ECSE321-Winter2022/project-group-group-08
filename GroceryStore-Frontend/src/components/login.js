@@ -52,6 +52,9 @@ export default {
                     this.errorLogin = "";
                     this.account = this.accounts[this.accounts.length - 1];
                     this.$router.push({ path: `/Profile/${this.account.username}` });
+                    sessionStorage.setItem("username", username);
+                    sessionStorage.setItem("validUser", true);
+                    location.reload();
                 })
                 .catch(e => {
                     this.errorLogin = e.response.data;

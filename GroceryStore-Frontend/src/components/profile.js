@@ -59,6 +59,7 @@ export default {
                         AXIOS.get("/manager/" + id, {}, {})
                             .then(response => {
                                 this.userRole = "Manager";
+                                sessionStorage.setItem("role", "manager");
                             })
                             .catch(e => {
                                 this.error = e;
@@ -67,6 +68,7 @@ export default {
                         AXIOS.get("/customer/" + id, {}, {})
                             .then(response => {
                                 this.userRole = "Customer";
+                                sessionStorage.setItem("role", "customer");
                             })
                             .catch(e => {
                                 this.error = e;
@@ -75,6 +77,7 @@ export default {
                         AXIOS.get("/employee/" + id, {}, {})
                             .then(response => {
                                 this.userRole = "Employee";
+                                sessionStorage.setItem("role", "employee");
                             })
                             .catch(e => {
                                 this.error = e;

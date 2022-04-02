@@ -1,3 +1,27 @@
+<script>
+export default {
+  name: "app",
+  data() {
+    return {
+        customer: sessionStorage.getItem('role') == "customer",
+        employee: sessionStorage.getItem('role') == "employee",
+        manager: sessionStorage.getItem('role') == "manager",
+        username: sessionStorage.getItem('username')
+    };
+  },
+  methods: {
+    logout: function() {
+      sessionStorage.clear();
+      this.customer = false;
+      this.employee = false;
+      this.manager = false;
+    },
+  }
+};
+
+  
+</script>
+
 <template>
   <div id="app">
     <div id="nav">
@@ -9,6 +33,9 @@
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav>
             <b-nav-item href="#">Browse</b-nav-item>
+            <b-nav-item href="#/shifts" v-if="manager">Shifts</b-nav-item>
+            <b-nav-item href="#" v-if="manager">Items</b-nav-item>
+            <b-nav-item href="#" v-if="manager">Accounts</b-nav-item>
             <!-- <b-nav-item href="#" disabled>Disabled</b-nav-item> -->
           </b-navbar-nav>
 
@@ -24,9 +51,10 @@
               <template #button-content>
                 <em>User</em>
               </template>
-              <b-dropdown-item href="#/Login">Profile</b-dropdown-item>
-              <b-dropdown-item href="#">Cart</b-dropdown-item>
-              <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+              <b-dropdown-item href="#/Login" v-if="!customer && !employee && !manager"> Log in</b-dropdown-item>
+              <b-dropdown-item :href="'#/Profile/'+username" v-if="customer || employee || manager">Profile</b-dropdown-item>
+              <b-dropdown-item href="#" v-if="customer || employee ">Cart</b-dropdown-item>
+              <b-dropdown-item href="#/" @click="logout" v-if="customer || employee || manager">Sign Out</b-dropdown-item>
             </b-nav-item-dropdown>
           </b-navbar-nav>
         </b-collapse>
@@ -36,11 +64,7 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "app"
-};
-</script>
+
 
 <style>
 #app {
