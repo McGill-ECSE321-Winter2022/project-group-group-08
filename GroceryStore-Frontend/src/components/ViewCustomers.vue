@@ -23,9 +23,10 @@
           v-model="customerID"
           placeholder="Customer ID"
         />
-        <button size="sm"
+        <button
+          size="sm"
           class="filter button"
-          @click="getEmployeeByID(customerID)"
+          @click="getCustomerByID(customerID)"
         >
           Search
         </button>
@@ -46,7 +47,7 @@
         />
         <button
           class="filter button"
-          @click="getEmployeeByName(firstName, lastName)"
+          @click="getCustomerByName(firstName, lastName)"
         >
           Search
         </button>
@@ -59,29 +60,44 @@
           v-model="email"
           placeholder="Email"
         />
-        <button
-          class="filter button"
-          @click="getEmployeeByEmail(email)"
-        >
+        <button class="filter button" @click="getCustomerByEmail(email)">
           Search
         </button>
       </tr>
 
       <v-data-table class="elevation-1">
-        <tr v-for="customer in customers" :key="customer.ID">
-          <td class="table-text">{{ customer }}</td>
-          <td class="table-text">{{ firstName }}</td>
-          <td class="table-text">{{ lastName }}</td>
-          <td class="table-text">{{ email }}</td>
-          <td>
-            <button
-              class="ban button"
-              @click="banCustomer(customerID)"
-            >
-              Ban Employee
-            </button>
-          </td>
-        </tr>
+        <th>Customer ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Customer ID</th>
+        <th>Tier</th>
+        <th>Ban Status</th>
+        <tbody>
+          <tr v-for="customer in customers" :key="customer.id">
+            <td class="table-text">{{ customer.id }}</td>
+            <td class="table-text">{{ customer.personDto.firstName }}</td>
+            <td class="table-text">{{ customer.personDto.lastName }}</td>
+            <td class="table-text">{{ customer.personDto.email }}</td>
+            <td class="table-text">{{ customer.tierClass }}</td>
+            <td v-if="customer.ban">Yes</td>
+            <td v-else>No</td>
+            <td>
+              <button
+                class="ban button"
+                @click="
+                  banCustomer(
+                    customer.id,
+                    customer.tierClass,
+                    customer.ban,
+                    customer.personDto.email
+                  )
+                "
+              >
+                Ban Customer
+              </button>
+            </td>
+          </tr>
+        </tbody>
       </v-data-table>
     </table>
   </div>
