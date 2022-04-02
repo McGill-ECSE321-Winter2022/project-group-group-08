@@ -11,34 +11,53 @@ var AXIOS = axios.create({
 });
 
 export default {
-  name: 'Cart',
+  name: 'Quantity',
   data() {
     return {
-      quantities: []
+      quantities: [],
+      loading: false,
     };
   },
 
-  props: {
-    cartId: {
-      type: Number,
-      default: -1
-    }
+  created () {
+    this.loading = true;
+    AXIOS.get("quantity/cartId/" + sessionStorage.getItem("cartId"))
+      .then(response => {
+        this.quantities = response.data;
+        
+      })
+      .catch(e => {
+        console.log(e);
+      }).finally(() => this.loading = false);
   },
 
-  created () {
-    console.log(cartId);
-    AXIOS.get("quantity/cartId/" + cartId)
+  methods: {
+    onUpdate() {
+      this.loading = true;
+      AXIOS.get("quantity/cartId/" + sessionStorage.getItem("cartId"))
       .then(response => {
         this.quantities = response.data;
       })
       .catch(e => {
         console.log(e);
-      });
+      }).finally(() => this.loading = false);
+    }
   },
 
 
   components: {
     Item,
+  },
+
+  computed: {
+    sortedQuantities: function() {
+      function compare(a, b) {
+        if (a.item.name < b.item.name) return -1;
+        if (a.item.name > b.item.name) return 1;
+        return 0;
+      }
+      return this.quantities.sort(compare);
+    }
   }
 
 }

@@ -19,9 +19,9 @@ export default {
         username: "testAccount"
       }
     })
-    
       .then(response => {
         this.cart = response.data;
+        sessionStorage.setItem("cartId", response.data.id);
       })
       .catch(e => {
         console.log(e);
@@ -36,48 +36,52 @@ export default {
 
   components: {
     Quantity,
-  } 
+  },
 
-  // methods: {
+//   methods: {
 
-  //   deleteItem: function () {
-  //     AXIOS.delete("/delete/" + this.ItemId, {}, {
-  //       params: { ItemId: ItemId }
-  //     })
-  //       .then(response => {
-  //         this.$router.push({ path: '/' });
-  //       })
-  //       .catch(e => {
-  //         var errorMsg = e.response.data.message;
-  //         console.log(errorMsg);
-  //         this.deleteError = true;
-  //       });
-  //   },
+//     deleteItem: function () {
+//       AXIOS.delete("/delete/" + itemId, {}, {
+//         params: { itemId: itemId }
+//       })
+//         .then(response => {
+//           this.$router.push({ path: '/' });
+//         })
+//         .catch(e => {
+//           var errorMsg = e.response.data.message;
+//           console.log(errorMsg);
+//         });
+//     },
 
-  //   updateQuantity: function (QuantityId) {
-  //     var quantity = this.newQuantity;
-  //     if (this.newQuantity === "") {
-  //       quantity = this.quantity;
-  //     }
-  //     AXIOS.patch("/Cart/" + QuantityId, {}, {
-  //       params: {
-  //         QuantityId: QuantityId,
-  //         count: count,
-  //         CartId: CartId,
-  //         ItemId: ItemId
-  //       }
-  //     })
-  //       .then(response => {
-  //         this.Quantityid = "";
-  //         this.CartId = "";
-  //         this.ItemId = "";
-  //         this.count = response.data.count
-  //       })
-  //       .catch(e => {
-  //         var errorMsg = "No cart with such id exist";
-  //         console.log(errorMsg);
-  //         this.errorCart = this.errorMsg;
-  //       });
-  //   },
-  // }
+//     minusQuantity: function () {
+//       AXIOS.patch("/quantity/update" + QuantityId, {}, {
+//         params: {
+//           QuantityId: QuantityId,
+//           count: count,
+//           CartId: CartId,
+//           ItemId: ItemId
+//         }
+//       })
+//         .then(response => {
+//           itemQuantity = itemQuantity-1
+//         })
+//         .catch(e => {
+//           console.log(e);
+//         });
+//     },
+
+//     plusQuantity: function () {
+//       AXIOS.patch("/quantity/update/" + QuantityId, {}, {
+//         params: {
+          
+//         }
+//       })
+//         .then(response => {
+//           itemQuantity = item.Quantity+1
+//         })
+//         .catch(e => {
+//           console.log(e);
+//         });
+//     },
+//  }
 }

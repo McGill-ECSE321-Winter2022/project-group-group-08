@@ -1,8 +1,10 @@
 <template>
     <div id="cart">
-        <Quantity :cartId ="cart.id"></Quantity>
+        <Quantity 
+            :cartId ="cart.id"
+        ></Quantity>
         <div class="checkout">
-            <button class="button">Checkout</button>
+            <button class="button">Checkout and Pay</button>
         </div>
     </div>
 </template>
