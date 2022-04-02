@@ -1,10 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Hello from '@/components/Hello';
-import Cart from '@/components/Cart.vue';
-import Item from '@/components/Item.vue';
-import Quantity from '@/components/Quantity.vue';
-// import ViewShift from '@/components/ViewShift';
+import Cart from '@/components/cart/Cart.vue';
+import ViewShifts from '@/components/viewShifts/ViewShifts.vue';
 
 Vue.use(Router)
 
@@ -21,19 +19,9 @@ export default new Router({
       component : Cart
     },
     {
-      path: "/item",
-      name: "Item",
-      component : Item
-    },
-    {
-      path: "/quantity",
-      name: "Quantity",
-      component : Quantity
+      path: "/viewshifts",
+      name: "ViewShifts",
+      component : ViewShifts
     }
-    // {
-    //   path: "/ViewShifts",
-    //   name: "ViewShifts",
-    //   component : ViewShift
-    // }
   ]
 })

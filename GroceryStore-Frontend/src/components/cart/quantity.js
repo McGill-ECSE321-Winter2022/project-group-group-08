@@ -1,6 +1,6 @@
 import axios from 'axios';
-import Item from "@/components/Item.vue";
-var config = require('../../config')
+import Item from "@/components/cart/Item.vue";
+var config = require('../../../config')
 
 var frontendUrl = 'http://' + config.dev.host + ':' + config.dev.port
 var backendUrl = 'http://' + config.dev.backendHost + ':' + config.dev.backendPort

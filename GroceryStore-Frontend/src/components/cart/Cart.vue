@@ -10,7 +10,4 @@
 </template>
 
 <script src="./cart.js">
-    import Quantity from './Quantity';
 </script>
-<style>
-</style>

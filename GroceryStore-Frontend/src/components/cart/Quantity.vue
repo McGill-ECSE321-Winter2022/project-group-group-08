@@ -6,8 +6,6 @@
                 <td class="table-text">| Price |</td>
                 <td class="table-text">| Quantity |</td>
             </th>
-            <!-- item goes here -->
-            <!-- <div v-if="loading">Loading</div> -->
             <tbody>
                 <Item 
                   v-for="quantity in sortedQuantities" 
