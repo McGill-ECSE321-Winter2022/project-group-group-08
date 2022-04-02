@@ -31,7 +31,8 @@ export default {
       email: "",
       errorCustomers: "",
       response: [],
-      filter: ""
+      filter: "",
+      newTier: "",
     };
   },
 
@@ -79,57 +80,31 @@ export default {
         });
     },
     banCustomer: function(customerID, customerTier, customerBan, email) {
-      if (customerBan) {
-        AXIOS.patch(
-          "/customer/update/".concat(customerID),
-          {},
-          {
-            params: {
-              tierClass: customerTier,
-              ban: false,
-              personEmail: email
-            }
+      AXIOS.patch(
+        "/customer/update/".concat(customerID),
+        {},
+        {
+          params: {
+            tierClass: customerTier,
+            ban: customerBan,
+            personEmail: email
           }
-        )
-          .then(response => {
-            AXIOS.get("/customers/")
-              .then(response2 => {
-                this.customers = response2.data;
-              })
-              .catch(e2 => {
-                this.errorCustomers = e2;
-              });
-          })
-          .catch(e => {
-            var error = e.response.data.message;
-            console.log(error);
-          });
-      } else {
-        AXIOS.patch(
-          "/customer/update/".concat(customerID),
-          {},
-          {
-            params: {
-              tierClass: customerTier,
-              ban: true,
-              personEmail: email
-            }
-          }
-        )
-          .then(response => {
-            AXIOS.get("/customers/")
-              .then(response2 => {
-                this.customers = response2.data;
-              })
-              .catch(e2 => {
-                this.errorCustomers = e2;
-              });
-          })
-          .catch(e => {
-            var error = e.response.data.message;
-            console.log(error);
-          });
-      }
+        }
+      )
+        .then(response => {
+          console.log("here");
+          AXIOS.get("/customers/")
+            .then(response2 => {
+              this.customers = response2.data;
+            })
+            .catch(e2 => {
+              this.errorCustomers = e2;
+            });
+        })
+        .catch(e => {
+          var error = e.response.data.message;
+          console.log(error);
+        });
     },
 
     filterToggle(event) {

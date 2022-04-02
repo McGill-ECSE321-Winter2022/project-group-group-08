@@ -75,26 +75,25 @@
         <tbody>
           <tr v-for="customer in customers" :key="customer.id">
             <td class="table-text">{{ customer.id }}</td>
-            <td class="table-text">{{ customer.personDto.firstName }}</td>
-            <td class="table-text">{{ customer.personDto.lastName }}</td>
-            <td class="table-text">{{ customer.personDto.email }}</td>
-            <td class="table-text">{{ customer.tierClass }}</td>
-            <td v-if="customer.ban">Yes</td>
-            <td v-else>No</td>
+            <td class="table-text">{{ customer.person.firstName }}</td>
+            <td class="table-text">{{ customer.person.lastName }}</td>
+            <td class="table-text">{{ customer.person.email }}</td>
             <td>
-              <button
-                class="ban button"
-                @click="
-                  banCustomer(
-                    customer.id,
-                    customer.tierClass,
-                    customer.ban,
-                    customer.personDto.email
-                  )
-                "
-              >
-                Ban Customer
-              </button>
+              <select name="newTier" id="newTier" v-model="customer.tierClass">
+                  <option value="Bronze" key="Bronze">Bronze</option>
+                  <option value="Silver" key="Silver">Silver</option>
+                  <option value="Gold" key="Gold">Gold</option>
+              </select>
+            </td>
+            <td><input type="checkbox" id="banned" v-model="customer.ban" /></td>
+            <td>
+            <button
+              class="ban button"
+              @click="
+                banCustomer(customer.id,customer.tierClass,customer.ban,customer.person.email,newTier)"
+            >
+              Update
+            </button>
             </td>
           </tr>
         </tbody>
