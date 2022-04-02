@@ -5,6 +5,8 @@ import Login from "@/components/Login.vue";
 import SignUp from "@/components/SignUp.vue";
 import Profile from "@/components/Profile.vue";
 import Shifts from "@/components/Shifts.vue";
+import Cart from '@/components/cart/Cart.vue';
+import ViewShifts from '@/components/viewShifts/ViewShifts.vue';
 
 Vue.use(Router);
 
@@ -34,6 +36,16 @@ export default new Router({
             path: "/Shifts",
             name: "Shifts",
             component: Shifts
+        },
+        {
+          path: "/cart",
+          name: "Cart",
+          component : Cart
+        },
+        {
+          path: "/viewshifts",
+          name: "ViewShifts",
+          component : ViewShifts
         }
 
     ]
