@@ -16,7 +16,7 @@ export default {
   created () {
     AXIOS.get("/cart/username",{
       params: {
-        username: "testAccount"
+        username: sessionStorage.getItem("username")
       }
     })
       .then(response => {

@@ -16,7 +16,7 @@ export default{
     created() {
         AXIOS.get("/businesshour/employeeId", {
             params: {
-                id: 7,
+                id: sessionStorage.getItem("employeeId")
             }
         })
         .then(response => {
