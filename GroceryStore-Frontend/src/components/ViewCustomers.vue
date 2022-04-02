@@ -1,0 +1,96 @@
+
+<template>
+  <div
+    class="d-flex align-items-center justify-content-center"
+    style="height: 500px"
+    id="viewcustomers"
+  >
+    <table>
+      <h2>View Customers</h2>
+      <tr>
+        <select name="filter" id="filter" @change="filterToggle($event)">
+          <option value="blank" key="blank"></option>
+          <option value="CustomerID" key="customerID">Customer ID</option>
+          <option value="Name" key="name">Name</option>
+          <option value="Email" key="email">Email</option>
+        </select>
+      </tr>
+
+      <tr v-if="filter == 'CustomerID'">
+        <input
+          style="margin-top: 6px"
+          type="text"
+          v-model="customerID"
+          placeholder="Customer ID"
+        />
+        <button size="sm"
+          class="filter button"
+          @click="getEmployeeByID(customerID)"
+        >
+          Search
+        </button>
+      </tr>
+
+      <tr v-if="filter == 'Name'">
+        <input
+          style="margin-top: 6px"
+          type="text"
+          v-model="firstName"
+          placeholder="First Name"
+        />
+        <input
+          style="margin-top: 6px"
+          type="text"
+          v-model="lastName"
+          placeholder="Last Name"
+        />
+        <button
+          class="filter button"
+          @click="getEmployeeByName(firstName, lastName)"
+        >
+          Search
+        </button>
+      </tr>
+
+      <tr v-if="filter == 'Email'">
+        <input
+          style="margin-top: 6px"
+          type="text"
+          v-model="email"
+          placeholder="Email"
+        />
+        <button
+          class="filter button"
+          @click="getEmployeeByEmail(email)"
+        >
+          Search
+        </button>
+      </tr>
+
+      <v-data-table class="elevation-1">
+        <tr v-for="customer in customers" :key="customer.ID">
+          <td class="table-text">{{ customer }}</td>
+          <td class="table-text">{{ firstName }}</td>
+          <td class="table-text">{{ lastName }}</td>
+          <td class="table-text">{{ email }}</td>
+          <td>
+            <button
+              class="ban button"
+              @click="banCustomer(customerID)"
+            >
+              Ban Employee
+            </button>
+          </td>
+        </tr>
+      </v-data-table>
+    </table>
+  </div>
+</template>
+
+<script src="./viewcustomers.js"></script>
+
+<style scoped>
+.input {
+  width: 400px;
+}
+</style>
