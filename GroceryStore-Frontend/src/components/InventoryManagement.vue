@@ -1,27 +1,25 @@
 <template> 
- <div class="d-flex align-items-center justify-content-center" style="height: 700px;" id = "InventoryManagement">
-  <h1> Inventory Management </h1>
-
-   <table>
+ <div class="d-flex align-items-center justify-content-center" style="height: 800px;" id = "InventoryManagement">
+<h1> Inventory Management </h1>
+  <table>
     <h2> Modify Items Attributes </h2> 
-   <v-data-table class="elevation-1">
-            <tr>
-                <td class="table-text">| Item ID |</td>
-                <td class="table-text">| Name |</td>
-                <td class="table-text">| Price |</td>
-                <td class="table-text">| Point |</td>
-                <td class="table-text">| Return Policy |</td>
-                <td class="table-text">| Pickup |</td>
-                <td class="table-text">| In Store Quantity |</td>
-                <td class="table-text">| Update Item |</td>
-                <td class="table-text">| Delete Item |</td>
-            </tr>
-            <tr v-for="item in items" :key="item.id">
+     <tr>
+        <th>Item ID </th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Point</th>
+        <th>Return Policy</th>
+        <th>Pickup</th>
+        <th>In Store Quantity </th>
+        <th>Update Item</th>
+        <th>Delete Item</th>
+      </tr>
+   <tr v-for="item in items" :key="item.id">
                 <td class="table-text">{{item.id}}</td>
                <input 
                 style="margin-top: 6px;"
                 type="text"
-                v-model="name[item.id]"
+                v-model="itemName[item.id]"
                 :placeholder="[[ item.name ]]"
                />
                 <input 
@@ -30,7 +28,7 @@
                 v-model="price[item.id]"
                 :placeholder="[[ item.price ]]"
                />
-                <input 
+               <input 
                 style="margin-top: 6px;"
                 type="text"
                 v-model="point[item.id]"
@@ -42,14 +40,14 @@
                 v-model="returnPolicy[item.id]"
                 :placeholder="[[ item.returnPolicy ]]"
                />
-               <input type="checkbox" id="pickup" v-model="item.pickup" /> 
+                <input type="checkbox" id="pickup" v-model="item.pickup"/> 
                 <input 
                 style="margin-top: 6px;"
                 type="text"
                 v-model="inStoreQuantity[item.id]"
                 :placeholder="[[ item.inStoreQuantity ]]"
-               />                                                                                                                    
-                <button
+               />                                                                                                                               
+              <button
                 class="btn btn-light"
                 @click="updateItemAttributes(item.id, name[item.id], price[item.id], point[item.id], returnPolicy[item.id], item.pickup, inStoreQuantity[item.id]);"
                  >
@@ -57,15 +55,15 @@
                  </button>
                 <button
                 class="btn btn-light"
-                @click="deleteItem(item.id, name[item.id], price[item.id], point[item.id], returnPolicy[item.id], item.pickup, inStoreQuantity[item.id]);"
+                @click="deleteItem();"
                  >
                 Delete
                  </button>
-            </tr>   
-
-        </v-data-table>
+                 
+            </tr>  
 
     </table>
+
 
     <div id = "addItemToStore"> 
     <h2> Add Item to Inventory </h2>
@@ -80,7 +78,7 @@
     <input
         style="margin-top: 6px;"
         type="text"
-        v-model="itemName"
+        v-model="itemName2"
         placeholder="Name"
     />
     <p> Enter the price of the item you wish to add to the inventory: </p>
@@ -127,4 +125,4 @@
 </template>
 
 <style> </style>
-<script> </script>
+<script src="./inventoryManagement.js"> </script>
