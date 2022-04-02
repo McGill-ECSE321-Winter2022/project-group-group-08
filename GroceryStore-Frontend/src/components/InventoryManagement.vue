@@ -94,7 +94,7 @@
                 Update Item Return Policy
             </button>
         </tr>
-</tr>
+
 </table>
     <div id = "addItemToStore"> 
     <h2> Add Item to Inventory </h2>
