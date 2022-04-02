@@ -34,6 +34,7 @@ export default {
           <b-navbar-nav>
             <b-nav-item href="#">Browse</b-nav-item>
             <b-nav-item href="#/shifts" v-if="manager">Shifts</b-nav-item>
+            <b-nav-item href="#/viewshifts" v-if="employee">My Shifts</b-nav-item>
             <b-nav-item href="#" v-if="manager">Items</b-nav-item>
             <b-nav-item href="#" v-if="manager">Accounts</b-nav-item>
             <!-- <b-nav-item href="#" disabled>Disabled</b-nav-item> -->
@@ -53,7 +54,9 @@ export default {
               </template>
               <b-dropdown-item href="#/Login" v-if="!customer && !employee && !manager"> Log in</b-dropdown-item>
               <b-dropdown-item :href="'#/Profile/'+username" v-if="customer || employee || manager">Profile</b-dropdown-item>
-              <b-dropdown-item href="#" v-if="customer || employee ">Cart</b-dropdown-item>
+              <b-dropdown-item href="#/cart" v-if="customer || employee ">Cart</b-dropdown-item>
+              <b-dropdown-item href="#/receipt" v-if="customer || employee ">Orders</b-dropdown-item>
+              <b-dropdown-item href="#/" v-if="manager">Store</b-dropdown-item>
               <b-dropdown-item href="#/" @click="logout" v-if="customer || employee || manager">Sign Out</b-dropdown-item>
             </b-nav-item-dropdown>
           </b-navbar-nav>
