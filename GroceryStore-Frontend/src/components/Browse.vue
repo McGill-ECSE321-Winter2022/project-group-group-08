@@ -9,11 +9,12 @@
             <!-- item goes here -->
             <tbody>
                 <Item 
-                  v-for="item in items" v-bind:key="item.id" 
+                  v-for="item in items" :key="item.name" 
                   :curId="item.id"
                   :itemName="item.name"
                   :itemPrice="item.price"
                 ></Item>
+                
             </tbody>
         </table> 
 </template>

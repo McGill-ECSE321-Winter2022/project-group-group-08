@@ -1,6 +1,7 @@
 
 <template>
-  <tr :key="itemId">
+  <tr :key="curId">
+    <td class="table-text">{{ curId }}</td>
     <td class="table-text">{{ itemName }}</td>
     <td class="table-text">{{ itemPrice }}</td>
 	<td class="table-text">  </td>

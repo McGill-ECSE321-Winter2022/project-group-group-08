@@ -22,6 +22,7 @@ export default {
     AXIOS.get("item/all/")
       .then(response => {
         this.items = response.data;
+        console.log(response.data);
       })
       .catch(e => {
         console.log(e);
