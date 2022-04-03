@@ -51,7 +51,8 @@ public class PersonRestController {
 	 * @return PersonDto
 	 */
 	@PutMapping(value = { "/updatePerson/{email}", "/updatePerson/{email}/" })
-	public PersonDto updatePerson(@PathVariable("email") String image, String email,
+	public PersonDto updatePerson(@PathVariable("email") String email, 
+			@RequestParam String image,
 			@RequestParam String firstName, @RequestParam String lastName,
 			@RequestParam String phoneNumber, @RequestParam String address) {
 		
