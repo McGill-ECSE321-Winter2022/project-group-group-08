@@ -19,7 +19,7 @@ export default {
                 this.items = response.data;
                 console.log(response.data);
                 for (item in items){
-                    image[item.id] = item.image;
+                    itemImage[item.id] = item.image;
                     itemName[item.id] = item.name;
                     price[item.id] = item.price;
                     point[item.id] = item.point;
@@ -37,7 +37,7 @@ export default {
             items: [],
             id: "",
             itemName: {},
-            itemImage: "",
+            itemImage: {},
             price: {},
             point: {},
             returnPolicy: {},
@@ -47,6 +47,7 @@ export default {
             itemName2: "",
             itemImage2: "",
             newItemName: "",
+            newItemImage: "",
             itemPrice: "",
             itemPoint: "",
             itemReturnPolicy: "",
@@ -79,7 +80,7 @@ export default {
                 .then(response2 => {
                     this.items = response2.data;
                     for (item in items){
-                        image[item.id] = item.image;
+                        itemImage[item.id] = item.image;
                         itemName[item.id] = item.name;
                         price[item.id] = item.price;
                         point[item.id] = item.point;
@@ -108,7 +109,7 @@ export default {
                         this.items = response2.data;
                         for (item in items){
                             itemName[item.id] = item.name;
-                            image[item.id] = item.image;
+                            itemImage[item.id] = item.image;
                             price[item.id] = item.price;
                             point[item.id] = item.point;
                             returnPolicy[item.id] = item.returnPolicy;
@@ -151,6 +152,7 @@ export default {
                 this.itemPickup="";
                 this.itemInStoreQuantity="";
                 this.newItemName = "";
+                this.newItemImage = "";
             }).catch(e => {
                 console.log(e);
             });
