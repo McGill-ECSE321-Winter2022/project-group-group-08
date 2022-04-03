@@ -20,7 +20,7 @@
 		<!-- Item Image -->
         <i class="info fas fa-info-circle"></i>
         <div class="imgBx">
-          <img :src="itemImage" style="width: 200px" />
+          <img :src="itemImage" style="max-width: 70%;" />
         </div>
         <div class="contentBx">
           <h3>organic</h3>
