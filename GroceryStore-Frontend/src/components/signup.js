@@ -92,7 +92,7 @@ export default {
                             this.account = this.accounts[this.accounts.length - 1];
                         })
                         .catch(e => {
-                            this.errorSignup = e;
+                            this.errorSignup = e.response.data;
                         });
                     var userRole = document.getElementById("userRole").selectedOptions[0]
                         .value;
@@ -132,7 +132,7 @@ export default {
                                 });
                             })
                             .catch(e => {
-                                this.errorSignup = e;
+                                this.errorSignup = e.response.data;
                             });
                     } else if (userRole === "Customer") {
                         AXIOS.post(
@@ -145,6 +145,7 @@ export default {
                                 }
                             )
                             .then(response => {
+                                console.log("here");
                                 this.accounts.push(response.data);
                                 this.email = "";
                                 this.userRole = "";
@@ -153,13 +154,12 @@ export default {
                                 });
                             })
                             .catch(e => {
-                                this.errorSignup = e;
+                                this.errorSignup = e.response.data;
                             });
                     }
                 })
                 .catch(e => {
-                    console.log(errorMsg);
-                    this.errorSignup = e.message;
+                    this.errorSignup = e.response.data;
                 });
         }
     }

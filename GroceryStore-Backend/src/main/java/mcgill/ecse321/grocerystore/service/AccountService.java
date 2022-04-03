@@ -54,7 +54,7 @@ public class AccountService {
 	public Account createAccount(String username, String password, boolean inTown,
 			int totalPoints, Person person) {
 		String error = "";
-		if(accountRepository.findAccountByUsername("BigBoss") != null){
+		if(accountRepository.findAccountByUsername(username) != null && username.equals("BigBoss")){
 			return accountRepository.findAccountByUsername("BigBoss");
 		}
 		if(accountRepository.existsById(username)){
