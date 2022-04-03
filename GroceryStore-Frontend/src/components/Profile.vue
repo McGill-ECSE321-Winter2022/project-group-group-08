@@ -6,10 +6,11 @@
       <hr />
     </div>
     <button type="button" class="btn btn-light" v-on:click="isShow = !isShow">
-        Update Profile
-      </button>
+      Update Profile
+    </button>
+    <!-- Display Account Info -->
     <div id="body" v-show="!isShow">
-      <img :src=image style="width:50px;">
+      <img :src="image" style="width: 50px" />
       <h5>Username : {{ username }}</h5>
       <h5>Email : {{ email }}</h5>
       <div id="phoneNumber">
@@ -29,56 +30,52 @@
       </div>
     </div>
 
+    <!-- Display Update Account Inputs -->
     <div id="body" v-show="isShow">
       <h5>Username : {{ username }}</h5>
       <h5>Email : {{ email }}</h5>
       <div id="firstName" class="Row">
-        <h5 class="Column">First Name : </h5>
+        <h5 class="Column">First Name :</h5>
         <input
           class="Column"
           type="text"
           v-model="newFirstName"
-          :placeholder=" [[ firstName ]]"
+          :placeholder="[[firstName]]"
         />
       </div>
       <div id="lastName" class="Row">
-        <h5 class="Column">Last Name : </h5>
+        <h5 class="Column">Last Name :</h5>
         <input
           class="Column"
           type="text"
           v-model="newLastName"
-          :placeholder="[[ lastName ]]"
+          :placeholder="[[lastName]]"
         />
       </div>
       <div id="imageLink" class="Row">
-        <h5 class="Column">Last Name : </h5>
-        <input
-          class="Column"
-          type="text"
-          v-model="image"
-          :placeholder="link"
-        />
+        <h5 class="Column">Last Name :</h5>
+        <input class="Column" type="text" v-model="image" :placeholder="link" />
       </div>
       <div id="phoneNumber" class="Row">
-        <h5 class="Column">Phone Number : </h5>
+        <h5 class="Column">Phone Number :</h5>
         <input
           class="Column"
           type="text"
           v-model="newPhoneNumber"
-          :placeholder="[[ phoneNumber ]]"
+          :placeholder="[[phoneNumber]]"
         />
       </div>
       <div id="address" class="Row">
-        <h5 class="Column">Address : </h5>
+        <h5 class="Column">Address :</h5>
         <input
           class="Column"
           type="text"
           v-model="newAddress"
-          :placeholder="[[ address ]]"
+          :placeholder="[[address]]"
         />
       </div>
       <div id="password" class="Row">
-        <h5 class="Column">Password : </h5>
+        <h5 class="Column">Password :</h5>
         <input
           class="Column"
           type="password"
@@ -87,18 +84,19 @@
         />
       </div>
       <div id="inTown" class="Row">
-        <h5 class="Column">In Town : </h5>
+        <h5 class="Column">In Town :</h5>
         <input
           class="Column"
           type="text"
           v-model="newInTown"
-          :placeholder=" [[ inTown ]]"
+          :placeholder="[[inTown]]"
         />
       </div>
       <div id="totalPoints">
         <h5>Your Points : {{ totalPoints }}</h5>
       </div>
-      
+
+      <!-- Delete Account Button -->
       <button
         type="button"
         class="btn btn-light"
@@ -107,18 +105,14 @@
       >
         Delete Profile
       </button>
-      <button
-        class="btn btn-light"
-        v-on:click="update()"
-      >
-        Update
-      </button>
+      <button class="btn btn-light" v-on:click="update()">Update</button>
     </div>
     <div v-show="deleteError" id="error">
       <H5>Delete failed: outstanding Customer balance and/or reservation(s)</H5>
     </div>
     <div v-show="isError" id="error">
-      <H5>Your password must have at least 8 characters and a capital letter</H5
+      <H5
+        >Your password must have at least 8 characters and a capital letter</H5
       >
     </div>
   </div>
@@ -137,12 +131,12 @@
   margin-right: auto;
 }
 .Row {
-    display: flex;
-    justify-content: center;
-    margin-top: 1%;
+  display: flex;
+  justify-content: center;
+  margin-top: 1%;
 }
 .Column {
-    display: table-cell;
-    width:200px;
+  display: table-cell;
+  width: 200px;
 }
 </style>
