@@ -1,40 +1,35 @@
-import axios from 'axios';
+import axios from "axios";
 import Item from "@/components/Item.vue";
-var config = require('../../config')
+var config = require("../../config");
 
 var frontendUrl = "http://" + config.dev.host + ":" + config.dev.port;
-var backendUrl ="http://" + config.dev.backendHost + ":" + config.dev.backendPort;
+var backendUrl =
+  "http://" + config.dev.backendHost + ":" + config.dev.backendPort;
 
 var AXIOS = axios.create({
   baseURL: backendUrl,
-  headers: { 'Access-Control-Allow-Origin': frontendUrl }
+  headers: { "Access-Control-Allow-Origin": frontendUrl }
 });
 
-
-
 export default {
-
   data() {
     return {
-	  items: [],
-    validUser: sessionStorage.getItem("validUser")
+      // Set Variables
+      items: [],
+      validUser: sessionStorage.getItem("validUser")
     };
   },
 
-  created () {
+  created() {
+    // Initialize items from Backend
     AXIOS.get("item/all/")
       .then(response => {
         this.items = response.data;
       })
-      .catch(e => {
-	  });
-
-	
+      .catch(e => {});
   },
 
-	
   components: {
-    Item,
+    Item
   }
-
-}
+};
