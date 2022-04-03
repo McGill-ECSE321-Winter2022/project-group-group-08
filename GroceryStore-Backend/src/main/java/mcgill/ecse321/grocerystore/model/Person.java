@@ -11,7 +11,14 @@ public class Person{
 	private String lastName;
 	private String phoneNumber;
 	private String address;
-	
+	private String image;
+	public void setImage(String value) {
+		this.image = value;
+	}
+
+	public String getImage() {
+		return this.image;
+	}
 	public void setEmail(String value) {
 		this.email = value;
 	}

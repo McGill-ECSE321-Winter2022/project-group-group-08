@@ -9,19 +9,23 @@ public class PersonDto {
 	private String lastName;
 	private String phoneNumber;
 	private String address;
-	
+	private String image;
 	public PersonDto() {
 		
 	}
 
-	public PersonDto(String email, String firstName, String lastName, String phoneNumber, String address) {
+	public PersonDto(String image, String email, String firstName, String lastName, String phoneNumber, String address) {
+		this.image = image;
 		this.email = email;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.phoneNumber = phoneNumber;
 		this.address = address;
 	}
-		
+
+	public String getImage() {
+		return this.image;
+	}
 	public String getEmail() {
 		return email;
 	}
@@ -46,7 +50,7 @@ public class PersonDto {
 		if (p == null) {
 			throw new IllegalArgumentException("There is no such Person!");
 		}
-		PersonDto personDto = new PersonDto(p.getEmail(),p.getFirstName(),p.getLastName(),p.getPhoneNumber(),
+		PersonDto personDto = new PersonDto(p.getImage(), p.getEmail(),p.getFirstName(),p.getLastName(),p.getPhoneNumber(),
 				p.getAddress());
 		return personDto;
 	}
