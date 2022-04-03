@@ -1,29 +1,30 @@
-name: Java CI with Gradle
+name: Deploy  Backend
 
 on:
   push:
     branches: main
-  pull_request:
-    branches: main
 
 jobs:
-  build:
-
+#   backend:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v2
+#     - name: push backend
+#       uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+#       with:
+#         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+#         heroku_app_name: "event-registration-be" #Must be unique in Heroku
+#         heroku_email: "ding.ma@mail.mcgill.ca"
+#         dontuseforce: false
+  frontend:
+#     needs: backend
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up JDK 17
-      uses: actions/setup-java@v2
-      with:
-        java-version: '17'
-        distribution: 'adopt'
-        cache: gradle
-    - name: Validate Gradle wrapper
-      uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-      working-directory: GroceryStore-Backend
-    - name: Build with Gradle
-      run: ./gradlew build
-      working-directory: GroceryStore-Backend
+      - uses: actions/checkout@v2
+      - name: push frontend
+        uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        with:
+          heroku_api_key: "c803e9c5-84a9-4342-ae76-46b34d5a73a0"
+          heroku_app_name: "grocerystore-backend-22ws" #Must be unique in Heroku
+          heroku_email: "lucas.liuliongwah@mail.mcgill.ca"
+          dontuseforce: false
