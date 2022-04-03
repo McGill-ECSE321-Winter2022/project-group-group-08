@@ -60,7 +60,6 @@ export default {
                         }
                     })
                     .then(response => {
-                        console.log(response.data)
                         sessionStorage.setItem("cartId", response.data.id);
                         this.$router.push({ path: `/Profile/${this.account.username}` });
                         location.reload();

@@ -28,7 +28,6 @@ export default {
       AXIOS.delete("/quantity/delete/" + qId)
         .catch(e => {
           var errorMsg = e.response.data.message;
-          console.log(errorMsg);
         }).finally(() => this.$emit('quantityUpdate'));
     },
 
@@ -41,7 +40,6 @@ export default {
         }
       })
         .catch(e => {
-          console.log(e);
         }).finally(() => this.$emit('quantityUpdate'));
       
     },

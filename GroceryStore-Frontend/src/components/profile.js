@@ -52,7 +52,6 @@ export default {
                 this.phoneNumber = response.data.person.phoneNumber;
                 this.inTown = response.data.inTown;
                 this.totalPoints = response.data.totalPoints;
-                console.log(this.image);
                 AXIOS.get("/getRoleByPerson/", {
                         params: {
                             personEmail: this.email
@@ -67,7 +66,6 @@ export default {
                             })
                             .catch(e => {
                                 this.error = e;
-                                console.log(e.response.data.message);
                             });
                         AXIOS.get("/customer/" + id, {}, {})
                             .then(response => {
@@ -76,7 +74,6 @@ export default {
                             })
                             .catch(e => {
                                 this.error = e;
-                                console.log(e.response.data.message);
                             });
                         AXIOS.get("/employee/" + id, {}, {})
                             .then(response => {
@@ -85,24 +82,20 @@ export default {
                             })
                             .catch(e => {
                                 this.error = e;
-                                console.log(e.response.data.message);
                             });
                     })
                     .catch(e => {
                         this.error = e;
-                        console.log(e.response.data.message);
                     });
             })
             .catch(e => {
                 this.error = e;
-                console.log(e.response.data.message);
             });
     },
 
      methods: {
         displayImage: function() {
-                console.log("img: " + this.image);
-                displayImage(this.image);
+            displayImage(this.image);
         },
 
         deleteAccount: function() {
@@ -112,7 +105,6 @@ export default {
                 })
                 .catch(e => {
                     var errorMsg = e.response.data.message;
-                    console.log(errorMsg);
                     this.deleteError = true;
                 });
         },
@@ -145,7 +137,6 @@ export default {
                 })
                 .catch(e => {
                     var errorMsg = e.response.data.message;
-                    console.log(errorMsg);
                     this.isError = true;
                 });
             var image1 = this.image;
@@ -191,7 +182,6 @@ export default {
                 })
                 .catch(e => {
                     var errorMsg = e.response.data.message;
-                    console.log(errorMsg);
                     this.isError = true;
                 });
         }

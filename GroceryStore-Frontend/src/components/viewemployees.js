@@ -73,7 +73,6 @@ export default {
       })
         .then(response => {
           this.employees = response.data;
-          console.log(response.data);
         })
         .catch(error => {
           var errorMsg = error;
@@ -104,7 +103,6 @@ export default {
     fireEmployee: function(employeeID) {
       AXIOS.delete("/employee/delete/".concat(employeeID)).catch(e => {
         var error = e.response.data.message;
-        console.log(error);
       }).then(response => {
         AXIOS.get("/employees/")
         .then(response2 => {
@@ -123,7 +121,6 @@ export default {
      */
     filterToggle(event) {
       this.filter = event.target.value;
-      console.log(this.filter);
       if (this.filter == "blank") {
         AXIOS.get("/employees/")
           .then(response => {

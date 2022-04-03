@@ -53,13 +53,12 @@ export default {
                         AXIOS.post(
                             "/cart/", {}, {
                                 params: {
-                                    date: "2022-03-07",
+                                    date: "2022-04-07",
                                     accountUsername: "BigBoss"
                                 }
                             }
                         )
                         .then(response2 => {
-                            console.log(response2.data);
                             sessionStorage.setItem("cartId", response2.data.id)
                             
                         })

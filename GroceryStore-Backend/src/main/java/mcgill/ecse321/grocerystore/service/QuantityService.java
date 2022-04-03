@@ -57,12 +57,6 @@ public class QuantityService {
 	 */
 	@Transactional
 	public Quantity createQuantity(int count, int itemId, int cartId) {
-//		if(item == null) {
-//			throw new IllegalArgumentException("Item cannot be null or empty");
-//		}
-//		if(cart == null) {
-//			throw new IllegalArgumentException("Cart cannot be null or empty");
-//		}
 		Item item = itemRepository.findItemById(itemId);
 		Cart cart = cartRepository.findCartById(cartId);
 		Quantity quantity = new Quantity();

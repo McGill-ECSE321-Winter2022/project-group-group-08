@@ -17,7 +17,6 @@ export default {
     // Initializing receipts from backend
     AXIOS.get("/receipt/all")
       .then(response => {
-        console.log(response.data);
         this.receipts = response.data;
         for (receipt in receipts) {
           receiptStatus[receipt.receiptNum] = receipt.receiptStatus;
@@ -32,11 +31,7 @@ export default {
       }
     })
       .then(response => {
-        console.log(response.data);
         this.myReceipts = response.data;
-        // for (receipt in receipts){
-        //     receiptStatus[receipt.receiptNum] = receipt.receiptStatus;
-        // }
       })
       .catch(e => {
         this.errorReceipts = e;
@@ -89,7 +84,6 @@ export default {
             });
         })
         .catch(error => {
-          console.log(error.response.data);
           var errorMsg = error;
           if (error.response) {
             errorMsg = error.response.data;
@@ -118,7 +112,6 @@ export default {
           }
         })
         .catch(error => {
-          console.log(error.response.data);
           var errorMsg = error;
           if (error.response) {
             errorMsg = error.response.data;
@@ -143,7 +136,6 @@ export default {
           }
         })
         .catch(error => {
-          console.log(error.response.data);
           var errorMsg = error;
           if (error.response) {
             errorMsg = error.response.data;
@@ -168,7 +160,6 @@ export default {
           }
         })
         .catch(error => {
-          console.log(error.response.data);
           var errorMsg = error;
           if (error.response) {
             errorMsg = error.response.data;
@@ -183,7 +174,6 @@ export default {
     getAccountByUsername: function(username) {
       AXIOS.get("/getAccountByUsername/" + username, {})
         .then(response => {
-          console.log(response.data);
           AXIOS.get(
             "/receipt/getReceiptsByUsername/",
             {},
@@ -200,7 +190,6 @@ export default {
               }
             })
             .catch(error => {
-              console.log(error.response.data);
               var errorMsg = error;
               if (error.response) {
                 errorMsg = error.response.data;
@@ -208,7 +197,6 @@ export default {
             });
         })
         .catch(error => {
-          console.log(error.response.data);
           var errorMsg = error;
           if (error.response) {
             errorMsg = error.response.data;
@@ -222,7 +210,6 @@ export default {
      */
     filterToggle(event) {
       this.filter = event.target.value;
-      console.log(this.filter);
       if (this.filter == "blank") {
         this.showReceipts = true;
         AXIOS.get("/receipt/all")
@@ -242,44 +229,5 @@ export default {
         this.showReceipts = true;
       }
     }
-    //     getRecieptByStatus: function(event){
-    //         AXIOS.get("/receipt/day/"+event.target.value
-    //         ).then(response => {
-    //             this.hours = response.data;
-    //             for (hour in hours){
-    //                 startTime[hour.id] = hour.startTime;
-    //                 endTime[hour.id] = hour.endTime;
-    //             }
-    //         })
-    //         .catch(error => {
-    //             var errorMsg = error
-    //             if ( error.response ) {
-    //                 errorMsg = error.response.data
-    //             }
-    //         });
-    //     },
-    //     filterToggle(event){
-    //         this.filter = event.target.value;
-    //         console.log(this.filter);
-    //         if(this.filter == "blank"){
-    //             AXIOS.get("/businesshour/allEmployee")
-    //             .then(response => {
-
-    //                 this.hours = response.data;
-    //                 for (hour in hours){
-    //                     startTime[hour.id] = hour.startTime;
-    //                     endTime[hour.id] = hour.endTime;
-    //                 }
-    //             })
-    //             .catch(e => {
-    //                 this.errorHours = e;
-    //             });
-    //         }
-    //         if(this.filter == "Name"){
-    //             this.showHours = false;
-    //         }else{
-    //             this.showHours = true;
-    //         }
-    //     }
   }
 };

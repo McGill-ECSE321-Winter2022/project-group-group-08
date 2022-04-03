@@ -113,13 +113,12 @@ export default {
                 {},
                 {
                   params: {
-                    date: "2022-03-07",
+                    date: "2022-04-07",
                     accountUsername: this.username
                   }
                 }
               )
                 .then(response => {
-                  console.log(response.data);
                   sessionStorage.setItem("cartId", response.data.id);
                 })
                 .catch(e => {
@@ -186,7 +185,6 @@ export default {
               }
             )
               .then(response => {
-                console.log("here");
                 this.accounts.push(response.data);
                 this.email = "";
                 this.userRole = "";

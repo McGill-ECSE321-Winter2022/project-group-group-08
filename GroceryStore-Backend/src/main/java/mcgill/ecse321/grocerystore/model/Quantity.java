@@ -1,6 +1,5 @@
 package mcgill.ecse321.grocerystore.model;
 import javax.persistence.CascadeType;
-import javax.persistence.OneToOne;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

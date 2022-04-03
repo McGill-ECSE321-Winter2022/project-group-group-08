@@ -15,9 +15,7 @@ export default {
     created: function() {
         AXIOS.get("/item/all")
             .then(response => {
-                console.log("here");
                 this.items = response.data;
-                console.log(response.data);
                 for (item in items){
                     itemImage[item.id] = item.image;
                     itemName[item.id] = item.name;
@@ -61,7 +59,6 @@ export default {
 
     methods: {
         updateItemAttributes: function(id, itemName, itemImage, price, point, returnPolicy, pickup, inStoreQuantity){
-            console.log("hereeee");
             AXIOS.patch("/item/update/"+id, {},{ 
                     params: {
                         name: itemName,
@@ -74,8 +71,6 @@ export default {
                     }
                 }
             ).then(response => {
-                console.log("here");
-                console.log(response.data);
                 AXIOS.get("/item/all")
                 .then(response2 => {
                     this.items = response2.data;
@@ -93,7 +88,6 @@ export default {
                 });
             })
             .catch(error => {
-                console.log(error.response.data);
                 var errorMsg = error
                 if ( error.response ) {
                     errorMsg = error.response.data
@@ -101,7 +95,6 @@ export default {
             });
         },
         deleteItem: function(itemId) {
-            console.log(itemId);
             AXIOS.delete("/item/delete/"+itemId)
                 .then(response => {
                     AXIOS.get("/item/all")
@@ -122,7 +115,6 @@ export default {
                 })
                 .catch(e => {
                     var errorMsg = e.response.data.message;
-                    console.log(errorMsg);
                 });
         },
 
@@ -154,7 +146,6 @@ export default {
                 this.newItemName = "";
                 this.newItemImage = "";
             }).catch(e => {
-                console.log(e);
             });
         },
       

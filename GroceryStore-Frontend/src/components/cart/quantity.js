@@ -27,7 +27,6 @@ export default {
         
       })
       .catch(e => {
-        console.log(e);
       }).finally(() => this.loading = false);
   },
 
@@ -39,7 +38,6 @@ export default {
         this.quantities = response.data;
       })
       .catch(e => {
-        console.log(e);
       }).finally(() => this.loading = false);
     }
   },
