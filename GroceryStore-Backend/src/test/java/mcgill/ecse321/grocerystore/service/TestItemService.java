@@ -202,7 +202,7 @@ public class TestItemService {
 		int inStoreQuantity = 58;
 		Item item = null;
 		try {
-			item = service.createItem(name, price, point, returnPolicy, pickup, inStoreQuantity);
+			item = service.createItem("image",name, price, point, returnPolicy, pickup, inStoreQuantity);
 		} catch (IllegalArgumentException e) {
 			fail();
 		}
@@ -229,7 +229,7 @@ public class TestItemService {
 		Item item = null;
 		String error = null;
 		try {
-			item = service.createItem(name, price, point, returnPolicy, pickup, inStoreQuantity);
+			item = service.createItem("image",name, price, point, returnPolicy, pickup, inStoreQuantity);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -248,7 +248,7 @@ public class TestItemService {
 		Item item = null;
 		String error = null;
 		try {
-			item = service.createItem(name, price, point, returnPolicy, pickup, inStoreQuantity);
+			item = service.createItem("image",name, price, point, returnPolicy, pickup, inStoreQuantity);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -267,7 +267,7 @@ public class TestItemService {
 		Item item = null;
 		String error = null;
 		try {
-			item = service.createItem(name, price, point, returnPolicy, pickup, inStoreQuantity);
+			item = service.createItem("image",name, price, point, returnPolicy, pickup, inStoreQuantity);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -286,7 +286,7 @@ public class TestItemService {
 		Item item = null;
 		String error = null;
 		try {
-			item = service.createItem(name, price, point, returnPolicy, pickup, inStoreQuantity);
+			item = service.createItem("image",name, price, point, returnPolicy, pickup, inStoreQuantity);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -305,7 +305,7 @@ public class TestItemService {
 		Item item = null;
 		String error = null;
 		try {
-			item = service.createItem(name, price, point, returnPolicy, pickup, inStoreQuantity);
+			item = service.createItem("image",name, price, point, returnPolicy, pickup, inStoreQuantity);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -324,7 +324,7 @@ public class TestItemService {
 		Item item = null;
 		String error = null;
 		try {
-			item = service.createItem(name, price, point, returnPolicy, pickup, inStoreQuantity);
+			item = service.createItem("image",name, price, point, returnPolicy, pickup, inStoreQuantity);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -343,7 +343,7 @@ public class TestItemService {
 		Item item = null;
 		String error = null;
 		try {
-			item = service.createItem(name, price, point, returnPolicy, pickup, inStoreQuantity);
+			item = service.createItem("image",name, price, point, returnPolicy, pickup, inStoreQuantity);
 		} catch (IllegalArgumentException e) {
 			error = e.getMessage();
 		}
@@ -622,7 +622,7 @@ public class TestItemService {
 		Item item = null;
 		
         try {
-            item = service.updateItem(ID, name, price, point, returnPolicy, pickup, inStoreQuantity);
+            item = service.updateItem("image",ID, name, price, point, returnPolicy, pickup, inStoreQuantity);
         } catch (IllegalArgumentException e) {
             fail();
         }
@@ -648,7 +648,7 @@ public class TestItemService {
 		String error = "";
 		
         try {
-            item = service.updateItem(-1, name, price, point, returnPolicy, pickup, inStoreQuantity);
+            item = service.updateItem("image",-1, name, price, point, returnPolicy, pickup, inStoreQuantity);
         } catch (IllegalArgumentException e) {
         	error = e.getMessage();
         }
@@ -667,7 +667,7 @@ public class TestItemService {
 		String error = "";
 		
         try {
-            item = service.updateItem(ID, "", price, point, returnPolicy, pickup, inStoreQuantity);
+            item = service.updateItem("image",ID, "", price, point, returnPolicy, pickup, inStoreQuantity);
         } catch (IllegalArgumentException e) {
         	error = e.getMessage();
         }
@@ -686,7 +686,7 @@ public class TestItemService {
 		String error = "";
 		
         try {
-            item = service.updateItem(ID, name, -1, point, returnPolicy, pickup, inStoreQuantity);
+            item = service.updateItem("image",ID, name, -1, point, returnPolicy, pickup, inStoreQuantity);
         } catch (IllegalArgumentException e) {
         	error = e.getMessage();
         }
@@ -705,7 +705,7 @@ public class TestItemService {
 		String error = "";
 		
         try {
-            item = service.updateItem(ID, name, price, -1, returnPolicy, pickup, inStoreQuantity);
+            item = service.updateItem("image",ID, name, price, -1, returnPolicy, pickup, inStoreQuantity);
         } catch (IllegalArgumentException e) {
         	error = e.getMessage();
         }
@@ -724,7 +724,7 @@ public class TestItemService {
 		String error = "";
 		
         try {
-            item = service.updateItem(ID, name, price, point, -1, pickup, inStoreQuantity);
+            item = service.updateItem("image",ID, name, price, point, -1, pickup, inStoreQuantity);
         } catch (IllegalArgumentException e) {
         	error = e.getMessage();
         }
@@ -743,7 +743,7 @@ public class TestItemService {
 		String error = "";
 		
         try {
-            item = service.updateItem(ID, name, price, point, returnPolicy, pickup, -1);
+            item = service.updateItem("image",ID, name, price, point, returnPolicy, pickup, -1);
         } catch (IllegalArgumentException e) {
         	error = e.getMessage();
         }
@@ -764,7 +764,7 @@ public class TestItemService {
 		String error = "";
 		
         try {
-            item = service.updateItem(tempId, name, price, point, returnPolicy, pickup, inStoreQuantity);
+            item = service.updateItem("image",tempId, name, price, point, returnPolicy, pickup, inStoreQuantity);
         } catch (IllegalArgumentException e) {
         	error = e.getMessage();
         }

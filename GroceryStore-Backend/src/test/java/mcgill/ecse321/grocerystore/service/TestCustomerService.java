@@ -85,7 +85,7 @@ public class TestCustomerService {
 			customerByBanList.add(customer);
 			return customerByBanList;
 		});
-		Person test_person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
+		Person test_person = personService.createPerson("image","email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
 		lenient().when(userRoleDao.findUserRoleByPerson(test_person)).thenAnswer((InvocationOnMock invocation) -> {
 			Customer customer = new Customer();
 			customer.setPerson(test_person);
@@ -105,7 +105,7 @@ public class TestCustomerService {
 		TierClass defaultTier = TierClass.Bronze;
 		boolean defaultBan = false;
 		Customer customer = null;
-		Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
+		Person person = personService.createPerson("image","email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
 		try {
 			customer = service.createCustomer(person);
 		} catch (IllegalArgumentException e) {
@@ -135,7 +135,7 @@ public class TestCustomerService {
 	@Test
 	public void testCreateCustomer() {
 		Customer customer = null;
-		Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
+		Person person = personService.createPerson("image","email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
 		try {
 			customer = service.createCustomer(person, TIER_KEY, BAN_KEY);
 		} catch (IllegalArgumentException e) {
@@ -164,7 +164,7 @@ public class TestCustomerService {
 	public void testCreateCustomerInvalidTier() {
 		String error = null;
 		Customer customer = null;
-		Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
+		Person person = personService.createPerson("image","email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
 		try {
 			customer = service.createCustomer(person, INVALID_TIER_KEY, BAN_KEY);
 		} catch (InvalidInputException e) {
@@ -177,7 +177,7 @@ public class TestCustomerService {
 	@Test
 	public void testUpdateTier() {
 		Customer customer = null;
-		Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
+		Person person = personService.createPerson("image","email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
 		try {
 			customer = service.updateCustomer(ID_KEY, person, NEW_TIER_KEY, NEW_BAN_KEY);
 		} catch (IllegalArgumentException e) {
@@ -191,7 +191,7 @@ public class TestCustomerService {
 	@Test
 	public void testUpdateCustomer() {
 		Customer customer = null;
-		Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");;
+		Person person = personService.createPerson("image","email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");;
 		try {
 			customer = service.updateCustomer(ID_KEY, person, NEW_TIER_KEY, NEW_BAN_KEY);
 		} catch (IllegalArgumentException e) {

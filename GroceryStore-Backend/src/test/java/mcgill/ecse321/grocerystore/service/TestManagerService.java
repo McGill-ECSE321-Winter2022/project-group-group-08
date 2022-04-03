@@ -72,7 +72,7 @@ public class TestManagerService {
 	
 	@Test
 	public void testCreateManager() {
-		Person person = personService.createPerson("email@gmail.com", "Bob", 
+		Person person = personService.createPerson("image","email@gmail.com", "Bob", 
 				"The Builder", "111-222-3333", "123 street");
 		Manager manager = null;
 		try {
@@ -131,7 +131,7 @@ public class TestManagerService {
 	
 	@Test
 	public void testUpdateManager() {
-		Person person = personService.createPerson("email@gmail.com", "Bob", 
+		Person person = personService.createPerson("image","email@gmail.com", "Bob", 
 				"The Builder", "111-222-3333", "123 street");
 		Manager manager = null;
 		try {
@@ -145,7 +145,7 @@ public class TestManagerService {
 	
 	@Test
 	public void testUpdateManagerByIdNegative() {
-		Person person = personService.createPerson("email@gmail.com", "Bob", 
+		Person person = personService.createPerson("image","email@gmail.com", "Bob", 
 				"The Builder", "111-222-3333", "123 street");
 		Manager manager = null;
 		String error = "";
@@ -178,7 +178,7 @@ public class TestManagerService {
 	
 	@Test
 	public void testDeleteManager() {
-		Person person = personService.createPerson("email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
+		Person person = personService.createPerson("image","email@gmail.com", "Bob", "The Builder", "111-222-3333", "123 street");
 		Manager manager = service.createManager(person);
 		boolean delete = false;
 		try {

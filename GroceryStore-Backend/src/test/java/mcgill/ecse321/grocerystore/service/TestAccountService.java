@@ -72,7 +72,7 @@ public class TestAccountService {
 	            account.setPassword(PASSWORD);
 	            account.setInTown(INTOWN);
 	            account.setTotalPoints(TOTALPOINTS);
-	            account.setPerson(personService.createPerson(EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS));
+	            account.setPerson(personService.createPerson("image",EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS));
 	            return account;
 	        } else {
 	            return null;
@@ -97,7 +97,7 @@ public class TestAccountService {
 	         account.setPassword(PASSWORD);
 	         account.setInTown(INTOWN);
 	         account.setTotalPoints(TOTALPOINTS);
-	         account.setPerson(personService.createPerson(EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS));
+	         account.setPerson(personService.createPerson("image",EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS));
 	               
 
 	        List<Account> accounts = new ArrayList<Account>();
@@ -110,7 +110,7 @@ public class TestAccountService {
 	         account.setPassword(PASSWORD);
 	         account.setInTown(INTOWN);
 	         account.setTotalPoints(TOTALPOINTS);
-	         account.setPerson(personService.createPerson(EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS));
+	         account.setPerson(personService.createPerson("image",EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS));
 	               
 
 	        List<Account> accounts = new ArrayList<Account>();
@@ -123,7 +123,7 @@ public class TestAccountService {
 	         account.setPassword(PASSWORD);
 	         account.setInTown(INTOWN);
 	         account.setTotalPoints(TOTALPOINTS);
-	         account.setPerson(personService.createPerson(EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS));
+	         account.setPerson(personService.createPerson("image",EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS));
 	               
 
 	        List<Account> accounts = new ArrayList<Account>();

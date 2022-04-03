@@ -141,7 +141,7 @@ import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
         account.setInTown(INTOWN);
         account.setTotalPoints(TOTALPOINTS);
         //set a person to the account
-        account.setPerson(personService.createPerson(EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS));
+        account.setPerson(personService.createPerson("image",EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS));
         //make a new cart
         Cart cart = new Cart();
         cart.setDate(date);
@@ -163,7 +163,7 @@ import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
         account.setPassword(PASSWORD);
         account.setInTown(INTOWN);
         account.setTotalPoints(TOTALPOINTS);
-        account.setPerson(personService.createPerson(EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS));
+        account.setPerson(personService.createPerson("image",EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS));
         Cart cart = new Cart();
         cart.setDate(date);
         Receipt curr = service.updateReceipt(0, ReceiptStatus.Processed, ReceiptType.Pickup, cart);

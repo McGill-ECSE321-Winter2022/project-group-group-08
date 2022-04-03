@@ -122,7 +122,7 @@ public class TestPersonService {
 	public void testCreatePerson() {
 		Person person = null;
 		try {
-			person = personService.createPerson(EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS);
+			person = personService.createPerson("image",EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS);
 		} catch (IllegalArgumentException e) {
 			// Check that no error occurred
 			fail();
@@ -140,7 +140,7 @@ public class TestPersonService {
 		Person person = null;
 		String error = "";
 		try {
-			person = personService.createPerson(null, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS);
+			person = personService.createPerson("image",null, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS);
 		} catch (Exception e) {
 			error = e.getMessage();
 		}
@@ -153,7 +153,7 @@ public class TestPersonService {
 		Person person = null;
 		String error = "";
 		try {
-			person = personService.createPerson(EMAIL, null, LASTNAME, PHONENUMBER, ADDRESS);
+			person = personService.createPerson("image",EMAIL, null, LASTNAME, PHONENUMBER, ADDRESS);
 		} catch (Exception e) {
 			error = e.getMessage();
 		}
@@ -166,7 +166,7 @@ public class TestPersonService {
 		Person person = null;
 		String error = "";
 		try {
-			person = personService.createPerson(EMAIL, FIRSTNAME, null, PHONENUMBER, ADDRESS);
+			person = personService.createPerson("image",EMAIL, FIRSTNAME, null, PHONENUMBER, ADDRESS);
 		} catch (Exception e) {
 			error = e.getMessage();
 		}
@@ -179,7 +179,7 @@ public class TestPersonService {
 		Person person = null;
 		String error = "";
 		try {
-			person = personService.createPerson(EMAIL, FIRSTNAME, LASTNAME, "0987", ADDRESS);
+			person = personService.createPerson("image",EMAIL, FIRSTNAME, LASTNAME, "0987", ADDRESS);
 		} catch (Exception e) {
 			error = e.getMessage();
 		}
@@ -192,7 +192,7 @@ public class TestPersonService {
 		Person person = null;
 		String error = "";
 		try {
-			person = personService.createPerson(EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, "");
+			person = personService.createPerson("image",EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, "");
 		} catch (Exception e) {
 			error = e.getMessage();
 		}
@@ -204,7 +204,7 @@ public class TestPersonService {
 	public void testUpdatePerson() {
 		Person person = null;
 		try {
-			person = personService.updatePerson(EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS);
+			person = personService.updatePerson("image",EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS);
 		} catch (IllegalArgumentException e) {
 			// Check that no error occurred
 			fail();
@@ -222,7 +222,7 @@ public class TestPersonService {
 		Person person = null;
 		String error = "";
 		try {
-			person = personService.updatePerson(null,FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS);
+			person = personService.updatePerson("image",null,FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS);
 		} catch (Exception e) {
 			error = e.getMessage();
 		}
@@ -235,7 +235,7 @@ public class TestPersonService {
 		Person person = null;
 		String error = "";
 		try {
-			person = personService.updatePerson(EMAIL,"", LASTNAME, PHONENUMBER, ADDRESS);
+			person = personService.updatePerson("image",EMAIL,"", LASTNAME, PHONENUMBER, ADDRESS);
 		} catch (Exception e) {
 			error = e.getMessage();
 		}
@@ -248,7 +248,7 @@ public class TestPersonService {
 		Person person = null;
 		String error = "";
 		try {
-			person = personService.updatePerson(EMAIL,FIRSTNAME, LASTNAME, "", ADDRESS);
+			person = personService.updatePerson("image",EMAIL,FIRSTNAME, LASTNAME, "", ADDRESS);
 		} catch (Exception e) {
 			error = e.getMessage();
 		}
@@ -261,7 +261,7 @@ public class TestPersonService {
 		Person person = null;
 		String error = "";
 		try {
-			person = personService.updatePerson(EMAIL,FIRSTNAME, LASTNAME, PHONENUMBER, null);
+			person = personService.updatePerson("image",EMAIL,FIRSTNAME, LASTNAME, PHONENUMBER, null);
 		} catch (Exception e) {
 			error = e.getMessage();
 		}

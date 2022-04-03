@@ -56,7 +56,7 @@ import mcgill.ecse321.grocerystore.model.UserRole;
 		
 		lenient().when(roleDao.findUserRoleById(anyInt())).thenAnswer((InvocationOnMock invocation) -> {
 			if (invocation.getArgument(0).equals(0)) {
-				Person person = personService.createPerson(EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS);
+				Person person = personService.createPerson("image",EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS);
 				UserRole customer = customerService.createCustomer(person, TierClass.Gold, false);
 				return customer;
 			} else {
@@ -64,7 +64,7 @@ import mcgill.ecse321.grocerystore.model.UserRole;
 			}
 		});		
 		lenient().when(roleDao.findAll()).thenAnswer((InvocationOnMock invocation) -> {
-			Person person = personService.createPerson(EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS);
+			Person person = personService.createPerson("image",EMAIL, FIRSTNAME, LASTNAME, PHONENUMBER, ADDRESS);
 			UserRole customer = customerService.createCustomer(person, TierClass.Gold, false);
 			ArrayList<UserRole> temp = new ArrayList<UserRole>();
 			temp.add(customer);
