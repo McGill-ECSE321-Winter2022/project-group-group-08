@@ -81,8 +81,32 @@ export default {
       point,
       returnPolicy,
       pickup,
-      inStoreQuantity
+      inStoreQuantity,
+      oldName,
+      oldImage,
+      oldPrice,
+      oldPoint,
+      oldReturnPolicy,
+      oldInStoreQuantity
     ) {
+      if(itemName == undefined){
+        itemName = oldName;
+      }
+      if(itemImage == undefined){
+        itemImage = oldImage;
+      }
+      if(price == undefined){
+        price = oldPrice;
+      }
+      if(point == undefined){
+        point = oldPoint;
+      }
+      if(returnPolicy == undefined){
+        returnPolicy = oldReturnPolicy;
+      }
+      if(inStoreQuantity == undefined){
+        inStoreQuantity = oldInStoreQuantity;
+      }
       AXIOS.patch(
         "/item/update/" + id,
         {},

@@ -111,15 +111,6 @@ public class BusinessHourService {
      * @return List<BusinessHour>
      */
     @Transactional
-	public List<BusinessHour> getBusinessHoursByStore(){
-		return toList(businessHourRepository.findBusinessHoursByGroceryStoreSystemIsNotNullOrderByIdAsc());
-    }
-    
-    /**
-     * get all the business hours related to store
-     * @return List<BusinessHour>
-     */
-    @Transactional
 	public List<BusinessHour> getAllEmployeeBusinessHours(){
 		return toList(businessHourRepository.findBusinessHoursByEmployeeIsNotNullOrderByIdAsc());
 	}
@@ -265,7 +256,7 @@ public class BusinessHourService {
     	if (system==null) {
     		throw new IllegalArgumentException("Grocery Store System cannot be empty");
     	}
-    	return businessHourRepository.findBusinessHoursByGroceryStoreSystem(system);
+    	return businessHourRepository.findBusinessHoursByGroceryStoreSystemOrderByIdAsc(system);
 	}
 
     /**

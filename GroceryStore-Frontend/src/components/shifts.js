@@ -99,7 +99,13 @@ export default {
      * @param {*} working
      * @param {*} employeeId
      */
-    updateHour: function(id, day, startTime, endTime, working, employeeId) {
+    updateHour: function(id, day, startTime, endTime, working, employeeId, oldStartTime, oldEndTime) {
+      if(startTime == undefined){
+        startTime = oldStartTime;
+      }
+      if(endTime == undefined){
+        endTime = oldEndTime;
+      }
       AXIOS.patch(
         "/businesshour/update/" + id,
         {},

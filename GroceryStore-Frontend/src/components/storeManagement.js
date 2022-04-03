@@ -109,9 +109,15 @@ export default {
       startTime,
       endTime,
       working,
-      storename,
-      employeeId
+      oldStartTime,
+      oldEndTime
     ) {
+      if(startTime == undefined){
+        startTime = oldStartTime;
+      }
+      if(endTime == undefined){
+        endTime = oldEndTime;
+      }
       AXIOS.patch(
         "/businesshour/update/" + id,
         {},
@@ -127,9 +133,9 @@ export default {
         }
       )
         .then(response => {
-          AXIOS.get("/businesshour/store")
-            .then(response2 => {
-              this.hours = response2.data;
+          AXIOS.get("/getOpeningHours/Whole Foods")
+            .then(response => {
+              this.hours = response.data;
               for (hour in hours) {
                 startTime[hour.id] = hour.startTime;
                 endTime[hour.id] = hour.endTime;

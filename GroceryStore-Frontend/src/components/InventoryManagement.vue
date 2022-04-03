@@ -85,7 +85,13 @@
                     point[item.id],
                     returnPolicy[item.id],
                     item.pickup,
-                    inStoreQuantity[item.id]
+                    inStoreQuantity[item.id],
+                    item.name,
+                    item.image,
+                    item.price,
+                    item.point,
+                    item.returnPolicy,
+                    item.inStoreQuantity
                   )
                 "
               >

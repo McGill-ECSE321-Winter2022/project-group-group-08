@@ -60,7 +60,7 @@
         />
       </div>
       <div id="imageLink" class="Row">
-        <h5 class="Column">Last Name :</h5>
+        <h5 class="Column">Image Link :</h5>
         <input class="Column" type="text" v-model="image" :placeholder="link" />
       </div>
       <div id="phoneNumber" class="Row">
