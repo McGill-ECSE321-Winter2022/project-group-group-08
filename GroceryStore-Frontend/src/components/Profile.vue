@@ -9,6 +9,7 @@
         Update Profile
       </button>
     <div id="body" v-show="!isShow">
+      <img :src=image style="width:50px;">
       <h5>Username : {{ username }}</h5>
       <h5>Email : {{ email }}</h5>
       <div id="phoneNumber">
@@ -47,6 +48,15 @@
           type="text"
           v-model="newLastName"
           :placeholder="[[ lastName ]]"
+        />
+      </div>
+      <div id="imageLink" class="Row">
+        <h5 class="Column">Last Name : </h5>
+        <input
+          class="Column"
+          type="text"
+          v-model="image"
+          :placeholder="link"
         />
       </div>
       <div id="phoneNumber" class="Row">

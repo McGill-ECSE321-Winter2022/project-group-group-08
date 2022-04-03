@@ -18,30 +18,15 @@
         />
       </tr>
       <tr>
-        <td>
-          <input
-            style="margin-top: 6px;"
-            type="text"
-            v-model="address"
-            placeholder="Address"
-          />
-        </td>
-        <td>
-          <input
-            style="margin-top: 6px;"
-            type="text"
-            v-model="username"
-            placeholder="Username"
-          />
-        </td>
-        <td>
+   
+          <td class="table-text">Profile pic:</td>
           <input
             style="margin-top: 6px;"
             type="text"
             v-model="image"
             placeholder="Link"
           />
-        </td>
+      </tr>
         <td class="table-text">Phone Number:</td>
         <input
           style="margin-top: 6px;"

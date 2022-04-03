@@ -95,10 +95,13 @@ public class PersonService {
 	 * @return person
 	 */
 	@Transactional
-	public Person updatePerson(String email,
+	public Person updatePerson(String image, String email,
 			String firstName, String lastName, String phoneNumber,
 			String address) {
 		String error = "";
+		if (image == null || image.trim().length() == 0) {
+			throw new InvalidInputException("Image cannot be empty");
+		}
 		if (email == null || email.trim().length() == 0) {
 			throw new InvalidInputException("Person email cannot be empty!");
 		}
@@ -122,6 +125,7 @@ public class PersonService {
 		if (error.length() > 0) {
 		    throw new InvalidInputException(error);
 		}
+		person.setImage(image);
 		person.setFirstName(firstName);
 		person.setLastName(lastName);
 		person.setPhoneNumber(phoneNumber);

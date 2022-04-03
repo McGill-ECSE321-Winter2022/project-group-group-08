@@ -51,11 +51,11 @@ public class PersonRestController {
 	 * @return PersonDto
 	 */
 	@PutMapping(value = { "/updatePerson/{email}", "/updatePerson/{email}/" })
-	public PersonDto updatePerson(@PathVariable("email") String email,
+	public PersonDto updatePerson(@PathVariable("email") String image, String email,
 			@RequestParam String firstName, @RequestParam String lastName,
 			@RequestParam String phoneNumber, @RequestParam String address) {
 		
-		Person person = personService.updatePerson(email, firstName, lastName, phoneNumber, address);
+		Person person = personService.updatePerson(image,email, firstName, lastName, phoneNumber, address);
 		return PersonDto.convertToDto(person);
 	}
 	
