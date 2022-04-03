@@ -8,6 +8,7 @@
     <h1 style="margin-bottom: 25px;">{{ msg }}</h1>
     <ul v-if="!validUser">
       <li>
+        <!-- Login Redirect Button -->
         <button
           style="margin-bottom: 25px;"
           class="btn btn-light"
@@ -17,6 +18,7 @@
         </button>
       </li>
       <li>
+        <!-- Sign Up Redirect Button -->
         <button
           style="margin-bottom: 25px;"
           class="btn btn-light"
@@ -29,6 +31,7 @@
 
     <h3 style="text-align: center">Opening Hours</h3>
 
+    <!-- Display Opening Hours Data -->
     <v-table :data="openingsHours" align="center">
       <thead slot="head">
         <th style="padding: 12px">DAY</th>
@@ -47,6 +50,7 @@
       </tbody>
     </v-table>
     <hr />
+    <!-- About Us Section -->
     <h2>About us</h2>
     <li>{{ email }}</li>
     <li>{{ adress }}</li>
