@@ -6,7 +6,13 @@
     </div>
     <br>
     <h1 style="margin-bottom: 25px;">{{ msg }}</h1>
+<<<<<<< Updated upstream
     <ul v-if="!validUser">
+=======
+
+    <h3 style="margin-bottom: 20px;">Sign in:</h3>
+    <ul>
+>>>>>>> Stashed changes
       <li>
         <!-- Login Redirect Button -->
         <button
@@ -29,6 +35,7 @@
       </li>
     </ul>
 
+<<<<<<< Updated upstream
     <h3 style="text-align: center">Opening Hours</h3>
 
     <!-- Display Opening Hours Data -->
@@ -51,10 +58,40 @@
     </v-table>
     <hr />
     <!-- About Us Section -->
+=======
+  <div class="wrapper ">
+    <div>
+      <h3 style="text-align: center">Opening Hours</h3>
+      <br>
+      <v-table :data="openingsHours" align="center">
+        <thead slot="head">
+          <th style="padding: 12px">DAY</th>
+          <th style="padding: 12px">START TIME</th>
+          <th style="padding: 12px">END TIME</th>
+        </thead>
+        <tbody slot="body">
+          <tr
+            v-for="openingsHour in openingsHours"
+            :key="openingsHour.openingDay"
+          >
+            <td>{{ openingsHour.day }}</td>
+            <td>{{ openingsHour.startTime }}</td>
+            <td>{{ openingsHour.endTime }}</td>
+          </tr>
+        </tbody>
+      </v-table>
+    </div>
+    <div>
+>>>>>>> Stashed changes
     <h2>About us</h2>
-    <li>{{ email }}</li>
-    <li>{{ adress }}</li>
-    <li>{{ number }}</li>
+     <br>
+    <p>{{ email }}</p>
+    <p>{{ adress }}</p>
+    <p>{{ number }}</p>
+    </div>
+    
+    </div>
+    <br><br>
   </div>
 </template>
 
@@ -62,6 +99,17 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  background-color: #fff;
+  border: 1px;
+  border-color: red;
+  
+}
+
+
 h1,
 h2,
 h3 {
