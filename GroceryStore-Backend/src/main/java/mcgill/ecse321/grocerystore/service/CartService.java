@@ -37,12 +37,13 @@ public class CartService {
 	 */
 	@Transactional
 	public Cart createCart(Date date, Account account) {
-		if (date == null) {
-			throw new IllegalArgumentException("Cart date cannot be empty!");
-		}
 		if (account==null) {
 			throw new IllegalArgumentException("Account cannot be empty!");
 		}
+		if (date == null) {
+			throw new IllegalArgumentException("Cart date cannot be empty!");
+		}
+		
 		Cart cart  = new Cart();
 		cart.setDate(date);
 		cart.setAccount(account);

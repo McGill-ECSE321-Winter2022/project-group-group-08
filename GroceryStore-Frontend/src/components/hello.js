@@ -58,9 +58,9 @@ export default {
                                 }
                             }
                         )
-                        .then(response => {
-                            console.log(response.data);
-                            sessionStorage.setItem("cartId", response.data.id)
+                        .then(response2 => {
+                            console.log(response2.data);
+                            sessionStorage.setItem("cartId", response2.data.id)
                             
                         })
                         .catch(e => {

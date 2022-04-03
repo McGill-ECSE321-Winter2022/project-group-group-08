@@ -55,7 +55,7 @@ public class AccountService {
 			int totalPoints, Person person) {
 		String error = "";
 		if(accountRepository.findAccountByUsername(username) != null && username.equals("BigBoss")){
-			return accountRepository.findAccountByUsername("BigBoss");
+			throw new InvalidInputException("Manager already exists");
 		}
 		if(accountRepository.existsById(username)){
 			error = error + "Username already taken";
