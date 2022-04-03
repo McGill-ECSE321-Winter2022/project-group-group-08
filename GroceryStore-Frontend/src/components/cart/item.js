@@ -17,6 +17,7 @@ export default {
 
   props: {
     itemId: Number,
+    itemImage: String,
     itemName: String,
     itemPrice: Number,
     itemQuantity: Number,
