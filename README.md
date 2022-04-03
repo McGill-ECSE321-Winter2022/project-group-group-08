@@ -19,7 +19,7 @@ We are a team of 6 McGill Engineering students creating a grocery store website 
 | Selina Gao | 10 | 17 | 15 | - |
 | Joey Koay | 15 | 43 | 38 | - |
 | Joey Liu | 20 | 43 | 35 | - |
-| Kevin Liu | 12 | 20 | 25 | - |
+| Kevin Liu | 12 | 20 | 30 | - |
 
 
 ## Deliverable 1
@@ -53,4 +53,4 @@ The project report for this deliverable can be found here.
 | Selina Gao | Store management, Inventory management : Web frontend, Frontend integration with backend services; Testing | 15 |
 | Joey Koay | Shift management : Web frontend, Frontend integration with backend services; UI/UX (Styling); Testing | 38 |
 | Joey Liu | Login, Change Profile : Web frontend, Frontend integration with backend services; Deployment; Testing | 35 |
-| Kevin Liu | Cart, View Shifts : Web frontend, Frontend integration with backend services; Testing | 25 |
+| Kevin Liu | Cart, View Shifts : Web frontend, Frontend integration with backend services; Testing | 30 |
