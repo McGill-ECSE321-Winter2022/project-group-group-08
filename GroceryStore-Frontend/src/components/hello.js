@@ -20,7 +20,6 @@ export default {
                 }
             )
             .then(response => {
-                console.log(response.data.storeName);
                 AXIOS.get("/getOpeningHours/" + response.data.storeName, {}, {})
                     .then(response => {
                         this.openingsHours = response.data;
