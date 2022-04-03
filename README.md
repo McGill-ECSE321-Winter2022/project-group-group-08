@@ -43,3 +43,14 @@ The project report for this deliverable can be found here.
 | Joey Koay | Item, Quantity : DTO, Controllers, Services, Tests | 43 |
 | Joey Liu | Person, Account : DTO, Controllers, Services, Tests | 43 |
 | Kevin Liu | Cart, BusinessHours : DTO, Controllers, Services, Tests | 20 |
+
+## Deliverable 3
+The project report for this deliverable can be found here.
+| Team Member | Tasks | Hours Spent |
+|:-----------:|:-------------:|:----:|
+| Aigiarn Cheuk | Account management : Web frontend, Frontend integration with backend services | 15 |
+| Mihail Calitoiu | Browse : Web frontend, Frontend integration with backend services | 30 |
+| Selina Gao | Store management, Inventory management : Web frontend, Frontend integration with backend services | 15 |
+| Joey Koay | Shift management : Web frontend, Frontend integration with backend services | 42 |
+| Joey Liu | Login, Change Profile : Web frontend, Frontend integration with backend services | 42 |
+| Kevin Liu | Cart, View Shifts : Web frontend, Frontend integration with backend services | 20 |
