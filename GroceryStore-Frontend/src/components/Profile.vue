@@ -9,38 +9,41 @@
     </div>
    
     <!-- Display Account Info -->
-    <h4> Account info: </h4>
+    <h3> Account info: </h3>
   <br>
     <div id="body" v-show="!isShow">
-      <img :src="image" style="width: 100px; clip-path: circle();" />
+      <img :src="image" style="width: 200px; clip-path: circle();" />
       <br>
       <br>
-      <h6><b>Username:</b> {{ username }}<b>   Email:</b> {{ email }}</h6>
+      <h5><b>Username:</b> {{ username }}<b>   Email:</b> {{ email }}</h5>
        <br>
       <div id="phoneNumber">
-        <h6><b>Phone Number:</b> {{ phoneNumber }}</h6>
+        <h5><b>Phone Number:</b> {{ phoneNumber }}</h5>
       </div>
       <div id="address">
-        <h6><b>Address:</b> {{ address }}</h6>
+        <h5><b>Address:</b> {{ address }}</h5>
       </div>
       <div id="password">
-        <h6><b>Password:</b> {{ password }}</h6>
+        <h5><b>Password:</b> {{ password }}</h5>
       </div>
       <div id="inTown">
-        <h6><b>In Town:</b> {{ inTown }}</h6>
+        <h5><b>In Town:</b> {{ inTown }}</h5>
       </div>
       <div id="totalPoints">
-        <h6><b>Your Points:</b> {{ totalPoints }}</h6>
+        <h5><b>Your Points:</b> {{ totalPoints }}</h5>
       </div>
-    </div>
-    <br>
- <button type="button" class="btn btn-light" v-on:click="isShow = !isShow">
+      <button type="button" class="btn btn-light" v-on:click="isShow = !isShow">
       Update Profile
     </button>
+    </div>
+    <br>
+ 
     <!-- Display Update Account Inputs -->
     <div id="body" v-show="isShow">
+      
       <h5>Username : {{ username }}</h5>
       <h5>Email : {{ email }}</h5>
+      <br>
       <div id="firstName" class="Row">
         <h5 class="Column">First Name :</h5>
         <input
@@ -99,9 +102,11 @@
           :placeholder="[[inTown]]"
         />
       </div>
+      <br>
       <div id="totalPoints">
         <h5>Your Points : {{ totalPoints }}</h5>
       </div>
+      <br>
 
       <!-- Delete Account Button -->
       <button

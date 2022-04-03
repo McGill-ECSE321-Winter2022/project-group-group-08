@@ -97,9 +97,9 @@ export default {
     return {
       // Set Variables
       msg: "Welcome to your local Whole Foods",
-      email: "Email: group8@mail.mcgill.ca",
-      adress: "Address: 123 McGill Avenue",
-      number: "Call: 514-100-1313",
+      email: "group8@mail.mcgill.ca",
+      adress: "123 McGill Avenue",
+      number: "514-100-1313",
       errorOpeningsHours: "",
       openingsHours: [],
       validUser: sessionStorage.getItem("validUser")
