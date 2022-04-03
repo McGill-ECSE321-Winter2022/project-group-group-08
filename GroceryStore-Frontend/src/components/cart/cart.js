@@ -14,6 +14,7 @@ export default {
   name: 'Cart',
 
   created () {
+    //Get User from Backend
     AXIOS.get("/cart/username",{
       params: {
         username: sessionStorage.getItem("username")
@@ -29,6 +30,7 @@ export default {
 
   data() {
     return {
+      // Set Varaible
       cart: {},
     };
   },
