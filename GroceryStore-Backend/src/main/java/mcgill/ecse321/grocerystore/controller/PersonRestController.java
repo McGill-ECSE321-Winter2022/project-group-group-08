@@ -99,6 +99,32 @@ public class PersonRestController {
 	}
 	
 	/**
+	 * Gets list of PersonDto with first name and last name containing X, Y
+	 * @param firstName first name of person
+	 * @param lastName last name of person
+	 * @return List<PersonDto>
+	 */
+	@GetMapping(value = { "/getPersonsByFirstNameLastNameContainingIgnoreCase", "/getPersonsByFirstNameLastNameContainingIgnoreCase/" })
+	public List<PersonDto> getPersonsByFirstNameLastNameContainingIgnoreCase(@RequestParam String firstName, @RequestParam String lastName){
+		List<PersonDto> personDtos = new ArrayList<>();
+		if(firstName.strip().length() != 0) {
+			for (Person person : personService.findPersonByFirstNameContainingIgnoreCase(firstName)) {
+		    	personDtos.add(PersonDto.convertToDto(person));
+		    }
+		}
+		
+		if(lastName.strip().length() != 0) {
+			for (Person person : personService.findPersonByLastNameContainingIgnoreCase(lastName)) {
+				PersonDto personDto = PersonDto.convertToDto(person); 
+				if(!personDtos.contains(personDto)) {
+					personDtos.add(personDto);
+				}
+		    }
+		}
+	    return personDtos;
+	}
+	
+	/**
 	 * Gets list of PersonDto having this last name
 	 * @param lastName last name of person
 	 * @return List<PersonDto>

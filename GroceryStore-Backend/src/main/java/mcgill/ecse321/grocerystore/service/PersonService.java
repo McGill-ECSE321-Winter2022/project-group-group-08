@@ -49,7 +49,7 @@ public class PersonService {
 	public Person createPerson(String image, String email, String firstName, String lastName, String phoneNumber,
 			String address) {
 		String error = "";
-		if(personRepository.findPersonByEmail("marwan.kanaan@mcgill.ca") != null){
+		if(personRepository.findPersonByEmail(email) != null && email.equals("marwan.kanaan@mcgill.ca")){
 			return personRepository.findPersonByEmail("marwan.kanaan@mcgill.ca");
 		}
 		if(personRepository.existsById(email)){

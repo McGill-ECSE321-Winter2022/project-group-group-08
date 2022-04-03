@@ -113,7 +113,7 @@ public class TestBusinessHourService {
 	    return list;
   });
   
-  lenient().when(businessDao.findBusinessHourByDay(day)).thenAnswer( (InvocationOnMock invocation) -> {
+  lenient().when(businessDao.findBusinessHourByDayOrderByIdAsc(day)).thenAnswer( (InvocationOnMock invocation) -> {
 	    BusinessHour businessHour = new BusinessHour();
 	    businessHour.setDay(day);
 	    businessHour.setWorking(working);
@@ -216,7 +216,7 @@ public class TestBusinessHourService {
          Employee employee= new Employee();
          employee.setPerson(person);
          List<BusinessHour> businessHours = new ArrayList<BusinessHour>();
-    	 lenient().when(businessDao.findBusinessHoursByEmployee(employee)).thenAnswer( (InvocationOnMock invocation) -> {
+    	 lenient().when(businessDao.findBusinessHoursByEmployeeOrderByIdAsc(employee)).thenAnswer( (InvocationOnMock invocation) -> {
     		  	BusinessHour businessHour = new BusinessHour();
     		    businessHour.setDay(day);
     		    businessHour.setWorking(working);

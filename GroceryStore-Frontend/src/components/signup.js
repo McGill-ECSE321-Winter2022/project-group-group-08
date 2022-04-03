@@ -95,30 +95,11 @@ export default {
                             this.account = this.accounts[this.accounts.length - 1];
                         })
                         .catch(e => {
-                            this.errorSignup = e;
+                            this.errorSignup = e.response.data;
                         });
                     var userRole = document.getElementById("userRole").selectedOptions[0]
                         .value;
-                    if (userRole === "Manager") {
-                        AXIOS.post(
-                                "/manager", {}, {
-                                    params: {
-                                        personEmail: email
-                                    }
-                                }
-                            )
-                            .then(response => {
-                                this.accounts.push(response.data);
-                                this.email = "";
-                                this.userRole = "";
-                                this.$router.push({
-                                    path: `/Profile/${this.account.username}`
-                                });
-                            })
-                            .catch(e => {
-                                this.errorSignup = e;
-                            });
-                    } else if (userRole === "Employee") {
+                    if (userRole === "Employee") {
                         AXIOS.post(
                                 "/employee", {}, {
                                     params: {
@@ -135,7 +116,7 @@ export default {
                                 });
                             })
                             .catch(e => {
-                                this.errorSignup = e;
+                                this.errorSignup = e.response.data;
                             });
                     } else if (userRole === "Customer") {
                         AXIOS.post(
@@ -148,6 +129,7 @@ export default {
                                 }
                             )
                             .then(response => {
+                                console.log("here");
                                 this.accounts.push(response.data);
                                 this.email = "";
                                 this.userRole = "";
@@ -156,13 +138,12 @@ export default {
                                 });
                             })
                             .catch(e => {
-                                this.errorSignup = e;
+                                this.errorSignup = e.response.data;
                             });
                     }
                 })
                 .catch(e => {
-                    console.log(errorMsg);
-                    this.errorSignup = e.message;
+                    this.errorSignup = e.response.data;
                 });
         }
     }

@@ -5,42 +5,17 @@
     id="Signup"
   >
     <table>
-      <h2>Sign Up</h2>
       <tr>
-        <td>
-          <input
-            style="margin-top: 6px;"
-            type="text"
-            v-model="email"
-            placeholder="Email"
-          />
-        </td>
-        <td>
-          <input
-            style="margin-top: 6px;"
-            type="text"
-            v-model="phoneNumber"
-            placeholder="Phone number"
-          />
-        </td>
+        <h2>Sign Up</h2>
       </tr>
       <tr>
-        <td>
-          <input
-            style="margin-top: 6px;"
-            type="text"
-            v-model="firstName"
-            placeholder="First name"
-          />
-        </td>
-        <td>
-          <input
-            style="margin-top: 6px;"
-            type="text"
-            v-model="lastName"
-            placeholder="Last name"
-          />
-        </td>
+        <td class="table-text">Email:</td>
+        <input
+          style="margin-top: 6px;"
+          type="text"
+          v-model="email"
+          placeholder="Email"
+        />
       </tr>
       <tr>
         <td>
@@ -59,7 +34,7 @@
             placeholder="Username"
           />
         </td>
-         <td>
+        <td>
           <input
             style="margin-top: 6px;"
             type="text"
@@ -67,36 +42,74 @@
             placeholder="Link"
           />
         </td>
+        <td class="table-text">Phone Number:</td>
+        <input
+          style="margin-top: 6px;"
+          type="text"
+          v-model="phoneNumber"
+          placeholder="Phone number"
+        />
       </tr>
       <tr>
-        <td>
-          <input
-            style="margin-top: 6px;"
-            type="password"
-            v-model="password"
-            placeholder="Password"
-          />
-        </td>
+        <td class="table-text">First Name:</td>
+        <input
+          style="margin-top: 6px;"
+          type="text"
+          v-model="firstName"
+          placeholder="First name"
+        />
       </tr>
       <tr>
-        <td>
-          <label for="inTown"> Do you live in town? </label>
-          <br />
-          <label>Yes</label>
-          <input type="checkbox" id="inTown" value="true" />
-          <label>No</label>
-          <input type="checkbox" id="notInTown" value="false" />
-        </td>
-        <td>
-          <label for="Roles"> Choose your account role </label>
-          <br />
-          <select name="userRole" id="userRole">
-            <option value="blank"></option>
-            <option value="Manager">Manager</option>
-            <option value="Employee">Employee</option>
-            <option value="Customer">Customer</option>
-          </select>
-        </td>
+        <td class="table-text">Last Name:</td>
+        <input
+          style="margin-top: 6px;"
+          type="text"
+          v-model="lastName"
+          placeholder="Last name"
+        />
+      </tr>
+      <tr>
+        <td class="table-text">Address:</td>
+        <input
+          style="margin-top: 6px;"
+          type="text"
+          v-model="address"
+          placeholder="Address"
+        />
+      </tr>
+      <tr>
+        <td class="table-text">Username:</td>
+        <input
+          style="margin-top: 6px;"
+          type="text"
+          v-model="username"
+          placeholder="Username"
+        />
+      </tr>
+      <tr>
+        <td class="table-text">Password:</td>
+        <input
+          style="margin-top: 6px;"
+          type="password"
+          v-model="password"
+          placeholder="Password"
+        />
+      </tr>
+
+      <tr>
+        <td class="table-text">Do you live in town?</td>
+        <label>Yes </label>
+        <input type="checkbox" id="inTown" value="true" />
+        <label>No </label>
+        <input type="checkbox" id="notInTown" value="false" />
+      </tr>
+      <tr>
+        <td class="table-text">Choose your account role</td>
+        <select name="userRole" id="userRole">
+          <option value="blank"></option>
+          <option value="Employee">Employee</option>
+          <option value="Customer">Customer</option>
+        </select>
       </tr>
       <tr>
         <td>
