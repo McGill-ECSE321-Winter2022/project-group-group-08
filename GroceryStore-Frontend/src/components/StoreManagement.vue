@@ -4,6 +4,7 @@
   <table>
     <h1> Store Management </h1>
     <h4> Modify Store Opening Hours </h4> 
+    <!-- Display Data Component for Store Opening Hours -->
     <v-data-table class="elevation-1">
       <th> Day </th>
       <th>Start Time</th>
@@ -53,6 +54,7 @@
         <v-data-table class="elevation-1">
         <tr>
           <td>
+            <!-- Modify Address Input box-->
             <label>Address: </label>
           </td>
           <td>
@@ -66,6 +68,7 @@
         </tr>
         <tr>
           <td>
+            <!-- Modify Employee Discount Input Box-->
             <label>Employee Discount: </label>
           </td>
           <td>
@@ -78,6 +81,7 @@
           </td>
         </tr>
         <tr>
+          <!-- Update Info Button -->
           <button
             class="btn btn-light"
             @click="updateEmployeeDiscount(storename, address, employeeDiscount);"
