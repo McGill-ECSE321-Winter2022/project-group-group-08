@@ -43,6 +43,7 @@ export default {
             inStoreQuantity: {},
             itemId: "",
             itemName2: "",
+            newItemName: "",
             itemPrice: "",
             itemPoint: "",
             itemReturnPolicy: "",
@@ -54,35 +55,11 @@ export default {
     },
 
     methods: {
-        createItems: function(itemName, price, point, returnPolicy, pickup, inStoreQuantity){
-            AXIOS.post(
-                "/item/", {}, {
-                    params:{
-                        itemName: itemName,
-                        price: price,
-                        point: point,
-                        returnPolicy: returnPolicy,
-                        pickup: pickup,
-                        inStoreQuantity: inStoreQuantity
-                    }
-                }
-            ).then(response => {
-                this.items.push(response.data);
-                this.itemName = "";
-                this.price = "";
-                this.point = "";
-                this.returnPolicy = "";
-                this.pickup="";
-                this.inStoreQuantity="";
-            }).catch(e => {
-                console.log(e);
-            });
-        },
-
         updateItemAttributes: function(id, itemName, price, point, returnPolicy, pickup, inStoreQuantity){
+            console.log("hereeee");
             AXIOS.patch("/item/update/"+id, {},{ 
                     params: {
-                        itemName: itemName,
+                        name: itemName,
                         price: price,
                         point: point,
                         returnPolicy: returnPolicy,
@@ -91,6 +68,7 @@ export default {
                     }
                 }
             ).then(response => {
+                console.log("here");
                 console.log(response.data);
                 AXIOS.get("/item/all")
                 .then(response2 => {
@@ -115,10 +93,24 @@ export default {
                 }
             });
         },
-        deleteItem: function() {
-            AXIOS.delete("/item/delete"+id)
+        deleteItem: function(itemId) {
+            console.log(itemId);
+            AXIOS.delete("/item/delete/"+itemId)
                 .then(response => {
-                    this.$router.push({ path: `/` });
+                    AXIOS.get("/item/all")
+                    .then(response2 => {
+                        this.items = response2.data;
+                        for (item in items){
+                            itemName[item.id] = item.name;
+                            price[item.id] = item.price;
+                            point[item.id] = item.point;
+                            returnPolicy[item.id] = item.returnPolicy;
+                            inStoreQuantity[item.id] = item.inStoreQuantity;
+                        }
+                    })
+                    .catch(e => {
+                        this.errorItems = e;
+                    });
                 })
                 .catch(e => {
                     var errorMsg = e.response.data.message;
@@ -126,16 +118,19 @@ export default {
                 });
         },
 
-        addItemToInventory: function(itemId, itemName2, itemPrice, itemPoint, itemReturnPolicy, itemPickup, itemInStoreQuantity){
+        addItemToInventory: function(itemName2, itemPrice, itemPoint, itemReturnPolicy, itemPickup, itemInStoreQuantity){
+            if(itemPickup == ""){
+                itemPickup = false;
+            }
             AXIOS.post(
                 "/item/", {}, {
                     params:{
-                        itemName2: itemName2,
-                        itemPrice: itemPrice,
-                        itemPickup: itemPoint,
-                        itemReturnPolicy: itemReturnPolicy,
-                        itemPickup: itemPickup,
-                        itemInStoreQuantity: itemInStoreQuantity
+                        name: itemName2,
+                        price: itemPrice,
+                        point: itemPoint,
+                        returnPolicy: itemReturnPolicy,
+                        pickup: itemPickup,
+                        inStoreQuantity: itemInStoreQuantity
                     }
                 }
             ).then(response => {
@@ -146,6 +141,7 @@ export default {
                 this.itemReturnPolicy = "";
                 this.itemPickup="";
                 this.itemInStoreQuantity="";
+                this.newItemName = "";
             }).catch(e => {
                 console.log(e);
             });
