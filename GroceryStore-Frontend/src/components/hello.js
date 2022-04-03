@@ -101,7 +101,8 @@ export default {
       adress: "Address: 123 McGill Avenue",
       number: "Call: 514-100-1313",
       errorOpeningsHours: "",
-      openingsHours: []
+      openingsHours: [],
+      validUser: sessionStorage.getItem("validUser")
     };
   },
   methods: {

@@ -16,7 +16,9 @@ export default {
     return {
       // Set Variables
       items: [],
-      validUser: sessionStorage.getItem("validUser")
+      validUser: sessionStorage.getItem("validUser"),
+      items: [],
+      role: sessionStorage.getItem("role")
     };
   },
 
