@@ -9,6 +9,7 @@
       <h2>View Customers</h2>
       <tr>
         <!-- !!! Implement if have time -->
+        <!-- Search Filter Component -->
         <!-- <select name="filter" id="filter" @change="filterToggle($event)">
           <option value="blank" key="blank"></option>
           <option value="CustomerID" key="customerID">Customer ID</option>
@@ -66,6 +67,7 @@
         </button>
       </tr>
       
+      <!-- Data Table Component -->
       <v-data-table class="elevation-1">
         <th>Customer ID</th>
         <th>First Name</th>
