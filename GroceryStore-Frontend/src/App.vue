@@ -35,7 +35,7 @@ export default {
             <b-nav-item href="#">Browse</b-nav-item>
             <b-nav-item href="#/shifts" v-if="manager">Shifts</b-nav-item>
             <b-nav-item href="#/viewshifts" v-if="employee">My Shifts</b-nav-item>
-            <b-nav-item href="#" v-if="manager">Items</b-nav-item>
+            <b-nav-item href="#/itemInventory" v-if="manager">Items</b-nav-item>
             <b-nav-item href="#/viewemployees" v-if="manager">Employees</b-nav-item>
             <b-nav-item href="#/viewcustomers" v-if="manager">Customers</b-nav-item>
             <!-- <b-nav-item href="#" disabled>Disabled</b-nav-item> -->
@@ -57,7 +57,7 @@ export default {
               <b-dropdown-item :href="'#/Profile/'+username" v-if="customer || employee || manager">Profile</b-dropdown-item>
               <b-dropdown-item href="#/cart" v-if="customer || employee ">Cart</b-dropdown-item>
               <b-dropdown-item href="#/receipt" v-if="customer || employee ">Orders</b-dropdown-item>
-              <b-dropdown-item href="#/" v-if="manager">Store</b-dropdown-item>
+              <b-dropdown-item href="#/storeManagement" v-if="manager">Store</b-dropdown-item>
               <b-dropdown-item href="#/" @click="logout" v-if="customer || employee || manager">Sign Out</b-dropdown-item>
             </b-nav-item-dropdown>
           </b-navbar-nav>
