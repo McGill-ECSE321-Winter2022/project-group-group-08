@@ -55,7 +55,7 @@ h3{
 	padding: 20px 20px;
 }
 .container .card {
-	width: 450px;
+	width: 280px;
 	height: 350px;
 	border-radius: 20px;
 	background: linear-gradient(315deg, #9dbb9e, #5ba06a);
