@@ -11,13 +11,14 @@ public class ItemDto {
 	private int returnPolicy;
 	private boolean pickup;
 	private int inStoreQuantity;
-	
+	private String image;
 	
 	public ItemDto() {
 		
 	}
 
-	public ItemDto(int id, String name, int price, int point, int returnPolicy, boolean pickup, int inStoreQuantity) {
+	public ItemDto(String image, int id, String name, int price, int point, int returnPolicy, boolean pickup, int inStoreQuantity) {
+		this.image = image;
 		this.id = id;
 		this.name = name;
 		this.price = price;
@@ -28,10 +29,13 @@ public class ItemDto {
 	}
 	
 	public static ItemDto convertToDto(Item item) {
-		ItemDto itemDto = new ItemDto(item.getId(), item.getName(), item.getPrice(), item.getPoint(), item.getReturnPolicy(), item.getPickup(), item.getInStoreQuantity());
+		ItemDto itemDto = new ItemDto(item.getImage(), item.getId(), item.getName(), item.getPrice(), item.getPoint(), item.getReturnPolicy(), item.getPickup(), item.getInStoreQuantity());
 		return itemDto;
 	}
-	
+
+	public String getImage() {
+		return image;
+	}
 	public int getId() {
 		return id;
 	}

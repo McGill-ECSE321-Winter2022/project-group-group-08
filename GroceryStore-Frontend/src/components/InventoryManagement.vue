@@ -7,6 +7,7 @@
     <v-data-table class="elevation-1">
         <th>Item ID </th>
         <th>Name</th>
+        <th>Image</th>
         <th>Price</th>
         <th>Point</th>
         <th>Return Policy</th>
@@ -23,6 +24,14 @@
                         type="text"
                         v-model="itemName[item.id]"
                         :placeholder="[[ item.name ]]"
+                    />
+                </td>
+                <td>
+                    <input 
+                        style="margin-top: 6px;"
+                        type="text"
+                        v-model="image[item.id]"
+                        :placeholder="[[ item.image ]]"
                     />
                 </td>
                 <td>
@@ -63,7 +72,7 @@
                 <td>
                      <button
                         class="btn btn-light"
-                        @click="updateItemAttributes(item.id, itemName[item.id], price[item.id], point[item.id], returnPolicy[item.id], item.pickup, inStoreQuantity[item.id])"
+                        @click="updateItemAttributes(item.id, itemName[item.id],image[item.image], price[item.id], point[item.id], returnPolicy[item.id], item.pickup, inStoreQuantity[item.id])"
                     >
                         Update
                     </button>
@@ -95,6 +104,19 @@
                             type="text"
                             v-model="newItemName"
                             placeholder="Name"
+                        />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p> Image: </p>
+                    </td>
+                    <td>
+                        <input
+                            style="margin-top: 6px;"
+                            type="text"
+                            v-model="newItemImage"
+                            placeholder="Image"
                         />
                     </td>
                 </tr>
@@ -165,7 +187,7 @@
                 <tr>
                     <button
                         class="btn btn-light"
-                        @click="addItemToInventory(newItemName, itemPrice, itemPoint, itemReturnPolicy, itemPickup, itemInStoreQuantity);"
+                        @click="addItemToInventory(newItemName,newItemImage, itemPrice, itemPoint, itemReturnPolicy, itemPickup, itemInStoreQuantity);"
                     >
                         Add Item
                     </button>

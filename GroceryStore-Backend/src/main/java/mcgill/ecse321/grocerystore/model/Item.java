@@ -16,9 +16,17 @@ public class Item{
 	private int returnPolicy;
 	private boolean pickup;
 	private int inStoreQuantity;
+	private String image;
 	
 	public void setId(int aId){
 		this.id = aId;
+	}
+	
+	public String getImage(){
+		return this.image;
+	}
+	public void setImage(String temp){
+		this.image = temp;
 	}
 	
 	public int getId(){

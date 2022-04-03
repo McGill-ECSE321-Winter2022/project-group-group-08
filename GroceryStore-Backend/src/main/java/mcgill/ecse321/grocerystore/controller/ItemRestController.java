@@ -137,6 +137,7 @@ public class ItemRestController {
 	 */
 	@PostMapping(value = {baseURL, baseURL+"/"})
 	public ItemDto createItem(
+			@RequestParam(name = "image") String image,
 			@RequestParam(name = "name") String name,
 			@RequestParam(name = "price") int price,
 			@RequestParam(name = "point") int point,
@@ -144,7 +145,7 @@ public class ItemRestController {
 			@RequestParam(name = "pickup") boolean pickup,
 			@RequestParam(name = "inStoreQuantity") int inStoreQuantity
 			) {
-		Item item = itemService.createItem(name, price, point, returnPolicy, pickup, inStoreQuantity);
+		Item item = itemService.createItem(image, name, price, point, returnPolicy, pickup, inStoreQuantity);
 		return convertToDto(item);
 	}
 	
@@ -162,6 +163,7 @@ public class ItemRestController {
 	@PatchMapping(value = {baseURL + "/update/{id}", baseURL+"/update/{id}/"})
 	public ItemDto updateItem(
 			@PathVariable("id") int id,
+			@RequestParam(name = "image") String image,
 			@RequestParam(name = "name") String name,
 			@RequestParam(name = "price") int price,
 			@RequestParam(name = "point") int point,
@@ -169,7 +171,7 @@ public class ItemRestController {
 			@RequestParam(name = "pickup") boolean pickup,
 			@RequestParam(name = "inStoreQuantity") int inStoreQuantity
 			) {
-		Item item = itemService.updateItem(id, name, price, point, returnPolicy, pickup, inStoreQuantity);
+		Item item = itemService.updateItem(image, id, name, price, point, returnPolicy, pickup, inStoreQuantity);
 		return convertToDto(item);
 	}
 	
@@ -188,7 +190,7 @@ public class ItemRestController {
 		if(item == null) {
 			throw new IllegalArgumentException("There is no such item!");
 		}
-		ItemDto itemDto = new ItemDto(item.getId(), item.getName(), item.getPrice(), item.getPoint(), item.getReturnPolicy(), item.getPickup(), item.getInStoreQuantity());
+		ItemDto itemDto = new ItemDto(item.getImage(), item.getId(), item.getName(), item.getPrice(), item.getPoint(), item.getReturnPolicy(), item.getPickup(), item.getInStoreQuantity());
 		return itemDto;
 	}
 

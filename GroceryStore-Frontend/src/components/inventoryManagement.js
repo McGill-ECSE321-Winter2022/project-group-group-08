@@ -19,6 +19,7 @@ export default {
                 this.items = response.data;
                 console.log(response.data);
                 for (item in items){
+                    image[item.id] = item.image;
                     itemName[item.id] = item.name;
                     price[item.id] = item.price;
                     point[item.id] = item.point;
@@ -36,6 +37,7 @@ export default {
             items: [],
             id: "",
             itemName: {},
+            itemImage: "",
             price: {},
             point: {},
             returnPolicy: {},
@@ -43,11 +45,13 @@ export default {
             inStoreQuantity: {},
             itemId: "",
             itemName2: "",
+            itemImage2: "",
             newItemName: "",
             itemPrice: "",
             itemPoint: "",
             itemReturnPolicy: "",
             itemPickup: "",
+            
             itemInStoreQuantity: "",
             errorItems: "",
             response: []
@@ -55,11 +59,12 @@ export default {
     },
 
     methods: {
-        updateItemAttributes: function(id, itemName, price, point, returnPolicy, pickup, inStoreQuantity){
+        updateItemAttributes: function(id, itemName, itemImage, price, point, returnPolicy, pickup, inStoreQuantity){
             console.log("hereeee");
             AXIOS.patch("/item/update/"+id, {},{ 
                     params: {
                         name: itemName,
+                        image: itemImage,
                         price: price,
                         point: point,
                         returnPolicy: returnPolicy,
@@ -74,6 +79,7 @@ export default {
                 .then(response2 => {
                     this.items = response2.data;
                     for (item in items){
+                        image[item.id] = item.image;
                         itemName[item.id] = item.name;
                         price[item.id] = item.price;
                         point[item.id] = item.point;
@@ -102,6 +108,7 @@ export default {
                         this.items = response2.data;
                         for (item in items){
                             itemName[item.id] = item.name;
+                            image[item.id] = item.image;
                             price[item.id] = item.price;
                             point[item.id] = item.point;
                             returnPolicy[item.id] = item.returnPolicy;
@@ -118,7 +125,7 @@ export default {
                 });
         },
 
-        addItemToInventory: function(itemName2, itemPrice, itemPoint, itemReturnPolicy, itemPickup, itemInStoreQuantity){
+        addItemToInventory: function(itemName2,itemImage2, itemPrice, itemPoint, itemReturnPolicy, itemPickup, itemInStoreQuantity){
             if(itemPickup == ""){
                 itemPickup = false;
             }
@@ -126,6 +133,7 @@ export default {
                 "/item/", {}, {
                     params:{
                         name: itemName2,
+                        image: itemImage2,
                         price: itemPrice,
                         point: itemPoint,
                         returnPolicy: itemReturnPolicy,
@@ -136,6 +144,7 @@ export default {
             ).then(response => {
                 this.items.push(response.data);
                 this.itemName2 = "";
+                this.itemImage2 = "";
                 this.itemPrice = "";
                 this.itemPoint = "";
                 this.itemReturnPolicy = "";

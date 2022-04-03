@@ -3,6 +3,7 @@
     <table class="elevation-1" >
 		
             <th>
+                <td class="table-text">Image</td>
                 <td class="table-text">Item Name</td>
                 <td class="table-text">Price |</td>
             </th>
@@ -11,6 +12,7 @@
                 <Item 
                   v-for="item in items" :key="item.name" 
                   :curId="item.id"
+                  :itemImage="item.image"
                   :itemName="item.name"
                   :itemPrice="item.price"
                   :validUser="validUser"

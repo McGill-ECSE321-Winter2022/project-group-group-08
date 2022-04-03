@@ -34,7 +34,7 @@ public class ItemService {
 	 * @return
 	 */
 	@Transactional
-	public Item createItem(String name, int price, int point, int returnPolicy, boolean pickup, int inStoreQuantity) {
+	public Item createItem(String image, String name, int price, int point, int returnPolicy, boolean pickup, int inStoreQuantity) {
 		if(name == null || name.strip() == ""|| name.equals("undefined")) {
 			throw new IllegalArgumentException("Item name cannot be null or empty");
 		}
@@ -51,6 +51,7 @@ public class ItemService {
 			throw new IllegalArgumentException("The inStoreQuantity cannot be a negative number");
 		}
 		Item item = new Item();
+		item.setImage(image);
 		item.setName(name);
 		item.setPrice(price);
 		item.setPoint(point);
@@ -209,7 +210,7 @@ public class ItemService {
 	 * @return
 	 */
 	@Transactional
-	public Item updateItem(int id, String name, int price, int point, int returnPolicy, boolean pickup, int inStoreQuantity) {
+	public Item updateItem(String image, int id, String name, int price, int point, int returnPolicy, boolean pickup, int inStoreQuantity) {
 		if(id < 0) {
 			throw new IllegalArgumentException("Id cannot be a negative number");
 		}
@@ -232,6 +233,7 @@ public class ItemService {
 		if(item == null) {
 			throw new IllegalArgumentException("Item with id " + id + " does not exists");
 		}
+		item.setImage(image);
 		item.setName(name);
 		item.setPrice(price);
 		item.setPoint(point);

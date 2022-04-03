@@ -39,13 +39,11 @@ export default {
 			}
 		})
 		.then(response => {
-			console.log("doggy");
 			this.cart = response.data;
 			sessionStorage.setItem("cartId", response.data.id)
 		})
       .catch(e => {
 		console.log(e.response.data);
-		console.log("doggy2");
 				
 				AXIOS.post("cart", {
 				params: {
@@ -64,7 +62,9 @@ export default {
   },
 
   props: {
+
     curId: Number,
+	itemImage: String,
     itemName: String,
     itemPrice: Number,
 	validUser: Boolean
