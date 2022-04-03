@@ -60,6 +60,7 @@
     <div>
     <h2>About us</h2>
      <br>
+     <p>Get hungry for local, organic, plant-based & more: see today's sales, browse products by special diet, find recipes, get delivery and pick up & order online.</p>
     <p>{{ email }}</p>
     <p>{{ adress }}</p>
     <p>{{ number }}</p>
@@ -82,6 +83,8 @@
   background-color: #fff;
   border: 1px;
   border-color: red;
+  padding-left: 40px;
+  padding-right: 40px;
   
 }
 

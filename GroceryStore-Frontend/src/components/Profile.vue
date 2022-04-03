@@ -2,35 +2,41 @@
   <div id="profile">
     <div id="header">
       <br>
-      <h3>Profile Title - {{ userRole }}</h3>
+      
       <h3>Hey, {{ firstName + " " + lastName }}</h3>
+      <p>Account Type - {{ userRole }}</p>
       <hr />
     </div>
-    <button type="button" class="btn btn-light" v-on:click="isShow = !isShow">
-      Update Profile
-    </button>
+   
     <!-- Display Account Info -->
+    <h4> Account info: </h4>
+  <br>
     <div id="body" v-show="!isShow">
-      <img :src="image" style="width: 50px" />
-      <h5>Username : {{ username }}</h5>
-      <h5>Email : {{ email }}</h5>
+      <img :src="image" style="width: 100px; clip-path: circle();" />
+      <br>
+      <br>
+      <h6><b>Username:</b> {{ username }}<b>   Email:</b> {{ email }}</h6>
+       <br>
       <div id="phoneNumber">
-        <h5>Phone Number : {{ phoneNumber }}</h5>
+        <h6><b>Phone Number:</b> {{ phoneNumber }}</h6>
       </div>
       <div id="address">
-        <h5>Address : {{ address }}</h5>
+        <h6><b>Address:</b> {{ address }}</h6>
       </div>
       <div id="password">
-        <h5>Password : {{ password }}</h5>
+        <h6><b>Password:</b> {{ password }}</h6>
       </div>
       <div id="inTown">
-        <h5>In Town : {{ inTown }}</h5>
+        <h6><b>In Town:</b> {{ inTown }}</h6>
       </div>
       <div id="totalPoints">
-        <h5>Your Points : {{ totalPoints }}</h5>
+        <h6><b>Your Points:</b> {{ totalPoints }}</h6>
       </div>
     </div>
-
+    <br>
+ <button type="button" class="btn btn-light" v-on:click="isShow = !isShow">
+      Update Profile
+    </button>
     <!-- Display Update Account Inputs -->
     <div id="body" v-show="isShow">
       <h5>Username : {{ username }}</h5>
