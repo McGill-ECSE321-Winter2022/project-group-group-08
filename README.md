@@ -49,8 +49,8 @@ The project report for this deliverable can be found here.
 | Team Member | Tasks | Hours Spent |
 |:-----------:|:-------------:|:----:|
 | Aigiarn Cheuk | Account management : Web frontend, Frontend integration with backend services | 15 |
-| Mihail Calitoiu | Browse : Web frontend, Frontend integration with backend services | 30 |
+| Mihail Calitoiu | Browse : Web frontend, Frontend integration with backend services | 42 |
 | Selina Gao | Store management, Inventory management : Web frontend, Frontend integration with backend services | 15 |
 | Joey Koay | Shift management : Web frontend, Frontend integration with backend services | 42 |
-| Joey Liu | Login, Change Profile : Web frontend, Frontend integration with backend services | 42 |
+| Joey Liu | Login, Change Profile : Web frontend, Frontend integration with backend services | 30 |
 | Kevin Liu | Cart, View Shifts : Web frontend, Frontend integration with backend services | 20 |
