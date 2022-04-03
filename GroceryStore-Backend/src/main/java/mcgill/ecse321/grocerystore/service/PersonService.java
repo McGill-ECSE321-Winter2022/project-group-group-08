@@ -46,7 +46,7 @@ public class PersonService {
 	 * @return person
 	 */
 	@Transactional
-	public Person createPerson(String email, String firstName, String lastName, String phoneNumber,
+	public Person createPerson(String image, String email, String firstName, String lastName, String phoneNumber,
 			String address) {
 		String error = "";
 		if(personRepository.findPersonByEmail("marwan.kanaan@mcgill.ca") != null){
@@ -75,6 +75,7 @@ public class PersonService {
 		    throw new InvalidInputException(error);
 		}
 		Person person = new Person();
+		person.setImage(image);
 		person.setEmail(email);
 		person.setFirstName(firstName);
 		person.setLastName(lastName);

@@ -59,6 +59,14 @@
             placeholder="Username"
           />
         </td>
+         <td>
+          <input
+            style="margin-top: 6px;"
+            type="text"
+            v-model="image"
+            placeholder="Link"
+          />
+        </td>
       </tr>
       <tr>
         <td>
@@ -97,6 +105,7 @@
             class="btn btn-light"
             @click="
               signUp(
+                image,
                 email,
                 phoneNumber,
                 firstName,
