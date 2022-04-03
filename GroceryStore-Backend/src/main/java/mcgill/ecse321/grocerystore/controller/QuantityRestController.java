@@ -88,14 +88,15 @@ public class QuantityRestController {
 			@RequestParam(name = "cartId") int cartId
 			) {
 		Item item = itemService.getItemById(itemId);
-		if(item == null) {
-			throw new IllegalArgumentException("This item does not exists");
-		}
+//		if(item == null) {
+//			throw new IllegalArgumentException("This item does not exists");
+//		}
 		Cart cart = cartService.getCart(cartId);
-		if(cart == null) {
-			throw new IllegalArgumentException("This cart does not exists");
-		}
-		Quantity quantity = quantityService.createQuantity(count, item, cart);
+//		if(cart == null) {
+//			throw new IllegalArgumentException("This cart does not exists");
+//		}
+//		Quantity quantity = quantityService.createQuantity(count, item, cart);
+		Quantity quantity = quantityService.createQuantity(count, itemId, cartId);
 		return convertToDto(quantity);
 	}
 	

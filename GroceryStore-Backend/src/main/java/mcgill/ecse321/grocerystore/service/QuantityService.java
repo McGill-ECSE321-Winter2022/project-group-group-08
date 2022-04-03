@@ -49,6 +49,31 @@ public class QuantityService {
 	}
 	
 	/**
+	 * Creates quantity object 
+	 * @param count count of quantity
+	 * @param item item associated to quantity
+	 * @param cart cart associated to quantity
+	 * @return quantity
+	 */
+	@Transactional
+	public Quantity createQuantity(int count, int itemId, int cartId) {
+//		if(item == null) {
+//			throw new IllegalArgumentException("Item cannot be null or empty");
+//		}
+//		if(cart == null) {
+//			throw new IllegalArgumentException("Cart cannot be null or empty");
+//		}
+		Item item = itemRepository.findItemById(itemId);
+		Cart cart = cartRepository.findCartById(cartId);
+		Quantity quantity = new Quantity();
+		quantity.setCount(count);
+		quantity.setItem(item);
+		quantity.setCart(cart);
+		quantityRepository.save(quantity);
+		return quantity;
+	}
+	
+	/**
 	 * @return list of quantity
 	 */
 	@Transactional

@@ -14,7 +14,7 @@ public class Quantity{
 	private int id;
 	private int count;
 
-	@OneToOne(cascade={CascadeType.MERGE}, optional=false)
+	@ManyToOne(cascade={CascadeType.MERGE}, optional=false)
 	private Item item;
 	
 	@ManyToOne(cascade={CascadeType.MERGE}, optional=false)

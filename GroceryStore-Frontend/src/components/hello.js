@@ -49,7 +49,24 @@ export default {
                             }
                         }
                     )
-                    .then(response => {})
+                    .then(response => {
+                        AXIOS.post(
+                            "/cart/", {}, {
+                                params: {
+                                    date: "2022-03-07",
+                                    accountUsername: "BigBoss"
+                                }
+                            }
+                        )
+                        .then(response => {
+                            console.log(response.data);
+                            sessionStorage.setItem("cartId", response.data.id)
+                            
+                        })
+                        .catch(e => {
+                            this.errorSignup = e.response.data;
+                        });
+                    })
                     .catch(e => {});
 
                 AXIOS.post(
