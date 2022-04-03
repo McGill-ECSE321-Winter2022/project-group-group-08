@@ -30,7 +30,7 @@
                     <input 
                         style="margin-top: 6px;"
                         type="text"
-                        v-model="image[item.id]"
+                        v-model="itemImage[item.id]"
                         :placeholder="[[ item.image ]]"
                     />
                 </td>
@@ -72,7 +72,7 @@
                 <td>
                      <button
                         class="btn btn-light"
-                        @click="updateItemAttributes(item.id, itemName[item.id],image[item.image], price[item.id], point[item.id], returnPolicy[item.id], item.pickup, inStoreQuantity[item.id])"
+                        @click="updateItemAttributes(item.id, itemName[item.id], itemImage[item.id], price[item.id], point[item.id], returnPolicy[item.id], item.pickup, inStoreQuantity[item.id])"
                     >
                         Update
                     </button>
