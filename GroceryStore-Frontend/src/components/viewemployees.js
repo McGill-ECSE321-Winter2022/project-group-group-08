@@ -14,6 +14,7 @@ export default {
   name: "viewemployees",
 
   created: function() {
+    // Initializing employees from backend
     AXIOS.get("/employees/")
       .then(response => {
         this.employees = response.data;
@@ -24,6 +25,7 @@ export default {
   },
   data() {
     return {
+      // Set variables
       employees: [],
       employeeID: "",
       firstName: "",
@@ -36,6 +38,11 @@ export default {
   },
 
   methods: {
+    /**
+     * getEmployeeByID
+     * Takes an ID and returns the corresponding employee
+     * @param {*} employeeID 
+     */
     getEmployeeByID(employeeID) {
       AXIOS.get("/employee/".concat(employeeID))
         .then(response => {
@@ -45,6 +52,12 @@ export default {
           this.errorEmployees = e;
         });
     },
+    /**
+     * getEmployeeByName
+     * Takes a first name and a last name and  returns the corresponding employee
+     * @param {*} firstName 
+     * @param {*} lastName 
+     */
     getEmployeeByName(firstName, lastName) {
       if (firstName == undefined) {
         firstName = "";
@@ -69,6 +82,11 @@ export default {
           }
         });
     },
+    /**
+     * getEmployeeByEmail
+     * Takes an email and returns the corresponding employee
+     * @param {*} email 
+     */
     getEmployeeByEmail(email) {
       AXIOS.get("/employee/email/".concat(email))
         .then(response => {
@@ -78,6 +96,11 @@ export default {
           this.errorEmployees = e;
         });
     },
+    /**
+     * fireEmployee
+     * Takes an ID and removes the corresponding employee from the database
+     * @param {*} employeeID 
+     */
     fireEmployee: function(employeeID) {
       AXIOS.delete("/employee/delete/".concat(employeeID)).catch(e => {
         var error = e.response.data.message;
@@ -93,6 +116,11 @@ export default {
       });
     },
 
+    /**
+     * filterToggle
+     * Resets the pages data when the filter button is used
+     * @param {*} event 
+     */
     filterToggle(event) {
       this.filter = event.target.value;
       console.log(this.filter);
