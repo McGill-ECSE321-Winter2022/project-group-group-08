@@ -1,36 +1,45 @@
 
 <template>
-<div class="grid-item">
-<div class="container ">
-		<div class="card asics">
-      <div class="wrapper">
-        	<p class="price">Price: ${{ itemPrice }}</p>
-      <button v-if="validUser" class="btn btn-light" @click="addToCartZ(curId)"> Add to cart </button>
+  <div class="grid-item">
+    <div class="container">
+      <div class="card asics">
+        <div class="wrapper">
+          <!-- View Item -->
+          <p class="price">Price: ${{ itemPrice }}</p>
+		  <!-- Add to Cart Button-->
+          <button
+            v-if="validUser"
+            class="btn btn-light"
+            @click="addToCartZ(curId)"
+          >
+            Add to cart
+          </button>
+        </div>
+
+
+		<!-- Item Image -->
+        <i class="info fas fa-info-circle"></i>
+        <div class="imgBx">
+          <img :src="itemImage" style="width: 200px" />
+        </div>
+        <div class="contentBx">
+          <h3>organic</h3>
+          <h2>{{ itemName }}</h2>
+        </div>
       </div>
-		
-			<i class="info fas fa-info-circle"></i>
-			<div class="imgBx">
-				<img :src=itemImage style ="width: 200px">
-			</div>
-			<div class="contentBx ">
-				<h3>organic</h3>
-				<h2>{{ itemName }}</h2>
-			</div>
-		</div>
-	</div>
-</div>
-  
+    </div>
+  </div>
 </template>
 <script src="./item.js"></script>
 <style scoped>
 * {
-	margin: 0;
-	padding: 0;
-	font-family: Quicksand;
+  margin: 0;
+  padding: 0;
+  font-family: Quicksand;
 }
 
-h3{
-	color:#351500;
+h3 {
+  color: #351500;
   font-size: 1.3em;
 }
 .wrapper {
@@ -39,157 +48,153 @@ h3{
   background-color: #fff;
 }
 .price {
-	top: 1em;
-	right: 1em;
+  top: 1em;
+  right: 1em;
   color: rgb(56, 56, 56);
-	background-color: rgb(255, 255, 255);
-	border: 0px rgba(255, 255, 255, 0.4) solid;
-	border-bottom: 0px rgba(40, 40, 40, 0.35) solid;
-	border-right: 0px rgba(40, 40, 40, 0.35) solid;
-	padding: 5px 10px;
-	font-size: 1.3em;
+  background-color: rgb(255, 255, 255);
+  border: 0px rgba(255, 255, 255, 0.4) solid;
+  border-bottom: 0px rgba(40, 40, 40, 0.35) solid;
+  border-right: 0px rgba(40, 40, 40, 0.35) solid;
+  padding: 5px 10px;
+  font-size: 1.3em;
   font-weight: 800;
 }
 
 .container {
-	padding: 20px 20px;
+  padding: 20px 20px;
 }
 .container .card {
-	width: 280px;
-	height: 350px;
-	border-radius: 20px;
-	background: linear-gradient(315deg, #9dbb9e, #5ba06a);
-	overflow: hidden;
+  width: 280px;
+  height: 350px;
+  border-radius: 20px;
+  background: linear-gradient(315deg, #9dbb9e, #5ba06a);
+  overflow: hidden;
 }
 .container .card:before {
-	content: " ";
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: #a4c78d;
-	clip-path: circle(150px at 80% 20%);
-	transition: 0.5s ease-in-out;
+  content: " ";
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #a4c78d;
+  clip-path: circle(150px at 80% 20%);
+  transition: 0.5s ease-in-out;
 }
 .container .card:hover:before {
-	clip-path: circle(300px at 80% -20%);
+  clip-path: circle(300px at 80% -20%);
 }
 .container .card:after {
-	content: "";
-	position: absolute;
-	font-size: 12em;
-	font-weight: 800;
-	font-style: italic;
-	color: rgba(255, 255, 255, 0.04);
+  content: "";
+  position: absolute;
+  font-size: 12em;
+  font-weight: 800;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.04);
 }
 
 .container .card .imgBx {
-	position: absolute;
-	top: 40%;
-	transform: translateY(-50%);
-	z-index: 200;
-	width: 100%;
-	height: 220px;
-	transition: 0.5s ease-in-out;
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  z-index: 200;
+  width: 100%;
+  height: 220px;
+  transition: 0.5s ease-in-out;
 }
 .container .card:hover .imgBx {
-	top: 35%;
+  top: 35%;
 }
 .container .card .imgBx img {
-	position: absolute;
-	top: 40%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 270px;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 270px;
 }
 .container .card .contentBx {
-	position: absolute;
-	bottom: 10%;
-	width: 100%;
-	height: 100px;
-	text-align: center;
-	transition: 1s;
-	z-index: 10;
+  position: absolute;
+  bottom: 10%;
+  width: 100%;
+  height: 100px;
+  text-align: center;
+  transition: 1s;
+  z-index: 10;
 }
 .container .card:hover .contentBx {
-	height: 35%;
+  height: 35%;
 }
 .container .card .contentBx h2 {
-	position: relative;
-	font-weight: 600;
-	letter-spacing: 1px;
-	color: #000000;
+  position: relative;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #000000;
 }
 /* Shoe Size */
 .container .card .contentBx .size,
 .container .card .contentBx .color {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	padding: 8px 20px;
-	transition: 0.5s;
-	opacity: 0;
-	visibility: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 20px;
+  transition: 0.5s;
+  opacity: 0;
+  visibility: hidden;
 }
 
 .container .card .contentBx .size h3,
 .container .card .contentBx .color h3 {
-	color: #fff;
-	font-weight: 300;
-	font-size: 14px;
-	text-transform: uppercase;
-	letter-spacing: 2px;
-	margin-right: 10px;
+  color: #fff;
+  font-weight: 300;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-right: 10px;
 }
 .container .card .contentBx .size span {
-	width: 26px;
-	height: 26px;
-	text-align: center;
-	line-height: 26px;
-	font-size: 14px;
-	display: inline-block;
-	color: #111;
-	background: #fff;
-	margin: 0 5px;
-	transition: 0.5s;
-	cursor: pointer;
+  width: 26px;
+  height: 26px;
+  text-align: center;
+  line-height: 26px;
+  font-size: 14px;
+  display: inline-block;
+  color: #111;
+  background: #fff;
+  margin: 0 5px;
+  transition: 0.5s;
+  cursor: pointer;
 }
 
 /* Shoe color */
 .container .card .contentBx .color span {
-	width: 20px;
-	height: 20px;
-	background: #ff0;
-	margin: 0 5px;
-	cursor: pointer;
+  width: 20px;
+  height: 20px;
+  background: #ff0;
+  margin: 0 5px;
+  cursor: pointer;
 }
 
 /* Button/ */
 .button {
-	display: inline-block;
-	padding: 10px 20px;
-	background: rgb(140, 219, 127);
-	margin-top: 10px;
-	text-decoration: none;
-	font-weight: 600;
-	color: #111;
-	opacity: 0;
-	transform: translateY(50px);
-	transition: 0.5s;
-	border: none;
+  display: inline-block;
+  padding: 10px 20px;
+  background: rgb(140, 219, 127);
+  margin-top: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  color: #111;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: 0.5s;
+  border: none;
 }
-
 
 .text {
-	display: none;
-	color: #fff;
-	padding: 2em;
-	z-index: 299;
-	position: relative;
-	backdrop-filter: blur(20px);
-	background-color: rgba(0, 0, 0, 0.2);
-	height: 100%;
+  display: none;
+  color: #fff;
+  padding: 2em;
+  z-index: 299;
+  position: relative;
+  backdrop-filter: blur(20px);
+  background-color: rgba(0, 0, 0, 0.2);
+  height: 100%;
 }
-
-
-
 </style>
