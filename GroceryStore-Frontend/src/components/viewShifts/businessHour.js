@@ -10,5 +10,6 @@ export default {
     day: String,
     startTime: String,
     endTime: String,
+    working: Boolean
   },
 };

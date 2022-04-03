@@ -1,25 +1,37 @@
 <template>
     <div class= "d-flex align-items-center justify-content-center" id="View Shifts" style="height:500px;">
-        <div>Name: {{ employee.personDto.firstName + " " + employee.personDto.lastName }}</div>
-        <!-- Employee Shifts Data Table -->
-        <table class="elevation-1">
-            <th>
-                <td class="table-text">| Day |</td>
-                <td class="table-text">| Start Time |</td>
-                <td class="table-text">| End Time |</td>
-            </th>
-            <tbody>
-                <BusinessHour
-                  v-for="hour in workingShifts"
-                  :key="hour.id"
-                  :businessHourId="hour.id"
-                  :day="hour.day"
-                  :startTime="hour.starTime"
-                  :endTime="hour.endTime"
-                ></BusinessHour>
-            </tbody>
-        </table>
+        <div class="outside">
+            <!-- Employee Shifts Data Table -->
+            <table class="elevation-1">
+                <h4>Name: {{ employee.person.firstName + " " + employee.person.lastName }}</h4>
+                <v-data-table class="elevation-1">
+                    <tr>
+                        <td class="table-text">| Day |</td>
+                        <td class="table-text">| Start Time |</td>
+                        <td class="table-text">| End Time |</td>
+                    </tr>
+                    <tbody>
+                        <BusinessHour
+                            v-for="hour in businesshours"
+                            :key="hour.id"
+                            :businessHourId="hour.id"
+                            :day="hour.day"
+                            :startTime="hour.startTime.substring(0,5)"
+                            :endTime="hour.endTime.substring(0,5)"
+                            :working="hour.working"
+                        ></BusinessHour>
+                    </tbody>
+                </v-data-table>
+            </table>
+        </div>
     </div>
 </template>
 <script src="./viewshifts.js"></script>
+<style scoped>
+.outside {
+  background-color: lightgray;
+  border-radius: 5%;
+  padding: 10px;
+}
+</style>
 

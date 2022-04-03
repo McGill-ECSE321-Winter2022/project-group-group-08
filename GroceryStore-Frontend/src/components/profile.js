@@ -80,6 +80,7 @@ export default {
               .then(response => {
                 this.userRole = "Employee";
                 sessionStorage.setItem("role", "employee");
+                sessionStorage.setItem("employeeId", response.data.id)
               })
               .catch(e => {
                 this.error = e;

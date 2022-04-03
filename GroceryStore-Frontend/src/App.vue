@@ -38,7 +38,8 @@ export default {
             <b-nav-item href="#/itemInventory" v-if="manager">Items</b-nav-item>
             <b-nav-item href="#/viewemployees" v-if="manager">Employees</b-nav-item>
             <b-nav-item href="#/viewcustomers" v-if="manager">Customers</b-nav-item>
-            <!-- <b-nav-item href="#" disabled>Disabled</b-nav-item> -->
+            <b-nav-item href="#/cart" v-if="customer || employee">Cart</b-nav-item>
+            <b-nav-item href="#/Receipts" v-if="customer || employee || manager">Orders</b-nav-item>
           </b-navbar-nav>
 
           <!-- Right aligned nav items -->
@@ -50,8 +51,6 @@ export default {
               </template>
               <b-dropdown-item href="#/Login" v-if="!customer && !employee && !manager"> Log in</b-dropdown-item>
               <b-dropdown-item :href="'#/Profile/'+username" v-if="customer || employee || manager">Profile</b-dropdown-item>
-              <b-dropdown-item href="#/cart" v-if="customer || employee ">Cart</b-dropdown-item>
-              <b-dropdown-item href="#/Receipts" v-if="customer || employee ">Orders</b-dropdown-item>
               <b-dropdown-item href="#/storeManagement" v-if="manager">Store</b-dropdown-item>
               <b-dropdown-item href="#/" @click="logout" v-if="customer || employee || manager">Sign Out</b-dropdown-item>
             </b-nav-item-dropdown>
