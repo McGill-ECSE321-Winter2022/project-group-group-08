@@ -14,6 +14,7 @@ export default {
   name: "viewcustomers",
 
   created: function() {
+    // Initializing employees from backend
     AXIOS.get("/customers/")
       .then(response => {
         this.customers = response.data;
@@ -24,6 +25,7 @@ export default {
   },
   data() {
     return {
+      // Set Variables
       customers: [],
       customerID: "",
       firstName: "",
@@ -32,11 +34,16 @@ export default {
       errorCustomers: "",
       response: [],
       filter: "",
-      newTier: "",
+      newTier: ""
     };
   },
 
   methods: {
+    /**
+     * getCustomerByID
+     * Takes an ID and returns the corresponding customer
+     * @param {*} customerID
+     */
     getCustomerByID(customerID) {
       AXIOS.get("/customer/".concat(customerID))
         .then(response => {
@@ -46,6 +53,12 @@ export default {
           this.errorCustomers = e;
         });
     },
+    /**
+     * getCustomerByName
+     * Takes a first name and last name and returns the corresponding customer
+     * @param {*} firstName
+     * @param {*} lastName
+     */
     getCustomerByName(firstName, lastName) {
       if (firstName == undefined) {
         firstName = "";
@@ -70,6 +83,11 @@ export default {
           }
         });
     },
+    /**
+     * getCustomerByEmail
+     * Takes an email and returns the corresponding customer
+     * @param {*} email
+     */
     getCustomerByEmail(email) {
       AXIOS.get("/customer/email/".concat(email))
         .then(response => {
@@ -79,6 +97,14 @@ export default {
           this.errorCustomers = e;
         });
     },
+    /**
+     * banCustomer
+     * Sets the ban variables of a customer as true
+     * @param {*} customerID
+     * @param {*} customerTier
+     * @param {*} customerBan
+     * @param {*} email
+     */
     banCustomer: function(customerID, customerTier, customerBan, email) {
       AXIOS.patch(
         "/customer/update/".concat(customerID),
@@ -106,7 +132,11 @@ export default {
           console.log(error);
         });
     },
-
+    /**
+     * filterToggle
+     * Resets the pages data when the filter button is used
+     * @param {*} event
+     */
     filterToggle(event) {
       this.filter = event.target.value;
       console.log(this.filter);
