@@ -42,6 +42,7 @@ export default {
 
     methods: {
         signUp: function(
+            image,
             email,
             phoneNumber,
             firstName,
@@ -54,6 +55,7 @@ export default {
             AXIOS.post(
                     "/createPerson/" + email, {}, {
                         params: {
+                            image: image,
                             firstName: firstName,
                             lastName: lastName,
                             phoneNumber: phoneNumber,
@@ -63,6 +65,7 @@ export default {
                 )
                 .then(response => {
                     this.persons.push(response.data);
+                    this.image = "";
                     this.firstName = "";
                     this.lastName = "";
                     this.phoneNumber = "";

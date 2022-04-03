@@ -18,6 +18,15 @@
         />
       </tr>
       <tr>
+   
+          <td class="table-text">Profile pic:</td>
+          <input
+            style="margin-top: 6px;"
+            type="text"
+            v-model="image"
+            placeholder="Link"
+          />
+      </tr>
         <td class="table-text">Phone Number:</td>
         <input
           style="margin-top: 6px;"
@@ -94,6 +103,7 @@
             class="btn btn-light"
             @click="
               signUp(
+                image,
                 email,
                 phoneNumber,
                 firstName,

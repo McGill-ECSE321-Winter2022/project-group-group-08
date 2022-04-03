@@ -34,10 +34,10 @@ public class PersonRestController {
 	 */
 	@PostMapping(value = { "/createPerson/{email}", "/createPerson/{email}/" })
 	public PersonDto createPerson(@PathVariable("email") String email, @RequestParam String firstName,
-			@RequestParam String lastName,@RequestParam String phoneNumber,
+			@RequestParam String lastName, @RequestParam String image, @RequestParam String phoneNumber,
 			@RequestParam String address) {
 		
-		Person person = personService.createPerson(email, firstName, lastName, phoneNumber, address);
+		Person person = personService.createPerson(image, email, firstName, lastName, phoneNumber, address);
 		return PersonDto.convertToDto(person);
 	}
 	
@@ -51,11 +51,11 @@ public class PersonRestController {
 	 * @return PersonDto
 	 */
 	@PutMapping(value = { "/updatePerson/{email}", "/updatePerson/{email}/" })
-	public PersonDto updatePerson(@PathVariable("email") String email,
+	public PersonDto updatePerson(@PathVariable("email") String image, String email,
 			@RequestParam String firstName, @RequestParam String lastName,
 			@RequestParam String phoneNumber, @RequestParam String address) {
 		
-		Person person = personService.updatePerson(email, firstName, lastName, phoneNumber, address);
+		Person person = personService.updatePerson(image,email, firstName, lastName, phoneNumber, address);
 		return PersonDto.convertToDto(person);
 	}
 	

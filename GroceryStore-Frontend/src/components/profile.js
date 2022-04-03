@@ -11,9 +11,11 @@ var AXIOS = axios.create({
 });
 
 export default {
+    
     props: ["usernameP"],
     data() {
         return {
+            image: "",
             person: {},
             userRole: "",
             firstName: "",
@@ -40,6 +42,7 @@ export default {
     created: function() {
         AXIOS.get("/getAccountByUsername/" + this.usernameP)
             .then(response => {
+                this.image = response.data.person.image;
                 this.person = response.data.person;
                 this.firstName = response.data.person.firstName;
                 this.lastName = response.data.person.lastName;
@@ -49,6 +52,7 @@ export default {
                 this.phoneNumber = response.data.person.phoneNumber;
                 this.inTown = response.data.inTown;
                 this.totalPoints = response.data.totalPoints;
+                console.log(this.image);
                 AXIOS.get("/getRoleByPerson/", {
                         params: {
                             personEmail: this.email
@@ -95,7 +99,12 @@ export default {
             });
     },
 
-    methods: {
+     methods: {
+        displayImage: function() {
+                console.log("img: " + this.image);
+                displayImage(this.image);
+        },
+
         deleteAccount: function() {
             AXIOS.delete("/deletePerson/" + this.email)
                 .then(response => {
@@ -139,6 +148,7 @@ export default {
                     console.log(errorMsg);
                     this.isError = true;
                 });
+            var image1 = this.image;
             var firstName1 = this.newFirstName;
             if (this.newFirstName === "") {
                 firstName1 = this.firstName;
@@ -158,6 +168,7 @@ export default {
             AXIOS.put(
                     "/updatePerson/" + this.email, {}, {
                         params: {
+                            image: image1,
                             firstName: firstName1,
                             lastName: lastName1,
                             phoneNumber: phoneNumber1,
@@ -167,6 +178,7 @@ export default {
                 )
                 .then(response => {
                     this.isError = false;
+                    this.image = response.data.image;
                     this.firstName = response.data.firstName;
                     this.lastName = response.data.lastName;
                     this.phoneNumber = response.data.phoneNumber;
@@ -175,6 +187,7 @@ export default {
                     this.newLastName = "";
                     this.newPhoneNumber = "";
                     this.newAddress = "";
+                    this.image="";
                 })
                 .catch(e => {
                     var errorMsg = e.response.data.message;
