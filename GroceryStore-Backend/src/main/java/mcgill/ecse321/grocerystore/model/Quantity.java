@@ -1,6 +1,5 @@
 package mcgill.ecse321.grocerystore.model;
 import javax.persistence.CascadeType;
-import javax.persistence.OneToOne;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,7 +13,7 @@ public class Quantity{
 	private int id;
 	private int count;
 
-	@OneToOne(cascade={CascadeType.MERGE}, optional=false)
+	@ManyToOne(cascade={CascadeType.MERGE}, optional=false)
 	private Item item;
 	
 	@ManyToOne(cascade={CascadeType.MERGE}, optional=false)

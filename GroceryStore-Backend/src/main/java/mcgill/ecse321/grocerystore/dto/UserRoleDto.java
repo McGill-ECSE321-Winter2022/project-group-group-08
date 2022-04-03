@@ -16,8 +16,7 @@ public class UserRoleDto {
 		return this.id;
 	}
 	//return the person for this specific UserRole transfer object
-	public PersonDto getPersonDto() {
+	public PersonDto getPerson() {
 		 return this.person;
 	}
-
 }

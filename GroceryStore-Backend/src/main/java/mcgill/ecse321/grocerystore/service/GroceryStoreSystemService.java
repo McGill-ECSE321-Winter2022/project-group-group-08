@@ -1,5 +1,7 @@
 package mcgill.ecse321.grocerystore.service;
 
+import java.sql.Time;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +29,13 @@ public class GroceryStoreSystemService {
 	 * @param storeName the name of the store
 	 * @param address the address of the store
 	 * @param employeeDiscount the discount all employees can have
-	 * @return
+	 * @return 
 	 */
 	@Transactional
 	public GroceryStoreSystem createGroceryStoreSystem(String storeName, String address, int employeeDiscount) {
+		if(groceryStoreSystemRepository.count() == 1){
+			return groceryStoreSystemRepository.findGroceryStoreSystemByStoreName(storeName);
+		}
 		if (storeName == null || storeName.trim().length() == 0) {
 			throw new IllegalArgumentException("The store name cannot be empty.");
 		}
@@ -40,11 +45,18 @@ public class GroceryStoreSystemService {
 		if(employeeDiscount < 0) {
 			throw new IllegalArgumentException("The employee discount cannot be less than 0.");
 		}
+		List<BusinessHour.WeekDay> weekdays = Arrays.asList(BusinessHour.WeekDay.Sunday,
+		 BusinessHour.WeekDay.Monday, BusinessHour.WeekDay.Tuesday, BusinessHour.WeekDay.Wednesday,
+		  BusinessHour.WeekDay.Thursday, BusinessHour.WeekDay.Friday, BusinessHour.WeekDay.Saturday);
 		GroceryStoreSystem groceryStoreSystem = new GroceryStoreSystem();
 		groceryStoreSystem.setStoreName(storeName);
 		groceryStoreSystem.setAddress(address);
 		groceryStoreSystem.setEmployeeDiscount(employeeDiscount);
 		groceryStoreSystemRepository.save(groceryStoreSystem);
+		for (int i = 0; i < weekdays.size(); i++) {
+			businessHourService.createBusinessHourforGroceryStoreSystem(weekdays.get(i), Time.valueOf("00:01:00"),
+			 Time.valueOf("23:59:00"), false, groceryStoreSystem);
+		}
 		return groceryStoreSystem;
 	}
 	

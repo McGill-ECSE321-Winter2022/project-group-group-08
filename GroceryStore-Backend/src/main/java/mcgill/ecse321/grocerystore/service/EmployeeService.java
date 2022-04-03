@@ -1,6 +1,8 @@
 package mcgill.ecse321.grocerystore.service;
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.transaction.Transactional;
 
@@ -37,6 +39,7 @@ public class EmployeeService {
 	 */
 	@Transactional
 	public Employee createEmployee(Person person) {
+		List<BusinessHour.WeekDay> weekdays = Arrays.asList(BusinessHour.WeekDay.Sunday, BusinessHour.WeekDay.Monday, BusinessHour.WeekDay.Tuesday, BusinessHour.WeekDay.Wednesday, BusinessHour.WeekDay.Thursday, BusinessHour.WeekDay.Friday, BusinessHour.WeekDay.Saturday);
 		if (person == null || !personRepository.existsById(person.getEmail())) {
 			throw new IllegalArgumentException("Invalid person");
 		}
@@ -46,6 +49,9 @@ public class EmployeeService {
 		Employee employee = new Employee();
 		employee.setPerson(person);
 		employeeRepository.save(employee);
+		for (int i = 0; i < weekdays.size(); i++) {
+			businessHourService.createBusinessHourforEmployee(weekdays.get(i), Time.valueOf("00:01:00"), Time.valueOf("23:59:00"), false, employee);
+		}
 		return employee;
 	}
 
@@ -87,6 +93,28 @@ public class EmployeeService {
 		}
 		return employee;
 	}
+	
+	/**
+	 * Method to get a employee by their role id
+	 * 
+	 * @param role id
+	 * @return employee with that id
+	 */
+	@Transactional
+	public Employee getEmployeeByPerson(String email) {
+		if (email.strip().length() == 0) {
+			throw new IllegalArgumentException("Email cannot be empty");
+		}
+		Person person = personRepository.findPersonByEmail(email);
+		if (person == null) {
+			throw new IllegalArgumentException("No person found");
+		}
+		Employee employee = employeeRepository.findEmployeeByPerson(person);
+		if (employee == null) {
+			throw new IllegalArgumentException("No employee found");
+		}
+		return employee;
+	}
 
 	/**
 	 * Method to delete a employee by their role id
@@ -103,7 +131,7 @@ public class EmployeeService {
 		if (employee == null) {
 			throw new IllegalArgumentException("Employee with id " + id + " does not exists.");
 		}
-		List<BusinessHour> businessHours = businessHourRepository.findBusinessHoursByEmployee(employee);
+		List<BusinessHour> businessHours = businessHourRepository.findBusinessHoursByEmployeeOrderByIdAsc(employee);
 		for (int i = 0; i < businessHours.size(); i++) {
 			businessHourService.deleteBusinessHourbyID(businessHours.get(i).getId());
 		}

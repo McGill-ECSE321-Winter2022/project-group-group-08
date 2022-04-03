@@ -34,10 +34,10 @@ public class PersonRestController {
 	 */
 	@PostMapping(value = { "/createPerson/{email}", "/createPerson/{email}/" })
 	public PersonDto createPerson(@PathVariable("email") String email, @RequestParam String firstName,
-			@RequestParam String lastName,@RequestParam String phoneNumber,
+			@RequestParam String lastName, @RequestParam String image, @RequestParam String phoneNumber,
 			@RequestParam String address) {
 		
-		Person person = personService.createPerson(email, firstName, lastName, phoneNumber, address);
+		Person person = personService.createPerson(image, email, firstName, lastName, phoneNumber, address);
 		return PersonDto.convertToDto(person);
 	}
 	
@@ -51,11 +51,12 @@ public class PersonRestController {
 	 * @return PersonDto
 	 */
 	@PutMapping(value = { "/updatePerson/{email}", "/updatePerson/{email}/" })
-	public PersonDto updatePerson(@PathVariable("email") String email,
+	public PersonDto updatePerson(@PathVariable("email") String email, 
+			@RequestParam String image,
 			@RequestParam String firstName, @RequestParam String lastName,
 			@RequestParam String phoneNumber, @RequestParam String address) {
 		
-		Person person = personService.updatePerson(email, firstName, lastName, phoneNumber, address);
+		Person person = personService.updatePerson(image,email, firstName, lastName, phoneNumber, address);
 		return PersonDto.convertToDto(person);
 	}
 	
@@ -95,6 +96,32 @@ public class PersonRestController {
 	    		personDtos.add(PersonDto.convertToDto(person));
 	    	}
 	    }
+	    return personDtos;
+	}
+	
+	/**
+	 * Gets list of PersonDto with first name and last name containing X, Y
+	 * @param firstName first name of person
+	 * @param lastName last name of person
+	 * @return List<PersonDto>
+	 */
+	@GetMapping(value = { "/getPersonsByFirstNameLastNameContainingIgnoreCase", "/getPersonsByFirstNameLastNameContainingIgnoreCase/" })
+	public List<PersonDto> getPersonsByFirstNameLastNameContainingIgnoreCase(@RequestParam String firstName, @RequestParam String lastName){
+		List<PersonDto> personDtos = new ArrayList<>();
+		if(firstName.strip().length() != 0) {
+			for (Person person : personService.findPersonByFirstNameContainingIgnoreCase(firstName)) {
+		    	personDtos.add(PersonDto.convertToDto(person));
+		    }
+		}
+		
+		if(lastName.strip().length() != 0) {
+			for (Person person : personService.findPersonByLastNameContainingIgnoreCase(lastName)) {
+				PersonDto personDto = PersonDto.convertToDto(person); 
+				if(!personDtos.contains(personDto)) {
+					personDtos.add(personDto);
+				}
+		    }
+		}
 	    return personDtos;
 	}
 	
