@@ -9,7 +9,7 @@
                     :itemImage="item.image"
                     :itemName="item.name"
                     :itemPrice="item.price"
-                    :validUser="validUser"
+                    :role="role"
                     ></Item>
                 
                 </div>

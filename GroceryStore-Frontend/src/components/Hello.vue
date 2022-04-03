@@ -6,7 +6,7 @@
     </div>
     <br>
     <h1 style="margin-bottom: 25px;">{{ msg }}</h1>
-    <ul>
+    <ul v-if="!validUser">
       <li>
         <button
           style="margin-bottom: 25px;"
@@ -41,8 +41,8 @@
           :key="openingsHour.openingDay"
         >
           <td>{{ openingsHour.day }}</td>
-          <td>{{ openingsHour.startTime }}</td>
-          <td>{{ openingsHour.endTime }}</td>
+          <td>{{ openingsHour.startTime.substring(0, 5) }}</td>
+          <td>{{ openingsHour.endTime.substring(0, 5) }}</td>
         </tr>
       </tbody>
     </v-table>

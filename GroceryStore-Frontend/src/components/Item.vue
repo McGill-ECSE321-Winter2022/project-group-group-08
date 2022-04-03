@@ -8,7 +8,7 @@
           <p class="price">Price: ${{ itemPrice }}</p>
 		  <!-- Add to Cart Button-->
           <button
-            v-if="validUser"
+            v-if="role == 'employee' || role == 'customer'"
             class="btn btn-light"
             @click="addToCartZ(curId)"
           >

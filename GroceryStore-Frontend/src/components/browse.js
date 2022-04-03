@@ -17,7 +17,7 @@ export default {
   data() {
     return {
 	  items: [],
-    validUser: sessionStorage.getItem("validUser")
+    role: sessionStorage.getItem("role")
     };
   },
 
