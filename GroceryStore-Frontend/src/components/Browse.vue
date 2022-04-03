@@ -18,7 +18,8 @@
 <script src="./browse.js"></script>
 <style scoped>
 .grid-container {
-  display: grid;
-  grid-template-columns: 50% 50%;
+    width: 100%;
+    column-width: 300px;
+  display:inline-block;
 }
 </style>

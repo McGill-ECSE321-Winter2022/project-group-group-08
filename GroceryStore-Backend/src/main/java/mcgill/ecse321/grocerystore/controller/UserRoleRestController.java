@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import mcgill.ecse321.grocerystore.dao.PersonRepository;
 import mcgill.ecse321.grocerystore.dto.PersonDto;
 import mcgill.ecse321.grocerystore.dto.UserRoleDto;
 import mcgill.ecse321.grocerystore.model.Person;

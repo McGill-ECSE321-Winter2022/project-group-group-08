@@ -86,9 +86,7 @@ export default {
           this.endTime = "";
         })
         .catch(e => {
-          var error =
-            "An error has occured in createEmployeeHours in file shifts.js line 73";
-          console.log(error);
+          var error = "An error has occured in createEmployeeHours in file shifts.js line 73";
         });
     },
     /**
@@ -117,7 +115,6 @@ export default {
         }
       )
         .then(response => {
-          console.log(response.data);
           AXIOS.get("/businesshour/allEmployee")
             .then(response2 => {
               this.hours = response2.data;
@@ -131,7 +128,6 @@ export default {
             });
         })
         .catch(error => {
-          console.log(error.response.data);
           var errorMsg = error;
           if (error.response) {
             errorMsg = error.response.data;
@@ -174,10 +170,8 @@ export default {
      * @param {*} email 
      */
     viewEmployeeHourByEmail: function(email) {
-      console.log("here");
       AXIOS.get("/employee/email/" + email, {})
         .then(response => {
-          console.log("here!");
           this.employeeId = response.data.id;
           AXIOS.get("/businesshour/employee/" + response.data.id)
             .then(response2 => {
@@ -208,7 +202,6 @@ export default {
      * @param {*} id 
      */
     getEmployeeHour: function(id) {
-      console.log("here2");
       AXIOS.get("/businesshour/employee/" + id)
         .then(response => {
           this.hours = response.data;
@@ -264,7 +257,6 @@ export default {
           if (error.response) {
             errorMsg = error.response.data;
           }
-          console.log(errorMsg);
         });
     },
     /**
@@ -274,7 +266,6 @@ export default {
      */
     filterToggle(event) {
       this.filter = event.target.value;
-      console.log(this.filter);
       if (this.filter == "blank") {
         AXIOS.get("/businesshour/allEmployee")
           .then(response => {

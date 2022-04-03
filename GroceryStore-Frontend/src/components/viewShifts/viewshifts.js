@@ -26,7 +26,6 @@ export default{
             }
         })
         .catch(e=> {
-            console.log(e);
         });
     },
     
@@ -43,7 +42,6 @@ export default{
     computed: {
         workingShifts: function() {
             const hours = this.businesshours.filter(hour => hour.working)
-            console.log(hours);
             return hours;
         }
     }

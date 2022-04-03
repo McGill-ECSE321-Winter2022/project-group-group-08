@@ -24,7 +24,6 @@ export default {
         sessionStorage.setItem("cartId", response.data.id);
       })
       .catch(e => {
-        console.log(e);
       });
   },
 

@@ -74,7 +74,6 @@ export default {
       })
         .then(response => {
           this.customers = response.data;
-          console.log(response.data);
         })
         .catch(error => {
           var errorMsg = error;
@@ -118,7 +117,6 @@ export default {
         }
       )
         .then(response => {
-          console.log("here");
           AXIOS.get("/customers/")
             .then(response2 => {
               this.customers = response2.data;
@@ -129,7 +127,6 @@ export default {
         })
         .catch(e => {
           var error = e.response.data.message;
-          console.log(error);
         });
     },
     /**
@@ -139,7 +136,6 @@ export default {
      */
     filterToggle(event) {
       this.filter = event.target.value;
-      console.log(this.filter);
       if (this.filter == "blank") {
         AXIOS.get("/customers/")
           .then(response => {

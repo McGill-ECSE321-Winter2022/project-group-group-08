@@ -13,7 +13,7 @@ export default {
         AXIOS.post(
                 "grocerystoresystem", {}, {
                     params: {
-                        storename: "My Local Shop",
+                        storename: "Whole Foods",
                         address: "123 McGill Avenue",
                         employeeDiscount: "25"
                     }
@@ -53,13 +53,12 @@ export default {
                         AXIOS.post(
                             "/cart/", {}, {
                                 params: {
-                                    date: "2022-03-07",
+                                    date: "2022-04-07",
                                     accountUsername: "BigBoss"
                                 }
                             }
                         )
                         .then(response2 => {
-                            console.log(response2.data);
                             sessionStorage.setItem("cartId", response2.data.id)
                             
                         })
@@ -84,7 +83,7 @@ export default {
 
     data() {
         return {
-            msg: "Welcome to Your Local Grocery Store",
+            msg: "Welcome to your local Whole Foods",
             email: "Email: group8@mail.mcgill.ca",
             adress: "Address: 123 McGill Avenue",
             number: "Call: 514-100-1313",

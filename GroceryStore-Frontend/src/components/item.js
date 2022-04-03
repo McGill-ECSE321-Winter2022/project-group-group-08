@@ -30,7 +30,6 @@ export default {
 		this.items = response.data;
 		})
 		.catch(e => {
-		console.log(e);
 		});
 
 		AXIOS.get("cart/getWithUsername", {
@@ -43,7 +42,6 @@ export default {
 			sessionStorage.setItem("cartId", response.data.id)
 		})
       .catch(e => {
-		console.log(e.response.data);
 				
 				AXIOS.post("cart", {
 				params: {
@@ -56,7 +54,6 @@ export default {
 					sessionStorage.setItem("cartId", response.data.id)
 				})
 				.catch(e => {
-					console.log(e);
 				});
 	  });
   },
@@ -82,7 +79,6 @@ export default {
 					for (let i = 0; i < this.quant2.length; i++) { 
 
 					if (this.quant2[i].item.id== this.curId){
-						console.log("found exisiting quant");
 						
 						this.items = this.quant2[i].item;
 						this.quantityNum = this.quant2[i].count;
@@ -96,11 +92,9 @@ export default {
 							}
 						})
 						.then(response => {
-							console.log(response.data);
 						
 						})
 						.catch(e => {
-							console.log(e);
 						});
 						found = true;
 						break;
@@ -116,19 +110,14 @@ export default {
 						}
 					})
 					.then(response => {
-						console.log(response.data);
 					})
 					.catch(e => {
-						console.log("here1");
-						console.log(e);
 					});
 
 				}
 
 				})
 				.catch(e => {
-					console.log("here");
-					console.log(e);
 				});
 				
 			

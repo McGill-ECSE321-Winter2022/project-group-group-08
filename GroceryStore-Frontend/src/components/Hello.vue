@@ -1,8 +1,10 @@
 <template>
   <div class="hello">
+    <br>
     <div>
-      <img src="./../assets/GroceryStoreLogo.png" width="180px" />
+      <img src="./../assets/wholefoods.png" width="180px" />
     </div>
+    <br>
     <h1 style="margin-bottom: 25px;">{{ msg }}</h1>
     <ul>
       <li>
@@ -25,7 +27,7 @@
       </li>
     </ul>
 
-    <h3 style="text-align: center">Grocery Store Opening Hours</h3>
+    <h3 style="text-align: center">Opening Hours</h3>
 
     <v-table :data="openingsHours" align="center">
       <thead slot="head">
