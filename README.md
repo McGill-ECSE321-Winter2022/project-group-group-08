@@ -15,10 +15,10 @@ We are a team of 6 McGill Engineering students creating a grocery store website 
 | Team Member | Deliverable 1 | Deliverable 2 | Deliverable 3 | Deliverable 4 |
 |:-----------:|:-------------:|:-------------:|:-------------:|:-------------:|
 | Aigiarn Cheuk | 13 | 17 | 15 | - |
-| Mihail Calitoiu | 12 | 20 | 30 | - |
+| Mihail Calitoiu | 12 | 20 | 42 | - |
 | Selina Gao | 10 | 17 | 15 | - |
 | Joey Koay | 15 | 43 | 42 | - |
-| Joey Liu | 20 | 43 | 42 | - |
+| Joey Liu | 20 | 43 | 30 | - |
 | Kevin Liu | 12 | 20 | 20 | - |
 
 
