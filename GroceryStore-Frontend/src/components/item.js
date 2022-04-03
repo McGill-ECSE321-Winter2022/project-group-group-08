@@ -66,7 +66,8 @@ export default {
     itemImage: String,
     itemName: String,
     itemPrice: Number,
-	role: String
+	role: String,
+	itemPoints: Number,
   },
 
   methods: {

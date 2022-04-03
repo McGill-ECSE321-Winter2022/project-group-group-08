@@ -25,6 +25,7 @@
         <div class="contentBx">
           <h3>organic</h3>
           <h2>{{ itemName }}</h2>
+          <div class="tzt"><p>WRewards: {{ itemPoints }}</p></div>
         </div>
       </div>
     </div>
@@ -36,6 +37,9 @@
   margin: 0;
   padding: 0;
   font-family: Quicksand;
+}
+.tzt {
+  color: #464646;
 }
 
 h3 {
@@ -88,7 +92,7 @@ h3 {
   font-size: 12em;
   font-weight: 800;
   font-style: italic;
-  color: rgba(255, 255, 255, 0.04);
+  color: rgb(255, 0, 0);
 }
 
 .container .card .imgBx {
@@ -100,7 +104,8 @@ h3 {
   height: 220px;
   transition: 0.5s ease-in-out;
 }
-.container .card:hover .imgBx {
+.container .card .imgBx:hover  {
+   color: white;
   top: 35%;
 }
 .container .card .imgBx img {
@@ -121,6 +126,7 @@ h3 {
 }
 .container .card:hover .contentBx {
   height: 35%;
+  color: white;
 }
 .container .card .contentBx h2 {
   position: relative;

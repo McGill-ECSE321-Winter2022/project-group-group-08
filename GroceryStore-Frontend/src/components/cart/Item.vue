@@ -1,7 +1,7 @@
 <template>
  <div class="an">
    <p style="text-align:center;"><b>{{ itemName }}</b></p>&nbsp;
-    <img :src="itemImage" style="width: 80px; margin: 10px;">
+    <img :src="itemImage" style="width: 120px; margin: 10px;">
     
     <p style="text-align:left;">
       Price: ${{ itemPrice }}
