@@ -10,6 +10,8 @@ var AXIOS = axios.create({
   headers: { 'Access-Control-Allow-Origin': frontendUrl }
 });
 
+
+
 export default {
 
   data() {

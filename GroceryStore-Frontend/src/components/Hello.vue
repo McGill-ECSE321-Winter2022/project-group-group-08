@@ -88,7 +88,7 @@ th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;
-  background-color: #000;
+  background-color: #00674B;
   color: white;
 }
 </style>
