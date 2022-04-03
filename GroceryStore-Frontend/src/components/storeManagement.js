@@ -15,7 +15,7 @@ export default {
 
   created: function() {
     // Initializing opening hours from backend
-    AXIOS.get("/getOpeningHours/My Local Shop")
+    AXIOS.get("/getOpeningHours/Whole Foods")
       .then(response => {
         this.hours = response.data;
         for (hour in hours) {
@@ -27,7 +27,7 @@ export default {
         this.errorHours = e;
       });
     // Initializing store info from backend
-    AXIOS.get("/grocerystoresystem/My Local Shop")
+    AXIOS.get("/grocerystoresystem/Whole Foods")
       .then(response => {
         this.storename = response.data.storeName;
         this.address = response.data.address;
@@ -121,7 +121,7 @@ export default {
             startTime: startTime,
             endTime: endTime,
             working: working,
-            groceryStoreSystemName: "My Local Shop",
+            groceryStoreSystemName: "Whole Foods",
             employeeId: -1
           }
         }
