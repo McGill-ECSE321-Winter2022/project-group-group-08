@@ -5,6 +5,7 @@ import Login from "@/components/Login.vue";
 import SignUp from "@/components/SignUp.vue";
 import Profile from "@/components/Profile.vue";
 import Shifts from "@/components/Shifts.vue";
+import Receipts from "@/components/Receipts.vue";
 
 Vue.use(Router);
 
@@ -34,6 +35,11 @@ export default new Router({
             path: "/Shifts",
             name: "Shifts",
             component: Shifts
+        },
+        {
+            path: "/Receipts",
+            name: "Receipts",
+            component: Receipts
         }
 
     ]
