@@ -33,6 +33,11 @@ export default new Router({
             component: Item
         },
         {
+            path: "/login",
+            name: "Login",
+            component: Login
+        },
+        {
             path: "/SignUp",
             name: "SignUp",
             component: SignUp

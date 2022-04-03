@@ -32,7 +32,7 @@ export default {
 
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav>
-            <b-nav-item href="#">Browse</b-nav-item>
+            <b-nav-item href="#/browse">Browse</b-nav-item>
             <b-nav-item href="#/shifts" v-if="manager">Shifts</b-nav-item>
             <b-nav-item href="#/viewshifts" v-if="employee">My Shifts</b-nav-item>
             <b-nav-item href="#/itemInventory" v-if="manager">Items</b-nav-item>
