@@ -24,7 +24,7 @@ jobs:
       - name: push frontend
         uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
         with:
-          heroku_api_key: "c803e9c5-84a9-4342-ae76-46b34d5a73a0"
+          heroku_api_key: "3d0656a9-a5dc-4c4e-89ce-9486a275880b"
           heroku_app_name: "grocerystore-backend-22ws" #Must be unique in Heroku
-          heroku_email: "lucas.liuliongwah@mail.mcgill.ca"
+          heroku_email: "zhi.koay@mail.mcgill.ca"
           dontuseforce: false
