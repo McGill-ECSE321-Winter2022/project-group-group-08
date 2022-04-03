@@ -30,7 +30,7 @@ export default {
 
   data() {
     return {
-      // Set Varaible
+      // Set Variable
       cart: {},
     };
   },
