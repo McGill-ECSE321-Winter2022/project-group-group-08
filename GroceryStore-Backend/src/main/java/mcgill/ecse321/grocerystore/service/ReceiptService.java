@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import mcgill.ecse321.grocerystore.dao.CartRepository;
 import mcgill.ecse321.grocerystore.dao.ReceiptRepository;
 import mcgill.ecse321.grocerystore.model.Cart;
 import mcgill.ecse321.grocerystore.model.Receipt;
@@ -18,6 +19,8 @@ import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
 public class ReceiptService {
 	@Autowired
 	private ReceiptRepository receiptRepository;
+	@Autowired
+	private CartRepository cartRepository;
 	
 	//create a receipt with an attached cart
 	@Transactional
@@ -60,6 +63,14 @@ public class ReceiptService {
 			return true;
 		}
 	}
+	
+	//find a receipt using the id
+	@Transactional
+	public List<Receipt> getReceiptByCart(int cartId) {
+		Cart cart = cartRepository.findCartById(cartId);
+		List<Receipt> curr = receiptRepository.findReceiptsByCart(cart);
+		return curr;
+	};
 	
 	//find a receipt using the id
 	@Transactional

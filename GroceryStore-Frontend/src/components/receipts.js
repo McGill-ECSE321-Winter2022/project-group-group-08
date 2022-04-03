@@ -24,14 +24,31 @@ export default {
         .catch(e => {
             this.errorReceipts = e;
         });
+        AXIOS.get("/receipt/getWithCart",{
+            params: {
+                cartId: sessionStorage.getItem("cartId")
+            }
+        })
+        .then(response => {
+            console.log(response.data)
+            this.myReceipts = response.data;
+            // for (receipt in receipts){
+            //     receiptStatus[receipt.receiptNum] = receipt.receiptStatus;
+            // }
+        })
+        .catch(e => {
+            this.errorReceipts = e;
+        });
     },
     data() {
         return {
+            myReceipts:[],
             receipts: [],
             receiptStatus:[],
             errorReceipts:"",
             filter: "",
-            showReceipts: true
+            showReceipts: true,
+            role: sessionStorage.getItem("role")
         };
     },
 

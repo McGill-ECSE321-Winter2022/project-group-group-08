@@ -56,7 +56,7 @@ export default {
               <b-dropdown-item href="#/Login" v-if="!customer && !employee && !manager"> Log in</b-dropdown-item>
               <b-dropdown-item :href="'#/Profile/'+username" v-if="customer || employee || manager">Profile</b-dropdown-item>
               <b-dropdown-item href="#/cart" v-if="customer || employee ">Cart</b-dropdown-item>
-              <b-dropdown-item href="#/receipt" v-if="customer || employee ">Orders</b-dropdown-item>
+              <b-dropdown-item href="#/Receipts" v-if="customer || employee ">Orders</b-dropdown-item>
               <b-dropdown-item href="#/storeManagement" v-if="manager">Store</b-dropdown-item>
               <b-dropdown-item href="#/" @click="logout" v-if="customer || employee || manager">Sign Out</b-dropdown-item>
             </b-nav-item-dropdown>
