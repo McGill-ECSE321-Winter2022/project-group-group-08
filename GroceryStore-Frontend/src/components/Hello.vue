@@ -6,13 +6,7 @@
     </div>
     <br>
     <h1 style="margin-bottom: 25px;">{{ msg }}</h1>
-<<<<<<< Updated upstream
     <ul v-if="!validUser">
-=======
-
-    <h3 style="margin-bottom: 20px;">Sign in:</h3>
-    <ul>
->>>>>>> Stashed changes
       <li>
         <!-- Login Redirect Button -->
         <button
@@ -35,10 +29,13 @@
       </li>
     </ul>
 
-<<<<<<< Updated upstream
-    <h3 style="text-align: center">Opening Hours</h3>
-
+     <hr />
+     <br>
+<div class="wrapper ">
+  <div>
     <!-- Display Opening Hours Data -->
+    <h3 style="text-align: center">Opening Hours</h3>
+    <br>
     <v-table :data="openingsHours" align="center">
       <thead slot="head">
         <th style="padding: 12px">DAY</th>
@@ -55,44 +52,23 @@
           <td>{{ openingsHour.endTime.substring(0, 5) }}</td>
         </tr>
       </tbody>
-    </v-table>
-    <hr />
-    <!-- About Us Section -->
-=======
-  <div class="wrapper ">
-    <div>
-      <h3 style="text-align: center">Opening Hours</h3>
       <br>
-      <v-table :data="openingsHours" align="center">
-        <thead slot="head">
-          <th style="padding: 12px">DAY</th>
-          <th style="padding: 12px">START TIME</th>
-          <th style="padding: 12px">END TIME</th>
-        </thead>
-        <tbody slot="body">
-          <tr
-            v-for="openingsHour in openingsHours"
-            :key="openingsHour.openingDay"
-          >
-            <td>{{ openingsHour.day }}</td>
-            <td>{{ openingsHour.startTime }}</td>
-            <td>{{ openingsHour.endTime }}</td>
-          </tr>
-        </tbody>
-      </v-table>
+    </v-table>
+   <br><br>
     </div>
+    <!-- About Us Section -->
     <div>
->>>>>>> Stashed changes
     <h2>About us</h2>
      <br>
     <p>{{ email }}</p>
     <p>{{ adress }}</p>
     <p>{{ number }}</p>
+    <br>
     </div>
-    
     </div>
-    <br><br>
-  </div>
+    <br>
+     </div>
+
 </template>
 
 <script src="./hello.js"></script>
