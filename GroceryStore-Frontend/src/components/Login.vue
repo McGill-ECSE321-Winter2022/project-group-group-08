@@ -9,6 +9,7 @@
         <h2>Login Menu</h2>
         <tr>
           <td>
+            <!-- Username and Password Input -->
             <input
               style="margin-top: 6px;"
               type="text"
@@ -29,6 +30,7 @@
         </tr>
         <tr>
           <td>
+            <!-- Login Button --> 
             <button
               style="margin-top: 8px;"
               class="btn btn-light"
@@ -41,6 +43,7 @@
         </tr>
         <tr>
           <td>
+            <!-- Create new Account Redirect -->
             <button
               style="margin-top: 8px;"
               class="btn btn-light"
