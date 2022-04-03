@@ -2,6 +2,7 @@ package mcgill.ecse321.grocerystore.controller;
 
 import java.sql.Time;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,6 +46,23 @@ public class BusinessHourRestController {
     public List<BusinessHourDto> getAllBusinessHours(){
         return businesshourService.getAllBusinessHours().stream().map(b -> convertToDto(b)).collect(Collectors.toList());
     }
+    
+    /**
+	* @return list of employees' business hours 
+	*/  
+    @GetMapping(value = { "/businesshour/allEmployee", "/businesshour/allEmployee/" })
+    public List<BusinessHourDto> getAllEmployeeBusinessHours(){
+        return businesshourService.getAllEmployeeBusinessHours().stream().map(b -> convertToDto(b)).collect(Collectors.toList());
+    }
+    
+    /**
+	* @return list of business hours
+	*/  
+    @GetMapping(value = { "/businesshour/employee/{id}", "/businesshour/employee/{id}/" })
+    public List<BusinessHourDto> getAllBusinessHoursByEmployeeId(@PathVariable (name = "id") int id){
+    	Employee employee = employeeService.getEmployee(id);
+        return businesshourService.getBusinessHoursbyEmployee(employee).stream().map(b -> convertToDto(b)).collect(Collectors.toList());
+    }
 
 	/**
 	 * Gets business hour 
@@ -55,6 +73,54 @@ public class BusinessHourRestController {
     public BusinessHourDto getBusinessHour(@PathVariable("id") int id){
         BusinessHour businessHour = businesshourService.getBusinessHoursbyID(id);
         return convertToDto(businessHour);
+    }
+	
+	/**
+	 * Gets business hour by day
+	 * @param id primary key 
+	 * @return business hour 
+	 */
+	@GetMapping(value = { "/businesshour/day/{day}", "/businesshour/day/{day}/" })
+    public List<BusinessHourDto> getBusinessHourByDay(@PathVariable("day") WeekDay day){
+        return businesshourService.getBusinessHoursbyDayAndEmployeeIsNotNull(day).stream().map(b -> convertToDto(b)).collect(Collectors.toList());
+
+    }
+	
+	/**
+	 * Gets business hour by day
+	 * @param id primary key 
+	 * @return business hour 
+	 */
+	@GetMapping(value = { "/businesshour/working/{working}", "/businesshour/working/{working}/" })
+    public List<BusinessHourDto> getBusinessHourByWorking(@PathVariable("working") Boolean working){
+        return businesshourService.getBusinessHoursbyWorkingAndEmployeeIsNotNull(working).stream().map(b -> convertToDto(b)).collect(Collectors.toList());
+
+    }
+	
+	/**
+	 * Gets business hour by day
+	 * @param id primary key 
+	 * @return business hour 
+	 */
+	@GetMapping(value = { "/businesshour/dayAndWorking/{day}/{working}", "/businesshour/dayAndWorking/{day}/{working}/" })
+    public List<BusinessHourDto> getBusinessHourByWorkingAndEmployeeIsNotNull(@PathVariable("day") WeekDay day, @PathVariable("working") Boolean working){
+        return businesshourService.getBusinessHoursbyDayAndWorkingAndEmployeeIsNotNull(day, working).stream().map(b -> convertToDto(b)).collect(Collectors.toList());
+
+    }
+
+	/**
+	 * Gets business hour of grocery store system 
+	 * @return list of business hours 
+	 */
+	@GetMapping(value = { "/getOpeningHours/{storename}", "/getOpeningHours/{storename}/" })
+    public List<BusinessHourDto> getBusinessHourByGroceryStoreSystem(@PathVariable("storename") String storename){
+		GroceryStoreSystem system = groceryStoreSystemService.getGroceryStoreSystem(storename);
+        List<BusinessHourDto> businessHoursDtos = new ArrayList<BusinessHourDto>();
+		
+		for (BusinessHour businessHour: businesshourService.getOpeningHours(system)) {
+			businessHoursDtos.add(convertToDto(businessHour));
+		}
+        return businessHoursDtos;
     }
 
 	/**
@@ -149,10 +215,12 @@ public class BusinessHourRestController {
 			throw new IllegalArgumentException("There is no such BusinessHour!");
 		}
 		if(businesshour.getGroceryStoreSystem() != null) {
-			businessHourDto = new BusinessHourDto(businesshour.getId(),businesshour.getDay(), businesshour.getStartTime(),businesshour.getEndTime(),businesshour.getWorking(),
+			businessHourDto = new BusinessHourDto(businesshour.getId(),businesshour.getDay(), businesshour.getStartTime(),
+			businesshour.getEndTime(),businesshour.getWorking(),
 					null,GroceryStoreSystemDto.convertToDto(businesshour.getGroceryStoreSystem()));
 		}else{
-			businessHourDto = new BusinessHourDto(businesshour.getId(),businesshour.getDay(), businesshour.getStartTime(),businesshour.getEndTime(),businesshour.getWorking(),
+			businessHourDto = new BusinessHourDto(businesshour.getId(),businesshour.getDay(), 
+			businesshour.getStartTime(),businesshour.getEndTime(),businesshour.getWorking(),
 					EmployeeDto.convertToDto(businesshour.getEmployee()),null);
 		}
 		

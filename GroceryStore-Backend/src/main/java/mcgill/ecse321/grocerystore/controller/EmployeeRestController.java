@@ -48,12 +48,22 @@ public class EmployeeRestController {
 	}
 	
 	/**
+	 * Get employee with email
+	 * @param id primary identifier
+	 * @return employee
+	 */
+	@GetMapping(value = { "/employee/email/{email}", "/employee/email/{email}/" })
+	public EmployeeDto getEmployeeByEmail(@PathVariable("email") String email)  {
+		return convertToDto(service.getEmployeeByPerson(email));
+	}
+	
+	/**
 	 * creates a employee
 	 * @param personEmail person object associated with employee
 	 * @return employee
 	 */
 	@PostMapping(value = { "/employee", "/employee/" })
-	public EmployeeDto createCustomer(@RequestParam(name = "personEmail") String personEmail) {
+	public EmployeeDto createEmployee(@RequestParam(name = "personEmail") String personEmail) {
 		Person person = personService.findPersonByEmail(personEmail);
 		Employee employee = service.createEmployee(person);
 		return convertToDto(employee);

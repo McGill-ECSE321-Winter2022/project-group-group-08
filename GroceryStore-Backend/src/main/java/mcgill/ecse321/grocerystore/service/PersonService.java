@@ -46,9 +46,15 @@ public class PersonService {
 	 * @return person
 	 */
 	@Transactional
-	public Person createPerson(String email, String firstName, String lastName, String phoneNumber,
+	public Person createPerson(String image, String email, String firstName, String lastName, String phoneNumber,
 			String address) {
 		String error = "";
+		if(personRepository.findPersonByEmail(email) != null && email.equals("marwan.kanaan@mcgill.ca")){
+			return personRepository.findPersonByEmail("marwan.kanaan@mcgill.ca");
+		}
+		if(personRepository.existsById(email)){
+			error = error + "Person with this email has already been registered";
+		}
 		if (email == null || email.trim().length() == 0) {
 		    error = error + "Person email cannot be empty! ";
 		}
@@ -69,6 +75,7 @@ public class PersonService {
 		    throw new InvalidInputException(error);
 		}
 		Person person = new Person();
+		person.setImage(image);
 		person.setEmail(email);
 		person.setFirstName(firstName);
 		person.setLastName(lastName);
@@ -88,10 +95,13 @@ public class PersonService {
 	 * @return person
 	 */
 	@Transactional
-	public Person updatePerson(String email,
+	public Person updatePerson(String image, String email,
 			String firstName, String lastName, String phoneNumber,
 			String address) {
 		String error = "";
+		if (image == null || image.trim().length() == 0) {
+			throw new InvalidInputException("Image cannot be empty");
+		}
 		if (email == null || email.trim().length() == 0) {
 			throw new InvalidInputException("Person email cannot be empty!");
 		}
@@ -115,6 +125,7 @@ public class PersonService {
 		if (error.length() > 0) {
 		    throw new InvalidInputException(error);
 		}
+		person.setImage(image);
 		person.setFirstName(firstName);
 		person.setLastName(lastName);
 		person.setPhoneNumber(phoneNumber);

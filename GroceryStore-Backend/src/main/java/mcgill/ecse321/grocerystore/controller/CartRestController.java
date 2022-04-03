@@ -45,6 +45,18 @@ public class CartRestController {
     }
 	
 	/**
+	 * @return returns a list of cart
+	 */
+	@GetMapping(value = { "/cart/getWithUsername", "/cart/getWithUsername/" })
+    public CartDto getCartWithUsername(
+    	@RequestParam(name = "username") String username
+    	){
+		Account temp = accountService.findAccountByUsername(username);
+		Cart car = cartService.findCartByAccount(temp);
+		return convertToDto(car);
+    }
+	
+	/**
 	 * creates a cart with a date and a account linked to it
 	 * @param date date 
 	 * @param username primary key of account
@@ -52,11 +64,11 @@ public class CartRestController {
 	 */
 	@PostMapping(value = {"/cart", "/cart/"})
 	public CartDto createCart(
-			@RequestParam(name = "date") Date date,
+			@RequestParam(name = "date") String date,
 			@RequestParam(name = "accountUsername") String username
 			) {
 		Account account=accountService.findAccountByUsername(username);
-		Cart cart = cartService.createCart(date,account);
+		Cart cart = cartService.createCart(Date.valueOf(date),account);
 		return convertToDto(cart);
 	}
 	
@@ -84,7 +96,7 @@ public class CartRestController {
 	 * @return boolean 
 	 */
 	@DeleteMapping(value = {"/cart/delete/{id}", "/cart/delete/{id}/"})
-	public boolean deleteCart(@PathVariable("car") int id) {
+	public boolean deleteCart(@PathVariable("id") int id) {
 		boolean deleted = cartService.deleteCartbyID(id);
 		return deleted;
 	}

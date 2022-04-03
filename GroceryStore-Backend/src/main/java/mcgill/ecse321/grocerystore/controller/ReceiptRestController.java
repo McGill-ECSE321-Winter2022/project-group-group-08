@@ -41,6 +41,15 @@ public class ReceiptRestController {
 	public List<ReceiptDto> getAllReceipts() {
 		return receiptService.getAllReceipts().stream().map(i -> convertToDto(i)).collect(Collectors.toList());
 	}
+	
+	//specific url returns all receipt transfer objects with a specific cartId
+	@GetMapping(value = {baseURL+"/getWithCart", baseURL+"/getWithCart/"})
+	public List<ReceiptDto> getAllReceiptsWithCart(
+			@RequestParam(name = "cartId") int cartId
+			) {
+		return receiptService.getReceiptByCart(cartId).stream().map(i -> convertToDto(i)).collect(Collectors.toList());
+	}
+		
 	//specific url returns all receipt transfer objects with a specific status
 	@GetMapping(value = {baseURL+"/getWithStatus", baseURL+"/getWithStatus/"})
 	public List<ReceiptDto> getAllReceiptsWithStatus(
