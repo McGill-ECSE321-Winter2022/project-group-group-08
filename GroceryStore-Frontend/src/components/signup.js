@@ -109,7 +109,7 @@ export default {
                                 this.email = "";
                                 this.userRole = "";
                                 this.$router.push({
-                                    path: `/Profile/${this.account.username}`
+                                    path: `/Login`
                                 });
                             })
                             .catch(e => {
@@ -128,7 +128,7 @@ export default {
                                 this.email = "";
                                 this.userRole = "";
                                 this.$router.push({
-                                    path: `/Profile/${this.account.username}`
+                                    path: `/Login`
                                 });
                             })
                             .catch(e => {
@@ -149,7 +149,7 @@ export default {
                                 this.email = "";
                                 this.userRole = "";
                                 this.$router.push({
-                                    path: `/Profile/${this.account.username}`
+                                    path: `/Login`
                                 });
                             })
                             .catch(e => {
