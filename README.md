@@ -17,9 +17,9 @@ We are a team of 6 McGill Engineering students creating a grocery store website 
 | Aigiarn Cheuk | 13 | 17 | 15 | - |
 | Mihail Calitoiu | 12 | 20 | 42 | - |
 | Selina Gao | 10 | 17 | 15 | - |
-| Joey Koay | 15 | 43 | 42 | - |
-| Joey Liu | 20 | 43 | 30 | - |
-| Kevin Liu | 12 | 20 | 20 | - |
+| Joey Koay | 15 | 43 | 38 | - |
+| Joey Liu | 20 | 43 | 35 | - |
+| Kevin Liu | 12 | 20 | 25 | - |
 
 
 ## Deliverable 1
@@ -48,9 +48,9 @@ The project report for this deliverable can be found here.
 The project report for this deliverable can be found here.
 | Team Member | Tasks | Hours Spent |
 |:-----------:|:-------------:|:----:|
-| Aigiarn Cheuk | Account management : Web frontend, Frontend integration with backend services | 15 |
-| Mihail Calitoiu | Browse : Web frontend, Frontend integration with backend services | 42 |
-| Selina Gao | Store management, Inventory management : Web frontend, Frontend integration with backend services | 15 |
-| Joey Koay | Shift management : Web frontend, Frontend integration with backend services | 42 |
-| Joey Liu | Login, Change Profile : Web frontend, Frontend integration with backend services | 30 |
-| Kevin Liu | Cart, View Shifts : Web frontend, Frontend integration with backend services | 20 |
+| Aigiarn Cheuk | Account management : Web frontend, Frontend integration with backend services; Testing | 15 |
+| Mihail Calitoiu | Browse : Web frontend, Frontend integration with backend services; UI/UX (Styling); Testing | 42 |
+| Selina Gao | Store management, Inventory management : Web frontend, Frontend integration with backend services; Testing | 15 |
+| Joey Koay | Shift management : Web frontend, Frontend integration with backend services; UI/UX (Styling); Testing | 38 |
+| Joey Liu | Login, Change Profile : Web frontend, Frontend integration with backend services; Deployment; Testing | 35 |
+| Kevin Liu | Cart, View Shifts : Web frontend, Frontend integration with backend services; Testing | 25 |
