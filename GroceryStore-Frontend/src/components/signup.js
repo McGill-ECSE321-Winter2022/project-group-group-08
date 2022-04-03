@@ -86,10 +86,23 @@ export default {
                         )
                         .then(response => {
                             this.accounts.push(response.data);
-                            this.username = "";
-                            this.password = "";
-                            this.inTown = "";
-                            this.account = this.accounts[this.accounts.length - 1];
+                            AXIOS.post(
+                                "/cart/", {}, {
+                                    params: {
+                                        date: "2022-03-07",
+                                        accountUsername: this.username
+                                    }
+                                }
+                            )
+                            .then(response => {
+                                console.log(response.data);
+                                sessionStorage.setItem("cartId", response.data.id)
+                                
+                            })
+                            .catch(e => {
+                                this.errorSignup = e.response.data;
+                            });
+                            
                         })
                         .catch(e => {
                             this.errorSignup = e.response.data;

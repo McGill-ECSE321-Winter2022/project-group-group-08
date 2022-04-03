@@ -75,7 +75,7 @@ export default {
 		
 		addToCartZ: function(input){
 				
-				AXIOS.get("quantity/cartId/"+this.cart.id)
+				AXIOS.get("quantity/cartId/"+sessionStorage.getItem("cartId"))
 				.then(response => {
 					this.quant2 = response.data;
 					var found = false;
