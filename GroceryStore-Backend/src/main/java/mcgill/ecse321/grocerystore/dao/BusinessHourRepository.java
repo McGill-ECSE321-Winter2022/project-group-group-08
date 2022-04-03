@@ -16,7 +16,7 @@ public interface BusinessHourRepository extends CrudRepository<BusinessHour, Int
 	
 	List<BusinessHour> findBusinessHoursByGroceryStoreSystem(GroceryStoreSystem groceryStoreSystem);
 	
-	List<BusinessHour> findBusinessHoursByGroceryStoreSystemIsNotNullOrderByIdAsc();
+	List<BusinessHour> findBusinessHoursByGroceryStoreSystemOrderByIdAsc(GroceryStoreSystem groceryStoreSystem);
 	
 	List<BusinessHour> findBusinessHoursByEmployee(Employee employee);
 	

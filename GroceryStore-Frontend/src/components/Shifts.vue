@@ -113,7 +113,9 @@
                     startTime[hour.id],
                     endTime[hour.id],
                     hour.working,
-                    hour.employee.id
+                    hour.employee.id,
+                    hour.startTime.substring(0, 5),
+                    hour.endTime.substring(0, 5)
                   )
                 "
               >

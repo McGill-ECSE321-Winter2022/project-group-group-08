@@ -34,7 +34,7 @@
           </td>                                                                                                                       
           <button
             class="btn btn-light"
-            @click="updateStoreHours(hour.id, hour.day, startTime[hour.id], endTime[hour.id], hour.working);"
+            @click="updateStoreHours(hour.id, hour.day, startTime[hour.id], endTime[hour.id], hour.working, hour.startTime.substring(0,5), hour.endTime.substring(0,5));"
               >
             Update
           </button>

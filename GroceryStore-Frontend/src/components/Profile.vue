@@ -10,7 +10,7 @@
     </button>
     <!-- Display Account Info -->
     <div id="body" v-show="!isShow">
-      <img :src="image" style="width: 50px" />
+      <img :src="image" style="width: 200px" />
       <h5>Username : {{ username }}</h5>
       <h5>Email : {{ email }}</h5>
       <div id="phoneNumber">
@@ -53,7 +53,7 @@
         />
       </div>
       <div id="imageLink" class="Row">
-        <h5 class="Column">Last Name :</h5>
+        <h5 class="Column">Image Link :</h5>
         <input class="Column" type="text" v-model="image" :placeholder="link" />
       </div>
       <div id="phoneNumber" class="Row">

@@ -44,8 +44,10 @@
           :key="openingsHour.openingDay"
         >
           <td>{{ openingsHour.day }}</td>
-          <td>{{ openingsHour.startTime.substring(0, 5) }}</td>
-          <td>{{ openingsHour.endTime.substring(0, 5) }}</td>
+          <td v-if="openingsHour.working">{{ openingsHour.startTime.substring(0, 5) }}</td>
+          <td v-if="openingsHour.working">{{ openingsHour.endTime.substring(0, 5) }}</td>
+          <td v-if="!openingsHour.working">-</td>
+          <td v-if="!openingsHour.working">-</td>
         </tr>
       </tbody>
     </v-table>
