@@ -33,7 +33,8 @@ export default {
                         firstName: "Marwan",
                         lastName: "Kanaan",
                         phoneNumber: "9999999999",
-                        address: "13 McConnell Engineering Building"
+                        address: "13 McConnell Engineering Building",
+                        image: "https://pbs.twimg.com/profile_images/483697632003371008/YDdxZqsm_400x400.jpeg"
                     }
                 }
             )

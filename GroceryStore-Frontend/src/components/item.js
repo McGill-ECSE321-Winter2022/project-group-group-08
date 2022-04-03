@@ -112,13 +112,14 @@ export default {
 					params: {
 						count: 1,
 						itemId: input,
-						cartId: this.cart.id,
+						cartId: sessionStorage.getItem("cartId"),
 						}
 					})
 					.then(response => {
 						console.log(response.data);
 					})
 					.catch(e => {
+						console.log("here1");
 						console.log(e);
 					});
 
@@ -126,6 +127,7 @@ export default {
 
 				})
 				.catch(e => {
+					console.log("here");
 					console.log(e);
 				});
 				

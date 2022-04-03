@@ -51,10 +51,24 @@ export default {
                     this.password = "";
                     this.errorLogin = "";
                     this.account = this.accounts[this.accounts.length - 1];
-                    this.$router.push({ path: `/Profile/${this.account.username}` });
                     sessionStorage.setItem("username", username);
                     sessionStorage.setItem("validUser", true);
-                    location.reload();
+
+                    AXIOS.get("/cart/getWithUsername/", {
+                        params: {
+                            username: sessionStorage.getItem("username"),
+                        }
+                    })
+                    .then(response => {
+                        console.log(response.data)
+                        sessionStorage.setItem("cartId", response.data.id);
+                        this.$router.push({ path: `/Profile/${this.account.username}` });
+                        location.reload();
+                    })
+                    .catch(e => {
+                        this.errorLogin = e.response.data;
+                    });
+
                 })
                 .catch(e => {
                     this.errorLogin = e.response.data;
