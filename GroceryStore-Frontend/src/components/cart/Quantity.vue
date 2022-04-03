@@ -1,4 +1,5 @@
 <template>
+    <!-- Item Quantity Display Data -->
     <table  class="elevation-1" >
             <th>
                 <td class="table-text">| Image |</td>
