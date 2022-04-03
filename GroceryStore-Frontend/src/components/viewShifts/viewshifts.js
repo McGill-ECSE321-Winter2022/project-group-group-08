@@ -15,10 +15,7 @@ export default{
 
     created() {
         // Get current employee
-        AXIOS.get("/businesshour/employeeId", {
-            params: {
-                id: sessionStorage.getItem("employeeId")
-            }
+        AXIOS.get("/businesshour/employee/"+sessionStorage.getItem("employeeId"), {
         })
         .then(response => {
             this.businesshours = response.data;
