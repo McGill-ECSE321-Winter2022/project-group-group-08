@@ -15,7 +15,6 @@ export default {
     created: function() {
         AXIOS.get("/businesshour/allEmployee")
             .then(response => {
-                
                 this.hours = response.data;
                 for (hour in hours){
                     startTime[hour.id] = hour.startTime;

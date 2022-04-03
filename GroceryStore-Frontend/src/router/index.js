@@ -13,6 +13,7 @@ import Cart from '@/components/cart/Cart.vue';
 import ViewShifts from '@/components/viewShifts/ViewShifts.vue';
 import ViewCustomers from "@/components/ViewCustomers.vue";
 import ViewEmployees from "@/components/ViewEmployees.vue";
+import Receipts from "@/components/Receipts.vue";
 
 Vue.use(Router);
 
@@ -82,6 +83,11 @@ export default new Router({
             path: '/storeManagement',
             name: 'storeManagement',
             component: storeManagement
+        },
+        {
+            path: "/Receipts",
+            name: "Receipts",
+            component: Receipts
         }
     ]
 });
