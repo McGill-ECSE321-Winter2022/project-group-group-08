@@ -25,8 +25,8 @@ export default {
 <template>
   <div id="app">
     <div id="nav">
-      <b-navbar toggleable="lg" type="dark" variant="info">
-        <b-navbar-brand href="#/">Grocery Store</b-navbar-brand>
+      <b-navbar toggleable="lg" type="dark" variant="dark">
+        <b-navbar-brand href="#/">Whole Foods</b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -79,7 +79,7 @@ export default {
   /* margin-top: 60px; */
 }
 
-#nav {
-  margin-bottom: 60px;
-}
+.navbar.navbar-dark.bg-dark{
+    background-color: #00674B!important;
+ }
 </style>
