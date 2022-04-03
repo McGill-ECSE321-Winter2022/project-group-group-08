@@ -14,6 +14,7 @@ export default{
     name:'ViewShifts',
 
     created() {
+        // Get current employee
         AXIOS.get("/businesshour/employeeId", {
             params: {
                 id: sessionStorage.getItem("employeeId")
@@ -31,6 +32,7 @@ export default{
     
     data() {
         return{
+            // Set Variables
             employee: {},
             businesshours: []
         }; 
@@ -40,6 +42,11 @@ export default{
     },
     
     computed: {
+        /**
+         * workingShifts
+         * Returns employees work shifts
+         * @returns working hours
+         */
         workingShifts: function() {
             const hours = this.businesshours.filter(hour => hour.working)
             return hours;

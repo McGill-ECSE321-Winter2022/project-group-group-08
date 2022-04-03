@@ -24,6 +24,11 @@ export default {
   },
   methods: {
 
+    /**
+     * deleteItem
+     * Deletes item from database
+     * @param {*} qId 
+     */
     deleteItem: function (qId) {
       AXIOS.delete("/quantity/delete/" + qId)
         .catch(e => {
@@ -31,6 +36,13 @@ export default {
         }).finally(() => this.$emit('quantityUpdate'));
     },
 
+    /**
+     * changeQuantity
+     * Update quantity for given item
+     * @param {*} amount 
+     * @param {*} qId 
+     * @param {*} iId 
+     */
     changeQuantity: function (amount, qId, iId) {
       AXIOS.patch("/quantity/update/" + qId, {}, {
         params: {

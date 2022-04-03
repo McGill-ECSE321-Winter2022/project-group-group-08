@@ -29,9 +29,13 @@
       </li>
     </ul>
 
-    <h3 style="text-align: center">Opening Hours</h3>
-
+     <hr />
+     <br>
+<div class="wrapper ">
+  <div>
     <!-- Display Opening Hours Data -->
+    <h3 style="text-align: center">Opening Hours</h3>
+    <br>
     <v-table :data="openingsHours" align="center">
       <thead slot="head">
         <th style="padding: 12px">DAY</th>
@@ -50,20 +54,40 @@
           <td v-if="!openingsHour.working">-</td>
         </tr>
       </tbody>
+      <br>
     </v-table>
-    <hr />
+   <br><br>
+    </div>
     <!-- About Us Section -->
+    <div>
     <h2>About us</h2>
-    <li>{{ email }}</li>
-    <li>{{ adress }}</li>
-    <li>{{ number }}</li>
-  </div>
+     <br>
+    <p>{{ email }}</p>
+    <p>{{ adress }}</p>
+    <p>{{ number }}</p>
+    <br>
+    </div>
+    </div>
+    <br>
+     </div>
+
 </template>
 
 <script src="./hello.js"></script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  background-color: #fff;
+  border: 1px;
+  border-color: red;
+  
+}
+
+
 h1,
 h2,
 h3 {

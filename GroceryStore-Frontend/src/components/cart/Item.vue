@@ -1,5 +1,6 @@
 <template>
   <tr :key="itemId">
+    <!-- Item Info Display Data -->
     <td class="table-text">{{ itemName }}</td>
     <td class="table-text">{{ itemPrice }}</td>
     <td class="table-text">{{ itemQuantity }}</td>

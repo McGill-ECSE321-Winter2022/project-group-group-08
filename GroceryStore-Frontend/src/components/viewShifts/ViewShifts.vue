@@ -1,6 +1,7 @@
 <template>
     <div class= "d-flex align-items-center justify-content-center" id="View Shifts" style="height:500px;">
         <div>Name: {{ employee.personDto.firstName + " " + employee.personDto.lastName }}</div>
+        <!-- Employee Shifts Data Table -->
         <table class="elevation-1">
             <th>
                 <td class="table-text">| Day |</td>

@@ -5,6 +5,7 @@ export default {
   name: 'BusinessHour',
 
   props: {
+    // Set Props
     businessHourId: Number,
     day: String,
     startTime: String,

@@ -1,8 +1,9 @@
 <template>
   <div id="profile">
     <div id="header">
+      <br>
       <h3>Profile Title - {{ userRole }}</h3>
-      <h3>{{ firstName + " " + lastName }}</h3>
+      <h3>Hey, {{ firstName + " " + lastName }}</h3>
       <hr />
     </div>
     <button type="button" class="btn btn-light" v-on:click="isShow = !isShow">
