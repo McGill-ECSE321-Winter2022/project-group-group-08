@@ -13,6 +13,7 @@
                   :curId="item.id"
                   :itemName="item.name"
                   :itemPrice="item.price"
+                  :validUser="validUser"
                 ></Item>
                 
             </tbody>

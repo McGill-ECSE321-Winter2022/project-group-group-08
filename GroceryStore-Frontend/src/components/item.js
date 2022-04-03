@@ -23,7 +23,7 @@ export default {
   },
   
   created () {
-	  var hard = "BigBoss";
+	  var hard = sessionStorage.getItem("username");
 		
 	 	 AXIOS.get("item/all/")
 		.then(response => {
@@ -41,6 +41,7 @@ export default {
 		.then(response => {
 			console.log("doggy");
 			this.cart = response.data;
+			sessionStorage.setItem("cartId", response.data.id)
 		})
       .catch(e => {
 		console.log(e.response.data);
@@ -54,6 +55,7 @@ export default {
 				})
 				.then(response => {
 					this.cart = response.data;
+					sessionStorage.setItem("cartId", response.data.id)
 				})
 				.catch(e => {
 					console.log(e);
@@ -65,6 +67,7 @@ export default {
     curId: Number,
     itemName: String,
     itemPrice: Number,
+	validUser: Boolean
   },
 
   methods:  {

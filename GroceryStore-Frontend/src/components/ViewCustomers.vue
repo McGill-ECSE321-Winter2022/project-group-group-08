@@ -90,8 +90,7 @@
             <td>
             <button
               class="ban button"
-              @click="
-                banCustomer(customer.id,customer.tierClass,customer.ban,customer.person.email,newTier)"
+              @click="banCustomer(customer.id,customer.tierClass,customer.ban,customer.person.email,newTier)"
             >
               Update
             </button>

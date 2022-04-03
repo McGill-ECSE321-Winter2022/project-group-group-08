@@ -15,6 +15,7 @@ export default {
   data() {
     return {
 	  items: [],
+    validUser: sessionStorage.getItem("validUser")
     };
   },
 
