@@ -86,6 +86,12 @@ public class CartService {
 		List<Cart> cart  = cartRepository.findCartByDate(date);
 		return cart;
 	}
+
+	@Transactional
+	public Cart getCartbyAccount(Account account) {
+		Cart cart  = cartRepository.findCartByAccount(account);
+		return cart;
+	}
 	
 	/**
 	 * updating cart

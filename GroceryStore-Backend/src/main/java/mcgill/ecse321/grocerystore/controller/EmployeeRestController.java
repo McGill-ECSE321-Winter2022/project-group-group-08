@@ -53,7 +53,7 @@ public class EmployeeRestController {
 	 * @return employee
 	 */
 	@PostMapping(value = { "/employee", "/employee/" })
-	public EmployeeDto createCustomer(@RequestParam(name = "personEmail") String personEmail) {
+	public EmployeeDto createEmployee(@RequestParam(name = "personEmail") String personEmail) {
 		Person person = personService.findPersonByEmail(personEmail);
 		Employee employee = service.createEmployee(person);
 		return convertToDto(employee);
