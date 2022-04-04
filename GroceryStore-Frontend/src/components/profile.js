@@ -53,42 +53,7 @@ export default {
         this.phoneNumber = response.data.person.phoneNumber;
         this.inTown = response.data.inTown;
         this.totalPoints = response.data.totalPoints;
-        AXIOS.get("/getRoleByPerson/", {
-          params: {
-            personEmail: this.email
-          }
-        })
-          .then(response => {
-            var id = response.data.id;
-            AXIOS.get("/manager/" + id, {}, {})
-              .then(response => {
-                this.userRole = "Manager";
-                sessionStorage.setItem("role", "manager");
-              })
-              .catch(e => {
-                this.error = e;
-              });
-            AXIOS.get("/customer/" + id, {}, {})
-              .then(response => {
-                this.userRole = "Customer";
-                sessionStorage.setItem("role", "customer");
-              })
-              .catch(e => {
-                this.error = e;
-              });
-            AXIOS.get("/employee/" + id, {}, {})
-              .then(response => {
-                this.userRole = "Employee";
-                sessionStorage.setItem("role", "employee");
-                sessionStorage.setItem("employeeId", response.data.id)
-              })
-              .catch(e => {
-                this.error = e;
-              });
-          })
-          .catch(e => {
-            this.error = e;
-          });
+        this.userRole = sessionStorage.getItem("role").toUpperCase();
       })
       .catch(e => {
         this.error = e;
