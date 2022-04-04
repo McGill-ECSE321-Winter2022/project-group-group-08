@@ -14,12 +14,12 @@ We are a team of 6 McGill Engineering students creating a grocery store website 
 ## Project Timesheet (Hours)
 | Team Member | Deliverable 1 | Deliverable 2 | Deliverable 3 | Deliverable 4 |
 |:-----------:|:-------------:|:-------------:|:-------------:|:-------------:|
-| Aigiarn Cheuk | 13 | 17 | - | - |
-| Mihail Calitoiu | 12 | 20 | - | - |
-| Selina Gao | 10 | 17 | - | - |
-| Joey Koay | 15 | 43 | - | - |
-| Joey Liu | 20 | 43 | - | - |
-| Kevin Liu | 12 | 20 | - | - |
+| Aigiarn Cheuk | 13 | 17 | 15 | - |
+| Mihail Calitoiu | 12 | 20 | 42 | - |
+| Selina Gao | 10 | 17 | 15 | - |
+| Joey Koay | 15 | 43 | 38 | - |
+| Joey Liu | 20 | 43 | 35 | - |
+| Kevin Liu | 12 | 20 | 30 | - |
 
 
 ## Deliverable 1
@@ -43,3 +43,14 @@ The project report for this deliverable can be found here.
 | Joey Koay | Item, Quantity : DTO, Controllers, Services, Tests | 43 |
 | Joey Liu | Person, Account : DTO, Controllers, Services, Tests | 43 |
 | Kevin Liu | Cart, BusinessHours : DTO, Controllers, Services, Tests | 20 |
+
+## Deliverable 3
+The project report for this deliverable can be found here.
+| Team Member | Tasks | Hours Spent |
+|:-----------:|:-------------:|:----:|
+| Aigiarn Cheuk | Account management : Web frontend, Frontend integration with backend services; Testing | 15 |
+| Mihail Calitoiu | Browse : Web frontend, Frontend integration with backend services; UI/UX (Styling); Testing | 42 |
+| Selina Gao | Store management, Inventory management : Web frontend, Frontend integration with backend services; Testing | 15 |
+| Joey Koay | Shift management : Web frontend, Frontend integration with backend services; UI/UX (Styling); Testing | 38 |
+| Joey Liu | Login, Change Profile : Web frontend, Frontend integration with backend services; Deployment; Testing | 35 |
+| Kevin Liu | Cart, View Shifts : Web frontend, Frontend integration with backend services; Testing | 30 |
