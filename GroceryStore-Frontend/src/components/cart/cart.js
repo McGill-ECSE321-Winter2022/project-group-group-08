@@ -13,8 +13,9 @@ var AXIOS = axios.create({
 export default {
   name: 'Cart',
 
-  created() {
-    AXIOS.get("/cart/username", {
+  created () {
+    //Get User from Backend
+    AXIOS.get("/cart/username",{
       params: {
         username: sessionStorage.getItem("username")
       }
@@ -24,42 +25,17 @@ export default {
         sessionStorage.setItem("cartId", response.data.id);
       })
       .catch(e => {
-      })
+      });
   },
 
   data() {
     return {
       // Set Variable
       cart: {},
-      Quantities: [],
     };
   },
 
   components: {
     Quantity,
-  },
-
-  methods: {
-    onCheckout(cartId) {
-      AXIOS.delete("/quantity/delete/cartId/" + cartId, {
-        params: {
-          buyItems: true,
-        }
-      })
-        .then(response => {
-          this.cart = response.data;
-          sessionStorage.setItem("cartId", response.data.id);
-          return AXIOS.get("/cart/username", {
-            params: {
-              username: "testAccount"
-            }
-          });
-        }).then(response => {
-          this.cart = response.data;
-          sessionStorage.setItem("cartId", response.data.id);
-        }).catch(e => {
-          console.log(e);
-        }).finally(() => this.$refs.quantityRef.onClear(cartId));
-    },
   },
 }
