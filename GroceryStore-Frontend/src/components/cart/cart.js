@@ -38,4 +38,27 @@ export default {
   components: {
     Quantity,
   },
+  methods: {
+    onCheckout() {
+      AXIOS.delete("/quantity/delete/cartId/" + sessionStorage.getItem("cartId"), {
+        params: {
+          buyItems: true,
+        }
+      })
+        .then(response => {
+          this.cart = response.data;
+          sessionStorage.setItem("cartId", response.data.id);
+          return AXIOS.get("/cart/username", {
+            params: {
+              username: sessionStorage.getItem("username")
+            }
+          });
+        }).then(response => {
+          this.cart = response.data;
+          sessionStorage.setItem("cartId", response.data.id);
+        }).catch(e => {
+          console.log(e);
+        }).finally(() => this.$refs.quantityRef.onClear(sessionStorage.getItem("cartId")));
+    },
+  },
 }

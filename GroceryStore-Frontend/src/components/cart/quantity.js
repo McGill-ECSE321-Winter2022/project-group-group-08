@@ -33,6 +33,9 @@ export default {
   },
 
   methods: {
+    emitEventChanged(){
+      this.$emit('CustomEventInputChanged', this.quantities);
+    },
     /**
      * onUpdate
      * Update Item Quantities
@@ -43,8 +46,20 @@ export default {
         .then(response => {
           this.quantities = response.data;
         })
-        .catch(e => {})
-        .finally(() => (this.loading = false));
+        .catch(e => {
+          console.log(e);
+        }).finally(() => this.loading = false);
+      },
+
+      onClear(cId) {
+        this.loading = true;
+        AXIOS.get("quantity/cartId/" + cId)
+        .then(response => {
+          this.quantities = response.data;
+        })
+        .catch(e => {
+          console.log(e);
+        }).finally(() => this.loading = false);
     }
   },
 
