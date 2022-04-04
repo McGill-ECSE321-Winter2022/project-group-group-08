@@ -53,9 +53,10 @@ public class ReceiptRestController {
 	//specific url returns all receipt transfer objects with a specific status
 	@GetMapping(value = {baseURL+"/getWithStatus", baseURL+"/getWithStatus/"})
 	public List<ReceiptDto> getAllReceiptsWithStatus(
-			@RequestParam(name = "status") ReceiptStatus receiptStatus
+			@RequestParam(name = "status") String receiptStatus
 			) {
-		return receiptService.getReceiptByReceiptStatus(receiptStatus).stream().map(i -> convertToDto(i)).collect(Collectors.toList());
+		ReceiptStatus status = ReceiptStatus.valueOf(receiptStatus);
+		return receiptService.getReceiptByReceiptStatus(status).stream().map(i -> convertToDto(i)).collect(Collectors.toList());
 	}
 	//specific url returns all receipt transfer objects with a specific type
 	@GetMapping(value = {baseURL+"/getWithType", baseURL+"/getWithType/"})
@@ -83,12 +84,13 @@ public class ReceiptRestController {
 	@PostMapping(value = {baseURL, baseURL+"/"})
 	public ReceiptDto createReceipt(
 		@RequestParam(name = "cartId") int cartid,
-		@RequestParam(name = "receiptStatus") ReceiptStatus receiptStatus,
-		@RequestParam(name = "receiptType") ReceiptType receiptType
+		@RequestParam(name = "receiptStatus") String receiptStatus,
+		@RequestParam(name = "receiptType") String receiptType
 		) {
-		
+		ReceiptStatus status = ReceiptStatus.valueOf(receiptStatus);
+		ReceiptType type = ReceiptType.valueOf(receiptType);
 		Cart attCart = cartService.getCart(cartid);
-		Receipt receipt = receiptService.createReceipt(attCart, receiptStatus, receiptType);
+		Receipt receipt = receiptService.createReceipt(attCart, status, type);
 		return convertToDto(receipt);
 	}
 	//specific url updates an existing receipt transfer object given the specified parameters

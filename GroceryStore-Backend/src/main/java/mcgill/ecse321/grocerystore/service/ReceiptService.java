@@ -89,9 +89,6 @@ public class ReceiptService {
 		}
 		//List contains all the receipts with the certain status
 		List<Receipt> curr = receiptRepository.findReceiptByReceiptStatus(receiptStatus);
-		if (curr == null || curr.isEmpty()) {
-			throw new IllegalArgumentException("There are no receipts with that status");
-		}
 		return curr;
 	};
 	//find receipts with a certain type
@@ -102,9 +99,6 @@ public class ReceiptService {
 		}
 		//List contains all the receipt with the certain type
 		List<Receipt> curr = receiptRepository.findReceiptByReceiptType(receiptType);
-		if (curr == null || curr.isEmpty()) {
-			throw new IllegalArgumentException("There are no receipts with that type");
-		}
 		return curr;
 	};
 	//find receipts with a certain status AND type
@@ -115,9 +109,6 @@ public class ReceiptService {
 		}
 		//List contains all the receipt with the certain status and type
 		List<Receipt> curr = receiptRepository.findReceiptByReceiptStatusAndReceiptType(receiptStatus, receiptType);
-		if (curr == null || curr.isEmpty()) {
-			throw new IllegalArgumentException("There are no receipts with that status and type");
-		}
 		return curr;
 	};
 	//returns all the existing receipts

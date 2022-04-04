@@ -1,8 +1,15 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-    ]
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Launch GroceryStoreBackendApplication",
+      "request": "launch",
+      "mainClass": "mcgill.ecse321.grocerystore.GroceryStoreBackendApplication",
+      "projectName": "GroceryStore-Backend"
+    }
+  ]
 }
