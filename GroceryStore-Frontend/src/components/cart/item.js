@@ -20,6 +20,8 @@ export default {
     itemName: String,
     itemPrice: Number,
     itemQuantity: Number,
+    // itemPoint: Number,
+    // inStoreQuantity: Number,
     quantityId: Number,
   },
   methods: {
@@ -32,7 +34,8 @@ export default {
         }).finally(() => this.$emit('quantityUpdate'));
     },
 
-    changeQuantity: function (amount, qId, iId) {
+    changeQuantity: function ( amount, qId, iId) {
+      // inStoreQuantity+=quantity;
       AXIOS.patch("/quantity/update/" + qId, {}, {
         params: {
           count: amount,
@@ -43,7 +46,6 @@ export default {
         .catch(e => {
           console.log(e);
         }).finally(() => this.$emit('quantityUpdate'));
-      
     },
- }
+  }
 };

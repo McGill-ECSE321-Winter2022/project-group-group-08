@@ -14,6 +14,8 @@
                   :itemName="quantity.item.name"
                   :itemPrice="quantity.item.price"
                   :itemQuantity="quantity.count"
+                  :itemPoint="quantity.item.point"
+                  :inStoreQuantity="quantity.item.inStoreQuantity"
                   :quantityId="quantity.id"
                   @quantityUpdate="onUpdate"
                 ></Item>
