@@ -16,7 +16,7 @@ We are a team of 6 McGill Engineering students creating a grocery store website 
 |:-----------:|:-------------:|:-------------:|:-------------:|:-------------:|
 | Aigiarn Cheuk | 13 | 20 | 25 | - |
 | Mihail Calitoiu | 12 | 20 | 35 | - |
-| Selina Gao | 10 | 17 | 15 | - |
+| Selina Gao | 10 | 20 | 20 | - |
 | Joey Koay | 15 | 33 | 32 | - |
 | Joey Liu | 20 | 33 | 30 | - |
 | Kevin Liu | 12 | 20 | 28 | - |
@@ -39,7 +39,7 @@ The project report for this deliverable can be found here.
 |:-----------:|:-------------:|:----:|
 | Aigiarn Cheuk | Customer, Employee : DTO, Controllers, Services, Tests | 20 |
 | Mihail Calitoiu | Receipt, UserRole : DTO, Controllers, Services, Tests | 20 |
-| Selina Gao | GroceryStoreSystem, Manager : DTO, Controllers, Services, Tests | 17 |
+| Selina Gao | GroceryStoreSystem, Manager : DTO, Controllers, Services, Tests | 20 |
 | Joey Koay | Item, Quantity : DTO, Controllers, Services, Tests | 33 |
 | Joey Liu | Person, Account : DTO, Controllers, Services, Tests | 33 |
 | Kevin Liu | Cart, BusinessHours : DTO, Controllers, Services, Tests | 20 |
@@ -50,7 +50,7 @@ The project report for this deliverable can be found here.
 |:-----------:|:-------------:|:----:|
 | Aigiarn Cheuk | Account management : Web frontend, Frontend integration with backend services; Testing | 25 |
 | Mihail Calitoiu | Browse : Web frontend, Frontend integration with backend services; UI/UX (Styling); Testing | 35 |
-| Selina Gao | Store management, Inventory management : Web frontend, Frontend integration with backend services; Testing | 15 |
+| Selina Gao | Store management, Inventory management : Web frontend, Frontend integration with backend services; Testing | 20 |
 | Joey Koay | Shift management : Web frontend, Frontend integration with backend services; UI/UX (Styling); Testing | 32 |
 | Joey Liu | Login, Change Profile : Web frontend, Frontend integration with backend services; Deployment; Testing | 30 |
 | Kevin Liu | Cart, View Shifts : Web frontend, Frontend integration with backend services; Testing | 28 |
