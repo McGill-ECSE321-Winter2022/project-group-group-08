@@ -21,8 +21,6 @@ export default {
     itemName: String,
     itemPrice: Number,
     itemQuantity: Number,
-    // itemPoint: Number,
-    // inStoreQuantity: Number,
     quantityId: Number,
   },
   methods: {
@@ -56,6 +54,7 @@ export default {
       })
         .catch(e => {
         }).finally(() => this.$emit('quantityUpdate'));
+      
     },
-  }
+ }
 };
