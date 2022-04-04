@@ -57,6 +57,12 @@ public class BusinessHourRestController {
         return convertToDto(businessHour);
     }
 
+	@GetMapping(value = { "businesshour/employeeId", "/businesshour/employeeId/" })
+	public List<BusinessHourDto> getBusinessHoursByEmployeeId(@RequestParam int id) {
+		Employee employee = employeeService.getEmployee(id);
+		return businesshourService.getBusinessHoursbyEmployee(employee).stream().map(b -> convertToDto(b)).collect(Collectors.toList());
+	}
+
 	/**
 	 * Creates a business hour for an employee
 	 * @param day day of business hour
