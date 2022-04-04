@@ -33,18 +33,30 @@ export default {
   },
 
   methods: {
-    /**
-     * onUpdate
-     * Update Item Quantities
-     */
+    emitEventChanged(){
+      this.$emit('CustomEventInputChanged', this.quantities);
+    },
+
     onUpdate() {
       this.loading = true;
       AXIOS.get("quantity/cartId/" + sessionStorage.getItem("cartId"))
-        .then(response => {
-          this.quantities = response.data;
-        })
-        .catch(e => {})
-        .finally(() => (this.loading = false));
+      .then(response => {
+        this.quantities = response.data;
+      })
+      .catch(e => {
+        console.log(e);
+      }).finally(() => this.loading = false);
+    },
+
+    onClear(cId) {
+      this.loading = true;
+      AXIOS.get("quantity/cartId/" + cId)
+      .then(response => {
+        this.quantities = response.data;
+      })
+      .catch(e => {
+        console.log(e);
+      }).finally(() => this.loading = false);
     }
   },
 

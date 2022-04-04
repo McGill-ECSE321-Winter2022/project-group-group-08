@@ -4,7 +4,7 @@
         <br>
         <h3>Here's your cart:</h3>
          <div class="checkout">
-            <button class="btn btn-light">Checkout and Pay</button>
+            <button class="btn btn-light" @click="onCheckout(cart.id)">Checkout and Pay</button>
         </div>
         <div class="cMiddle"> 
         <Quantity  :cartId ="cart.id"></Quantity>
