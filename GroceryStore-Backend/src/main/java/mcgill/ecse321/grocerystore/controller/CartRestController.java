@@ -43,7 +43,15 @@ public class CartRestController {
     public List<CartDto> getAllCarts(){
 		return cartService.getAllCarts().stream().map(b -> convertToDto(b)).collect(Collectors.toList());
     }
-	
+
+	/**
+	 * @return returns Cart associated with username
+	 */
+	@GetMapping(value = {"/cart/username", "/cart/username/"})
+	public CartDto getCartByUsername(@RequestParam String username){
+		return convertToDto(cartService.getCartbyAccount(accountService.findAccountByUsername(username)));
+    }
+
 	/**
 	 * @return returns a list of cart
 	 */
