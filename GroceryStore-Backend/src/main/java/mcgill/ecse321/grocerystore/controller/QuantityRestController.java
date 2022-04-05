@@ -187,9 +187,8 @@ public class QuantityRestController {
 					System.out.println(e.getStackTrace());
 				}
 			}
-
-			// create receipt
-			receiptService.createReceipt(cartService.getCart(id), ReceiptStatus.Fullfilled, ReceiptType.Pickup);
+		// 	// create receipt
+		// 	receiptService.createReceipt(cartService.getCart(id), ReceiptStatus.Fullfilled, ReceiptType.Pickup);
 		} else {
 			List<Integer> quantityIds = quantities.stream()
 					.map(Quantity::getId)
