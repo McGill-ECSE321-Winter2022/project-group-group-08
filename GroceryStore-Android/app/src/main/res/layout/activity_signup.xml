@@ -59,8 +59,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_clear_box"
-                    android:hint="@string/example_email"
-                    android:inputType="textEmailAddress"/>
+                    android:hint="@string/example_email" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -76,8 +75,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_clear_box"
-                    android:hint="@string/example_phone"
-                    android:inputType="text|phone"/>
+                    android:hint="@string/example_phone" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -125,8 +123,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_clear_box"
-                    android:hint="@string/example_address"
-                    android:inputType="textPostalAddress"/>
+                    android:hint="@string/example_address" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
