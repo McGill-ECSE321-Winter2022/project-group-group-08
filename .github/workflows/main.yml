@@ -1,0 +1,30 @@
+name: Deploy  Backend
+
+on:
+  push:
+    branches: main
+
+jobs:
+#   backend:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v2
+#     - name: push backend
+#       uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+#       with:
+#         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+#         heroku_app_name: "event-registration-be" #Must be unique in Heroku
+#         heroku_email: "ding.ma@mail.mcgill.ca"
+#         dontuseforce: false
+  frontend:
+#     needs: backend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: push frontend
+        uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        with:
+          heroku_api_key: "3d0656a9-a5dc-4c4e-89ce-9486a275880b"
+          heroku_app_name: "grocerystore-backend-22ws" #Must be unique in Heroku
+          heroku_email: "zhi.koay@mail.mcgill.ca"
+          dontuseforce: false
