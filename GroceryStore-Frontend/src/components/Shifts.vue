@@ -1,25 +1,26 @@
 
 <template>
   <div
-    class="d-flex align-items-center justify-content-center"
-    id="Shifts"
-  >
+    class="d-flex align-items-center justify-content-center" style="margin:30px;">
+     
     <div
       class="outside"
     >
       <table>
+      
         <h2>Shift Management</h2>
         <tr>
           <!-- Search Filter Component -->
-          <select name="filter" id="filter" @change="filterToggle($event)">
+          <select name="filter" id="filter" @change="filterToggle($event)" class="btn btn-light">
             <option value="blank" key="blank"></option>
             <option value="Employee" key="Employee">Employee ID</option>
             <option value="Name" key="Name">Name</option>
             <option value="Day" key="Day">Day</option>
             <option value="Working" key="Working">Working</option>
           </select>
-        </tr>
 
+        </tr>
+  <br>
         <!-- Search Filter Component - Employee ID -->
         <tr v-if="filter == 'Employee'">
           <input
@@ -144,9 +145,5 @@
 .input {
   width: 400px;
 }
-.outside {
-  background-color: lightgray;
-  border-radius: 5%;
-  padding: 10px;
-}
+
 </style>

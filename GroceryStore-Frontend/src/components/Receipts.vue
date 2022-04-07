@@ -58,11 +58,11 @@
         <!-- Display ALL Receipts Data Table -->
         <div v-if="showReceipts">
           <v-data-table class="elevation-1">
-            <th class="table-text">| Account Username |</th>
-            <th class="table-text">Receipt Num |</th>
-            <th class="table-text">Old Receipt Status |</th>
-            <th class="table-text">New Receipt Status |</th>
-            <th class="table-text">Receipt Type |</th>
+            <th class="table-text">Account Username </th>
+            <th class="table-text">Receipt Num</th>
+            <th class="table-text">Old Receipt Status</th>
+            <th class="table-text">New Receipt Status</th>
+            <th class="table-text">Receipt Type</th>
 
             <tbody>
               <tr v-for="receipt in receipts" :key="receipt.receiptNum">
@@ -108,5 +108,8 @@
 <style scoped>
 .input {
   width: 400px;
+}
+td {
+  width: 160px;
 }
 </style>

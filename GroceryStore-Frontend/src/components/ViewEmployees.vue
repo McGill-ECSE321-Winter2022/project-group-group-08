@@ -54,7 +54,7 @@
           Search
         </button>
       </tr>
-
+      
       <tr v-if="filter == 'Email'">
         <input
           style="margin-top: 6px"
@@ -68,7 +68,7 @@
       </tr>
 
       <!-- Display Table Component -->
-      <v-data-table class="elevation-1">
+      <v-data-table class="elevation-1" style="border-spacing: 0 3rem;">
         <th>Employee ID</th>
         <th>First Name</th>
         <th>Last Name</th>
@@ -97,4 +97,9 @@
 .input {
   width: 400px;
 }
+td {
+  width: 160px;
+}
+
+
 </style>

@@ -110,4 +110,7 @@
 .input {
   width: 400px;
 }
+td {
+  width: 160px;
+}
 </style>
