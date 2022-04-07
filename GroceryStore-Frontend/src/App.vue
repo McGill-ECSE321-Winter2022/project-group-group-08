@@ -35,9 +35,9 @@ export default {
             <b-nav-item href="#/browse">Browse</b-nav-item>
             <b-nav-item href="#/shifts" v-if="manager">Shifts</b-nav-item>
             <b-nav-item href="#/viewshifts" v-if="employee">My Shifts</b-nav-item>
-            <b-nav-item href="#/itemInventory" v-if="manager">Items</b-nav-item>
+            <b-nav-item href="#/itemInventory" v-if="manager || employee">Items</b-nav-item>
             <b-nav-item href="#/viewemployees" v-if="manager">Employees</b-nav-item>
-            <b-nav-item href="#/viewcustomers" v-if="manager">Customers</b-nav-item>
+            <b-nav-item href="#/viewcustomers" v-if="manager || employee">Customers</b-nav-item>
             <b-nav-item href="#/cart" v-if="customer || employee">Cart</b-nav-item>
             <b-nav-item href="#/Receipts" v-if="customer || employee || manager">Orders</b-nav-item>
           </b-navbar-nav>
