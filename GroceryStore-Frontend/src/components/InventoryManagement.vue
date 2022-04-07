@@ -1,12 +1,15 @@
 <template>
   <div
     class="d-flex align-items-center justify-content-center"
-    style="height: 800px"
+    style="height: 100%"
     id="InventoryManagement"
   >
     <table>
+      <br>
       <h1>Inventory Management</h1>
+      <br>
       <h4>Modify Items Attributes</h4>
+      <br>
       <!-- Data Table for Items -->
       <v-data-table class="elevation-1">
         <th>Item ID</th>
@@ -109,7 +112,9 @@
 
     <!-- Add Item Component -->
       <div id="addItemToStore">
+         <br>
         <h4>Add Item to Inventory</h4>
+         <br>
         <v-data-table>
           <tr>
             <td>
@@ -223,10 +228,16 @@
             >
               Add Item
             </button>
+             <br>
+              <br>
+               <br>
+                <br>
           </tr>
         </v-data-table>
       </div>
     </table>
+     <br>
+      <br>
   </div>
 </template>
 
