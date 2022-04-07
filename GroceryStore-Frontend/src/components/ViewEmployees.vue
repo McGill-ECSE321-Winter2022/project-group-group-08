@@ -7,6 +7,7 @@
   >
     <table>
       <h2>View Employees</h2>
+      <br>
       <!-- !!! Implement if have time -->
       <!-- Search Filter Component -->
       <tr>

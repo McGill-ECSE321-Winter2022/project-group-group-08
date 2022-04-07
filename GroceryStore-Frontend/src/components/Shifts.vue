@@ -9,6 +9,7 @@
       <table>
       
         <h2>Shift Management</h2>
+        <br>
         <tr>
           <!-- Search Filter Component -->
           <select name="filter" id="filter" @change="filterToggle($event)" class="btn btn-light">

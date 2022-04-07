@@ -6,12 +6,12 @@
   >
     <table>
       <div v-if="role == 'customer' || role == 'employee'">
-        <h4>My Receipts</h4>
+        <h2>My Receipts</h2>
         <!-- Customer Receipt Data Table -->
         <v-data-table class="elevation-1">
-          <th class="table-text">| Receipt Num |</th>
-          <th class="table-text">Receipt Status |</th>
-          <th class="table-text">Receipt Type |</th>
+          <th class="table-text">Receipt Num</th>
+          <th class="table-text">Receipt Status</th>
+          <th class="table-text">Receipt Type</th>
 
           <tbody>
             <tr v-for="receipt in myReceipts" :key="receipt.num">
@@ -25,14 +25,17 @@
 
       <!-- View ALL Receipts Component -->
       <div v-if="role == 'manager' || role == 'employee'">
-        <h4>All Receipts</h4>
+        <h2>All Receipts</h2>
         <label>Filter by: </label>
+        
         <select name="filter" id="filter" @change="filterToggle($event)">
           <option value="blank" key="blank"></option>
           <option value="Type" key="Type">Type</option>
           <option value="Status" key="Status">Status</option>
           <!-- Search Filter Components -->
         </select>
+        <br>
+        <br>
         <div align="center">
           <tr v-if="filter == 'Type'" @change="getReceiptByType($event)">
             <select name="type" id="type">
