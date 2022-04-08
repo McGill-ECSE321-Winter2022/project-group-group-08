@@ -1,6 +1,8 @@
 package ca.mcgill.ecse321.grocerystore;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -15,6 +17,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import ca.mcgill.ecse321.grocerystore.databinding.ActivityMainBinding;
@@ -94,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void signup(View v) {
+    /*public void signup(View v) {
         final EditText emailInput = findViewById(R.id.email_input);
         String email = emailInput.getText().toString();
         final EditText phoneInput = findViewById(R.id.phone_input);
@@ -121,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
                 try {
                     JSONObject serverResp = new JSONObject(response.toString());
-                } catch (JSONException e) {
+                } catch ( JSONException e) {
                     error += e.getMessage();
                 }
                 refreshErrorMessage();
@@ -137,5 +140,5 @@ public class MainActivity extends AppCompatActivity {
                 refreshErrorMessage();
             }
         });
-    }
+    }*/
 }
