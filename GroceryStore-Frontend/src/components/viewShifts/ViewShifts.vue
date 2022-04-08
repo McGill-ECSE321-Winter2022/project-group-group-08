@@ -6,9 +6,9 @@
                 <h4>Name: {{ employee.person.firstName + " " + employee.person.lastName }}</h4>
                 <v-data-table class="elevation-1">
                     <tr>
-                        <td class="table-text">| Day |</td>
-                        <td class="table-text">| Start Time |</td>
-                        <td class="table-text">| End Time |</td>
+                        <td class="table-text">Day</td>
+                        <td class="table-text">Start Time</td>
+                        <td class="table-text">End Time</td>
                     </tr>
                     <tbody>
                         <BusinessHour
@@ -29,9 +29,12 @@
 <script src="./viewshifts.js"></script>
 <style scoped>
 .outside {
-  background-color: lightgray;
+  background-color: rgb(241, 241, 241);
   border-radius: 5%;
   padding: 10px;
+}
+td {
+  width: 160px;
 }
 </style>
 
