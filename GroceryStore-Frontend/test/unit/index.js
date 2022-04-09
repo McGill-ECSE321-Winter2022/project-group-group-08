@@ -1,6 +1,7 @@
 import Vue from 'vue'
 
-Vue.config.productionTip = false
+//!! changed from false to true
+Vue.config.productionTip = true
 
 // require all test files (files that ends with .spec.js)
 const testsContext = require.context('./specs', true, /\.spec$/)
