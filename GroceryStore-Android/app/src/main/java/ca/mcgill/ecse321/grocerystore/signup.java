@@ -8,18 +8,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import cz.msebera.android.httpclient.entity.mime.Header;
+import cz.msebera.android.httpclient.Header;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -80,12 +80,15 @@ public class signup extends Fragment {
         Button signup_btn = v.findViewById(R.id.signup_btn);
 
         signup_btn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+            public void onClick(View view) {
                 if (terms_checkBox.isChecked()) {
+                    signup(v);
+                    error_msg = "";
+                    //refreshErrorMessage(v);
 
                 } else {
                     error_msg += "Please check the Term of Service and Privacy Policy";
-                    error.setText(error_msg);
+                    refreshErrorMessage(v);
                 }
             }
         });
@@ -98,6 +101,7 @@ public class signup extends Fragment {
     }
 
     public void signup(View v) {
+
         final EditText emailInput = v.findViewById(R.id.email_input);
         String email = emailInput.getText().toString();
         final EditText phoneInput = v.findViewById(R.id.phone_input);
@@ -112,7 +116,7 @@ public class signup extends Fragment {
         String username = usernameInput.getText().toString();
         final EditText passwordInput = v.findViewById(R.id.password_input);
         String password = passwordInput.getText().toString();
-        final Switch inTownSwitch = v.findViewById(R.id.town_switch);
+        final SwitchMaterial inTownSwitch = v.findViewById(R.id.town_switch);
         String inTown = String.valueOf(inTownSwitch.isChecked());
         String totalPoints = "0";
         String tier = "Bronze";
@@ -130,20 +134,22 @@ public class signup extends Fragment {
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, JSONObject response) {
                 try {
                     JSONObject serverResp = new JSONObject(response.toString());
+                    error.setText("");
+                    refreshErrorMessage(v);
                 } catch (JSONException e) {
                     error_msg += e.getMessage();
-                    error.setText(error_msg);
+                    refreshErrorMessage(v);
                 }
             }
 
-            //@Override
+            @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
                     error_msg += errorResponse.get("message").toString();
                 } catch (JSONException e) {
                     error_msg += e.getMessage();
                 }
-                error.setText(error_msg);
+                //refreshErrorMessage(v);
             }
         });
 
@@ -160,18 +166,18 @@ public class signup extends Fragment {
                     JSONObject serverResp = new JSONObject(response.toString());
                 } catch (JSONException e) {
                     error_msg += e.getMessage();
-                    error.setText(error_msg);
                 }
+                //refreshErrorMessage(v);
             }
 
-            //@Override
+            @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
                     error_msg += errorResponse.get("message").toString();
                 } catch (JSONException e) {
                     error_msg += e.getMessage();
                 }
-                error.setText(error_msg);
+                //refreshErrorMessage(v);
             }
         });
 
@@ -187,19 +193,30 @@ public class signup extends Fragment {
                     JSONObject serverResp = new JSONObject(response.toString());
                 } catch (JSONException e) {
                     error_msg += e.getMessage();
-                    error.setText(error_msg);
                 }
+                //refreshErrorMessage(v);
             }
 
-            //@Override
+            @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 try {
                     error_msg += errorResponse.get("message").toString();
                 } catch (JSONException e) {
                     error_msg += e.getMessage();
                 }
-                error.setText(error_msg);
+                //refreshErrorMessage(v);
             }
         });
+    }
+
+    private void refreshErrorMessage(View v) {
+        TextView error = (TextView) v.findViewById(R.id.error);
+        error.setText(error_msg);
+
+        if (error_msg == null || error_msg.length() == 0) {
+            error.setVisibility(View.GONE);
+        } else {
+            error.setVisibility(View.VISIBLE);
+        }
     }
 }
