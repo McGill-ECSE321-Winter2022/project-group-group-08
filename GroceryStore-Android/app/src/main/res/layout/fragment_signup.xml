@@ -4,28 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignupFragment"
+    tools:context=".signup"
     android:layout_weight="1"
     android:background="@drawable/green_bg">
-
-    <Button
-        android:id="@+id/back_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/clear_template"
-        android:paddingStart="20dp"
-        android:paddingTop="20dp"
-        android:paddingEnd="20dp"
-        android:text="@string/back_btn"
-        android:textAllCaps="false"
-        android:textSize="18sp"
-        android:onClick="goBack"/>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="12dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="60dp"
         android:layout_marginRight="12dp"
         android:background="@drawable/rounded_clear_half_box"
         android:backgroundTint="@color/white"
