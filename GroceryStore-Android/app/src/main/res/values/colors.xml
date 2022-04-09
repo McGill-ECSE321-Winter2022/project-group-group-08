@@ -5,6 +5,7 @@
     <color name="woodland">#4A6331</color>
     <color name="olivine">#a9bc7c</color>
     <color name="asparagus">#7e9857</color>
+    <color name="red">#FF0000</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>
