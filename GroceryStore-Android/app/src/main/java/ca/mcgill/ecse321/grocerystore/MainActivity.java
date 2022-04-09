@@ -3,10 +3,15 @@ package ca.mcgill.ecse321.grocerystore;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -14,35 +19,26 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import ca.mcgill.ecse321.grocerystore.databinding.ActivityMainBinding;
+import cz.msebera.android.httpclient.Header;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
+    private String error = null;
+    private JSONObject currentCustomer = null;
+    private JSONObject newCustomer = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        setSupportActionBar(binding.toolbar);
-
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        setContentView(R.layout.login);
     }
 
     @Override
@@ -73,4 +69,60 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+    private void refreshErrorMessage() {
+        // set the error message
+        TextView tvError = (TextView) findViewById(R.id.error);
+        tvError.setText(error);
+
+        if (error == null || error.length() == 0) {
+            tvError.setVisibility(View.GONE);
+        } else {
+            tvError.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void login(View v) {
+        final EditText username = (EditText) findViewById(R.id.username);
+        final EditText password = (EditText) findViewById(R.id.password);
+
+        RequestParams requestParams = new RequestParams();
+        requestParams.add("username", username.getText().toString());
+        requestParams.add("password", password.getText().toString());
+
+        //http resquest to login Customer
+        HttpUtils.get("/loginAccount/", requestParams, new JsonHttpResponseHandler() {
+
+            @Override // login successful : display account info
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                currentCustomer = response;
+                try {
+                    error = "";
+                   // setContentView(R.layout.profile);
+                   // ((TextView) findViewById(R.id.showUsername)).setText(currentCustomer.getString("username"));
+                   // ((TextView) findViewById(R.id.showPassword)).setText(currentCustomer.getString("password"));
+                   // ((TextView) findViewById(R.id.showInTown)).setText(currentCustomer.getString("inTown"));
+                   // ((TextView) findViewById(R.id.showTotalPoints)).setText(currentCustomer.getString("totalPoints"));
+                } catch(Exception e) {
+                    error = e.getMessage();
+                }
+                refreshErrorMessage();
+            }
+
+            @Override //login failed, try again
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                try {
+                    error += "Error: Account does not exist.\nPlease try again.";
+                } catch(Exception e) {
+                    error = e.getMessage();
+                }
+                refreshErrorMessage();
+            }
+
+        });
+
+    }
+
+
+
 }
