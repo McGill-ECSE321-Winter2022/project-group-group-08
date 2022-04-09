@@ -1,8 +1,7 @@
 import axios from "axios";
 var config = require("../../config");
 var frontendUrl = "http://" + config.dev.host + ":" + config.dev.port;
-var backendUrl =
-  "http://" + config.dev.backendHost + ":" + config.dev.backendPort;
+var backendUrl = "" + config.build.backendHost;
 var AXIOS = axios.create({
   baseURL: backendUrl,
   headers: { "Access-Control-Allow-Origin": frontendUrl }
@@ -96,12 +95,13 @@ export default {
   data() {
     return {
       // Set Variables
-      msg: "Welcome to your local Whole Foods",
+      msg: "711 Welcome to your local Whole Foods",
       email: "group8@mail.mcgill.ca",
       adress: "123 McGill Avenue",
       number: "514-100-1313",
       errorOpeningsHours: "",
       openingsHours: [],
+      backTest: backendUrl,
       validUser: sessionStorage.getItem("validUser")
     };
   },
