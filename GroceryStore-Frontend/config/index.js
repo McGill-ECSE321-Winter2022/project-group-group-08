@@ -29,7 +29,7 @@ module.exports = {
         env: require("./dev.env"),
         host: "127.0.0.1",
         port: 8087,
-        backendHost: "grocerystore-backend2-22ws.herokuapp.com",
+        backendHost: "https://grocerystore-backend2-22ws.herokuapp.com/",
         backendPort: 8080,
         autoOpenBrowser: true,
         assetsSubDirectory: "static",
