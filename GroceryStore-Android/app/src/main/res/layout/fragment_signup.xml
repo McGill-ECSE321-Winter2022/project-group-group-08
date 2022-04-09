@@ -51,6 +51,7 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_clear_box"
                     android:hint="@string/example_email"
+                    android:inputType="textEmailAddress"
                     tools:ignore="TextContrastCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -70,6 +71,7 @@
                     android:background="@drawable/rounded_clear_box"
                     android:hint="@string/example_phone"
                     android:textColorHint="#757575"
+                    android:inputType="phone"
                     tools:ignore="TextContrastCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
