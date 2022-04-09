@@ -21,8 +21,7 @@
         "popper.js": "^1.12.9",
         "serve-static": "^1.15.0",
         "vue": "^2.5.2",
-        "vue-router": "^3.0.1",
-        "express": "^4.17.3"
+        "vue-router": "^3.0.1"
     },
     "devDependencies": {
         "autoprefixer": "^7.1.2",
