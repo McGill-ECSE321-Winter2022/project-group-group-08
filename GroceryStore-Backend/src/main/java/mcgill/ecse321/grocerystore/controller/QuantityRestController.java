@@ -20,13 +20,10 @@ import mcgill.ecse321.grocerystore.model.Account;
 import mcgill.ecse321.grocerystore.model.Cart;
 import mcgill.ecse321.grocerystore.model.Item;
 import mcgill.ecse321.grocerystore.model.Quantity;
-import mcgill.ecse321.grocerystore.model.Receipt.ReceiptStatus;
-import mcgill.ecse321.grocerystore.model.Receipt.ReceiptType;
 import mcgill.ecse321.grocerystore.service.AccountService;
 import mcgill.ecse321.grocerystore.service.CartService;
 import mcgill.ecse321.grocerystore.service.ItemService;
 import mcgill.ecse321.grocerystore.service.QuantityService;
-import mcgill.ecse321.grocerystore.service.ReceiptService;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -40,8 +37,6 @@ public class QuantityRestController {
 	private CartService cartService;
 	@Autowired
 	private AccountService accountService;
-	@Autowired
-	private ReceiptService receiptService;
 
 	private static final String baseURL = "/quantity";
 
