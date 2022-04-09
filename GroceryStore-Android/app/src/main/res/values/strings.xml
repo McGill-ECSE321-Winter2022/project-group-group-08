@@ -22,5 +22,7 @@
     <string name="town_question">Do you live in this Town?</string>
     <string name="terms_and_services">By signing up you agree to the Term of service &#10; and Privacy Policy</string>
     <string name="sign_in_link"><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Already have an account?</a></string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
