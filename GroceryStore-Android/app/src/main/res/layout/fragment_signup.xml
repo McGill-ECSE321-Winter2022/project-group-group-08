@@ -190,7 +190,8 @@
                 android:scaleX="0.96"
                 android:scaleY="0.96"
                 android:text="@string/terms_and_services"
-                android:textColor="#474747" />
+                android:textColor="#474747"
+                android:checked="false"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/signup_btn"
@@ -212,6 +213,7 @@
                 android:layout_weight="1"
                 android:paddingTop="10dp"
                 android:text=""
+                android:textColor="@color/red"
                 android:textAlignment="textEnd" />
 
             <Space
