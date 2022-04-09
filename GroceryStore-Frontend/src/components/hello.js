@@ -10,6 +10,7 @@ export default {
   name: "hello",
   created: function() {
     // Setup Grocery Store System
+    console.log("////////////called func=====================");
     AXIOS.post(
       "grocerystoresystem",
       {},
@@ -22,6 +23,7 @@ export default {
       }
     )
       .then(response => {
+        console.log("////////////RESPOND=====================");
         AXIOS.get("/getOpeningHours/" + response.data.storeName, {}, {})
           .then(response => {
             this.openingsHours = response.data;

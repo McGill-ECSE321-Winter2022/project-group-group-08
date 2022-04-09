@@ -6,7 +6,7 @@ module.exports = {
         env: require("./prod.env"),
         host: "/grocerystore-frontend2-22ws.herokuapp.com",
        // port: 443,
-        backendHost: "http://grocerystore-backend2-22ws.herokuapp.com",
+        backendHost: "https://grocerystore-backend2-22ws.herokuapp.com",
         //backendPort: 443,
         index: path.resolve(__dirname, "../dist/index.html"),
         assetsRoot: path.resolve(__dirname, "../dist"),
