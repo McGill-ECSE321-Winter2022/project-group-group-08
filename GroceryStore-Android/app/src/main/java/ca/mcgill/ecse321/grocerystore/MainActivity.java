@@ -1,7 +1,10 @@
 package ca.mcgill.ecse321.grocerystore;
 
 import android.os.Bundle;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -37,54 +40,127 @@ public class MainActivity extends AppCompatActivity {
      * @param v View
      */
     public void signup(View v) {
-        final EditText emailInput = findViewById(R.id.email_input);
-        String email = emailInput.getText().toString();
-        final EditText phoneInput = findViewById(R.id.phone_input);
-        String phone = phoneInput.getText().toString();
-        final EditText firstNameInput = findViewById(R.id.firstname_input);
-        String firstName = firstNameInput.getText().toString();
-        final EditText lastNameInput = findViewById(R.id.lastname_input);
-        String lastName = lastNameInput.getText().toString();
-        final EditText addressInput = findViewById(R.id.address_input);
-        String address = addressInput.getText().toString();
-        final EditText usernameInput = findViewById(R.id.username_input);
-        String username = usernameInput.getText().toString();
-        final EditText passwordInput = findViewById(R.id.password_input);
-        String password = passwordInput.getText().toString();
-        final SwitchMaterial inTownSwitch = v.findViewById(R.id.town_switch);
-        String isLocal = String.valueOf(inTownSwitch.isChecked());
+        error = "";
+        final CheckBox terms_checkBox = findViewById(R.id.terms_checkBox);
+        if (!terms_checkBox.isChecked()){
+            error = "Please check the Term of Service and Privacy Policy";
+            refreshErrorMessage();
+        } else {
+            final EditText emailInput = findViewById(R.id.email_input);
+            String email = emailInput.getText().toString();
+            final EditText phoneInput = findViewById(R.id.phone_input);
+            String phone = phoneInput.getText().toString();
+            final EditText firstNameInput = findViewById(R.id.firstname_input);
+            String firstName = firstNameInput.getText().toString();
+            final EditText lastNameInput = findViewById(R.id.lastname_input);
+            String lastName = lastNameInput.getText().toString();
+            final EditText addressInput = findViewById(R.id.address_input);
+            String address = addressInput.getText().toString();
+            final EditText usernameInput = findViewById(R.id.username_input);
+            String username = usernameInput.getText().toString();
+            final EditText passwordInput = findViewById(R.id.password_input);
+            String password = passwordInput.getText().toString();
+            final SwitchMaterial inTownSwitch = findViewById(R.id.town_switch);
+            String inTown = String.valueOf(inTownSwitch.isChecked());
 
-        // auto-generated values on customer creation
-        String totalPoints = "0";
-        String tier = "Bronze";
-        String ban = "false";
+            // auto-generated values on customer creation
+            String img_url = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
+            String totalPoints = "0";
+            String tier = "Bronze";
+            String ban = "false";
 
-        HttpUtils.post("/createAccount/" + email, new RequestParams(), new JsonHttpResponseHandler() {
+            RequestParams rp_person = new RequestParams();
+            rp_person.add("firstName", firstName);
+            rp_person.add("lastName", lastName);
+            rp_person.add("image", img_url);
+            rp_person.add("phoneNumber", phone);
+            rp_person.add("address", address);
 
-            @Override//signup success: login
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                newCustomer = response;
-                curCustomer = response;
-                try {
-                    error = "";
+            HttpUtils.post("createPerson/" + email, rp_person, new JsonHttpResponseHandler() {
+
+                @Override //signup success: login
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    newPerson = response;
+                    curPerson = response;
+                    try {
+                        error = "";
                     } catch (Exception e) {
-                    error = e.getMessage();
+                        error = e.getMessage();
+                    }
+                    refreshErrorMessage();
                 }
-                refreshErrorMessage();
-            }
 
-            @Override //signup failed, try again
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                try {
-                    error = "Invalid input. Please try again.";
-                } catch (Exception e) {
-                    error = e.getMessage();
+                @Override //signup failed, try again
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    try {
+                        error = "Invalid input. Please try again. 1";
+                    } catch (Exception e) {
+                        error = e.getMessage();
+                    }
+                    refreshErrorMessage();
                 }
-                refreshErrorMessage();
-            }
 
-        });
+            });
 
+            RequestParams rp_account = new RequestParams();
+            rp_account.add("password", password);
+            rp_account.add("inTown", inTown);
+            rp_account.add("totalPoints", totalPoints);
+            rp_account.add("personEmail", email);
+
+            HttpUtils.post("createAccount/" + username, rp_account, new JsonHttpResponseHandler() {
+                @Override //signup success: login
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    newAccount = response;
+                    curAccount = response;
+                    try {
+                        error = "";
+                    } catch (Exception e) {
+                        error = e.getMessage();
+                    }
+                    refreshErrorMessage();
+                }
+
+                @Override //signup failed, try again
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    try {
+                        error = "Invalid input. Please try again. 2";
+                    } catch (Exception e) {
+                        error = e.getMessage();
+                    }
+                    refreshErrorMessage();
+                }
+            });
+
+            RequestParams rp_customer = new RequestParams();
+            rp_customer.add("tierClass", tier);
+            rp_customer.add("ban", ban);
+            rp_customer.add("personEmail", email);
+
+            HttpUtils.post("customer/", rp_customer, new JsonHttpResponseHandler() {
+                @Override //signup success: login
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    newAccount = response;
+                    curAccount = response;
+                    try {
+                        error = "";
+                    } catch (Exception e) {
+                        error = e.getMessage();
+                    }
+                    refreshErrorMessage();
+                }
+
+                @Override //signup failed, try again
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    try {
+                        error = "Invalid input. Please try again. 3";
+                    } catch (Exception e) {
+                        error = e.getMessage();
+                    }
+                    refreshErrorMessage();
+                }
+            });
+        }
     }
 
     @Override
@@ -92,6 +168,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //enter the app on the login/signup view
         setContentView(R.layout.fragment_signup);
+        TextView signin_link = findViewById(R.id.signin_link);
+        signin_link.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     private void refreshErrorMessage() {
