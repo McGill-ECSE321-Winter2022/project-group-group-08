@@ -189,8 +189,9 @@ export default {
       <img :src="image" style="width: 200px; clip-path: circle();" />
       <br>
       <br>
-      <h5><b>Username:</b> {{ username }}<b>   Email:</b> {{ email }}</h5>
-       <br>
+      <h5><b>Username:</b> {{ username }}</h5>
+      <h5><b>  Email:</b> {{ email }}</h5>
+       
       <div id="phoneNumber">
         <h5><b>Phone Number:</b> {{ phoneNumber }}</h5>
       </div>
@@ -303,7 +304,11 @@ export default {
     </div>
   </div>
 </template>
+
 <style>
+.body {
+  margin-left: 0px;
+}
 #update-account {
   margin-top: 10px;
 }
@@ -322,6 +327,6 @@ export default {
 }
 .Column {
   display: table-cell;
-  width: 200px;
+  width: 150px;
 }
 </style>
