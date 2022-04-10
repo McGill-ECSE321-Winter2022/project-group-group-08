@@ -33,7 +33,6 @@ export default {
             password: "",
             errorLogin: "",
             response: [],
-            redirectToWeb: false
         };
     },
     methods: {
@@ -83,15 +82,15 @@ export default {
                                     var id = response.data.id;
                                     AXIOS.get("/manager/" + id, {}, {})
                                         .then(response => {
-                                            this.redirectToWeb = true;
+                                          this.userRole = "Manager";
+                                          sessionStorage.setItem("role", "manager");
+                                          location.reload();
                                         })
                                         .catch(e => {
                                             this.error = e;
                                         });
                                     AXIOS.get("/customer/" + id, {}, {})
                                         .then(response => {
-                                          console.log("here")
-                                            redirectToWeb = false;
                                             this.userRole = "Customer";
                                             sessionStorage.setItem("role", "customer");
                                             location.reload();
@@ -101,14 +100,17 @@ export default {
                                         });
                                     AXIOS.get("/employee/" + id, {}, {})
                                         .then(response => {
-                                            this.redirectToWeb = true;
+                                            this.userRole = "Employee";
+                                            sessionStorage.setItem("role", "employee");
+                                            sessionStorage.setItem("employeeId", response.data.id);
+                                            location.reload();
                                         })
                                         .catch(e => {
                                             this.error = e;
                                         });
                                      this.$router.push({
-                                              path: `/Profile/${this.account.username}`
-                                            });
+                                        path: `/Profile/${this.account.username}`
+                                      });
                                     
                                 })
                                 .catch(e => {
@@ -135,7 +137,6 @@ export default {
     >
       <table>
         <h2>Login Menu</h2>
-        <p v-if="redirectToWeb">The app currently do not support manager or employee account. Please visit our <a href="https://grocerystore-frontend2-22ws.herokuapp.com/#/">website</a>.</p>
         <tr>
           <td>
             <!-- Username and Password Input -->
