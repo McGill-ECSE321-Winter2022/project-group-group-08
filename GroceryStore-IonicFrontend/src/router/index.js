@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from "@/components/Hello.vue";
+import MainPage from "@/components/MainPage.vue";
 import Item from "@/components/Item.vue";
 import CartItem from "@/components/CartItem.vue";
 import Browse from "@/components/Browse.vue";
@@ -15,8 +15,8 @@ Vue.use(Router);
 export default new Router({
     routes: [{
             path: "/",
-            name: "Hello",
-            component: Hello
+            name: "MainPage",
+            component: MainPage
         },
         {
             path: "/browse",

@@ -9,7 +9,7 @@ var AXIOS = axios.create({
   headers: { "Access-Control-Allow-Origin": frontendUrl }
 });
 export default {
-  name: "hello",
+  name: "mainpage",
   created: function() {
     // Setup Grocery Store System
     AXIOS.post(
@@ -142,7 +142,7 @@ export default {
 
 </script>
 <template>
-  <div class="hello">
+  <div class="mainpage">
     <br>
     <div>
       <img src="./../assets/wholefoods.png" width="180px" />
