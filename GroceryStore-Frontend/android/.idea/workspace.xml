@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="edb3df3c-0dd9-4138-ac78-6412cb1718a7" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/Procfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/GroceryStoreBackendApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/controller/AccountRestController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/controller/BusinessHourRestController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/controller/CartRestController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/controller/CustomerRestController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/controller/EmployeeRestController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/controller/GroceryStoreSystemRestController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/controller/ItemRestController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/controller/ManagerRestController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/controller/PersonRestController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/controller/QuantityRestController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/controller/ReceiptRestController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/controller/UserRoleRestController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/dao/AccountRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/dao/BusinessHourRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/dao/CartRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/dao/CustomerRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/dao/EmployeeRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/dao/GroceryStoreSystemRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/dao/ItemRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/dao/ManagerRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/dao/PersonRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/dao/QuantityRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/dao/ReceiptRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/dao/UserRoleRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/dto/AccountDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/dto/BusinessHourDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/dto/CartDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/dto/CustomerDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/dto/EmployeeDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/dto/GroceryStoreSystemDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/dto/ItemDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/dto/ManagerDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/dto/PersonDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/dto/QuantityDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/dto/ReceiptDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/dto/UserRoleDto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/model/Account.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/model/BusinessHour.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/model/Cart.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/model/Customer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/model/Employee.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/model/GroceryStoreSystem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/model/Item.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/model/Manager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/model/Person.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/model/Quantity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/model/Receipt.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/model/UserRole.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/service/AccountService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/service/BusinessHourService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/service/CartService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/service/CustomerService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/service/EmployeeService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/service/GroceryStoreSystemService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/service/InvalidInputException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/service/ItemService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/service/ManagerService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/service/PersonService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/service/QuantityService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/service/ReceiptService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/java/mcgill/ecse321/grocerystore/service/UserRoleService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/test/java/mcgill/ecse321/grocerystore/GroceryStoreBackendApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/test/java/mcgill/ecse321/grocerystore/dao/TestAccountPersistence.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/test/java/mcgill/ecse321/grocerystore/dao/TestBusinessHourPersistence.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/test/java/mcgill/ecse321/grocerystore/dao/TestCartPersistence.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/test/java/mcgill/ecse321/grocerystore/dao/TestCustomerPersistence.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/test/java/mcgill/ecse321/grocerystore/dao/TestEmployeePersistence.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/test/java/mcgill/ecse321/grocerystore/dao/TestGroceryStoreSystemPersistence.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/test/java/mcgill/ecse321/grocerystore/dao/TestItemPersistence.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/test/java/mcgill/ecse321/grocerystore/dao/TestManagerPersistence.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/test/java/mcgill/ecse321/grocerystore/dao/TestPersonPersistence.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/test/java/mcgill/ecse321/grocerystore/dao/TestQuantityPersistence.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/test/java/mcgill/ecse321/grocerystore/dao/TestReceiptPersistence.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/test/java/mcgill/ecse321/grocerystore/service/TestAccountService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/test/java/mcgill/ecse321/grocerystore/service/TestBusinessHourService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/test/java/mcgill/ecse321/grocerystore/service/TestCartService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/test/java/mcgill/ecse321/grocerystore/service/TestCustomerService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/test/java/mcgill/ecse321/grocerystore/service/TestEmployeeService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/test/java/mcgill/ecse321/grocerystore/service/TestGroceryStoreSystemService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/test/java/mcgill/ecse321/grocerystore/service/TestItemService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/test/java/mcgill/ecse321/grocerystore/service/TestManagerService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/test/java/mcgill/ecse321/grocerystore/service/TestPersonService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/test/java/mcgill/ecse321/grocerystore/service/TestQuantityService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/test/java/mcgill/ecse321/grocerystore/service/TestReceiptService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/src/test/java/mcgill/ecse321/grocerystore/service/TestUserRoleService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../GroceryStore-Backend/system.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.babelrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.editorconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.postcssrc.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.project" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.settings/org.eclipse.buildship.core.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/capacitor.build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/proguard-rules.pro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/androidTest/java/com/getcapacitor/myapp/ExampleInstrumentedTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/capacitor.config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/capacitor.plugins.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/whitecrestfirms/grocerystore/MainActivity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-land-hdpi/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-land-mdpi/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-land-xhdpi/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-land-xxhdpi/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-land-xxxhdpi/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-port-hdpi/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-port-mdpi/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-port-xhdpi/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-port-xxhdpi/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-port-xxxhdpi/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/splash.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/ic_launcher_background.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/xml/config.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/xml/file_paths.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/test/java/com/getcapacitor/myapp/ExampleUnitTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/capacitor.settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/variables.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/build.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/check-versions.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/dev-client.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/dev-server.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/utils.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/vue-loader.conf.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/webpack.base.conf.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/webpack.dev.conf.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/webpack.prod.conf.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../build/webpack.test.conf.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../capacitor.config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/dev.env.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/prod.env.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../config/test.env.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App.xcodeproj/project.pbxproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App.xcodeproj/project.xcworkspace/contents.xcworkspacedata" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App.xcworkspace/contents.xcworkspacedata" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/AppDelegate.swift" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-20x20@1x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-20x20@2x-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-20x20@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-20x20@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-29x29@1x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-29x29@2x-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-29x29@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-29x29@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-40x40@1x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-40x40@2x-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-40x40@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-40x40@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-512@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-60x60@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-60x60@3x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-76x76@1x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-76x76@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-83.5x83.5@2x.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/AppIcon.appiconset/Contents.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/Contents.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/Splash.imageset/Contents.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/Splash.imageset/splash-2732x2732-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/Splash.imageset/splash-2732x2732-2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Assets.xcassets/Splash.imageset/splash-2732x2732.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Base.lproj/LaunchScreen.storyboard" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Base.lproj/Main.storyboard" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/Info.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/capacitor.config.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/App/config.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/App/Podfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/App.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/assets/GroceryStoreLogo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/assets/wholefoods.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/Browse.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/Hello.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/InventoryManagement.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/Item.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/Login.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/Profile.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/Receipts.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/Shifts.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/SignUp.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/StoreManagement.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/ViewCustomers.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/ViewEmployees.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/browse.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/cart/Cart.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/cart/Item.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/cart/Quantity.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/cart/cart.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/cart/item.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/cart/quantity.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/hello.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/inventoryManagement.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/item.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/login.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/profile.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/receipts.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/shifts.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/signup.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/storeManagement.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/viewShifts/ViewShifts.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/viewShifts/businessHour.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/viewShifts/businessHour.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/viewShifts/viewshifts.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/viewcustomers.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/viewemployees.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/main.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/router/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../static/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test/e2e/custom-assertions/elementCount.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test/e2e/nightwatch.conf.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test/e2e/runner.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test/e2e/specs/test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test/unit/.eslintrc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test/unit/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test/unit/karma.conf.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test/unit/specs/Hello.spec.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/AccountRestController/createAccount.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/AccountRestController/deleteAccount.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/AccountRestController/deleteAllAccounts.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/AccountRestController/deleteAllPersons.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/AccountRestController/getAccountByUsername.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/AccountRestController/getAccountByUsernameContaining.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/AccountRestController/getAccountsByTotalPointsBetween.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/AccountRestController/getAccountsInTown.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/AccountRestController/getAllAccounts.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/AccountRestController/updateAccount.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/BusinessHourController/ update hours.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/BusinessHourController/create hours for employee.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/BusinessHourController/create hours for store.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/BusinessHourController/delete hours.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/BusinessHourController/get all hours.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/BusinessHourController/get one hour.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/BusinessHourController/update hours 2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/CartRestController/cart - create.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/CartRestController/cart - delete.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/CartRestController/cart - get all.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/CartRestController/cart - get.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/CartRestController/cart - update.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/CustomerRestController/create customer.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/CustomerRestController/delete customer.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/CustomerRestController/get customers.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/CustomerRestController/get one customer.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/CustomerRestController/update customer.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/EmployeeRestController/create Employee.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/EmployeeRestController/delete employee.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/EmployeeRestController/get all employee.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/EmployeeRestController/get one employee.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/EmployeeRestController/update Employee.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/GroceryStoreSystemController/create store.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/GroceryStoreSystemController/delete store.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/GroceryStoreSystemController/get grocery store.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/GroceryStoreSystemController/update store.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/ItemRestController/get items between point.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/ItemRestController/get items between price.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/ItemRestController/get items between return policy.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/ItemRestController/get items by in store quantity.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/ItemRestController/get items by name containing and ignore case.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/ItemRestController/get items by pickup.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/ItemRestController/item - create.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/ItemRestController/item - delete.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/ItemRestController/item - get all.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/ItemRestController/item - get.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/ItemRestController/item - update.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/ManagerRestController/create manager.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/ManagerRestController/delete manager.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/ManagerRestController/get manager.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/ManagerRestController/update manager.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/PersonRestController/createPerson.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/PersonRestController/deletePerson.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/PersonRestController/getAllPerson.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/PersonRestController/getPersonByEmail.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/PersonRestController/getPersonByLastName.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/PersonRestController/getPersonsByAddress.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/PersonRestController/getPersonsByFirstName.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/PersonRestController/updatePerson.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/QuantityRestController/add quantity.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/QuantityRestController/delete quantity.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/QuantityRestController/get all quantities.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/QuantityRestController/get quantity.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/QuantityRestController/update quantity.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/ReceiptController/createReceipt.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/ReceiptController/deleteRec.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/ReceiptController/getAll.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/ReceiptController/getWithStatus.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/ReceiptController/getWithType.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/ReceiptController/getWithTypeAndStatus.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/ReceiptController/updateRec.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/UserRoleController/getAllUserRoles.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../POSTMAN/UserRoleController/getRoleById.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../system.properties" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/Users/mihailcalitoiu/.android/avd/Pixel_5_API_31.avd]" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectId" id="27Y2d4fE65uwllu6x2ymH9Cdhuc" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="cidr.known.project.marker" value="true" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RunManager">
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+      <module name="android.app" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ALL_USERS" value="false" />
+      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="INSPECTION_WITHOUT_ACTIVITY_RESTART" value="false" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Java/Kotlin Method Sample (legacy)" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
+      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="edb3df3c-0dd9-4138-ac78-6412cb1718a7" name="Default Changelist" comment="" />
+      <created>1649482784475</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1649482784475</updated>
+    </task>
+    <servers />
+  </component>
+</project>
