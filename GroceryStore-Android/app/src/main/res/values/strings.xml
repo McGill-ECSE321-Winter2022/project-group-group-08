@@ -9,4 +9,20 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <!-- Strings for Sign Up-->
+    <string name="back_btn">&lt; Back</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="example_email">john.smith@gmail.com</string>
+    <string name="example_phone">(514)-123-4567</string>
+    <string name="example_firstname">John</string>
+    <string name="example_lastname">Smith</string>
+    <string name="example_address">123 Some St., Town</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="town_question">Do you live in this Town?</string>
+    <string name="terms_and_services">By signing up you agree to the Term of service &#10; and Privacy Policy</string>
+    <string name="sign_in_link"><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Already have an account?</a></string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

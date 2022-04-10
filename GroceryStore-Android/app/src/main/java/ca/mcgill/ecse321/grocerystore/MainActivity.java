@@ -1,76 +1,108 @@
 package ca.mcgill.ecse321.grocerystore;
 
 import android.os.Bundle;
-
-import com.google.android.material.snackbar.Snackbar;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.view.View;
-
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
-import ca.mcgill.ecse321.grocerystore.databinding.ActivityMainBinding;
+import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
-import android.view.Menu;
-import android.view.MenuItem;
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
-    private ActivityMainBinding binding;
+
+    // for error handling, add here ...
+    private String error = null;
+
+    private JSONObject newPerson = null;
+    private JSONObject curPerson = null;
+    private JSONObject newAccount = null;
+    private JSONObject curAccount = null;
+    private JSONObject newCustomer = null;
+    private JSONObject curCustomer = null;
+
+    /**
+     * Creates an new customer account using an email, a phone number, a first name,
+     * a last name, an address, a username and a password.
+     *
+     * @param v View
+     */
+    public void signup(View v) {
+        final EditText emailInput = findViewById(R.id.email_input);
+        String email = emailInput.getText().toString();
+        final EditText phoneInput = findViewById(R.id.phone_input);
+        String phone = phoneInput.getText().toString();
+        final EditText firstNameInput = findViewById(R.id.firstname_input);
+        String firstName = firstNameInput.getText().toString();
+        final EditText lastNameInput = findViewById(R.id.lastname_input);
+        String lastName = lastNameInput.getText().toString();
+        final EditText addressInput = findViewById(R.id.address_input);
+        String address = addressInput.getText().toString();
+        final EditText usernameInput = findViewById(R.id.username_input);
+        String username = usernameInput.getText().toString();
+        final EditText passwordInput = findViewById(R.id.password_input);
+        String password = passwordInput.getText().toString();
+        final SwitchMaterial inTownSwitch = v.findViewById(R.id.town_switch);
+        String isLocal = String.valueOf(inTownSwitch.isChecked());
+
+        // auto-generated values on customer creation
+        String totalPoints = "0";
+        String tier = "Bronze";
+        String ban = "false";
+
+        HttpUtils.post("/createAccount/" + email, new RequestParams(), new JsonHttpResponseHandler() {
+
+            @Override//signup success: login
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                newCustomer = response;
+                curCustomer = response;
+                try {
+                    error = "";
+                    } catch (Exception e) {
+                    error = e.getMessage();
+                }
+                refreshErrorMessage();
+            }
+
+            @Override //signup failed, try again
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                try {
+                    error = "Invalid input. Please try again.";
+                } catch (Exception e) {
+                    error = e.getMessage();
+                }
+                refreshErrorMessage();
+            }
+
+        });
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        setSupportActionBar(binding.toolbar);
-
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        //enter the app on the login/signup view
+        setContentView(R.layout.fragment_signup);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+    private void refreshErrorMessage() {
+        // set the error message
+        TextView tvError = findViewById(R.id.error);
+        tvError.setText(error);
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (error == null || error.length() == 0) {
+            tvError.setVisibility(View.GONE);
+        } else {
+            tvError.setVisibility(View.VISIBLE);
         }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
     }
 }
