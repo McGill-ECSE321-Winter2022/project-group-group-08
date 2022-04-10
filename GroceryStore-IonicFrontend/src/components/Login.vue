@@ -90,13 +90,11 @@ export default {
                                         });
                                     AXIOS.get("/customer/" + id, {}, {})
                                         .then(response => {
+                                          console.log("here")
                                             redirectToWeb = false;
                                             this.userRole = "Customer";
                                             sessionStorage.setItem("role", "customer");
                                             location.reload();
-                                            this.$router.push({
-                                              path: `/Profile/${this.account.username}`
-                                            });
                                         })
                                         .catch(e => {
                                             this.error = e;
@@ -108,6 +106,9 @@ export default {
                                         .catch(e => {
                                             this.error = e;
                                         });
+                                     this.$router.push({
+                                              path: `/Profile/${this.account.username}`
+                                            });
                                     
                                 })
                                 .catch(e => {
