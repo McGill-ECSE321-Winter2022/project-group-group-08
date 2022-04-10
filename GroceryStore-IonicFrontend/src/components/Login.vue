@@ -32,7 +32,8 @@ export default {
             username: "",
             password: "",
             errorLogin: "",
-            response: []
+            response: [],
+            redirectToWeb: false
         };
     },
     methods: {
@@ -82,35 +83,32 @@ export default {
                                     var id = response.data.id;
                                     AXIOS.get("/manager/" + id, {}, {})
                                         .then(response => {
-                                            this.userRole = "Manager";
-                                            sessionStorage.setItem("role", "manager");
-                                            location.reload();
+                                            this.redirectToWeb = true;
                                         })
                                         .catch(e => {
                                             this.error = e;
                                         });
                                     AXIOS.get("/customer/" + id, {}, {})
                                         .then(response => {
+                                            redirectToWeb = false;
                                             this.userRole = "Customer";
                                             sessionStorage.setItem("role", "customer");
                                             location.reload();
+                                            this.$router.push({
+                                              path: `/Profile/${this.account.username}`
+                                            });
                                         })
                                         .catch(e => {
                                             this.error = e;
                                         });
                                     AXIOS.get("/employee/" + id, {}, {})
                                         .then(response => {
-                                            this.userRole = "Employee";
-                                            sessionStorage.setItem("role", "employee");
-                                            sessionStorage.setItem("employeeId", response.data.id);
-                                            location.reload();
+                                            this.redirectToWeb = true;
                                         })
                                         .catch(e => {
                                             this.error = e;
                                         });
-                                    this.$router.push({
-                                        path: `/Profile/${this.account.username}`
-                                    });
+                                    
                                 })
                                 .catch(e => {
                                     this.error = e;
@@ -136,11 +134,12 @@ export default {
     >
       <table>
         <h2>Login Menu</h2>
+        <p v-if="redirectToWeb">The app currently do not support manager or employee account. Please visit our <a href="https://grocerystore-frontend2-22ws.herokuapp.com/#/">website</a>.</p>
         <tr>
           <td>
             <!-- Username and Password Input -->
             <input
-              style="margin-top: 6px;"
+              style="margin-top: 8px;"
               type="text"
               v-model="username"
               placeholder="Username"
@@ -150,7 +149,7 @@ export default {
         <tr>
           <td>
             <input
-              style="margin-top: 6px;"
+              style="margin-top: 8px;"
               type="password"
               v-model="password"
               placeholder="Password"
@@ -161,7 +160,7 @@ export default {
           <td>
             <!-- Login Button --> 
             <button
-              style="margin-top: 8px;"
+              style="margin-top: 12px; font-size: 20px"
               class="btn btn-light"
               v-bind:disabled="!username || !password"
               @click="login(username, password)"
@@ -174,7 +173,7 @@ export default {
           <td>
             <!-- Create new Account Redirect -->
             <button
-              style="margin-top: 8px;"
+              style="margin-top: 12px; font-size: 20px"
               class="btn btn-light"
               v-on:click="signUp()"
             >
@@ -183,11 +182,10 @@ export default {
           </td>
         </tr>
       </table>
-
-      <p>
-        <span v-if="errorLogin" style="color:red">Error: {{ errorLogin }}</span>
-      </p>
     </div>
+    <p>
+      <span v-if="errorLogin" style="color:red">Error: {{ errorLogin }}</span>
+    </p>
   </div>
 </template>
 <style></style>
