@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">GroceryStore</string>
-    <string name="title_activity_main">GroceryStore</string>
+    <string name="app_name">MyWholeFoods</string>
+    <string name="title_activity_main">MyWholeFoods</string>
     <string name="package_name">com.whitecrestfirms.grocerystore</string>
     <string name="custom_url_scheme">com.whitecrestfirms.grocerystore</string>
 </resources>
