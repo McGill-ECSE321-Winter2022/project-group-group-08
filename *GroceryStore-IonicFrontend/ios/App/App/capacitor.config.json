@@ -1,0 +1,6 @@
+{
+	"appId": "com.whitecrestfirms.grocerystore",
+	"appName": "GroceryStore",
+	"webDir": "dist",
+	"bundledWebRuntime": false
+}
