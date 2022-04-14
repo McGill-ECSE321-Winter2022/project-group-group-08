@@ -24,9 +24,9 @@ export default {
 
 <template>
   <div id="app">
-    <div id="nav">
+    <div id="nav" style="font-size: 26px;">
       <b-navbar toggleable="lg" type="dark" variant="dark">
-        <b-navbar-brand href="#/">Whole Foods</b-navbar-brand>
+        <b-navbar-brand href="#/" style="font-size: 26px;">Whole Foods</b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -44,10 +44,10 @@ export default {
               <template #button-content>
                 <em>User</em>
               </template>
-              <b-dropdown-item href="#/Login" v-if="!customer && !employee && !manager"> Log in</b-dropdown-item>
-              <b-dropdown-item :href="'#/Profile/'+username" v-if="customer || employee || manager">Profile</b-dropdown-item>
-              <b-dropdown-item href="#/storeManagement" v-if="manager">Store</b-dropdown-item>
-              <b-dropdown-item href="#/" @click="logout" v-if="customer || employee || manager">Sign Out</b-dropdown-item>
+              <b-dropdown-item style="font-size: 26px;" href="#/Login" v-if="!customer && !employee && !manager"> Log in</b-dropdown-item>
+              <b-dropdown-item style="font-size: 26px;"  :href="'#/Profile/'+username" v-if="customer || employee || manager">Profile</b-dropdown-item>
+              <b-dropdown-item style="font-size: 26px;"  href="#/storeManagement" v-if="manager">Store</b-dropdown-item>
+              <b-dropdown-item style="font-size: 26px;"  href="#/" @click="logout" v-if="customer || employee || manager">Sign Out</b-dropdown-item>
             </b-nav-item-dropdown>
           </b-navbar-nav>
         </b-collapse>

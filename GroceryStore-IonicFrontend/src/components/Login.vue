@@ -32,7 +32,7 @@ export default {
             username: "",
             password: "",
             errorLogin: "",
-            response: []
+            response: [],
         };
     },
     methods: {
@@ -82,9 +82,9 @@ export default {
                                     var id = response.data.id;
                                     AXIOS.get("/manager/" + id, {}, {})
                                         .then(response => {
-                                            this.userRole = "Manager";
-                                            sessionStorage.setItem("role", "manager");
-                                            location.reload();
+                                          this.userRole = "Manager";
+                                          sessionStorage.setItem("role", "manager");
+                                          location.reload();
                                         })
                                         .catch(e => {
                                             this.error = e;
@@ -108,9 +108,10 @@ export default {
                                         .catch(e => {
                                             this.error = e;
                                         });
-                                    this.$router.push({
+                                     this.$router.push({
                                         path: `/Profile/${this.account.username}`
-                                    });
+                                      });
+                                    
                                 })
                                 .catch(e => {
                                     this.error = e;
@@ -135,12 +136,13 @@ export default {
       id="LoginCustomer"
     >
       <table>
-        <h2>Login Menu</h2>
-        <tr>
-          <td>
+        <h1>Login Menu</h1>
+        <br>
+        <tr >
+          <td >
             <!-- Username and Password Input -->
             <input
-              style="margin-top: 6px;"
+              style="margin-top: 8px;font-size: 30px;max-width: 70%;"
               type="text"
               v-model="username"
               placeholder="Username"
@@ -148,9 +150,9 @@ export default {
           </td>
         </tr>
         <tr>
-          <td>
+          <td style="margin: 10px;">
             <input
-              style="margin-top: 6px;"
+              style="margin-top: 8px;font-size: 30px;max-width: 70%;"
               type="password"
               v-model="password"
               placeholder="Password"
@@ -161,7 +163,7 @@ export default {
           <td>
             <!-- Login Button --> 
             <button
-              style="margin-top: 8px;"
+              style="margin-top: 12px; font-size: 26px; padding: 10px;background-color: #c8e6cc;"
               class="btn btn-light"
               v-bind:disabled="!username || !password"
               @click="login(username, password)"
@@ -174,7 +176,7 @@ export default {
           <td>
             <!-- Create new Account Redirect -->
             <button
-              style="margin-top: 8px;"
+              style="margin-top: 12px; font-size: 26px; padding: 10px;background-color: #c8e6cc;"
               class="btn btn-light"
               v-on:click="signUp()"
             >
@@ -183,11 +185,10 @@ export default {
           </td>
         </tr>
       </table>
-
-      <p>
-        <span v-if="errorLogin" style="color:red">Error: {{ errorLogin }}</span>
-      </p>
     </div>
+    <p>
+      <span v-if="errorLogin" style="color:red">Error: {{ errorLogin }}</span>
+    </p>
   </div>
 </template>
 <style></style>

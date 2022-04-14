@@ -230,12 +230,15 @@ export default {
 <template>
   <div
     class="d-flex align-items-center justify-content-center"
-    style="height: 800px"
+    style="height: 100%: margin-top: 30px;"
     id="Receipts"
   >
+  <br>
     <table>
       <div v-if="role == 'customer' || role == 'employee'">
+        <br><br><br>
         <h2>My Receipts</h2>
+        <br>
         <!-- Customer Receipt Data Table -->
         <v-data-table class="elevation-1">
           <th class="table-text">Receipt Num</th>
@@ -244,9 +247,9 @@ export default {
 
           <tbody>
             <tr v-for="receipt in myReceipts" :key="receipt.num">
-              <td class="table-text">{{ receipt.receiptNum }}</td>
-              <td class="table-text">{{ receipt.receiptStatus }}</td>
-              <td class="table-text">{{ receipt.receiptType }}</td>
+              <td class="table-text" style="font-size: 20px;">{{ receipt.receiptNum }}</td>
+              <td class="table-text" style="font-size: 20px;">{{ receipt.receiptStatus }}</td>
+              <td class="table-text" style="font-size: 20px;">{{ receipt.receiptType }}</td>
             </tr>
           </tbody>
         </v-data-table>

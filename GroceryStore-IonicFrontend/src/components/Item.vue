@@ -147,12 +147,11 @@ export default {
 		<!-- Item Image -->
         <i class="info fas fa-info-circle"></i>
         <div class="imgBx">
-          <img :src="itemImage" style="max-width: 70%;" />
+          <img :src="itemImage" style="max-width: 50%;" />
         </div>
         <div class="contentBx">
           <h3>organic</h3>
           <h2>{{ itemName }}</h2>
-          <div class="tzt"><p>WRewards: {{ itemPoints }}</p></div>
         </div>
       </div>
     </div>
