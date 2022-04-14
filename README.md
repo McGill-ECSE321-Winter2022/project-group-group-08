@@ -14,12 +14,12 @@ We are a team of 6 McGill Engineering students creating a grocery store website 
 ## Project Timesheet (Hours)
 | Team Member | Deliverable 1 | Deliverable 2 | Deliverable 3 | Deliverable 4 |
 |:-----------:|:-------------:|:-------------:|:-------------:|:-------------:|
-| Aigiarn Cheuk | 13 | 20 | 25 | - |
-| Mihail Calitoiu | 12 | 20 | 35 | - |
-| Selina Gao | 10 | 20 | 20 | - |
-| Joey Koay | 15 | 33 | 32 | - |
-| Joey Liu | 20 | 33 | 30 | - |
-| Kevin Liu | 12 | 20 | 28 | - |
+| Aigiarn Cheuk | 13 | 20 | 25 | 20 |
+| Mihail Calitoiu | 12 | 20 | 35 | 25 |
+| Selina Gao | 10 | 20 | 20 | 20 |
+| Joey Koay | 15 | 33 | 32 | 20 |
+| Joey Liu | 20 | 33 | 30 | 20 |
+| Kevin Liu | 12 | 20 | 28 | 20 |
 
 
 ## Deliverable 1
@@ -54,3 +54,14 @@ The project report for this deliverable can be found here.
 | Joey Koay | Shift management : Web frontend, Frontend integration with backend services; UI/UX (Styling); Testing | 32 |
 | Joey Liu | Login, Change Profile : Web frontend, Frontend integration with backend services; Deployment; Testing | 30 |
 | Kevin Liu | Cart, View Shifts : Web frontend, Frontend integration with backend services; Testing | 28 |
+
+## Deliverable 4
+The project report for this deliverable can be found here.
+| Team Member | Tasks | Hours Spent |
+|:-----------:|:-------------:|:----:|
+| Aigiarn Cheuk | Sign up | 20 |
+| Mihail Calitoiu | Browse, Capacitor | 25 |
+| Selina Gao | Reciept | 20 |
+| Joey Koay | Home page, Documentation | 20 |
+| Joey Liu | Sign in, Profile | 20 |
+| Kevin Liu | Cart | 20 |
