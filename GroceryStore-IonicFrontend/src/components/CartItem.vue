@@ -62,19 +62,19 @@ export default {
 </script>
 <template>
  <div class="an">
-   <p style="text-align:center;font-size: 30px;" ><b>{{ itemName }}</b></p>&nbsp;
+   <p style="text-align:center;"><b>{{ itemName }}</b></p>&nbsp;
     <img :src="itemImage" style="width: 120px; margin: 10px;">
     
-    <p style="text-align:left; font-size: 25px;">
+    <p style="text-align:left;">
       Price: ${{ itemPrice }}
-      <span style="margin-left: 20px;float:right;font-size: 25px;">
+      <span style="float:right;">
        Qty: {{ itemQuantity }}
     </span>
     </p>
  
-    <button class="btn btn-light" @click="changeQuantity(itemQuantity - 1, quantityId, itemId)" style="padding: 10px;font-size: 25px;font-weight: 700;">-</button>&nbsp;
-    <button class="btn btn-light" @click="changeQuantity(itemQuantity + 1, quantityId, itemId)" style="padding: 10px;font-size: 25px;font-weight: 700;">+</button> &nbsp;
-    <button class="btn btn-light" @click="deleteItem(quantityId)" style="padding: 10px;font-size: 25px;">Del</button>
+    <button class="btn btn-light" @click="changeQuantity(itemQuantity - 1, quantityId, itemId)">-</button>&nbsp;
+    <button class="btn btn-light" @click="changeQuantity(itemQuantity + 1, quantityId, itemId)">+</button> &nbsp;
+    <button class="btn btn-light" @click="deleteItem(quantityId)">Del</button>
  
   </div>
 </template>

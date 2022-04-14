@@ -91,14 +91,14 @@ export default {
     <br />
     <h3>Here's your cart:</h3>
     <div class="checkout">
-      <button style="padding: 20px;font-size: 26px; background-color: #c8e6cc;" class="btn btn-light" @click="onCheckout()">
+      <button class="btn btn-light" @click="onCheckout()">
         Checkout and Pay
       </button>
     </div>
     <br />
-    <select name="type" id="type" style="padding: 12px;width: 160px;">
-      <option value="Pickup" key="Pickup" style="font-size: 50px;">Pickup</option>
-      <option value="Delivery" key="Delivery" style="font-size: 50px;">Delivery</option>
+    <select name="type" id="type">
+      <option value="Pickup" key="Pickup">Pickup</option>
+      <option value="Delivery" key="Delivery">Delivery</option>
     </select>
     <div class="cMiddle">
       <Quantity :cartId="cart.id" ref="quantityRef"></Quantity>

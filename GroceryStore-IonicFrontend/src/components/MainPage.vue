@@ -98,7 +98,7 @@ export default {
   data() {
     return {
       // Set Variables
-      msg: "Welcome!",
+      msg: "711 Welcome to your local Whole Foods",
       email: "group8@mail.mcgill.ca",
       adress: "123 McGill Avenue",
       number: "514-100-1313",
@@ -148,30 +148,34 @@ export default {
       <img src="./../assets/wholefoods.png" width="180px" />
     </div>
     <br>
-    
-<div class="wrapper ">
-  <h1 style="margin-bottom: 25px;">{{ msg }}</h1>
-
+    <h1 style="margin-bottom: 25px;">{{ msg }}</h1>
+    <ul v-if="!validUser">
+      <li>
         <!-- Login Redirect Button -->
         <button
-          style="margin-bottom: 25px; font-size: 26px; padding: 10px; background-color: #c8e6cc;"
+          style="margin-bottom: 25px;"
           class="btn btn-light"
           v-on:click="goLogin()"
         >
           Login
         </button>
-     
-      
+      </li>
+      <li>
         <!-- Sign Up Redirect Button -->
         <button
-          style="margin-bottom: 25px; font-size: 26px; padding: 6px;background-color: #c8e6cc;"
+          style="margin-bottom: 25px;"
           class="btn btn-light"
           v-on:click="goSignUp()"
         >
-           Signup
-    </button>
-   
+          Signup
+        </button>
+      </li>
+    </ul>
+
+     <hr />
      <br>
+<div class="wrapper ">
+  <div>
     <!-- Display Opening Hours Data -->
     <h3 style="text-align: center">Opening Hours</h3>
     <br>
@@ -195,19 +199,21 @@ export default {
       </tbody>
       <br>
     </v-table>
+   <br><br>
     </div>
-
     <!-- About Us Section -->
     <div>
-      <br>
-      <h2>About us</h2>
-      <br>
-      <p style="padding: 20px;">Get hungry for local, organic, plant-based & more: see today's sales, browse products by special diet, find recipes, get delivery and pick up & order online. Be whole, shop at Whole Foods today.</p>
-      <p><b>Our Email: </b>{{ email }}</p>
-      <p><b>Address: </b>{{ adress }}</p>
-      <p><b>Phone number: </b>{{ number }}</p>
-      <br>
+    <h2>About us</h2>
+     <br>
+     <p>Get hungry for local, organic, plant-based & more: see today's sales, browse products by special diet, find recipes, get delivery and pick up & order online. Be whole, shop at Whole Foods today.</p>
+    <p><b>Our Email: </b>{{ email }}</p>
+    <p><b>Address: </b>{{ adress }}</p>
+    <p><b>Phone number: </b>{{ number }}</p>
+    <br>
     </div>
+    </div>
+    <br>
+     </div>
 
 </template>
 
@@ -217,7 +223,7 @@ export default {
 
 .wrapper {
   display: grid;
-  /* grid-template-columns: 50% 50%; */
+  grid-template-columns: 50% 50%;
   background-color: #fff;
   border: 1px;
   border-color: red;

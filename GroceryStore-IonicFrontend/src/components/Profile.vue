@@ -185,28 +185,30 @@ export default {
     <!-- Display Account Info -->
     <h3> Account info: </h3>
   <br>
-    <div id="body" v-show="!isShow" style="font-size: 20px; padding: 10px;">
+    <div id="body" v-show="!isShow">
       <img :src="image" style="width: 200px; clip-path: circle();" />
       <br>
       <br>
-      <h5><b>Username: </b><br/> {{ username }}</h5>
-      <h5><b>  Email:</b><br/> {{ email }}</h5>
-       
+      <h5><b>Username:</b> {{ username }}<b>   Email:</b> {{ email }}</h5>
+       <br>
       <div id="phoneNumber">
-        <h5><b>Phone Number:</b><br/> {{ phoneNumber }}</h5>
+        <h5><b>Phone Number:</b> {{ phoneNumber }}</h5>
       </div>
       <div id="address">
-        <h5><b>Address:</b> <br/>{{ address }}</h5>
+        <h5><b>Address:</b> {{ address }}</h5>
       </div>
       <div id="password">
-        <h5><b>Password:</b> <br/>{{ password }}</h5>
+        <h5><b>Password:</b> {{ password }}</h5>
       </div>
       <div id="inTown">
-        <h5><b>In Town:</b><br/> {{ inTown }}</h5>
+        <h5><b>In Town:</b> {{ inTown }}</h5>
       </div>
       <div id="totalPoints">
-        <h5><b>Your Points:</b><br/> {{ totalPoints }}</h5>
+        <h5><b>Your Points:</b> {{ totalPoints }}</h5>
       </div>
+      <button type="button" class="btn btn-light" v-on:click="isShow = !isShow">
+      Update Profile
+    </button>
     </div>
     <br>
  
@@ -301,11 +303,7 @@ export default {
     </div>
   </div>
 </template>
-
 <style>
-.body {
-  margin-left: 0px;
-}
 #update-account {
   margin-top: 10px;
 }
@@ -324,6 +322,6 @@ export default {
 }
 .Column {
   display: table-cell;
-  width: 150px;
+  width: 200px;
 }
 </style>
